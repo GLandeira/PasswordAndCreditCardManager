@@ -6,8 +6,20 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class UserCreditCard
+    public class UserCreditCard
     {
-        List<CreditCard> CreditCards;
+        public List<CreditCard> creditCards { get; set; }
+
+        public UserCreditCard()
+        {
+            creditCards = new List<CreditCard>();
+        }
+        public void AddCreditCard(string cName, CardTypes cType, string cNumber, string cSecurityCode, DateTime cValidDue, Category cCategory, string cNotes)
+        {
+            throw new NotImplementedException();
+        }
+
     }
+
+
 }

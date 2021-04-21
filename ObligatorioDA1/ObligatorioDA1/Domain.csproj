@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0226556D-DD5F-465C-8C79-6645888118BB}</ProjectGuid>
+    <ProjectGuid>{AE9EF4D4-6771-4784-8787-BF2D6DC16AEC}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>ObligatorioDA1</RootNamespace>
     <AssemblyName>ObligatorioDA1</AssemblyName>
@@ -43,8 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardTypes.cs" />
+    <Compile Include="Category.cs" />
+    <Compile Include="CreditCard.cs" />
+    <Compile Include="Domain.cs" />
+    <Compile Include="Password.cs" />
+    <Compile Include="PasswordGenerationSettings.cs" />
+    <Compile Include="PasswordGenerator.cs" />
+    <Compile Include="PasswordSecurityFlagger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecurityLevelPasswords.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserCreditCard.cs" />
+    <Compile Include="UserPassword.cs" />
+    <Compile Include="Verifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

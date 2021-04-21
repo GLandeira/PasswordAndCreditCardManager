@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class CreditCard
+    public class CreditCard
     {
         string name;
         CardTypes type;
@@ -17,4 +17,5 @@ namespace Domain
         string notes;
         bool isBreached;
     }
+
 }
