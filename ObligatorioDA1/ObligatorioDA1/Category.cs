@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Program
+    class Category
     {
-        static void Main(string[] args)
-        {
-        }
+        string name;
     }
 }
- 

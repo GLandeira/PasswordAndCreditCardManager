@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Program
+    public enum SecurityLevelPasswords
     {
-        static void Main(string[] args)
-        {
-        }
+        RED, ORANGE, YELLOW, LIGHT_GREEN, DARK_GREEN
     }
 }
- 

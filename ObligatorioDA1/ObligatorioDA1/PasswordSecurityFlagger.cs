@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Program
+    class PasswordSecurityFlagger
     {
-        static void Main(string[] args)
-        {
-        }
     }
 }
- 

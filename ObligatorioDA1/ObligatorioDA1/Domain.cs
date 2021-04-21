@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Program
+    class Domain
     {
-        static void Main(string[] args)
-        {
-        }
+        List<User> users;
     }
 }
- 
