@@ -10,8 +10,8 @@ namespace Domain
     {
         string name;
         string mainPassword;
-        List<Password> passwords;
-        List<CreditCard> creditCards;
+        UserPassword userPasswords;
+        UserCreditCard userCreditCards;
         List<Category> categories;
     }
 }

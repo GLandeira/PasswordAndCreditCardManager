@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class PasswordGenerator
+    class UserPassword
     {
+        List<Password> passwords;
     }
 }
