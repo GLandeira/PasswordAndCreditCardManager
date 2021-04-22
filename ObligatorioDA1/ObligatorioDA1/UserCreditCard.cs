@@ -8,17 +8,37 @@ namespace Domain
 {
     public class UserCreditCard
     {
-        public List<CreditCard> creditCards { get; set; }
+        private List<CreditCard> _creditCards;
 
+        public List<CreditCard> CreditCards
+        {
+            get
+            {
+                return _creditCards;
+            }
+            set
+            {
+                _creditCards = value;
+            }
+        }
         public UserCreditCard()
         {
-            creditCards = new List<CreditCard>();
+            this._creditCards = new List<CreditCard>();
         }
-        public void AddCreditCard(string cName, CardTypes cType, string cNumber, string cSecurityCode, DateTime cValidDue, Category cCategory, string cNotes)
+        public void AddCreditCard(CreditCard creditCard)
+        {
+            CreditCards.Add(creditCard);
+        }
+
+        public void RemoveCreditCard(CreditCard creditCard)
+        {
+            CreditCards.Remove(creditCard);
+        }
+
+        public void modifyCreditCard(CreditCard creditCard1, CreditCard creditCardChangeTest)
         {
             throw new NotImplementedException();
         }
-
     }
 
 
