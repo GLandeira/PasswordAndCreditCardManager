@@ -4,7 +4,7 @@ using System;
 namespace DomainTests
 {
     [TestClass]
-    public class UnitTest1
+    public class CategoryTests
     {
         [TestMethod]
         public void TestMethod1()

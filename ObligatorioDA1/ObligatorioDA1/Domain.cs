@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Domain
+    public class Domain
     {
         List<User> users;
     }
