@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Category
+    public class Category
     {
-        string name;
+        public string Name { get; set; }
+
+        public Category(string name)
+        {
+            Name = name;
+        }
     }
 }

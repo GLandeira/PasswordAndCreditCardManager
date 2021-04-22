@@ -8,10 +8,25 @@ namespace Domain
 {
     public class User
     {
-        string name;
-        string mainPassword;
-        UserPassword userPasswords;
-        UserCreditCard userCreditCards;
-        List<Category> categories;
+        public string Name { get; set; }
+        public string MainPassword { get; set; }
+        UserPassword UserPasswords;
+        UserCreditCard UserCreditCards;
+        public List<Category> Categories { get; set; }
+
+        public User()
+        {
+            Categories = new List<Category>();
+        }
+
+        public void AddCategory(Category aCategory)
+        {
+            Categories.Add(aCategory);
+        }
+
+        public Category GetACategory(string nameToTest)
+        {
+            return Categories.First(cat => cat.Name == nameToTest);
+        }
     }
 }
