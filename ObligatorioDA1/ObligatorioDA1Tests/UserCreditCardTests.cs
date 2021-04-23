@@ -101,7 +101,8 @@ namespace DomainTests
             }
             Assert.AreEqual(false, nameIsEqual);
         }
-        public void modifyACreditCardAddedToTheList()
+        [TestMethod]
+        public void ModifyOneCreditCardNameAddedToTheListWithJustOneCreditCard()
         {
             userCreditCardTest.AddCreditCard(creditCard1);
 
@@ -117,7 +118,38 @@ namespace DomainTests
                 Notes = ""
             };
 
-            userCreditCardTest.modifyCreditCard(creditCard1, creditCardChangeTest);
+            userCreditCardTest.ModifyCreditCard(creditCard1, creditCardChangeTest);
+  
+            bool nameIsEqual = false;
+            foreach (CreditCard creditCard in userCreditCardTest.CreditCards)
+            {
+                if (creditCard == creditCardChangeTest)
+                {
+                    nameIsEqual = true;
+                }
+            }
+            Assert.AreEqual(true, nameIsEqual);
+        }
+        [TestMethod]
+        public void ModifyACreditCardAddedToTheListWithMultipleCreditCards()
+        {
+            userCreditCardTest.AddCreditCard(creditCard1);
+            userCreditCardTest.AddCreditCard(creditCard2);
+            userCreditCardTest.AddCreditCard(creditCard3);
+
+            Category trabajo = new Category("Trabajo");
+            CardTypes visa = CardTypes.VISA;
+            CreditCard creditCardChangeTest = new CreditCard
+            {
+                Name = "Visa Platinum",
+                Type = visa,
+                Number = "4444 4444 4444 4444",
+                ValidDue = new DateTime(2022, 12, 31),
+                Category = trabajo,
+                Notes = "La modifique a esta"
+            };
+
+            userCreditCardTest.ModifyCreditCard(creditCard1, creditCardChangeTest);
 
             bool nameIsEqual = false;
             foreach (CreditCard creditCard in userCreditCardTest.CreditCards)
@@ -129,5 +161,15 @@ namespace DomainTests
             }
             Assert.AreEqual(true, nameIsEqual);
         }
+        //[TestMethod]
+        //public void GetOneCreditCard()
+        //{
+        //    userCreditCardTest.AddCreditCard(creditCard1);
+        //    userCreditCardTest.AddCreditCard(creditCard2);
+        //    userCreditCardTest.AddCreditCard(creditCard3);
+        //    CreditCard creditCardChangeTest = userCreditCardTest.GetCreditCard("3333 3333 3333 3333");
+
+        //    Assert.AreEqual(creditCardChangeTest.Name, "Master");
+        //}
     }
 }

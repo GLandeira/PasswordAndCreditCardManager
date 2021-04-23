@@ -35,10 +35,17 @@ namespace Domain
             CreditCards.Remove(creditCard);
         }
 
-        public void modifyCreditCard(CreditCard creditCard1, CreditCard creditCardChangeTest)
+        public void ModifyCreditCard(CreditCard creditCardToRemove, CreditCard creditCardToAdd)
         {
-            throw new NotImplementedException();
+            RemoveCreditCard(creditCardToRemove);
+            AddCreditCard(creditCardToAdd);
         }
+
+        //public creditcard getcreditcard(string creditcardnumber)
+        //{
+        //    creditcards.indexof(creditcardnumber);
+
+        //}
     }
 
 
