@@ -81,13 +81,28 @@ namespace DomainTests
         }
 
         [TestMethod]
-        public void TestModifyCategoryThatIsntPresentThrowsException() 
+        public void TestModifyCategoryActuallyModifies()
         {
+            //Setup
+            string testName = "Modifiable";
+            Category categoryToModify = new Category(testName);
+
+            _testUser.AddCategory(categoryToModify);
+
+            string newName = "University";
+            _testUser.ModifyCategory(categoryToModify, newName);
+
+            Assert.AreEqual(newName, _testUser.GetACategory(newName).Name);
         }
 
         [TestMethod]
-        public void TestModifyCategoryActuallyModifies()
+        public void TestModifyCategoryThatIsntPresentThrowsException() 
         {
+            string testName = "Modifiable";
+            Category categoryToModify = new Category(testName);
+
+            string newName = "University";
+            Assert.ThrowsException<CategoryNotFoundException>(() =>_testUser.ModifyCategory(categoryToModify, newName));
         }
 
         [TestMethod]

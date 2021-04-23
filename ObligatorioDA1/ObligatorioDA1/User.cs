@@ -55,5 +55,11 @@ namespace Domain
                 throw new CategoryNotFoundException();
             }
         }
+
+        public void ModifyCategory(Category categoryToModify, string newName)
+        {
+            // Find category in list
+            Categories.First(cat => cat.Name == categoryToModify.Name).Name = newName;
+        }
     }
 }
