@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Domain;
+using Domain.Exceptions;
 
 namespace DomainTests
 {
@@ -33,8 +34,7 @@ namespace DomainTests
             string nameToTest = "Al";
             Category aCategory = new Category(nameToTest);
 
-            // TODO: Make the ShortNameException
-            Assert.ThrowsException<Exception>(() => _testUser.AddCategory(aCategory));
+            Assert.ThrowsException<ShortCategoryNameException>(() => _testUser.AddCategory(aCategory));
         }
 
         [TestMethod]
@@ -43,8 +43,7 @@ namespace DomainTests
             string nameToTest = "School and Personal";
             Category aCategory = new Category(nameToTest);
 
-            // TODO: Make the LongNameException
-            Assert.ThrowsException<Exception>(() => _testUser.AddCategory(aCategory));
+            Assert.ThrowsException<LongCategoryNameException>(() => _testUser.AddCategory(aCategory));
         }
 
         [TestMethod]
@@ -78,8 +77,7 @@ namespace DomainTests
 
             _testUser.AddCategory(aCategory);
 
-            // TODO: Make the CategoryNotPresentException
-            Assert.ThrowsException<Exception>(() => _testUser.GetACategory(nameToTest1));
+            Assert.ThrowsException<CategoryNotFoundException>(() => _testUser.GetACategory(nameToTest1));
         }
 
         [TestMethod]

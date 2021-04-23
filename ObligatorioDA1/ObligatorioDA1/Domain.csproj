@@ -54,8 +54,10 @@
   <ItemGroup>
     <Compile Include="CardTypes.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="CategoryNotFoundException.cs" />
     <Compile Include="CreditCard.cs" />
     <Compile Include="Domain.cs" />
+    <Compile Include="LongCategoryNameException.cs" />
     <Compile Include="Password.cs" />
     <Compile Include="PasswordGenerationSettings.cs" />
     <Compile Include="PasswordGenerator.cs" />
@@ -63,8 +65,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurityLevelPasswords.cs" />
+    <Compile Include="ShortCategoryNameException.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserCreditCard.cs" />
+    <Compile Include="UserException.cs" />
     <Compile Include="UserPassword.cs" />
     <Compile Include="Verifier.cs" />
   </ItemGroup>
