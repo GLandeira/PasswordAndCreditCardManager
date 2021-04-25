@@ -9,8 +9,8 @@ namespace Domain
 {
     public class User
     {
-        public string Name { get; set; }
-        public string MainPassword { get; set; }
+        public string Name { get; private set; }
+        public string MainPassword { get; private set; }
         UserPassword UserPasswords;
         UserCreditCard UserCreditCards;
         public List<Category> Categories { get; set; }
@@ -58,8 +58,34 @@ namespace Domain
 
         public void ModifyCategory(Category categoryToModify, string newName)
         {
+            if (newName.Length > MAXIMUM_CHARACTERS_CATEGORY_NAME)
+            {
+                throw new LongCategoryNameException();
+            }
+
+            if (newName.Length < MINIMUM_CHARACTERS_CATEGORY_NAME)
+            {
+                throw new ShortCategoryNameException();
+            }
+
             // Find category in list
-            Categories.First(cat => cat.Name == categoryToModify.Name).Name = newName;
+            try
+            {
+                Categories.First(cat => cat.Equals(categoryToModify)).Name = newName;
+            }
+            catch (InvalidOperationException isEmptyOrNotPresent)
+            {
+                throw new CategoryNotFoundException();
+            }
+            catch (ArgumentNullException isNull)
+            {
+                throw new CategoryNotFoundException();
+            }
+        }
+
+        public void ChangeMainPassword(string newPassword)
+        {
+            MainPassword = newPassword;
         }
     }
 }

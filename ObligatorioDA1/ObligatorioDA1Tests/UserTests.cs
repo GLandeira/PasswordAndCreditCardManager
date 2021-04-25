@@ -107,17 +107,36 @@ namespace DomainTests
 
         [TestMethod]
         public void TestModifyingWithShortNameThrowsException()
-    {
+        {
+            string testName = "Modifiable";
+            Category categoryToModify = new Category(testName);
+
+            _testUser.AddCategory(categoryToModify);
+
+            string newName = "Un";
+            Assert.ThrowsException<ShortCategoryNameException>(() => _testUser.ModifyCategory(categoryToModify, newName));
         }
 
         [TestMethod]
         public void TestModifyingWithLongNameThrowsException()
         {
+            string testName = "Modifiable";
+            Category categoryToModify = new Category(testName);
+
+            _testUser.AddCategory(categoryToModify);
+
+            string newName = "University and Others";
+            Assert.ThrowsException<LongCategoryNameException>(() => _testUser.ModifyCategory(categoryToModify, newName));
         }
 
         [TestMethod]
         public void TestChangingMainPasswordActuallyChanges()
-    {
+        {
+            string newPassword = "abcd1234";
+
+            _testUser.ChangeMainPassword(newPassword);
+
+            Assert.AreEqual(newPassword, _testUser.MainPassword);
         }
     }
 }
