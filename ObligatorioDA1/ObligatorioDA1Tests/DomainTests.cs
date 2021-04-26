@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 using Domain;
 using Domain.Exceptions;
 
@@ -8,12 +9,19 @@ namespace DomainTests
     [TestClass]
     public class DomainTests
     {
-        private Domain.Domain _testDomain;
+        private Domain.Domain _mockDomain;
+        private string _userNameInDomain;
+        private string _userPasswordInDomain;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _testDomain = new Domain.Domain();
+            _mockDomain = new Domain.Domain();
+
+            _userNameInDomain = "User In Domain";
+            _userPasswordInDomain = "Password for User In Domain";
+            User presentUser = new User(_userNameInDomain, _userPasswordInDomain);
+            _mockDomain.Users.Add(presentUser);
         }
 
         [TestMethod]
@@ -22,52 +30,64 @@ namespace DomainTests
             string newName = "User";
             User newUser = new User(newName, "pass1");
 
-            _testDomain.AddUser(newUser);
+            _mockDomain.AddUser(newUser);
 
-            Assert.IsTrue(_testDomain.Users.Contains(newUser));
+            Assert.IsTrue(_mockDomain.Users.Contains(newUser));
         }
 
         [TestMethod]
         public void TestAddingAUserThatsAlreadyThereThrowsException()
         {
-            string presentUserName = "User";
-            User newUser1 = new User(presentUserName, "pass1");
-
-            _testDomain.AddUser(newUser1);
-
-            User newUser2 = new User(presentUserName, "pass2");
-            Assert.ThrowsException<UserAlreadyExistsException>(() => _testDomain.AddUser(newUser2));
+            User newUser2 = new User(_userNameInDomain, "pass2");
+            Assert.ThrowsException<UserAlreadyExistsException>(() => _mockDomain.AddUser(newUser2));
         }
 
         [TestMethod]
         public void TestModifyingUserMainPasswordActuallyModifiesIt()
         {
+            string newPassword = "fjk187Abs2";
+            _mockDomain.ModifyPassword(_userNameInDomain, newPassword);
 
+            Assert.AreEqual(newPassword, _mockDomain.Users.First(us => us.Name == _userNameInDomain).MainPassword);
         }
 
         [TestMethod]
         public void TestModifyingMainPasswordForUnexistingUserThrowsException()
         {
+            string userNameNotPresent = "John";
+            string newPassword = "akshndjplk232";
+            Assert.ThrowsException<UserNotPresentException>(() => _mockDomain.ModifyPassword(userNameNotPresent, newPassword));
         }
 
         [TestMethod]
         public void TestLoggingInCorrectlyLogsIn()
         {
+            Assert.IsTrue(_mockDomain.LogIn(_userNameInDomain, _userPasswordInDomain));
         }
 
         [TestMethod]
-        public void TestLoggingInWithWrongUserThrowsException()
+        public void TestLoggingInWithWrongUserReturnsFalse()
         {
+            string falseUsername = "John";
+
+            Assert.IsFalse(_mockDomain.LogIn(falseUsername, _userPasswordInDomain));
         }
 
         [TestMethod]
-        public void TestLoggingInWithWrongPasswordThrowsException()
+        public void TestLoggingInWithWrongPasswordReturnsFalse()
         {
+            string falsePassword = "akakak23Aj/&";
+
+            Assert.IsFalse(_mockDomain.LogIn(_userNameInDomain, falsePassword));
         }
 
         [TestMethod]
-        public void TestLoggingInWithWrongUserAndPasswordThrowsExceptionForUser()
+        public void TestLoggingInWithWrongUserAndPasswordReturnsFalse ()
         {
+            string falseUsername = "John";
+            string falsePassword = "akakak23Aj/&";
+
+            Assert.IsFalse(_mockDomain.LogIn(falseUsername, falsePassword));
         }
     }
 }

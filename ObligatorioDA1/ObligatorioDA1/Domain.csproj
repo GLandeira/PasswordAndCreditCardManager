@@ -71,6 +71,7 @@
     <Compile Include="UserAlreadyExistsException.cs" />
     <Compile Include="UserCreditCard.cs" />
     <Compile Include="UserException.cs" />
+    <Compile Include="UserNotPresentException.cs" />
     <Compile Include="UserPassword.cs" />
     <Compile Include="Verifier.cs" />
   </ItemGroup>
