@@ -57,6 +57,7 @@
     <Compile Include="CategoryNotFoundException.cs" />
     <Compile Include="CreditCard.cs" />
     <Compile Include="Domain.cs" />
+    <Compile Include="DomainException.cs" />
     <Compile Include="LongCategoryNameException.cs" />
     <Compile Include="Password.cs" />
     <Compile Include="PasswordGenerationSettings.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="SecurityLevelPasswords.cs" />
     <Compile Include="ShortCategoryNameException.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserAlreadyExistsException.cs" />
     <Compile Include="UserCreditCard.cs" />
     <Compile Include="UserException.cs" />
     <Compile Include="UserPassword.cs" />

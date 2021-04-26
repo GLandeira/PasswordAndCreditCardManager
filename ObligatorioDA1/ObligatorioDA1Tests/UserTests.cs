@@ -81,6 +81,17 @@ namespace DomainTests
         }
 
         [TestMethod]
+        public void TestGettingACategoryFromANullCategoriesListThrowsException()
+        {
+            string nameToTest = "Work";
+            Category aCategory = new Category(nameToTest);
+
+            _testUser.Categories = null;
+
+            Assert.ThrowsException<CategoryNotFoundException>(() => _testUser.GetACategory(nameToTest));
+        }
+
+        [TestMethod]
         public void TestModifyCategoryActuallyModifies()
         {
             //Setup
@@ -103,6 +114,18 @@ namespace DomainTests
 
             string newName = "University";
             Assert.ThrowsException<CategoryNotFoundException>(() =>_testUser.ModifyCategory(categoryToModify, newName));
+        }
+
+        [TestMethod]
+        public void TestModifyCategoryOnEmptyListThrowsException()
+        {
+            _testUser.Categories = null;
+            
+            string testName = "Modifiable";
+            Category categoryToModify = new Category(testName);
+
+            string newName = "University";
+            Assert.ThrowsException<CategoryNotFoundException>(() => _testUser.ModifyCategory(categoryToModify, newName));
         }
 
         [TestMethod]
@@ -130,13 +153,24 @@ namespace DomainTests
         }
 
         [TestMethod]
-        public void TestChangingMainPasswordActuallyChanges()
+        public void TestGoodEqualsCase()
         {
-            string newPassword = "abcd1234";
+            string name = "Pablo";
+            User userOne = new User(name, "pass1");
+            User userTwo = new User(name, "pass2");
 
-            _testUser.ChangeMainPassword(newPassword);
+            Assert.AreEqual(userOne, userTwo);
+        }
 
-            Assert.AreEqual(newPassword, _testUser.MainPassword);
+        [TestMethod]
+        public void TestBadEqualsCase()
+        {
+            string name1 = "Johnny";
+            string name2 = "Alice";
+            User userOne = new User(name1, "pass1");
+            User userTwo = new User(name2, "pass2");
+
+            Assert.AreNotEqual(userOne, userTwo);
         }
     }
 }

@@ -8,6 +8,16 @@ namespace Domain
 {
     public class Domain
     {
-        List<User> users;
+        public List<User> Users { get; set; }
+
+        public Domain()
+        {
+            Users = new List<User>();
+        }
+
+        public void AddUser(User newUser)
+        {
+            Users.Add(newUser);
+        }
     }
 }

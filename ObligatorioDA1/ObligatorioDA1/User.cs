@@ -9,8 +9,8 @@ namespace Domain
 {
     public class User
     {
-        public string Name { get; private set; }
-        public string MainPassword { get; private set; }
+        public string Name { get; set; }
+        public string MainPassword { get; set; }
         UserPassword UserPasswords;
         UserCreditCard UserCreditCards;
         public List<Category> Categories { get; set; }
@@ -21,6 +21,13 @@ namespace Domain
         public User()
         {
             Categories = new List<Category>();
+        }
+
+        public User(string name, string mainPassword)
+        {
+            Categories = new List<Category>();
+            Name = name;
+            MainPassword = mainPassword;
         }
 
         public void AddCategory(Category aCategory)
@@ -83,9 +90,10 @@ namespace Domain
             }
         }
 
-        public void ChangeMainPassword(string newPassword)
+        public override bool Equals(object obj)
         {
-            MainPassword = newPassword;
+            User theUser = (User)obj;
+            return theUser.Name == this.Name;
         }
     }
 }
