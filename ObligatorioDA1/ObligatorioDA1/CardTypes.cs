@@ -8,6 +8,6 @@ namespace Domain
 {
     public enum CardTypes
     {
-        VISA, MasterCard, AMERICAN_EXPRESS, DISCOVER, AMEX
+        VISA, MASTERCARD, AMERICAN_EXPRESS, DISCOVER, AMEX
     }
 }
