@@ -8,11 +8,17 @@ namespace Domain
 {
     public class Category
     {
-        string name { get; set; }
+        public string Name { get; set; }
 
-        public Category(string cName)
+        public Category(string name)
         {
-            name = cName;
+            Name = name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            Category otherCategory = (Category)obj;
+            return this.Name == otherCategory.Name;
         }
     }
 }
