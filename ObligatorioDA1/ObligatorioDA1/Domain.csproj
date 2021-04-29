@@ -58,6 +58,7 @@
     <Compile Include="CreditCard.cs" />
     <Compile Include="Domain.cs" />
     <Compile Include="Exceptions\DomainException.cs" />
+    <Compile Include="Exceptions\InvalidPasswordGenerationSettingsException.cs" />
     <Compile Include="Exceptions\LongCategoryNameException.cs" />
     <Compile Include="Password.cs" />
     <Compile Include="PasswordGenerationSettings.cs" />

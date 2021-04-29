@@ -8,10 +8,10 @@ namespace Domain
 {
     public struct PasswordGenerationSettings
     {
-        int length;
-        bool hasMayus;
-        bool hasMinus;
-        bool hasDigits;
-        bool hasSymbols;
+        public int length;
+        public bool hasMayus;
+        public bool hasMinus;
+        public bool hasDigits;
+        public bool hasSymbols;
     }
 }
