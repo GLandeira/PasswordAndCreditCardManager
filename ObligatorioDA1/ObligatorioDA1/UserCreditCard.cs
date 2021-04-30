@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Exceptions;
 
 namespace Domain
 {
@@ -27,6 +28,7 @@ namespace Domain
         }
         public void AddCreditCard(CreditCard creditCard)
         {
+            IsAlreadyInTheList(creditCard);
             CreditCards.Add(creditCard);
         }
 
@@ -37,16 +39,20 @@ namespace Domain
 
         public void ModifyCreditCard(CreditCard creditCardToRemove, CreditCard creditCardToAdd)
         {
+            if (!creditCardToRemove.Equals(creditCardToAdd))
+            {
+                IsAlreadyInTheList(creditCardToAdd);
+            }
             RemoveCreditCard(creditCardToRemove);
             AddCreditCard(creditCardToAdd);
         }
 
-        //public creditcard getcreditcard(string creditcardnumber)
-        //{
-        //    creditcards.indexof(creditcardnumber);
-
-        //}
+        private void IsAlreadyInTheList(CreditCard creditCard)
+        {
+            if (CreditCards.Exists(creditCardInList => creditCardInList.Equals(creditCard)))
+            {
+                throw new CreditCardRepeatedException();
+            }
+        }
     }
-
-
 }
