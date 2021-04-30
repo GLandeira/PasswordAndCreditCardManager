@@ -32,7 +32,7 @@ namespace Domain.PasswordGenerator
             // Random from 0 to thatList.length
             // Generate with the one in the array at the random point generated
 
-            Random random = new Random();
+            
             int passwordLength = generationSettings.length;
             bool[] conditionsList = new bool[4];
             conditionsList[0] = generationSettings.hasMayus;
@@ -44,13 +44,41 @@ namespace Domain.PasswordGenerator
 
             for(int i = 0; i < conditionsList.Length; i++)
             {
+                CharacterGenerator characterGeneratorToAdd;
 
+                if (conditionsList[i])
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            characterGeneratorToAdd = new MayusCharacterGenerator();
+                            break;
+                        case 1:
+                            characterGeneratorToAdd = new MinusCharacterGenerator();
+                            break;
+                        case 2:
+                            characterGeneratorToAdd = new DigitCharacterGenerator();
+                            break;
+                        case 3:
+                            characterGeneratorToAdd = new SymbolCharacterGenerator();
+                            break;
+                        default:
+                            throw new Exception();
+                    }
+
+                    string newCharacter = characterGeneratorToAdd.GenerateCharacter().ToString();
+                    result = result.Insert(result.Length, newCharacter);
+
+                    characterGenerators.Add(characterGeneratorToAdd);
+                }
             }
 
-            for (int i = 0; i < passwordLength; i++)
+            Random random = new Random();
+            for (int i = 0; i < passwordLength - result.Length; i++)
             {
-                int generatedCharacterNumber = random.Next(MIN_ACCEPTABLE_ASCII_CODE, MAX_ACCEPTABLE_ASCII_CODE);
-                string newCharacter = ((char)generatedCharacterNumber).ToString();
+                int randomCharacterGenerationIndex = random.Next(0, characterGenerators.Count);
+
+                string newCharacter = characterGenerators[randomCharacterGenerationIndex].GenerateCharacter().ToString();
                 result = result.Insert(result.Length, newCharacter);
             }
 
