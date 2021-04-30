@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Domain;
+using Domain.PasswordGenerator;
 using Domain.Exceptions;
 
 namespace DomainTests
@@ -13,13 +13,6 @@ namespace DomainTests
     [TestClass]
     public class PasswordGeneratorTests
     {
-        private readonly char[] ALL_MAYUS_CHARACTERS = 
-        { 
-            'A', 'B', 'C', 'D', 'F', 'G', 'H',
-            'I', 'J', 'K', 'L', 'M', 'N', 'O',
-            'P', 'Q', 'R', 'S' , 'T', 'U', 'V',
-            'W', 'X', 'Y', 'Z'
-        };
 
         public PasswordGeneratorTests()
         {
@@ -94,7 +87,7 @@ namespace DomainTests
         }
 
         [TestMethod]
-        public void GeneratePasswordWithMayusLengthContainsMayus()
+        public void GeneratePasswordWithMayusContainsMayus()
         {
             PasswordGenerationSettings generationSettings = new PasswordGenerationSettings();
             generationSettings.length = 8;
@@ -105,7 +98,107 @@ namespace DomainTests
 
             string generatedPassword = PasswordGenerator.GeneratePassword(generationSettings);
 
-            Assert.IsTrue(-1 == generatedPassword.IndexOfAny(ALL_MAYUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MAYUS_CHARACTERS));
+        }
+
+        [TestMethod]
+        public void GeneratePasswordWithMinusContainsMinus()
+        {
+            PasswordGenerationSettings generationSettings = new PasswordGenerationSettings();
+            generationSettings.length = 5;
+            generationSettings.hasMayus = false;
+            generationSettings.hasMinus = true;
+            generationSettings.hasSymbols = false;
+            generationSettings.hasDigits = false;
+
+            string generatedPassword = PasswordGenerator.GeneratePassword(generationSettings);
+
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MINUS_CHARACTERS));
+        }
+
+        [TestMethod]
+        public void GeneratePasswordWithDigitsContainsDigits()
+        {
+            PasswordGenerationSettings generationSettings = new PasswordGenerationSettings();
+            generationSettings.length = 3;
+            generationSettings.hasMayus = false;
+            generationSettings.hasMinus = false;
+            generationSettings.hasSymbols = false;
+            generationSettings.hasDigits = true;
+
+            string generatedPassword = PasswordGenerator.GeneratePassword(generationSettings);
+
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_DIGIT_CHARACTERS));
+        }
+
+        [TestMethod]
+        public void GeneratePasswordWithSymbolsContainsSymbols()
+        {
+            PasswordGenerationSettings generationSettings = new PasswordGenerationSettings();
+            generationSettings.length = 4;
+            generationSettings.hasMayus = false;
+            generationSettings.hasMinus = false;
+            generationSettings.hasSymbols = true;
+            generationSettings.hasDigits = false;
+
+            string generatedPassword = PasswordGenerator.GeneratePassword(generationSettings);
+
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_SYMBOL_CHARACTERS));
+        }
+
+        [TestMethod]
+        public void GeneratePasswordWithMinusMayusContainsMinusMayus()
+        {
+            PasswordGenerationSettings generationSettings = new PasswordGenerationSettings();
+            generationSettings.length = 24;
+            generationSettings.hasMayus = true;
+            generationSettings.hasMinus = true;
+            generationSettings.hasSymbols = false;
+            generationSettings.hasDigits = false;
+
+            string generatedPassword = PasswordGenerator.GeneratePassword(generationSettings);
+
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MAYUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MINUS_CHARACTERS));
+        }
+
+        [TestMethod]
+        public void GeneratePasswordWithAllContainsAll()
+        {
+            PasswordGenerationSettings generationSettings = new PasswordGenerationSettings();
+            generationSettings.length = 18;
+            generationSettings.hasMayus = true;
+            generationSettings.hasMinus = true;
+            generationSettings.hasSymbols = true;
+            generationSettings.hasDigits = true;
+
+            string generatedPassword = PasswordGenerator.GeneratePassword(generationSettings);
+
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_SYMBOL_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MINUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MAYUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_DIGIT_CHARACTERS));
+        }
+
+        [TestMethod]
+        public void GeneratePasswordFulfillsAllCriteria()
+        {
+            int passwordLength = 19;
+
+            PasswordGenerationSettings generationSettings = new PasswordGenerationSettings();
+            generationSettings.length = passwordLength;
+            generationSettings.hasMayus = true;
+            generationSettings.hasMinus = true;
+            generationSettings.hasSymbols = true;
+            generationSettings.hasDigits = false;
+
+            string generatedPassword = PasswordGenerator.GeneratePassword(generationSettings);
+
+            Assert.IsTrue(generatedPassword.Length == passwordLength);
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MAYUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MINUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_SYMBOL_CHARACTERS));
+            Assert.IsTrue(-1 == generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_DIGIT_CHARACTERS));
         }
     }
 }

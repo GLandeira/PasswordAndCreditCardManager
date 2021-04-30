@@ -60,9 +60,15 @@
     <Compile Include="Exceptions\DomainException.cs" />
     <Compile Include="Exceptions\InvalidPasswordGenerationSettingsException.cs" />
     <Compile Include="Exceptions\LongCategoryNameException.cs" />
+    <Compile Include="PasswordGenerator\CharacterGenerator.cs" />
     <Compile Include="Password.cs" />
-    <Compile Include="PasswordGenerationSettings.cs" />
-    <Compile Include="PasswordGenerator.cs" />
+    <Compile Include="PasswordGenerator\DigitCharacterGenerator.cs" />
+    <Compile Include="PasswordGenerator\MayusCharacterGenerator.cs" />
+    <Compile Include="PasswordGenerator\MinusCharacterGenerator.cs" />
+    <Compile Include="PasswordGenerator\PasswordGenerationSettings.cs" />
+    <Compile Include="PasswordGenerator\PasswordGenerator.cs" />
+    <Compile Include="PasswordGenerator\PasswordGeneratorConstants.cs" />
+    <Compile Include="PasswordGenerator\SymbolCharacterGenerator.cs" />
     <Compile Include="PasswordSecurityFlagger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
