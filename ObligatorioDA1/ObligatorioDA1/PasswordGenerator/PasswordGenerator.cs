@@ -9,80 +9,92 @@ namespace Domain.PasswordGenerator
 {
     public static class PasswordGenerator
     {
-        private const int MIN_ACCEPTABLE_ASCII_CODE = 33; // !
-        private const int MAX_ACCEPTABLE_ASCII_CODE = 126; // ~
-
         public static string GeneratePassword(PasswordGenerationSettings generationSettings)
         {
-            string result = "";
-
             CheckIfInvalidPassword(generationSettings);
 
+            bool[] conditionsList = CondenseConditionsToArray(generationSettings);
 
-            // Generate a random password
-            // Check the conditions
-            // All ascii: 32 - 126
-            // Mayus: 65 - 90
-            // Minus: 97 - 122
-            // Digits: 48 - 57
-            // Symbols: 33 - 46 and 58 - 64 and 91 - 96 and 123 - 126
-            // Have a list that has the boolean conditions
-            // 0 is mayus, 1 is minus, 2 is digits, 3 is symbols
-            // Go through it, add the generator of each true to a list of characterGenerators also add to the string the new character
-            // Random from 0 to thatList.length
-            // Generate with the one in the array at the random point generated
+            List<CharacterGenerator> characterGenerators = CreateCharacterGeneratorsForAcceptedConditions(conditionsList);
 
-            
             int passwordLength = generationSettings.length;
-            bool[] conditionsList = new bool[4];
-            conditionsList[0] = generationSettings.hasMayus;
-            conditionsList[1] = generationSettings.hasMinus;
-            conditionsList[2] = generationSettings.hasDigits;
-            conditionsList[3] = generationSettings.hasSymbols;
 
-            List<CharacterGenerator> characterGenerators = new List<CharacterGenerator>();
+            return GeneratePasswordWithGenerators(characterGenerators, passwordLength);
+        }
 
-            for(int i = 0; i < conditionsList.Length; i++)
-            {
-                CharacterGenerator characterGeneratorToAdd;
+        private static string GeneratePasswordWithGenerators(List<CharacterGenerator> characterGenerators, int passwordLength)
+        {
+            string thePassword = "";
 
-                if (conditionsList[i])
-                {
-                    switch (i)
-                    {
-                        case 0:
-                            characterGeneratorToAdd = new MayusCharacterGenerator();
-                            break;
-                        case 1:
-                            characterGeneratorToAdd = new MinusCharacterGenerator();
-                            break;
-                        case 2:
-                            characterGeneratorToAdd = new DigitCharacterGenerator();
-                            break;
-                        case 3:
-                            characterGeneratorToAdd = new SymbolCharacterGenerator();
-                            break;
-                        default:
-                            throw new Exception();
-                    }
+            thePassword = AddOneCharacterPerAcceptedCriteria(characterGenerators, thePassword);
 
-                    string newCharacter = characterGeneratorToAdd.GenerateCharacter().ToString();
-                    result = result.Insert(result.Length, newCharacter);
+            thePassword = GenerateRestOfPassword(characterGenerators, passwordLength, thePassword);
 
-                    characterGenerators.Add(characterGeneratorToAdd);
-                }
-            }
+            return thePassword;
+        }
+
+        private static string GenerateRestOfPassword(List<CharacterGenerator> characterGenerators, int passwordLength, string thePassword)
+        {
+            int characterCountAtThisPoint = thePassword.Length;
+            int charactersLeftToFillResult = passwordLength - characterCountAtThisPoint;
 
             Random random = new Random();
-            for (int i = 0; i < passwordLength - result.Length; i++)
+            for (int stepsInPassword = 0; stepsInPassword < charactersLeftToFillResult; stepsInPassword++)
             {
                 int randomCharacterGenerationIndex = random.Next(0, characterGenerators.Count);
 
-                string newCharacter = characterGenerators[randomCharacterGenerationIndex].GenerateCharacter().ToString();
-                result = result.Insert(result.Length, newCharacter);
+                thePassword = AddRandomCharacterOfTypeToString(characterGenerators[randomCharacterGenerationIndex], thePassword);
             }
 
-            return result;
+            return thePassword;
+        }
+
+        private static string AddOneCharacterPerAcceptedCriteria(List<CharacterGenerator> theGenerators, string thePassword)
+        {
+            for (int stepInList = 0; stepInList < theGenerators.Count; stepInList++)
+            {
+                thePassword = AddRandomCharacterOfTypeToString(theGenerators[stepInList], thePassword);
+            }
+
+            return thePassword;
+        }
+
+        private static List<CharacterGenerator> CreateCharacterGeneratorsForAcceptedConditions(bool[] conditionsList)
+        {
+            List<CharacterGenerator> characterGenerators = new List<CharacterGenerator>();
+
+            for (int stepInArray = 0; stepInArray < conditionsList.Length; stepInArray++)
+            {
+                if (conditionsList[stepInArray])
+                {
+                    characterGenerators.Add(GenerateTypeOfCharacterGenerator(stepInArray));
+                }
+            }
+
+            return characterGenerators;
+        }
+
+        private static string AddRandomCharacterOfTypeToString(CharacterGenerator theGenerator, string thePassword)
+        {
+            string newCharacter = theGenerator.GenerateCharacter().ToString();
+            return thePassword.Insert(thePassword.Length, newCharacter);
+        }
+
+        private static CharacterGenerator GenerateTypeOfCharacterGenerator(int conditionPlaceInArray)
+        {
+            switch (conditionPlaceInArray)
+            {
+                case 0:
+                    return new MayusCharacterGenerator();
+                case 1:
+                    return new MinusCharacterGenerator();
+                case 2:
+                    return new DigitCharacterGenerator();
+                case 3:
+                    return new SymbolCharacterGenerator();
+                default:
+                    throw new Exception();
+            }
         }
 
         private static void CheckIfInvalidPassword(PasswordGenerationSettings generationSettings)
@@ -92,12 +104,23 @@ namespace Domain.PasswordGenerator
             bool hasMinus = generationSettings.hasMinus;
             bool hasDigits = generationSettings.hasDigits;
             bool hasSymbols = generationSettings.hasSymbols;
+            bool todasLasCondicionesSonFalse = !hasSymbols && !hasMinus && !hasMayus && !hasDigits;
 
-            if (passwordLength <= 0 || (!hasSymbols && !hasMinus && !hasMayus && !hasDigits))
+            if (passwordLength <= 0 || (todasLasCondicionesSonFalse))
             {
                 throw new InvalidPasswordGenerationSettingsException();
             }
         }
 
+        private static bool[] CondenseConditionsToArray(PasswordGenerationSettings generationSettings)
+        {
+            bool[] conditionsList = new bool[4];
+            conditionsList[0] = generationSettings.hasMayus;
+            conditionsList[1] = generationSettings.hasMinus;
+            conditionsList[2] = generationSettings.hasDigits;
+            conditionsList[3] = generationSettings.hasSymbols;
+
+            return conditionsList;
+        }
     }
 }
