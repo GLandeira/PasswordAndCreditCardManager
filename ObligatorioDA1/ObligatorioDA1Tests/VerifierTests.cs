@@ -23,6 +23,7 @@ namespace DomainTests
                 Name = "Visa Gold",
                 Type = visa,
                 Number = "1111111111111111",
+                SecurityCode = "111",
                 ValidDue = DateTime.Today,
                 Category = trabajo,
                 Notes = "super secreta, no compartir"

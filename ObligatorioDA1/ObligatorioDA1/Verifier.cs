@@ -20,11 +20,14 @@ namespace Domain
         private const int CHARACTERS_CREDITCARD_NUMBER = 16;
         private const int CHARACTERS_CREDITCARD_SECURITYCODE = 3;
 
+        private const int CHARACTERS_NOTES = 250;
+
         public static void VerifyCreditCard(CreditCard creditCardTested)
         {
             VerifyCreditCardName(creditCardTested);
             VerifyCreditCardNumber(creditCardTested);
             VerifyCreditCardSecurityCode(creditCardTested);
+            VerifyCreditCardNotes(creditCardTested);
         }
 
         private static void VerifyCreditCardName(CreditCard creditCardTested)
@@ -51,6 +54,14 @@ namespace Domain
                                         || !creditCardTested.SecurityCode.All(itIsNumber))
             {
                 throw new SecurityCodeCreditCardException();
+            }
+        }
+
+        private static void VerifyCreditCardNotes(CreditCard creditCardTested)
+        {
+            if (creditCardTested.Notes.Length > CHARACTERS_NOTES)
+            {
+                throw new NotesException();
             }
         }
 

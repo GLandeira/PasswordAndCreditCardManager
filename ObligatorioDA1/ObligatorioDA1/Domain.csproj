@@ -62,6 +62,7 @@
     <Compile Include="Exceptions\DomainException.cs" />
     <Compile Include="Exceptions\LongCategoryNameException.cs" />
     <Compile Include="Exceptions\NameCreditCardException.cs" />
+    <Compile Include="Exceptions\NotesException.cs" />
     <Compile Include="Exceptions\NumberCreditCardException.cs" />
     <Compile Include="Exceptions\SecurityCodeCreditCardException.cs" />
     <Compile Include="Password.cs" />
