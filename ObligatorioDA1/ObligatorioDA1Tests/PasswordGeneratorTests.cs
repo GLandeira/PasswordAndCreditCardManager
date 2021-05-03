@@ -70,6 +70,21 @@ namespace DomainTests
         }
 
         [TestMethod]
+        public void GenerateVeryLongPasswordThrowsException()
+        {
+            int passwordLength = 26;
+
+            PasswordGenerationSettings generationSettings = new PasswordGenerationSettings();
+            generationSettings.length = passwordLength;
+            generationSettings.hasMayus = true;
+            generationSettings.hasMinus = false;
+            generationSettings.hasSymbols = true;
+            generationSettings.hasDigits = false;
+
+            Assert.ThrowsException<InvalidPasswordGenerationSettingsException>(() => PasswordGenerator.GeneratePassword(generationSettings));
+        }
+
+        [TestMethod]
         public void GeneratePasswordWithSettingsLengthTwelveGeneratesALengthTwelvePassword()
         {
             int passwordLength = 12;

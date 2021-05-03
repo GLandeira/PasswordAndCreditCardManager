@@ -9,6 +9,8 @@ namespace Domain.PasswordGenerator
 {
     public static class PasswordGenerator
     {
+        private const int MAX_PASSWORD_LENGTH = 25;
+
         public static string GeneratePassword(PasswordGenerationSettings generationSettings)
         {
             CheckIfInvalidPassword(generationSettings);
@@ -106,7 +108,7 @@ namespace Domain.PasswordGenerator
             bool hasSymbols = generationSettings.hasSymbols;
             bool todasLasCondicionesSonFalse = !hasSymbols && !hasMinus && !hasMayus && !hasDigits;
 
-            if (passwordLength <= 0 || (todasLasCondicionesSonFalse))
+            if (passwordLength <= 0 || passwordLength > MAX_PASSWORD_LENGTH || (todasLasCondicionesSonFalse))
             {
                 throw new InvalidPasswordGenerationSettingsException();
             }
