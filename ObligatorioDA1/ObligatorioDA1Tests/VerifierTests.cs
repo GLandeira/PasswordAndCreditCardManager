@@ -8,17 +8,16 @@ namespace DomainTests
     [TestClass]
     public class VerifierTests
     {
-        UserCreditCard userCreditCardTest;
-        CreditCard creditCard1;
+        CreditCard creditCardTest;
+        Password passwordTest;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            userCreditCardTest = new UserCreditCard();
-
+            //Credit Card part
             Category trabajo = new Category("Trabajo");
             CardTypes visa = CardTypes.VISA;
-            creditCard1 = new CreditCard
+            creditCardTest = new CreditCard
             {
                 Name = "Visa Gold",
                 Type = visa,
@@ -28,77 +27,164 @@ namespace DomainTests
                 Category = trabajo,
                 Notes = "super secreta, no compartir"
             };
+
+            //Password part
+            passwordTest = new Password
+            {
+                PasswordString = "myPassword",
+                Site = "www.testing.edu.uy",
+                Username = "myUsername",
+                Notes = "not shareable"
+            };
+
+            //Category part
+
+
+            //User part
         }
 
+        //-----------CreditCard TestMethods--------------------
         [ExpectedException(typeof(NameCreditCardException))]
         [TestMethod]
         public void CreditCardShortName()
         {
-            creditCard1.Name = "aa";
-            Verifier.VerifyCreditCard(creditCard1);
-            //creditCard1.Name = "Visa Gold";
+            creditCardTest.Name = "aa";
+            Verifier.VerifyCreditCard(creditCardTest);
         }
 
         [ExpectedException(typeof(NameCreditCardException))]
         [TestMethod]
         public void CreditCardLongName()
         {
-            creditCard1.Name = "aaaaaaaaaaaaaaaaaaaaaaaaaa";
-            Verifier.VerifyCreditCard(creditCard1);
+            creditCardTest.Name = "aaaaaaaaaaaaaaaaaaaaaaaaaa";
+            Verifier.VerifyCreditCard(creditCardTest);
         }
 
         [ExpectedException(typeof(NumberCreditCardException))]
         [TestMethod]
         public void CreditCardLongNumber()
         {
-            creditCard1.Number = "11111111111111112";
-            Verifier.VerifyCreditCard(creditCard1);
+            creditCardTest.Number = "11111111111111112";
+            Verifier.VerifyCreditCard(creditCardTest);
         }
 
         [ExpectedException(typeof(NumberCreditCardException))]
         [TestMethod]
         public void CreditCardShortNumber()
         {
-            creditCard1.Number = "111111111111110";
-            Verifier.VerifyCreditCard(creditCard1);
+            creditCardTest.Number = "111111111111110";
+            Verifier.VerifyCreditCard(creditCardTest);
         }
 
         [ExpectedException(typeof(NumberCreditCardException))]
         [TestMethod]
         public void CreditCardNumberNotBeingAllNumbers()
         { 
-            creditCard1.Number = "1@1 1111c11111b1";
-            Verifier.VerifyCreditCard(creditCard1);
+            creditCardTest.Number = "1@1 1111c11111b1";
+            Verifier.VerifyCreditCard(creditCardTest);
         }
 
         [ExpectedException(typeof(SecurityCodeCreditCardException))]
         [TestMethod]
-        public void CreditCardDifferentLengthSecurityCode()
+        public void CreditCardLongSecurityCode()
         {
-            creditCard1.SecurityCode = "1234";
-            Verifier.VerifyCreditCard(creditCard1);
+            creditCardTest.SecurityCode = "12345";
+            Verifier.VerifyCreditCard(creditCardTest);
+        }
+
+        [ExpectedException(typeof(SecurityCodeCreditCardException))]
+        [TestMethod]
+        public void CreditCardShortSecurityCode()
+        {
+            creditCardTest.SecurityCode = "12";
+            Verifier.VerifyCreditCard(creditCardTest);
         }
 
         [ExpectedException(typeof(SecurityCodeCreditCardException))]
         [TestMethod]
         public void CreditCardSecurityCodeNotBeingAllNumbers()
         {
-            creditCard1.SecurityCode = "12A";
-            Verifier.VerifyCreditCard(creditCard1);
+            creditCardTest.SecurityCode = "12A";
+            Verifier.VerifyCreditCard(creditCardTest);
         }
 
         [ExpectedException(typeof(NotesException))]
         [TestMethod]
-        public void CreditCardNotesTooLong()
+        public void CreditCardLongNotes()
         {
-            creditCard1.Notes = "This note should bee too long, more than 250 " +
+            creditCardTest.Notes = "This note should bee too long, more than 250 " +
                 "characters is actually a lot. When will i stop typing? its a " +
                 "matter of time actually. You cant outrun time, dont even try " +
                 "to skip some words in order to get to finish the sentence, you " +
                 "will get there one day, and you will look back to the old days " +
-                "were you where reading this, those good old days.";
+                "where you were reading this, those good old days.";
                 
-            Verifier.VerifyCreditCard(creditCard1);
+            Verifier.VerifyCreditCard(creditCardTest);
         }
+
+        //-----------Password TestMethods--------------------
+        [ExpectedException(typeof(NamePasswordException))]
+        [TestMethod]
+        public void PasswordShortSite()
+        {
+            passwordTest.Site = "aaaa";
+            Verifier.VerifyPassword(passwordTest);
+        }
+
+        [ExpectedException(typeof(NamePasswordException))]
+        [TestMethod]
+        public void PasswordLongSite()
+        {
+            passwordTest.Site = "abcdefghijklmnopqrstuvwxyz";
+            Verifier.VerifyPassword(passwordTest);
+        }
+
+        [ExpectedException(typeof(PasswordStringPasswordException))]
+        [TestMethod]
+        public void PasswordShortPasswordString()
+        {
+            passwordTest.PasswordString = "aa";
+            Verifier.VerifyPassword(passwordTest);
+        }
+
+        [ExpectedException(typeof(PasswordStringPasswordException))]
+        [TestMethod]
+        public void PasswordLongPasswordString()
+        {
+            passwordTest.PasswordString = "abcdefghijklmnopqrstuvwxyz";
+            Verifier.VerifyPassword(passwordTest);
+        }
+
+        [ExpectedException(typeof(UsernamePasswordException))]
+        [TestMethod]
+        public void PasswordShortUsername()
+        {
+            passwordTest.Username = "aaaa";
+            Verifier.VerifyPassword(passwordTest);
+        }
+
+        [ExpectedException(typeof(UsernamePasswordException))]
+        [TestMethod]
+        public void PasswordLongUsername()
+        {
+            passwordTest.Username = "abcdefghijklmnopqrstuvwxyz";
+            Verifier.VerifyPassword(passwordTest);
+        }
+
+        [ExpectedException(typeof(NotesException))]
+        [TestMethod]
+        public void PasswordLongNotes()
+        {
+            passwordTest.Notes = "This note should bee too long, more than 250 " +
+                "characters is actually a lot. When will i stop typing? its a " +
+                "matter of time actually. You cant outrun time, dont even try " +
+                "to skip some words in order to get to finish the sentence, you " +
+                "will get there one day, and you will look back to the old days " +
+                "where you were reading this, those good old days.";
+
+            Verifier.VerifyPassword(passwordTest);
+        }
+        //missing
     }
 }
+ 

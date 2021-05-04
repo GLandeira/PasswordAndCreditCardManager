@@ -5,21 +5,44 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Exceptions;
 
+//Creditcard
+//     Largo máximo de los campos:
+//- Name: Mínimo 3 caracteres y máximo 25 
+//- type: se selecciona de las disponibles en el sistema -> lista
+//- number: 16 caracteres, todos numeros
+//- security code: 3 numeros
+//- Categoría: Se selecciona de las disponibles en el sistema -> lista
+//- Notas: Sin mínimo y máximo 250 caracteres
+
+//password
+//   Largo máximo de los campos:
+//- Usuario: Mínimo 5 caracteres y máximo 25
+//- Contraseña: Mínimo 5 caracteres y máximo 25
+//- Sitio: Mínimo 3 caracteres y máximo 25
+//- Notas: Sin mínimo y máximo 250 caracteres
+//- Categoría: Se selecciona de las disponibles en el sistema -> lista
 
 namespace Domain
 {
     public static class Verifier
     {
-        //estos dos son de prueba
-        private const int MAXIMUM_CHARACTERS_CATEGORY_NAME = 15;
-        private const int MINIMUM_CHARACTERS_CATEGORY_NAME = 3;
+        //Users variables
+        private const int MAXIMUM_CHARACTERS_USER_NAMExMAINPASSWORD = 25;
+        private const int MINIMUM_CHARACTERS_USER_NAMExMAINPASSWORD = 5;
 
-        //hago asi para diferenciar o ponemos una variable y ya fue?
+        //Credit Variables
         private const int MAXIMUM_CHARACTERS_CREDITCARD_NAME = 25;
         private const int MINIMUM_CHARACTERS_CREDITCARD_NAME = 3;
         private const int CHARACTERS_CREDITCARD_NUMBER = 16;
-        private const int CHARACTERS_CREDITCARD_SECURITYCODE = 3;
+        private const int MAXIMUM_CHARACTERS_CREDITCARD_SECURITYCODE = 4;
+        private const int MINIMUM_CHARACTERS_CREDITCARD_SECURITYCODE = 3;
 
+        //Password variables
+        private const int MAXIMUM_CHARACTERS_PASSWORD_USERxPASSWORDxSITE = 25;
+        private const int MINIMUM_CHARACTERS_PASSWORD_USERxPASSWORD = 5;
+        private const int MINIMUM_CHARACTERS_PASSWORD_SITE = 3;
+
+        //Variables in common
         private const int CHARACTERS_NOTES = 250;
 
         public static void VerifyCreditCard(CreditCard creditCardTested)
@@ -28,6 +51,14 @@ namespace Domain
             VerifyCreditCardNumber(creditCardTested);
             VerifyCreditCardSecurityCode(creditCardTested);
             VerifyCreditCardNotes(creditCardTested);
+        }
+
+        public static void VerifyPassword(Password passwordTested)
+        {
+            VerifyPasswordSite(passwordTested);
+            VerifyPasswordPasswordString(passwordTested);
+            VerifyPasswordUsername(passwordTested);
+            VerifyPasswordNotes(passwordTested);
         }
 
         private static void VerifyCreditCardName(CreditCard creditCardTested)
@@ -50,7 +81,8 @@ namespace Domain
 
         private static void VerifyCreditCardSecurityCode(CreditCard creditCardTested)
         {
-            if (creditCardTested.SecurityCode.Length != CHARACTERS_CREDITCARD_SECURITYCODE
+            if (creditCardTested.SecurityCode.Length < MINIMUM_CHARACTERS_CREDITCARD_SECURITYCODE
+                            || creditCardTested.SecurityCode.Length > MAXIMUM_CHARACTERS_CREDITCARD_SECURITYCODE
                                         || !creditCardTested.SecurityCode.All(itIsNumber))
             {
                 throw new SecurityCodeCreditCardException();
@@ -65,27 +97,47 @@ namespace Domain
             }
         }
 
+        private static void VerifyPasswordSite(Password passwordTested)
+        {
+            if (passwordTested.Site.Length < MINIMUM_CHARACTERS_PASSWORD_USERxPASSWORD
+                            || passwordTested.Site.Length > MAXIMUM_CHARACTERS_PASSWORD_USERxPASSWORDxSITE)
+            {
+                throw new NamePasswordException();
+            }   
+        }
+
+        private static void VerifyPasswordPasswordString(Password passwordTested)
+        {
+            if (passwordTested.PasswordString.Length < MINIMUM_CHARACTERS_PASSWORD_SITE
+                            || passwordTested.PasswordString.Length > MAXIMUM_CHARACTERS_PASSWORD_USERxPASSWORDxSITE)
+            {
+                throw new PasswordStringPasswordException();
+            }
+        }
+
+        private static void VerifyPasswordUsername(Password passwordTested)
+        {
+            if (passwordTested.Username.Length < MINIMUM_CHARACTERS_PASSWORD_USERxPASSWORD
+                            || passwordTested.Username.Length > MAXIMUM_CHARACTERS_PASSWORD_USERxPASSWORDxSITE)
+            {
+                throw new UsernamePasswordException();
+            }
+        }
+
+        private static void VerifyPasswordNotes(Password passwordTested)
+        {
+            if (passwordTested.Notes.Length > CHARACTERS_NOTES)
+            {
+                throw new NotesException();
+            }
+        }
+
         private static bool itIsNumber(char numberSubString)
         {
             return (numberSubString >= '0' && numberSubString <= '9');
         }
 
 
-        //Creditcard
-        //        Largo máximo de los campos:
-        //- Name: Mínimo 3 caracteres y máximo 25 -> ver despues si puedo combinarlo con el sitio de password
-        //- type: se selecciona de las disponibles en el sistema
-        //- number: 16 caracteres, todos numeros
-        //- security code: 3 numeros
-        //- Categoría: Se selecciona de las disponibles en el sistema
-        //- Notas: Sin mínimo y máximo 250 caracteres
 
-        //password
-        //        Largo máximo de los campos:
-        //- Usuario: Mínimo 5 caracteres y máximo 25
-        //- Contraseña: Mínimo 5 caracteres y máximo 25
-        //- Sitio: Mínimo 3 caracteres y máximo 25
-        //- Notas: Sin mínimo y máximo 250 caracteres
-        //- Categoría: Se selecciona de las disponibles en el sistema
     }
 }
