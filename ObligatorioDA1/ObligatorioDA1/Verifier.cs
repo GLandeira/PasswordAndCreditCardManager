@@ -26,7 +26,7 @@ namespace Domain
 {
     public static class Verifier
     {
-        //Users variables
+        //Users Variables
         private const int MAXIMUM_CHARACTERS_USER_NAMExMAINPASSWORD = 25;
         private const int MINIMUM_CHARACTERS_USER_NAMExMAINPASSWORD = 5;
 
@@ -37,13 +37,23 @@ namespace Domain
         private const int MAXIMUM_CHARACTERS_CREDITCARD_SECURITYCODE = 4;
         private const int MINIMUM_CHARACTERS_CREDITCARD_SECURITYCODE = 3;
 
-        //Password variables
+        //Password Variables
         private const int MAXIMUM_CHARACTERS_PASSWORD_USERxPASSWORDxSITE = 25;
         private const int MINIMUM_CHARACTERS_PASSWORD_USERxPASSWORD = 5;
         private const int MINIMUM_CHARACTERS_PASSWORD_SITE = 3;
 
+        //Category Variables
+        private const int MAXIMUM_CHARACTERS_CATEGORY_NAME = 15;
+        private const int MINIMUM_CHARACTERS_CATEGORY_NAME = 3;
+
         //Variables in common
         private const int CHARACTERS_NOTES = 250;
+
+        public static void VerifyUser(User userTested)
+        {
+            VerifyUserName(userTested);
+            VerifyUserMainPassword(userTested);
+        }
 
         public static void VerifyCreditCard(CreditCard creditCardTested)
         {
@@ -59,6 +69,33 @@ namespace Domain
             VerifyPasswordPasswordString(passwordTested);
             VerifyPasswordUsername(passwordTested);
             VerifyPasswordNotes(passwordTested);
+        }
+
+        public static void VerifyCategory(Category categoryTested)
+        {
+            if (categoryTested.Name.Length < MINIMUM_CHARACTERS_CATEGORY_NAME
+                                        || categoryTested.Name.Length > MAXIMUM_CHARACTERS_CATEGORY_NAME)
+            {
+                throw new NameCategoryException();
+            }
+        }
+
+        private static void VerifyUserName(User userTested)
+        {
+            if (userTested.Name.Length < MINIMUM_CHARACTERS_USER_NAMExMAINPASSWORD
+                                        || userTested.Name.Length > MAXIMUM_CHARACTERS_USER_NAMExMAINPASSWORD)
+            {
+                throw new NameUserException();
+            }
+        }
+
+        private static void VerifyUserMainPassword(User userTested)
+        {
+            if (userTested.MainPassword.Length < MINIMUM_CHARACTERS_USER_NAMExMAINPASSWORD
+                                        || userTested.MainPassword.Length > MAXIMUM_CHARACTERS_USER_NAMExMAINPASSWORD)
+            {
+                throw new MainPasswordUserException();
+            }
         }
 
         private static void VerifyCreditCardName(CreditCard creditCardTested)

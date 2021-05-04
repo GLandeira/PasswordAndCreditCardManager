@@ -60,9 +60,11 @@
     <Compile Include="Domain.cs" />
     <Compile Include="Exceptions\CreditCardRepeatedException.cs" />
     <Compile Include="Exceptions\DomainException.cs" />
-    <Compile Include="Exceptions\LongCategoryNameException.cs" />
+    <Compile Include="Exceptions\MainPasswordUserException.cs" />
+    <Compile Include="Exceptions\NameCategoryException.cs" />
     <Compile Include="Exceptions\NameCreditCardException.cs" />
     <Compile Include="Exceptions\NamePasswordException.cs" />
+    <Compile Include="Exceptions\NameUserException.cs" />
     <Compile Include="Exceptions\NotesException.cs" />
     <Compile Include="Exceptions\NumberCreditCardException.cs" />
     <Compile Include="Exceptions\PasswordStringPasswordException.cs" />
@@ -75,7 +77,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurityLevelPasswords.cs" />
-    <Compile Include="Exceptions\ShortCategoryNameException.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Exceptions\UserAlreadyExistsException.cs" />
     <Compile Include="UserCreditCard.cs" />

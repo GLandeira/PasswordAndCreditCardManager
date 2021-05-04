@@ -29,24 +29,6 @@ namespace DomainTests
         }
 
         [TestMethod]
-        public void TestAddingShortNameThrowsException()
-        {
-            string nameToTest = "Al";
-            Category aCategory = new Category(nameToTest);
-
-            Assert.ThrowsException<ShortCategoryNameException>(() => _testUser.AddCategory(aCategory));
-        }
-
-        [TestMethod]
-        public void TestAddingLongNameThrowsException()
-        {
-            string nameToTest = "School and Personal";
-            Category aCategory = new Category(nameToTest);
-
-            Assert.ThrowsException<LongCategoryNameException>(() => _testUser.AddCategory(aCategory));
-        }
-
-        [TestMethod]
         public void TestGettingACategoryThatIsPresentIsntNull()
         {
             string nameToTest = "Work";
@@ -137,7 +119,7 @@ namespace DomainTests
             _testUser.AddCategory(categoryToModify);
 
             string newName = "Un";
-            Assert.ThrowsException<ShortCategoryNameException>(() => _testUser.ModifyCategory(categoryToModify, newName));
+            Assert.ThrowsException<NameCategoryException>(() => _testUser.ModifyCategory(categoryToModify, newName));
         }
 
         [TestMethod]
@@ -149,7 +131,7 @@ namespace DomainTests
             _testUser.AddCategory(categoryToModify);
 
             string newName = "University and Others";
-            Assert.ThrowsException<LongCategoryNameException>(() => _testUser.ModifyCategory(categoryToModify, newName));
+            Assert.ThrowsException<NameCategoryException>(() => _testUser.ModifyCategory(categoryToModify, newName));
         }
 
         [TestMethod]

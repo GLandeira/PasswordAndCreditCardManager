@@ -10,21 +10,25 @@ namespace DomainTests
     {
         CreditCard creditCardTest;
         Password passwordTest;
+        User userTest;
+        Category categoryTest;
 
         [TestInitialize]
         public void TestInitialize()
         {
+            //User part
+            userTest = new User
+            {
+                Name = "admin",
+                MainPassword = "1234"
+            };
+
             //Credit Card part
-            Category trabajo = new Category("Trabajo");
-            CardTypes visa = CardTypes.VISA;
             creditCardTest = new CreditCard
             {
                 Name = "Visa Gold",
-                Type = visa,
                 Number = "1111111111111111",
                 SecurityCode = "111",
-                ValidDue = DateTime.Today,
-                Category = trabajo,
                 Notes = "super secreta, no compartir"
             };
 
@@ -38,9 +42,40 @@ namespace DomainTests
             };
 
             //Category part
+            categoryTest = new Category("Personal");
+        }
 
+        //-----------User TestMethods--------------------
+        [ExpectedException(typeof(NameUserException))]
+        [TestMethod]
+        public void UserShortName()
+        {
+            userTest.Name = "aaaa";
+            Verifier.VerifyUser(userTest);
+        }
 
-            //User part
+        [ExpectedException(typeof(NameUserException))]
+        [TestMethod]
+        public void UserLongName()
+        {
+            userTest.Name = "aaaaaaaaaaaaaaaaaaaaaaaaaa";
+            Verifier.VerifyUser(userTest);
+        }
+
+        [ExpectedException(typeof(MainPasswordUserException))]
+        [TestMethod]
+        public void UserLongMainPassword()
+        {
+            userTest.MainPassword = "aaaa";
+            Verifier.VerifyUser(userTest);
+        }
+
+        [ExpectedException(typeof(MainPasswordUserException))]
+        [TestMethod]
+        public void UserShortMainPassword()
+        {
+            userTest.MainPassword = "aaaaaaaaaaaaaaaaaaaaaaaaaa";
+            Verifier.VerifyUser(userTest);
         }
 
         //-----------CreditCard TestMethods--------------------
@@ -184,7 +219,23 @@ namespace DomainTests
 
             Verifier.VerifyPassword(passwordTest);
         }
-        //missing
+
+        ////-----------Category TestMethods--------------------
+        [ExpectedException(typeof(NameCategoryException))]
+        [TestMethod]
+        public void CategoryShortName()
+        {
+            categoryTest.Name = "aa";
+            Verifier.VerifyCategory(categoryTest);
+        }
+
+        [ExpectedException(typeof(NameCategoryException))]
+        [TestMethod]
+        public void CategoryLongName()
+        {
+            categoryTest.Name = "abcdefghijklmnop";
+            Verifier.VerifyCategory(categoryTest);
+        }
     }
 }
  
