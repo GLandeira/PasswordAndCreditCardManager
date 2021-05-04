@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="CardTypes.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="Exceptions\AlreadyExistingPasswordException.cs" />
     <Compile Include="Exceptions\CategoryNotFoundException.cs" />
     <Compile Include="CreditCard.cs" />
     <Compile Include="Domain.cs" />
