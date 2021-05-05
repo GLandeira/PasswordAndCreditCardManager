@@ -51,17 +51,19 @@ namespace Domain
             }
         }
 
-        public void ModifyCategory(Category categoryToModify, string newName)
+        public void ModifyCategory(Category categoryToModify, Category newCategory)
         {
             //modificar metodo modify, que el string ya sea otra categoria -> no lo hago para chequear antes con el team
             //por ahora hago esto
-            Category newCategory = new Category(newName);
             Verifier.VerifyCategory(newCategory);
 
             // Find category in list
             try
             {
-                Categories.First(cat => cat.Equals(categoryToModify)).Name = newName;
+                Category a = Categories.First(cat => cat.Equals(categoryToModify));
+                Categories.Remove(a);
+                Categories.Add(newCategory);
+
             }
             catch (InvalidOperationException isEmptyOrNotPresent)
             {

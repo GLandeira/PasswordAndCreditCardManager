@@ -82,10 +82,10 @@ namespace DomainTests
 
             _testUser.AddCategory(categoryToModify);
 
-            string newName = "University";
-            _testUser.ModifyCategory(categoryToModify, newName);
+            Category newCategory = new Category("University");
+            _testUser.ModifyCategory(categoryToModify, newCategory);
 
-            Assert.AreEqual(newName, _testUser.GetACategory(newName).Name);
+            Assert.AreEqual(newCategory, _testUser.GetACategory(newCategory.Name));
         }
 
         [TestMethod]
@@ -93,9 +93,9 @@ namespace DomainTests
         {
             string testName = "Modifiable";
             Category categoryToModify = new Category(testName);
+            Category newCategory = new Category("University");
 
-            string newName = "University";
-            Assert.ThrowsException<CategoryNotFoundException>(() =>_testUser.ModifyCategory(categoryToModify, newName));
+            Assert.ThrowsException<CategoryNotFoundException>(() =>_testUser.ModifyCategory(categoryToModify, newCategory));
         }
 
         [TestMethod]
@@ -105,9 +105,9 @@ namespace DomainTests
             
             string testName = "Modifiable";
             Category categoryToModify = new Category(testName);
+            Category newCategory = new Category("University");
 
-            string newName = "University";
-            Assert.ThrowsException<CategoryNotFoundException>(() => _testUser.ModifyCategory(categoryToModify, newName));
+            Assert.ThrowsException<CategoryNotFoundException>(() => _testUser.ModifyCategory(categoryToModify, newCategory));
         }
 
         [TestMethod]
@@ -117,9 +117,9 @@ namespace DomainTests
             Category categoryToModify = new Category(testName);
 
             _testUser.AddCategory(categoryToModify);
+            Category newCategory = new Category("Un");
 
-            string newName = "Un";
-            Assert.ThrowsException<NameCategoryException>(() => _testUser.ModifyCategory(categoryToModify, newName));
+            Assert.ThrowsException<NameCategoryException>(() => _testUser.ModifyCategory(categoryToModify, newCategory));
         }
 
         [TestMethod]
@@ -129,9 +129,9 @@ namespace DomainTests
             Category categoryToModify = new Category(testName);
 
             _testUser.AddCategory(categoryToModify);
+            Category newCategory = new Category("University and others");
 
-            string newName = "University and Others";
-            Assert.ThrowsException<NameCategoryException>(() => _testUser.ModifyCategory(categoryToModify, newName));
+            Assert.ThrowsException<NameCategoryException>(() => _testUser.ModifyCategory(categoryToModify, newCategory));
         }
 
         [TestMethod]
