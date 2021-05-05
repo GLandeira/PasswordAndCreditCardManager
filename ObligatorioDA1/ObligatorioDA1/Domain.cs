@@ -9,11 +9,14 @@ namespace Domain
 {
     public class Domain
     {
-        public List<User> Users { get; set; }
+        public List<User> Users { get; private set; }
+
+        public PasswordSharer PasswordSharer { get; private set; }
 
         public Domain()
         {
             Users = new List<User>();
+            PasswordSharer = new PasswordSharer(this);
         }
 
         public void AddUser(User newUser)
@@ -46,6 +49,7 @@ namespace Domain
         {
             return Users.Any
                 (us => us.Name == userNameToLogInWith && 
+
                        us.MainPassword == userPasswordToLogInWith);
         }
     }

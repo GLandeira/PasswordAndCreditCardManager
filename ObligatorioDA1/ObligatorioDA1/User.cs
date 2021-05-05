@@ -11,8 +11,8 @@ namespace Domain
     {
         public string Name { get; set; }
         public string MainPassword { get; set; }
-        UserPassword UserPasswords;
-        UserCreditCard UserCreditCards;
+        public UserPassword UserPasswords { get; private set; }
+        public UserCreditCard UserCreditCards { get; private set; }
         public List<Category> Categories { get; set; }
 
         private const int MAXIMUM_CHARACTERS_CATEGORY_NAME = 15;
@@ -21,11 +21,15 @@ namespace Domain
         public User()
         {
             Categories = new List<Category>();
+            UserPasswords = new UserPassword();
+            UserCreditCards = new UserCreditCard();
         }
 
         public User(string name, string mainPassword)
         {
             Categories = new List<Category>();
+            UserPasswords = new UserPassword();
+            UserCreditCards = new UserCreditCard();
             Name = name;
             MainPassword = mainPassword;
         }
