@@ -54,10 +54,12 @@
   <ItemGroup>
     <Compile Include="CardTypes.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="DataBreaches.cs" />
     <Compile Include="Exceptions\AlreadyExistingPasswordException.cs" />
     <Compile Include="Exceptions\CategoryNotFoundException.cs" />
     <Compile Include="CreditCard.cs" />
     <Compile Include="Domain.cs" />
+    <Compile Include="Exceptions\CreditCardNotFoundException.cs" />
     <Compile Include="Exceptions\CreditCardRepeatedException.cs" />
     <Compile Include="Exceptions\DomainException.cs" />
     <Compile Include="Exceptions\MainPasswordUserException.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="UserCreditCard.cs" />
     <Compile Include="Exceptions\UserException.cs" />
     <Compile Include="Exceptions\UserNotPresentException.cs" />
+    <Compile Include="UserDataBreaches.cs" />
     <Compile Include="UserPassword.cs" />
     <Compile Include="Verifier.cs" />
   </ItemGroup>

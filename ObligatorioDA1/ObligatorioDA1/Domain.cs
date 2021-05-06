@@ -11,6 +11,7 @@ namespace Domain
     {
         public List<User> Users { get; set; }
 
+
         public Domain()
         {
             Users = new List<User>();

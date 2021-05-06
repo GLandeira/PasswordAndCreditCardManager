@@ -25,7 +25,7 @@ namespace DomainTests
             {
                 Name = "Visa Gold",
                 Type = visa,
-                Number = "1111 1111 1111 1111",
+                Number = "1111111111111111",
                 ValidDue = DateTime.Today,
                 Category = trabajo,
                 Notes = "super secreta, no compartir"
@@ -37,7 +37,7 @@ namespace DomainTests
             {
                 Name = "Master",
                 Type = master,
-                Number = "2222 2222 2222 2222",
+                Number = "2222222222222222",
                 ValidDue = DateTime.Today,
                 Category = personal,
                 Notes = "para compartir"
@@ -47,7 +47,7 @@ namespace DomainTests
             {
                 Name = "Visa Platinum",
                 Type = visa,
-                Number = "3333 3333 3333 3333",
+                Number = "3333333333333333",
                 ValidDue = DateTime.Today,
                 Category = trabajo,
                 Notes = ""
@@ -148,7 +148,7 @@ namespace DomainTests
             {
                 Name = "Visa Platinum",
                 Type = visa,
-                Number = "4444 4444 4444 4444",
+                Number = "4444444444444444",
                 ValidDue = new DateTime(2022, 12, 31),
                 Category = trabajo,
                 Notes = "La modifique a esta"
@@ -177,7 +177,7 @@ namespace DomainTests
             {
                 Name = "Visa Platinum",
                 Type = master,
-                Number = "1111 1111 1111 1111",
+                Number = "1111111111111111",
                 ValidDue = new DateTime(2022, 12, 31),
                 Category = personal,
                 Notes = "La modifique a esta"
@@ -215,6 +215,26 @@ namespace DomainTests
             userCreditCardTest.AddCreditCard(creditCard2);
 
             userCreditCardTest.ModifyCreditCard(creditCard1, creditCard2);
+        }
+
+        [TestMethod]
+        public void GetCreditCardThatExistsInTheList()
+        {
+            userCreditCardTest.AddCreditCard(creditCard1);
+            userCreditCardTest.AddCreditCard(creditCard2);
+            CreditCard creditCardTest = userCreditCardTest.GetCreditCard("2222222222222222");
+
+            Assert.AreEqual("2222222222222222", creditCardTest.Number);
+        }
+
+        [ExpectedException(typeof(CreditCardNotFoundException))]
+        [TestMethod]
+        public void GetCreditCardThatNotExistsInTheList()
+        {
+            userCreditCardTest.AddCreditCard(creditCard1);
+            userCreditCardTest.AddCreditCard(creditCard2);
+            userCreditCardTest.AddCreditCard(creditCard3);
+            CreditCard creditCardTest = userCreditCardTest.GetCreditCard("4444444444444444");
         }
     }
 }

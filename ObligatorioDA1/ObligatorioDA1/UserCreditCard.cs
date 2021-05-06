@@ -47,6 +47,15 @@ namespace Domain
             AddCreditCard(creditCardToAdd);
         }
 
+        public CreditCard GetCreditCard(String creditCardNumberToLook)
+        {
+            if (!CreditCards.Exists(creditCardInList => creditCardInList.Number.Equals(creditCardNumberToLook)))
+            {
+                throw new CreditCardNotFoundException();
+            }
+            return CreditCards.Find(creditCardInList => creditCardInList.Number.Equals(creditCardNumberToLook));
+        }
+
         private void IsAlreadyInTheList(CreditCard creditCard)
         {
             if (CreditCards.Exists(creditCardInList => creditCardInList.Equals(creditCard)))

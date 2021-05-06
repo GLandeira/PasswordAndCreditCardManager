@@ -11,13 +11,15 @@ namespace Domain
     {
         public string Name { get; set; }
         public string MainPassword { get; set; }
-        UserPassword UserPasswords;
-        UserCreditCard UserCreditCards;
+        public UserPassword UserPasswords { get; private set; }
+        public UserCreditCard UserCreditCards { get; private set; }
+        UserDataBreaches UserDataBreaches;
         public List<Category> Categories { get; set; }
 
         public User()
         {
             Categories = new List<Category>();
+            UserDataBreaches = new UserDataBreaches(this);
         }
 
         public User(string name, string mainPassword)
