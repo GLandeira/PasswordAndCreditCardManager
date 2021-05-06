@@ -9,6 +9,8 @@ namespace Domain
 {
     public class UserPassword
     {
+        private User _theUser;
+
         private List<Password> _passwords;
 
         public List<Password> Passwords
@@ -23,9 +25,10 @@ namespace Domain
             }
         }
 
-        public UserPassword()
+        public UserPassword(User theUser)
         {
             this._passwords = new List<Password>();
+            _theUser = theUser;
         }
 
         public void AddPassword(Password password)
@@ -51,5 +54,14 @@ namespace Domain
             }
         }
 
+        public void SharePassword(string sharee, Password sharedPassword)
+        {
+            PasswordShareDetails shareDetails = new PasswordShareDetails();
+            shareDetails.sharerName = _theUser.Name;
+            shareDetails.shareeName = sharee;
+            shareDetails.sharedPassword = sharedPassword;
+
+            PasswordSharer.Instance.SharePassword(shareDetails);
+        }
     }
 }

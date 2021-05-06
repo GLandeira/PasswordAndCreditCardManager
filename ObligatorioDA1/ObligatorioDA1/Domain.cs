@@ -11,12 +11,9 @@ namespace Domain
     {
         public List<User> Users { get; private set; }
 
-        public PasswordSharer PasswordSharer { get; private set; }
-
         public Domain()
         {
             Users = new List<User>();
-            PasswordSharer = new PasswordSharer(this);
         }
 
         public void AddUser(User newUser)
@@ -27,6 +24,16 @@ namespace Domain
             }
 
             Users.Add(newUser);
+        }
+
+        public User GetUser(string username)
+        {
+            if(!Users.Any(user => user.Name == username))
+            {
+                throw new UserNotPresentException();
+            }
+
+            return Users.First(user => user.Name == username);
         }
 
         public void ModifyPassword(string userNameInDomain, string newPassword)

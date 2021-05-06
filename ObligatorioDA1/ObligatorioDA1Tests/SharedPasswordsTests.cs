@@ -24,6 +24,7 @@ namespace DomainTests
         public SharedPasswordsTests()
         {
             _testDomain = new Domain.Domain();
+            PasswordSharer.Init(_testDomain);
 
             _testUserSharer = SetupSharer();
 
@@ -56,8 +57,11 @@ namespace DomainTests
         [TestMethod]
         public void SharedPasswordIsActuallySharedTest()
         {
-            _testDomain.PasswordSharer.SharePassword(_testUserSharer, _testUserSharee, _sharedPassword);
-            User shareeInDomain = _testDomain.Users.First(user => user.Equals(_testUserSharee));
+            User sharerInDomain = _testDomain.GetUser(_sharerName);
+
+            sharerInDomain.UserPasswords.SharePassword(_testUserSharee.Name, _sharedPassword);
+
+            User shareeInDomain = _testDomain.GetUser(_shareeName);
 
             Assert.IsTrue(shareeInDomain.UserPasswords.Passwords.Any(pass => pass.Equals(_sharedPassword)));
         }

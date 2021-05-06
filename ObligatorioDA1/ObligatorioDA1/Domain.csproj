@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="CardTypes.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="PasswordShareDetails.cs" />
     <Compile Include="Exceptions\AlreadyExistingPasswordException.cs" />
     <Compile Include="Exceptions\CategoryNotFoundException.cs" />
     <Compile Include="CreditCard.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="PasswordGenerator\PasswordGeneratorConstants.cs" />
     <Compile Include="PasswordGenerator\SymbolCharacterGenerator.cs" />
     <Compile Include="PasswordSecurityFlagger.cs" />
+    <Compile Include="PasswordSharer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurityLevelPasswords.cs" />

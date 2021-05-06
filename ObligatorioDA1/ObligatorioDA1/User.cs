@@ -21,14 +21,14 @@ namespace Domain
         public User()
         {
             Categories = new List<Category>();
-            UserPasswords = new UserPassword();
+            UserPasswords = new UserPassword(this);
             UserCreditCards = new UserCreditCard();
         }
 
         public User(string name, string mainPassword)
         {
             Categories = new List<Category>();
-            UserPasswords = new UserPassword();
+            UserPasswords = new UserPassword(this);
             UserCreditCards = new UserCreditCard();
             Name = name;
             MainPassword = mainPassword;

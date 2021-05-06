@@ -7,7 +7,7 @@ namespace DomainTests
     [TestClass]
     public class UserPasswordTests
     {
-
+        User testUser;
         UserPassword userPasswordTest;
         Password testPassword1;
         Password testPassword2;
@@ -17,7 +17,7 @@ namespace DomainTests
         [TestInitialize]
         public void TestInitialize()
         {
-            userPasswordTest = new UserPassword();
+            userPasswordTest = new UserPassword(testUser);
 
             Category trabajo = new Category("trabajo");
             testPassword1 = new Password
