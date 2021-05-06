@@ -8,8 +8,6 @@ namespace Domain
 {
     public class PasswordSharer
     {
-        private const string SHARED_PASSWORD_CATEGORY = "";
-
         private Domain _theDomain;
 
         public static PasswordSharer Instance { get; private set; }
@@ -24,20 +22,30 @@ namespace Domain
             Instance = new PasswordSharer(theDomain);
         }
 
-        internal void SharePassword(PasswordShareDetails shareDetails)
+        internal void SharePasswordWithUser(string shareeName, Password sharedPassword)
         {
-            // Buscar al user y darle la password
-            // Asegurarse que la password tiene la categoria
-            string sharerName = shareDetails.sharerName;
-            string shareeName = shareDetails.shareeName;
-            Password sharedPassword = shareDetails.sharedPassword;
+            UserPassword shareePasswords = _theDomain.GetUser(shareeName).UserPasswords;
 
-            // Change the passwords category
-            sharedPassword.Category.Name = SHARED_PASSWORD_CATEGORY;
+            //sharedPassword = SetSharedPasswordCategoryToSharedWithMe(sharedPassword);
 
-            _theDomain.GetUser(shareeName).UserPasswords.AddPassword(sharedPassword);
+            shareePasswords.AddPassword(sharedPassword);
+        }
+        internal void StopSharingPasswordWithUser(string sharee, Password sharedPassword)
+        {
+            UserPassword shareePasswords = _theDomain.GetUser(sharee).UserPasswords;
 
+            shareePasswords.RemovePassword(sharedPassword);
+        }
 
+        internal void ModifyPasswordForUsers(List<string> usersSharedWith, Password modifiedPassword, Password oldPassword)
+        {
+            modifiedPassword.UsersSharedWith = new List<string>();
+
+            foreach(string userName in usersSharedWith)
+            {
+                UserPassword theUsersPasswords = _theDomain.GetUser(userName).UserPasswords;
+                theUsersPasswords.ModifyPassword(modifiedPassword, oldPassword);
+            }
         }
     }
 }

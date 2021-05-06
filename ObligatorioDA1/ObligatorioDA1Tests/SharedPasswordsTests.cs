@@ -17,6 +17,10 @@ namespace DomainTests
         private User _testUserSharer;
         private string _shareeName = "Sharee";
         private User _testUserSharee;
+        private string _shareeNameTwo = "ShareeTwo";
+        private User _testUserShareeTwo;
+        private string _shareeNameThree = "ShareeThree";
+        private User _testUserShareeThree;
 
         private Password _sharedPassword;
         private Category _testCategory;
@@ -29,15 +33,20 @@ namespace DomainTests
             _testUserSharer = SetupSharer();
 
             _testUserSharee = new User(_shareeName, "password");
+            _testUserShareeTwo = new User(_shareeNameTwo, "password");
+            _testUserShareeThree = new User(_shareeNameThree, "password");
 
             _testDomain.AddUser(_testUserSharer);
             _testDomain.AddUser(_testUserSharee);
+            _testDomain.AddUser(_testUserShareeTwo);
+            _testDomain.AddUser(_testUserShareeThree);
         }
 
         private User SetupSharer()
         {
             User sharer = new User(_sharerName, "password");
 
+            _testCategory = new Category("TestCategory");
             _sharedPassword = new Password
             {
                 PasswordString = "abcd1234",
@@ -47,9 +56,9 @@ namespace DomainTests
                 Category = _testCategory,
                 Notes = "My Brilliantly Account."
             };
-            _testCategory = new Category("TestCategory");
-            _testUserSharer.AddCategory(_testCategory);
-            _testUserSharer.UserPasswords.AddPassword(_sharedPassword);
+            
+            sharer.AddCategory(_testCategory);
+            sharer.UserPasswords.AddPassword(_sharedPassword);
 
             return sharer;
         }
@@ -57,49 +66,176 @@ namespace DomainTests
         [TestMethod]
         public void SharedPasswordIsActuallySharedTest()
         {
-            User sharerInDomain = _testDomain.GetUser(_sharerName);
+            _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
 
-            sharerInDomain.UserPasswords.SharePassword(_testUserSharee.Name, _sharedPassword);
-
-            User shareeInDomain = _testDomain.GetUser(_shareeName);
-
-            Assert.IsTrue(shareeInDomain.UserPasswords.Passwords.Any(pass => pass.Equals(_sharedPassword)));
+            Assert.IsTrue(_testUserSharer.UserPasswords.Passwords.Any(pass => pass.Equals(_sharedPassword)));
         }
 
         [TestMethod]
         public void SharedPasswordHasRightCategoryTest()
         {
-            
+            _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
+            Password sharedPasswordInSharee = _testUserSharee.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
+
+            Assert.AreEqual(User.SHARED_WITH_ME_CATEGORY, sharedPasswordInSharee.Category);
         }
 
         [TestMethod]
-        public void SharedPasswordHasRightNamesTest()
+        public void SharedPasswordHasRightCategoryAfterModificationTest()
         {
+            _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
 
+            Password modifiedPassword = (Password)_sharedPassword.Clone();
+            modifiedPassword.PasswordString = "newPassword123";
+
+            _testUserSharer.UserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
+            Password sharedPasswordInSharee = _testUserSharee.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
+
+            Assert.AreEqual(User.SHARED_WITH_ME_CATEGORY, sharedPasswordInSharee.Category);
+        }
+
+        [TestMethod]
+        public void SharedPasswordHasRightCategoryOnSharerTest()
+        {
+            Category oldCategory = (Category)_sharedPassword.Category.Clone();
+
+            _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
+
+            Assert.AreEqual(oldCategory, _sharedPassword.Category);
+        }
+
+        [TestMethod]
+        public void OneSharedPasswordHasRightNamesTest()
+        {
+            _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
+            Password sharedPasswordInSharer = _testUserSharer.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
+
+            Assert.IsTrue(sharedPasswordInSharer.UsersSharedWith.Contains(_shareeName));
         }
 
         [TestMethod]
         public void UnsharingPasswordIsActuallyUnsharedTest()
         {
+            _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
 
+            _testUserSharer.UserPasswords.StopSharingPassword(_testUserSharee, _sharedPassword);
+            UserPassword shareeUserPasswords = _testUserSharee.UserPasswords;
+
+            Assert.IsFalse(shareeUserPasswords.Passwords.Contains(_sharedPassword));
         }
 
         [TestMethod]
         public void UnsharedPasswordHasRightNamesTest()
         {
+            _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
 
+            _testUserSharer.UserPasswords.StopSharingPassword(_testUserSharee, _sharedPassword);
+
+            Password sharedPasswordInSharer = _testUserSharer.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
+
+            Assert.IsFalse(sharedPasswordInSharer.UsersSharedWith.Contains(_shareeName));
         }
+
+        [TestMethod]
+        public void UnsharingPasswordAffectsSharedPasswordsListLength()
+        {
+            _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
+            _testUserSharer.UserPasswords.SharePassword(_testUserShareeTwo, _sharedPassword);
+
+            _testUserSharer.UserPasswords.StopSharingPassword(_testUserSharee, _sharedPassword);
+
+            Assert.AreEqual(1, _testUserSharer.UserPasswords.SharedPasswords.Count);
+        }
+
+        [TestMethod]
+        public void UnsharingPasswordAffectsSharedPasswordsListLengthMultiple()
+        {
+            _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
+            _testUserSharer.UserPasswords.SharePassword(_testUserShareeTwo, _sharedPassword);
+            _testUserSharer.UserPasswords.SharePassword(_testUserShareeThree, _sharedPassword);
+
+            _testUserSharer.UserPasswords.StopSharingPassword(_testUserSharee, _sharedPassword);
+            _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
+
+            _testUserSharer.UserPasswords.StopSharingPassword(_testUserShareeThree, _sharedPassword);
+
+            Assert.AreEqual(2, _testUserSharer.UserPasswords.SharedPasswords.Count);
+        }
+
 
         [TestMethod]
         public void ModifiedPasswordCascadesCorrectlyTest()
         {
+            UserPassword sharerUserPasswords = _testUserSharer.UserPasswords;
 
+            sharerUserPasswords.SharePassword(_testUserSharee, _sharedPassword);
+
+            Password modifiedPassword = (Password)_sharedPassword.Clone();
+            modifiedPassword.PasswordString = "newPassword123";
+
+            sharerUserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
+
+            UserPassword shareeUserPasswords = _testUserSharee.UserPasswords;
+
+            Assert.AreEqual(modifiedPassword, shareeUserPasswords.GetPassword(modifiedPassword.Site, modifiedPassword.Username));
+        }
+
+        [TestMethod]
+        public void ModifiedPasswordCascadesCorrectlyWithMultipleChangesTest()
+        {
+            UserPassword sharerUserPasswords = _testUserSharer.UserPasswords;
+
+            sharerUserPasswords.SharePassword(_testUserSharee, _sharedPassword);
+            sharerUserPasswords.SharePassword(_testUserShareeTwo, _sharedPassword);
+            sharerUserPasswords.SharePassword(_testUserShareeThree, _sharedPassword);
+
+            Password modifiedPassword = (Password)_sharedPassword.Clone();
+            modifiedPassword.PasswordString = "newP%1as3";
+
+            sharerUserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
+
+            UserPassword shareeUserPasswords = _testUserSharee.UserPasswords;
+            UserPassword shareeTwoUserPasswords = _testUserShareeTwo.UserPasswords;
+            UserPassword shareeThreeUserPasswords = _testUserShareeThree.UserPasswords;
+
+            Assert.AreEqual(modifiedPassword, shareeUserPasswords.GetPassword(modifiedPassword.Site, modifiedPassword.Username));
+            Assert.AreEqual(modifiedPassword, shareeTwoUserPasswords.GetPassword(modifiedPassword.Site, modifiedPassword.Username));
+            Assert.AreEqual(modifiedPassword, shareeThreeUserPasswords.GetPassword(modifiedPassword.Site, modifiedPassword.Username));
+        }
+
+        [TestMethod]
+        public void ModifiedPasswordCascadesCorrectlyAfterDeletingOneTest()
+        {
+            UserPassword sharerUserPasswords = _testUserSharer.UserPasswords;
+
+            sharerUserPasswords.SharePassword(_testUserSharee, _sharedPassword);
+            sharerUserPasswords.SharePassword(_testUserShareeTwo, _sharedPassword);
+            sharerUserPasswords.SharePassword(_testUserShareeThree, _sharedPassword);
+
+            sharerUserPasswords.StopSharingPassword(_testUserShareeThree, _sharedPassword);
+
+            Password modifiedPassword = (Password)_sharedPassword.Clone();
+            modifiedPassword.PasswordString = "newwfscqWTG";
+
+            sharerUserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
+
+            UserPassword shareeUserPasswords = _testUserSharee.UserPasswords;
+            UserPassword shareeTwoUserPasswords = _testUserShareeTwo.UserPasswords;
+
+            Assert.AreEqual(modifiedPassword, shareeUserPasswords.GetPassword(modifiedPassword.Site, modifiedPassword.Username));
+            Assert.AreEqual(modifiedPassword, shareeTwoUserPasswords.GetPassword(modifiedPassword.Site, modifiedPassword.Username));
         }
 
         [TestMethod]
         public void GetSharedPasswordHasRightAmountTest()
         {
+            UserPassword sharerUserPasswords = _testUserSharer.UserPasswords;
 
+            sharerUserPasswords.SharePassword(_testUserSharee, _sharedPassword);
+
+            Password sharedPasswordSharee = _testUserSharee.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
+
+            Assert.AreEqual(1, sharedPasswordSharee.UsersSharedWith.Count);
         }
     }
 }

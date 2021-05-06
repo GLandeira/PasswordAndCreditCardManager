@@ -17,10 +17,14 @@ namespace Domain
 
         private const int MAXIMUM_CHARACTERS_CATEGORY_NAME = 15;
         private const int MINIMUM_CHARACTERS_CATEGORY_NAME = 3;
+        public const string SHARED_PASSWORD_CATEGORY_NAME = "Shared With Me";
+
+        public static Category SHARED_WITH_ME_CATEGORY = new Category(SHARED_PASSWORD_CATEGORY_NAME);
 
         public User()
         {
             Categories = new List<Category>();
+            Categories.Add(SHARED_WITH_ME_CATEGORY);
             UserPasswords = new UserPassword(this);
             UserCreditCards = new UserCreditCard();
         }

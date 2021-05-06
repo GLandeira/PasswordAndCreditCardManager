@@ -12,6 +12,7 @@ namespace Domain
         private User _theUser;
 
         private List<Password> _passwords;
+        private List<Password> _sharedPasswords;
 
         public List<Password> Passwords
         {
@@ -25,9 +26,22 @@ namespace Domain
             }
         }
 
+        public List<Password> SharedPasswords
+        {
+            get
+            {
+                return _sharedPasswords;
+            }
+            set
+            {
+                _sharedPasswords = value;
+            }
+        }
+
         public UserPassword(User theUser)
         {
             this._passwords = new List<Password>();
+            this._sharedPasswords = new List<Password>();
             _theUser = theUser;
         }
 
@@ -41,27 +55,77 @@ namespace Domain
             this._passwords.Remove(password);
         }
 
+        public Password GetPassword(string siteName, string siteUserName)
+        {
+            Password passwordImitator = new Password();
+            passwordImitator.Site = siteName;
+            passwordImitator.Username = siteUserName;
+
+            if(!_passwords.Any(pass => pass.Equals(passwordImitator)))
+            {
+                throw new PasswordDoesntExistException();
+            }
+
+            return _passwords.First(pass => pass.Equals(passwordImitator));
+        }
+
         public void ModifyPassword(Password modifiedPassword, Password oldPassword)
         {
-            if(this._passwords.Any(ListIteratingPassword => ListIteratingPassword.Equals(modifiedPassword)))
+            if(this._passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(modifiedPassword)))
             {
                 throw new AlreadyExistingPasswordException();
             }
-            else
+
+            modifiedPassword.LastModification = DateTime.Now;
+
+            if (oldPassword.UsersSharedWith.Count > 0)
             {
-                this._passwords.Remove(oldPassword);
-                this._passwords.Add(modifiedPassword);
+                ModifySharedPassword(modifiedPassword, oldPassword);
             }
+
+            this._passwords.Remove(oldPassword);
+            this._passwords.Add(modifiedPassword);
         }
 
-        public void SharePassword(string sharee, Password sharedPassword)
+        public void SharePassword(User sharee, Password sharedPassword)
         {
-            PasswordShareDetails shareDetails = new PasswordShareDetails();
-            shareDetails.sharerName = _theUser.Name;
-            shareDetails.shareeName = sharee;
-            shareDetails.sharedPassword = sharedPassword;
+            AddUserToPasswordUsersSharedWith(sharee.Name, sharedPassword);
 
-            PasswordSharer.Instance.SharePassword(shareDetails);
+            Password sharedClone = (Password)sharedPassword.Clone();
+            sharedClone.Category = User.SHARED_WITH_ME_CATEGORY;
+
+            sharee.UserPasswords.AddPassword(sharedClone);
+            AddSharedPassword(sharedClone);
+        }
+
+        public void StopSharingPassword(User sharee, Password sharedPassword)
+        {
+            RemoveUserFromPasswordUsersSharedWith(sharee.Name, sharedPassword);
+            SharedPasswords.Remove(sharedPassword);
+            sharee.UserPasswords.RemovePassword(sharedPassword);
+        }
+
+        private void ModifySharedPassword(Password modifiedPassword, Password oldPassword)
+        {
+            Password sharedPassword = _sharedPasswords.Find(pass => pass.Equals(oldPassword));
+            sharedPassword = modifiedPassword;
+        }
+
+        private void AddSharedPassword(Password sharedPassword)
+        {
+            _sharedPasswords.Add(sharedPassword);
+        }
+
+        private void AddUserToPasswordUsersSharedWith(string shareeName, Password sharedPassword)
+        {
+            Password sharerPasswordInMemory = _passwords.Find(pass => pass.Equals(sharedPassword));
+            sharerPasswordInMemory.UsersSharedWith.Add(shareeName);
+        }
+
+        private void RemoveUserFromPasswordUsersSharedWith(string shareeName, Password sharedPassword)
+        {
+            Password sharerPasswordInMemory = _passwords.Find(pass => pass.Equals(sharedPassword));
+            sharerPasswordInMemory.UsersSharedWith.Remove(shareeName);
         }
     }
 }
