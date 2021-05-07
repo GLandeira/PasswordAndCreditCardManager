@@ -9,7 +9,6 @@ namespace DomainTests
     [TestClass]
     public class UserPasswordTests
     {
-        User testUser;
         UserPassword userPasswordTest;
         Password testPassword1;
         Password testPassword2;
@@ -165,7 +164,7 @@ namespace DomainTests
             string siteNameThatDoesntExist = "Inexistent Site";
             string userNameThatDoesntExist = "Inexistent Username";
 
-            Assert.ThrowsException<PasswordDoesntExistException>(() => userPasswordTest.GetPassword(siteNameThatDoesntExist, userNameThatDoesntExist));
+            Assert.ThrowsException<PasswordNotFoundException>(() => userPasswordTest.GetPassword(siteNameThatDoesntExist, userNameThatDoesntExist));
         }
 
         [TestMethod]
