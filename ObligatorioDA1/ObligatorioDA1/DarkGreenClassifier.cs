@@ -8,6 +8,21 @@ namespace Domain
 {
     public class DarkGreenClassifier : ColorClassifier
     {
-       
+        public static bool meetsColorCriteria(String password)
+        {
+            bool meetsCriteria = false;
+
+            if(password.Length > 14)
+            {
+                bool UpperCaseFound = HasUpperCase(password);
+                bool LowerCaseFound = HasLowerCase(password);
+                bool DigitsFound = HasDigits(password);
+                bool SpecialCharsFound = HasSpecialCharacters(password);
+                meetsCriteria = UpperCaseFound && LowerCaseFound && DigitsFound && SpecialCharsFound;
+            }
+            
+            return meetsCriteria;
+        }
+
     }
 }
