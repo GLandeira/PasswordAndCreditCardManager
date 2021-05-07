@@ -3,25 +3,24 @@ using System;
 using Domain;
 using Domain.Exceptions;
 
-
 namespace DomainTests
 {
     [TestClass]
     public class UserCreditCardTests
     {
-        UserCreditCard userCreditCardTest;
-        CreditCard creditCard1;
-        CreditCard creditCard2;
-        CreditCard creditCard3;
+        private UserCreditCard _userCreditCardTest;
+        private CreditCard _creditCard1;
+        private CreditCard _creditCard2;
+        private CreditCard _creditCard3;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            userCreditCardTest = new UserCreditCard();
+            _userCreditCardTest = new UserCreditCard();
 
             Category trabajo = new Category("Trabajo");
             CardTypes visa = CardTypes.VISA;
-            creditCard1 = new CreditCard
+            _creditCard1 = new CreditCard
             {
                 Name = "Visa Gold",
                 Type = visa,
@@ -33,7 +32,7 @@ namespace DomainTests
 
             Category personal = new Category("Personal");
             CardTypes master = CardTypes.MASTERCARD;
-            creditCard2 = new CreditCard
+            _creditCard2 = new CreditCard
             {
                 Name = "Master",
                 Type = master,
@@ -43,7 +42,7 @@ namespace DomainTests
                 Notes = "para compartir"
             };
 
-            creditCard3 = new CreditCard
+            _creditCard3 = new CreditCard
             {
                 Name = "Visa Platinum",
                 Type = visa,
@@ -57,21 +56,21 @@ namespace DomainTests
         [TestMethod]
         public void AddOneCreditCardToListCheckCount()
         {
-            userCreditCardTest.AddCreditCard(creditCard1);
-            Assert.AreEqual(1, userCreditCardTest.CreditCards.Count);
+            _userCreditCardTest.AddCreditCard(_creditCard1);
+            Assert.AreEqual(1, _userCreditCardTest.CreditCards.Count);
         }
 
         [TestMethod]
         public void AddThreeCreditCardsToListCheckIfANameIsThere()
         {
-            userCreditCardTest.AddCreditCard(creditCard1);
-            userCreditCardTest.AddCreditCard(creditCard2);
-            userCreditCardTest.AddCreditCard(creditCard3);
+            _userCreditCardTest.AddCreditCard(_creditCard1);
+            _userCreditCardTest.AddCreditCard(_creditCard2);
+            _userCreditCardTest.AddCreditCard(_creditCard3);
             bool numberIsEqual = false;
 
-            foreach (CreditCard creditCard in userCreditCardTest.CreditCards)
+            foreach (CreditCard creditCard in _userCreditCardTest.CreditCards)
             {
-                if (creditCard == creditCard2)
+                if (creditCard == _creditCard2)
                 {
                     numberIsEqual = true;
                 }
@@ -83,21 +82,22 @@ namespace DomainTests
         [TestMethod]
         public void RemoveCreditCardAddedToTheList()
         {
-            userCreditCardTest.AddCreditCard(creditCard1);
-            userCreditCardTest.RemoveCreditCard(creditCard1);
-            Assert.AreEqual(0, userCreditCardTest.CreditCards.Count);
+            _userCreditCardTest.AddCreditCard(_creditCard1);
+            _userCreditCardTest.RemoveCreditCard(_creditCard1);
+            Assert.AreEqual(0, _userCreditCardTest.CreditCards.Count);
         }
+
         [TestMethod]
         public void RemoveSecondCreditCardAddedToTheList()
         {
-            userCreditCardTest.AddCreditCard(creditCard1);
-            userCreditCardTest.AddCreditCard(creditCard2);
-            userCreditCardTest.RemoveCreditCard(creditCard2);
+            _userCreditCardTest.AddCreditCard(_creditCard1);
+            _userCreditCardTest.AddCreditCard(_creditCard2);
+            _userCreditCardTest.RemoveCreditCard(_creditCard2);
             bool numberIsEqual = false;
 
-            foreach (CreditCard creditCard in userCreditCardTest.CreditCards)
+            foreach (CreditCard creditCard in _userCreditCardTest.CreditCards)
             {
-                if (creditCard == creditCard2)
+                if (creditCard == _creditCard2)
                 {
                     numberIsEqual = true;
                 }
@@ -108,7 +108,7 @@ namespace DomainTests
         [TestMethod]
         public void ModifyOneCreditCardNameAddedToTheListWithJustOneCreditCard()
         {
-            userCreditCardTest.AddCreditCard(creditCard1);
+            _userCreditCardTest.AddCreditCard(_creditCard1);
 
             Category trabajo = new Category("Trabajo");
             CardTypes visa = CardTypes.VISA;
@@ -122,10 +122,10 @@ namespace DomainTests
                 Notes = ""
             };
 
-            userCreditCardTest.ModifyCreditCard(creditCard1, creditCardChangeTest);
+            _userCreditCardTest.ModifyCreditCard(_creditCard1, creditCardChangeTest);
   
             bool numberIsEqual = false;
-            foreach (CreditCard creditCard in userCreditCardTest.CreditCards)
+            foreach (CreditCard creditCard in _userCreditCardTest.CreditCards)
             {
                 if (creditCard == creditCardChangeTest)
                 {
@@ -138,9 +138,9 @@ namespace DomainTests
         [TestMethod]
         public void ModifyACreditCardAddedToTheListWithMultipleCreditCards()
         {
-            userCreditCardTest.AddCreditCard(creditCard1);
-            userCreditCardTest.AddCreditCard(creditCard2);
-            userCreditCardTest.AddCreditCard(creditCard3);
+            _userCreditCardTest.AddCreditCard(_creditCard1);
+            _userCreditCardTest.AddCreditCard(_creditCard2);
+            _userCreditCardTest.AddCreditCard(_creditCard3);
 
             Category trabajo = new Category("Trabajo");
             CardTypes visa = CardTypes.VISA;
@@ -154,10 +154,10 @@ namespace DomainTests
                 Notes = "La modifique a esta"
             };
 
-            userCreditCardTest.ModifyCreditCard(creditCard1, creditCardChangeTest);
+            _userCreditCardTest.ModifyCreditCard(_creditCard1, creditCardChangeTest);
 
             bool numberIsEqual = false;
-            foreach (CreditCard creditCard in userCreditCardTest.CreditCards)
+            foreach (CreditCard creditCard in _userCreditCardTest.CreditCards)
             {
                 if (creditCard == creditCardChangeTest)
                 {
@@ -170,7 +170,7 @@ namespace DomainTests
         [TestMethod]
         public void ModifyACreditCardAddedToTheListLeavingSameNumber()
         {
-            userCreditCardTest.AddCreditCard(creditCard1);
+            _userCreditCardTest.AddCreditCard(_creditCard1);
             Category personal = new Category("Personal");
             CardTypes master = CardTypes.MASTERCARD;
             CreditCard creditCardChangeTest = new CreditCard
@@ -183,10 +183,10 @@ namespace DomainTests
                 Notes = "La modifique a esta"
             };
 
-            userCreditCardTest.ModifyCreditCard(creditCard1, creditCardChangeTest);
+            _userCreditCardTest.ModifyCreditCard(_creditCard1, creditCardChangeTest);
 
             bool numberIsEqual = false;
-            foreach (CreditCard creditCard in userCreditCardTest.CreditCards)
+            foreach (CreditCard creditCard in _userCreditCardTest.CreditCards)
             {
                 if (creditCard == creditCardChangeTest)
                 {
@@ -196,33 +196,31 @@ namespace DomainTests
             Assert.AreEqual(true, numberIsEqual);
         }
 
-
-
         [ExpectedException(typeof(CreditCardRepeatedException))]
         [TestMethod]
         public void AddSameCreditCardTwice()
         {
-            userCreditCardTest.AddCreditCard(creditCard1);
-            userCreditCardTest.AddCreditCard(creditCard2);
-            userCreditCardTest.AddCreditCard(creditCard1);
+            _userCreditCardTest.AddCreditCard(_creditCard1);
+            _userCreditCardTest.AddCreditCard(_creditCard2);
+            _userCreditCardTest.AddCreditCard(_creditCard1);
         }
 
         [ExpectedException(typeof(CreditCardRepeatedException))]
         [TestMethod]
         public void ModifyCreditCardAndAddOneThatIsAlreadyInTheList()
         {
-            userCreditCardTest.AddCreditCard(creditCard1);
-            userCreditCardTest.AddCreditCard(creditCard2);
+            _userCreditCardTest.AddCreditCard(_creditCard1);
+            _userCreditCardTest.AddCreditCard(_creditCard2);
 
-            userCreditCardTest.ModifyCreditCard(creditCard1, creditCard2);
+            _userCreditCardTest.ModifyCreditCard(_creditCard1, _creditCard2);
         }
 
         [TestMethod]
         public void GetCreditCardThatExistsInTheList()
         {
-            userCreditCardTest.AddCreditCard(creditCard1);
-            userCreditCardTest.AddCreditCard(creditCard2);
-            CreditCard creditCardTest = userCreditCardTest.GetCreditCard("2222222222222222");
+            _userCreditCardTest.AddCreditCard(_creditCard1);
+            _userCreditCardTest.AddCreditCard(_creditCard2);
+            CreditCard creditCardTest = _userCreditCardTest.GetCreditCard("2222222222222222");
 
             Assert.AreEqual("2222222222222222", creditCardTest.Number);
         }
@@ -231,10 +229,10 @@ namespace DomainTests
         [TestMethod]
         public void GetCreditCardThatNotExistsInTheList()
         {
-            userCreditCardTest.AddCreditCard(creditCard1);
-            userCreditCardTest.AddCreditCard(creditCard2);
-            userCreditCardTest.AddCreditCard(creditCard3);
-            CreditCard creditCardTest = userCreditCardTest.GetCreditCard("4444444444444444");
+            _userCreditCardTest.AddCreditCard(_creditCard1);
+            _userCreditCardTest.AddCreditCard(_creditCard2);
+            _userCreditCardTest.AddCreditCard(_creditCard3);
+            CreditCard creditCardTest = _userCreditCardTest.GetCreditCard("4444444444444444");
         }
     }
 }

@@ -9,48 +9,47 @@ namespace DomainTests
     [TestClass]
     public class UserPasswordTests
     {
-        User testUser;
-        UserPassword userPasswordTest;
-        Password testPassword1;
-        Password testPassword2;
-        Password testPassword3;
-        Category trabajo;
-        Category personal;
+        private UserPassword _userPasswordTest;
+        private Password _testPassword1;
+        private Password _testPassword2;
+        private Password _testPassword3;
+        private Category _trabajo;
+        private Category _personal;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            userPasswordTest = new UserPassword();
+            _userPasswordTest = new UserPassword();
 
-            Category trabajo = new Category("trabajo");
-            testPassword1 = new Password
+            _trabajo = new Category("Trabajo");
+            _testPassword1 = new Password
             {
                 PasswordString = "1111",
                 Site = "www.ort.edu.uy",
                 Username = "Matias Gonzalez",
                 LastModification = DateTime.Today,
-                Category = trabajo,
+                Category = _trabajo,
                 Notes = "cuenta universidad"
             };
 
-            Category personal = new Category("personal");
-            testPassword2 = new Password
+            _personal = new Category("Personal");
+            _testPassword2 = new Password
             {
                 PasswordString = "abcd",
                 Site = "www.twitch.tv",
                 Username = "MatixitaM",
                 LastModification = DateTime.Today,
-                Category = personal,
+                Category = _personal,
                 Notes = "cuenta streaming"
             };
 
-            testPassword3 = new Password
+            _testPassword3 = new Password
             {
                 PasswordString = "1111",
                 Site = "www.twitch.tv",
                 Username = "GLandeira",
                 LastModification = DateTime.Today,
-                Category = personal,
+                Category = _personal,
                 Notes = "cuenta streaming 2"
             };
 
@@ -60,20 +59,20 @@ namespace DomainTests
         [TestMethod]
         public void TestAddingOnePasswordToList()
         {
-            userPasswordTest.AddPassword(testPassword1);
-            Assert.AreEqual(1, userPasswordTest.Passwords.Count);
+            _userPasswordTest.AddPassword(_testPassword1);
+            Assert.AreEqual(1, _userPasswordTest.Passwords.Count);
         }
 
         [TestMethod]
         public void TestAddingTwoPasswordsAndLookingForOne()
         {
             bool samePassword = false;
-            userPasswordTest.AddPassword(testPassword1);
-            userPasswordTest.AddPassword(testPassword2);
+            _userPasswordTest.AddPassword(_testPassword1);
+            _userPasswordTest.AddPassword(_testPassword2);
 
-            foreach (Password Password in userPasswordTest.Passwords)
+            foreach (Password Password in _userPasswordTest.Passwords)
             {
-                if (Password.Equals(testPassword1))
+                if (Password.Equals(_testPassword1))
                 {
                     samePassword = true;
                 }
@@ -84,23 +83,23 @@ namespace DomainTests
         [TestMethod]
         public void TestRemovingOnlyPasswordInList()
         {
-            userPasswordTest.AddPassword(testPassword1);
-            userPasswordTest.RemovePassword(testPassword1);
+            _userPasswordTest.AddPassword(_testPassword1);
+            _userPasswordTest.RemovePassword(_testPassword1);
 
-            Assert.AreEqual(0, userPasswordTest.Passwords.Count);
+            Assert.AreEqual(0, _userPasswordTest.Passwords.Count);
         }
 
         [TestMethod]
         public void TestRemovingSpecificPasswordFromListWithMoreThanOneElement()
         {
             bool password2InList = false;
-            userPasswordTest.AddPassword(testPassword1);
-            userPasswordTest.AddPassword(testPassword2);
-            userPasswordTest.RemovePassword(testPassword2);
+            _userPasswordTest.AddPassword(_testPassword1);
+            _userPasswordTest.AddPassword(_testPassword2);
+            _userPasswordTest.RemovePassword(_testPassword2);
 
-            foreach (Password Password in userPasswordTest.Passwords)
+            foreach (Password Password in _userPasswordTest.Passwords)
             {
-                if (Password.Equals(testPassword2))
+                if (Password.Equals(_testPassword2))
                 {
                     password2InList = true;
                 }
@@ -119,13 +118,13 @@ namespace DomainTests
                 Site = "www.twitch.tv",
                 Username = "MatixitaM",
                 LastModification = DateTime.Today,
-                Category = personal,
+                Category = _personal,
                 Notes = "cuenta streaming"
             };
 
-            userPasswordTest.ModifyPassword(modifiedPassword, testPassword2);
+            _userPasswordTest.ModifyPassword(modifiedPassword, _testPassword2);
 
-            foreach(Password Password in userPasswordTest.Passwords)
+            foreach(Password Password in _userPasswordTest.Passwords)
             {
                 if(modifiedPassword.Equals(Password))
                 {
@@ -147,7 +146,7 @@ namespace DomainTests
                 Site = siteName,
                 Username = userName,
                 LastModification = DateTime.Today,
-                Category = personal,
+                Category = _personal,
                 Notes = "Youtube account"
             };
 
@@ -155,8 +154,8 @@ namespace DomainTests
             passwordImitator.Site = siteName;
             passwordImitator.Username = userName;
 
-            userPasswordTest.AddPassword(newPassword);
-            Assert.AreEqual(passwordImitator, userPasswordTest.GetPassword(siteName, userName));
+            _userPasswordTest.AddPassword(newPassword);
+            Assert.AreEqual(passwordImitator, _userPasswordTest.GetPassword(siteName, userName));
         }
 
         [TestMethod]
@@ -165,35 +164,35 @@ namespace DomainTests
             string siteNameThatDoesntExist = "Inexistent Site";
             string userNameThatDoesntExist = "Inexistent Username";
 
-            Assert.ThrowsException<PasswordDoesntExistException>(() => userPasswordTest.GetPassword(siteNameThatDoesntExist, userNameThatDoesntExist));
+            Assert.ThrowsException<PasswordNotFoundException>(() => userPasswordTest.GetPassword(siteNameThatDoesntExist, userNameThatDoesntExist));
         }
 
         [TestMethod]
         public void GetPasswordsByPasswordStringOneThatExistsInTheList()
         {
-            userPasswordTest.AddPassword(testPassword1);
-            userPasswordTest.AddPassword(testPassword2);
-            List<Password> passwordsTest = userPasswordTest.GetPasswordsByPasswordString("1111");
+            _userPasswordTest.AddPassword(_testPassword1);
+            _userPasswordTest.AddPassword(_testPassword2);
+            List<Password> passwordsTest = _userPasswordTest.GetPasswordsByPasswordString("1111");
 
-            Assert.AreEqual(testPassword1, passwordsTest.Find(passwordInList => passwordInList.PasswordString.Equals("1111")));
+            Assert.AreEqual(_testPassword1, passwordsTest.Find(passwordInList => passwordInList.PasswordString.Equals("1111")));
         }
       
         [ExpectedException(typeof(PasswordNotFoundException))]
         [TestMethod]
         public void GetPasswordsByPasswordStringThatNotExistsInTheList()
         {
-            userPasswordTest.AddPassword(testPassword1);
-            userPasswordTest.AddPassword(testPassword2);
-            List<Password> passwordsTest = userPasswordTest.GetPasswordsByPasswordString("PasswordThatDoesntExist");
+            _userPasswordTest.AddPassword(_testPassword1);
+            _userPasswordTest.AddPassword(_testPassword2);
+            List<Password> passwordsTest = _userPasswordTest.GetPasswordsByPasswordString("PasswordThatDoesntExist");
         }
 
         [TestMethod]
         public void GetPasswordsByPasswordStringTwoThatExistsInTheList()
         {
-            userPasswordTest.AddPassword(testPassword1);
-            userPasswordTest.AddPassword(testPassword2);
-            userPasswordTest.AddPassword(testPassword3);
-            List<Password> passwordsTest = userPasswordTest.GetPasswordsByPasswordString("1111");
+            _userPasswordTest.AddPassword(_testPassword1);
+            _userPasswordTest.AddPassword(_testPassword2);
+            _userPasswordTest.AddPassword(_testPassword3);
+            List<Password> passwordsTest = _userPasswordTest.GetPasswordsByPasswordString("1111");
 
             Assert.AreEqual(2, passwordsTest.Count);
         }
