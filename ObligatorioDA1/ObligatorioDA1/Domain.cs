@@ -9,7 +9,7 @@ namespace Domain
 {
     public class Domain
     {
-        public List<User> Users { get; set; }
+        public List<User> Users { get; private set; }
 
 
         public Domain()
@@ -25,6 +25,16 @@ namespace Domain
             }
 
             Users.Add(newUser);
+        }
+
+        public User GetUser(string username)
+        {
+            if(!Users.Any(user => user.Name == username))
+            {
+                throw new UserNotPresentException();
+            }
+
+            return Users.First(user => user.Name == username);
         }
 
         public void ModifyPassword(string userNameInDomain, string newPassword)
@@ -47,6 +57,7 @@ namespace Domain
         {
             return Users.Any
                 (us => us.Name == userNameToLogInWith && 
+
                        us.MainPassword == userPasswordToLogInWith);
         }
     }

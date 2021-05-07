@@ -18,7 +18,7 @@ namespace Domain.PasswordGenerator
         private const int MIN_ASCII_THRESHOLD_TWO = 58;
         private const int MAX_ASCII_THRESHOLD_TWO = 64;
         private const int MIN_ASCII_THRESHOLD_THREE = 91;
-        private const int MAX_ASCII_THRESHOLD_THREE = 96;
+        private const int MAX_ASCII_THRESHOLD_THREE = 95;
         private const int MIN_ASCII_THRESHOLD_FOUR = 123;
         private const int MAX_ASCII_THRESHOLD_FOUR = 126;
 

@@ -10,7 +10,7 @@ namespace Domain.PasswordGenerator
     {
         public static readonly char[] ALL_MAYUS_CHARACTERS =
         {
-            'A', 'B', 'C', 'D', 'F', 'G', 'H',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
             'I', 'J', 'K', 'L', 'M', 'N', 'O',
             'P', 'Q', 'R', 'S' , 'T', 'U', 'V',
             'W', 'X', 'Y', 'Z'
@@ -18,7 +18,7 @@ namespace Domain.PasswordGenerator
 
         public static readonly char[] ALL_MINUS_CHARACTERS =
         {
-            'a', 'b', 'c', 'd', 'f', 'g', 'h',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
             'i', 'j', 'k', 'l', 'm', 'n', 'o',
             'p', 'q', 'r', 's' , 't', 'u', 'v',
             'w', 'x', 'y', 'z'
@@ -36,7 +36,7 @@ namespace Domain.PasswordGenerator
             '+', '=', '_', '-', ')', '(', '*',
             '`', '~', '/', '.' , ',', '>', '<',
             '[', ']', ':', '"', ';', '{', '}', '|',
-            '|', '?', ' ', ("'").ToCharArray()[0]
+            '|', '?', ' '
         };
     }
 }

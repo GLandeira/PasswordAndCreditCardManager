@@ -16,17 +16,26 @@ namespace Domain
         UserDataBreaches UserDataBreaches;
         public List<Category> Categories { get; set; }
 
+        private const int MAXIMUM_CHARACTERS_CATEGORY_NAME = 15;
+        private const int MINIMUM_CHARACTERS_CATEGORY_NAME = 3;
+        public const string SHARED_PASSWORD_CATEGORY_NAME = "Shared With Me";
+
+        public static Category SHARED_WITH_ME_CATEGORY = new Category(SHARED_PASSWORD_CATEGORY_NAME);
+
         public User()
         {
             Categories = new List<Category>();
             UserDataBreaches = new UserDataBreaches(this);
             UserCreditCards = new UserCreditCard();
             UserPasswords = new UserPassword();
+            Categories.Add(SHARED_WITH_ME_CATEGORY);
         }
 
         public User(string name, string mainPassword)
         {
             Categories = new List<Category>();
+            UserPasswords = new UserPassword();
+            UserCreditCards = new UserCreditCard();
             Name = name;
             MainPassword = mainPassword;
             UserDataBreaches = new UserDataBreaches(this);
