@@ -25,14 +25,14 @@ namespace Domain
         {
             Categories = new List<Category>();
             Categories.Add(SHARED_WITH_ME_CATEGORY);
-            UserPasswords = new UserPassword(this);
+            UserPasswords = new UserPassword();
             UserCreditCards = new UserCreditCard();
         }
 
         public User(string name, string mainPassword)
         {
             Categories = new List<Category>();
-            UserPasswords = new UserPassword(this);
+            UserPasswords = new UserPassword();
             UserCreditCards = new UserCreditCard();
             Name = name;
             MainPassword = mainPassword;

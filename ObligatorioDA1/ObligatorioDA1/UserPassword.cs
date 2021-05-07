@@ -9,10 +9,7 @@ namespace Domain
 {
     public class UserPassword
     {
-        private User _theUser;
-
         private List<Password> _passwords;
-        private List<Password> _sharedPasswords;
 
         public List<Password> Passwords
         {
@@ -26,23 +23,9 @@ namespace Domain
             }
         }
 
-        public List<Password> SharedPasswords
-        {
-            get
-            {
-                return _sharedPasswords;
-            }
-            set
-            {
-                _sharedPasswords = value;
-            }
-        }
-
-        public UserPassword(User theUser)
+        public UserPassword()
         {
             this._passwords = new List<Password>();
-            this._sharedPasswords = new List<Password>();
-            _theUser = theUser;
         }
 
         public void AddPassword(Password password)
@@ -78,11 +61,6 @@ namespace Domain
 
             modifiedPassword.LastModification = DateTime.Now;
 
-            if (oldPassword.UsersSharedWith.Count > 0)
-            {
-                ModifySharedPassword(modifiedPassword, oldPassword);
-            }
-
             this._passwords.Remove(oldPassword);
             this._passwords.Add(modifiedPassword);
         }
@@ -95,25 +73,12 @@ namespace Domain
             sharedClone.Category = User.SHARED_WITH_ME_CATEGORY;
 
             sharee.UserPasswords.AddPassword(sharedClone);
-            AddSharedPassword(sharedClone);
         }
 
         public void StopSharingPassword(User sharee, Password sharedPassword)
         {
             RemoveUserFromPasswordUsersSharedWith(sharee.Name, sharedPassword);
-            SharedPasswords.Remove(sharedPassword);
             sharee.UserPasswords.RemovePassword(sharedPassword);
-        }
-
-        private void ModifySharedPassword(Password modifiedPassword, Password oldPassword)
-        {
-            Password sharedPassword = _sharedPasswords.Find(pass => pass.Equals(oldPassword));
-            sharedPassword = modifiedPassword;
-        }
-
-        private void AddSharedPassword(Password sharedPassword)
-        {
-            _sharedPasswords.Add(sharedPassword);
         }
 
         private void AddUserToPasswordUsersSharedWith(string shareeName, Password sharedPassword)
