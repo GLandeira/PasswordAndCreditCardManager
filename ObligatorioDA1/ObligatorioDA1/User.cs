@@ -11,18 +11,29 @@ namespace Domain
     {
         public string Name { get; set; }
         public string MainPassword { get; set; }
-        UserPassword UserPasswords;
-        UserCreditCard UserCreditCards;
+        public UserPassword UserPasswords { get; private set; }
+        public UserCreditCard UserCreditCards { get; private set; }
         public List<Category> Categories { get; set; }
+
+        private const int MAXIMUM_CHARACTERS_CATEGORY_NAME = 15;
+        private const int MINIMUM_CHARACTERS_CATEGORY_NAME = 3;
+        public const string SHARED_PASSWORD_CATEGORY_NAME = "Shared With Me";
+
+        public static Category SHARED_WITH_ME_CATEGORY = new Category(SHARED_PASSWORD_CATEGORY_NAME);
 
         public User()
         {
             Categories = new List<Category>();
+            Categories.Add(SHARED_WITH_ME_CATEGORY);
+            UserPasswords = new UserPassword();
+            UserCreditCards = new UserCreditCard();
         }
 
         public User(string name, string mainPassword)
         {
             Categories = new List<Category>();
+            UserPasswords = new UserPassword();
+            UserCreditCards = new UserCreditCard();
             Name = name;
             MainPassword = mainPassword;
         }

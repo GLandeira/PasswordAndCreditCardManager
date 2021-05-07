@@ -89,5 +89,30 @@ namespace DomainTests
 
             Assert.IsFalse(_mockDomain.LogIn(falseUsername, falsePassword));
         }
+
+        [TestMethod]
+        public void TestGettingAUserThatExistsReturnsIt()
+        {
+            Assert.IsNotNull(_mockDomain.GetUser(_userNameInDomain));
+        }
+
+        [TestMethod]
+        public void TestGettingAUserAfterAddingReturnsIt()
+        {
+            string userName = "testName";
+            User testUser = new User(userName, "");
+
+            _mockDomain.AddUser(testUser);
+
+            Assert.IsNotNull(_mockDomain.GetUser(userName));
+        }
+
+        [TestMethod]
+        public void TestGettingAUserThatDoesntExistThrowsException()
+        {
+            string userNameThatDoesntExist = "testName";
+
+            Assert.ThrowsException<UserNotPresentException>(() => _mockDomain.GetUser(userNameThatDoesntExist));
+        }
     }
 }

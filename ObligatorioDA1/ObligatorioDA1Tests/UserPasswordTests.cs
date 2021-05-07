@@ -1,13 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Domain;
+using Domain.Exceptions;
 
 namespace DomainTests
 {
     [TestClass]
     public class UserPasswordTests
     {
-
+        User testUser;
         UserPassword userPasswordTest;
         Password testPassword1;
         Password testPassword2;
@@ -124,7 +125,37 @@ namespace DomainTests
             Assert.AreEqual(true, passwordWasModified);
         }
 
+        [TestMethod]
+        public void TestGettingAPasswordJustAddedReturnsPassword()
+        {
+            string siteName = "www.youtube.com";
+            string userName = "Sleepz";
+            Password newPassword = new Password
+            {
+                PasswordString = "@*b232#K3kl32",
+                Site = siteName,
+                Username = userName,
+                LastModification = DateTime.Today,
+                Category = personal,
+                Notes = "Youtube account"
+            };
 
+            Password passwordImitator = new Password();
+            passwordImitator.Site = siteName;
+            passwordImitator.Username = userName;
+
+            userPasswordTest.AddPassword(newPassword);
+            Assert.AreEqual(passwordImitator, userPasswordTest.GetPassword(siteName, userName));
+        }
+
+        [TestMethod]
+        public void TestGettingAPasswordThatDoesntExistThrowsException()
+        {
+            string siteNameThatDoesntExist = "Inexistent Site";
+            string userNameThatDoesntExist = "Inexistent Username";
+
+            Assert.ThrowsException<PasswordDoesntExistException>(() => userPasswordTest.GetPassword(siteNameThatDoesntExist, userNameThatDoesntExist));
+        }
 
     }
 }
