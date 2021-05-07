@@ -29,7 +29,6 @@ namespace DomainTests
         public SharedPasswordsTests()
         {
             _testDomain = new Domain.Domain();
-            PasswordSharer.Init(_testDomain);
 
             _testUserSharer = SetupSharer();
 
