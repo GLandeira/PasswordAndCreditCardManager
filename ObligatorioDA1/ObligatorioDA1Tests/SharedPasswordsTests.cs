@@ -216,9 +216,9 @@ namespace DomainTests
 
             sharerUserPasswords.SharePassword(_testUserSharee, _sharedPassword);
 
-            Password sharedPasswordSharee = _testUserSharee.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
+            Password sharedPasswordSharer = sharerUserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
 
-            Assert.AreEqual(1, sharedPasswordSharee.UsersSharedWith.Count);
+            Assert.AreEqual(1, sharedPasswordSharer.UsersSharedWith.Count);
         }
     }
 }
