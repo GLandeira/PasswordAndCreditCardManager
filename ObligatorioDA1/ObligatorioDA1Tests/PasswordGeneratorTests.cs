@@ -198,5 +198,25 @@ namespace DomainTests
             Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_SYMBOL_CHARACTERS));
             Assert.IsTrue(-1 == generatedPassword.IndexOfAny(CharacterConstants.ALL_DIGIT_CHARACTERS));
         }
+
+        [TestMethod]
+        public void GeneratePasswordFulfillsAllCriteriaThree()
+        {
+            int passwordLength = 5;
+
+            _generationSettings.length = passwordLength;
+            _generationSettings.hasMayus = false;
+            _generationSettings.hasMinus = true;
+            _generationSettings.hasSymbols = true;
+            _generationSettings.hasDigits = true;
+
+            string generatedPassword = PasswordGenerator.GeneratePassword(_generationSettings);
+
+            Assert.IsTrue(generatedPassword.Length == passwordLength);
+            Assert.IsTrue(-1 == generatedPassword.IndexOfAny(CharacterConstants.ALL_MAYUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_MINUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_SYMBOL_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_DIGIT_CHARACTERS));
+        }
     }
 }
