@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Domain;
-using Domain.Exceptions;
 
 namespace DomainTests
 {
