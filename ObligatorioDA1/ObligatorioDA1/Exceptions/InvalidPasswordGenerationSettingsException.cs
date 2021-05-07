@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public class ShortCategoryNameException : UserException
+    public class InvalidPasswordGenerationSettingsException : Exception
     {
-        public ShortCategoryNameException()
+        public InvalidPasswordGenerationSettingsException()
         {
         }
 
-        public ShortCategoryNameException(string message) : base(message)
+        public InvalidPasswordGenerationSettingsException(string message) : base(message)
         {
         }
 
-        public ShortCategoryNameException(string message, Exception innerException) : base(message, innerException)
+        public InvalidPasswordGenerationSettingsException(string message, Exception innerException) : base(message, innerException)
         {
         }
 

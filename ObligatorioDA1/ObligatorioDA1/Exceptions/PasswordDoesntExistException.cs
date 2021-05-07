@@ -6,19 +6,20 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public class LongCategoryNameException : UserException
+    public class PasswordDoesntExistException : Exception
     {
-        public LongCategoryNameException()
+        public PasswordDoesntExistException()
         {
         }
 
-        public LongCategoryNameException(string message) : base(message)
+        public PasswordDoesntExistException(string message) : base(message)
         {
         }
 
-        public LongCategoryNameException(string message, Exception innerException) : base(message, innerException)
+        public PasswordDoesntExistException(string message, Exception innerException) : base(message, innerException)
         {
         }
+
         public override string Message => base.Message;
 
         public override string ToString()

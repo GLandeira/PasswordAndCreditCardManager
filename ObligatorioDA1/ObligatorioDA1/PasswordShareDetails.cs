@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class PasswordGenerator
+    public struct PasswordShareDetails
     {
+        public string sharerName;
+        public string shareeName;
+        public Password sharedPassword;
     }
 }
