@@ -15,6 +15,7 @@ namespace Domain
 
             if (OrangeClassifier.MeetsColorCriteria(password)) return SecurityLevelPasswords.ORANGE;
 
+            // Order of execution matters for Dark green, Light Green and Yellow
             if (DarkGreenClassifier.MeetsColorCriteria(password)) return SecurityLevelPasswords.DARK_GREEN;
 
             if (LightGreenClassifier.MeetsColorCriteria(password)) return SecurityLevelPasswords.LIGHT_GREEN;

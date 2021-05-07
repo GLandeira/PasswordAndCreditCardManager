@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.PasswordGenerator
+namespace Domain
 {
-    public class PasswordGeneratorConstants
+    public class CharacterConstants
     {
         public static readonly char[] ALL_MAYUS_CHARACTERS =
         {
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
             'I', 'J', 'K', 'L', 'M', 'N', 'O',
             'P', 'Q', 'R', 'S' , 'T', 'U', 'V',
-            'W', 'X', 'Y', 'Z'
+            'W', 'X', 'Y', 'Z', 'Ñ'
         };
 
         public static readonly char[] ALL_MINUS_CHARACTERS =
@@ -21,7 +21,7 @@ namespace Domain.PasswordGenerator
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
             'i', 'j', 'k', 'l', 'm', 'n', 'o',
             'p', 'q', 'r', 's' , 't', 'u', 'v',
-            'w', 'x', 'y', 'z'
+            'w', 'x', 'y', 'z', 'ñ'
         };
 
         public static readonly char[] ALL_DIGIT_CHARACTERS =
