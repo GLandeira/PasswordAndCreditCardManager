@@ -1,5 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using System.Collections.Generic;
+using System.Text;
+using Domain;
 using Domain.PasswordGenerator;
 
 namespace DomainTests
@@ -14,7 +17,7 @@ namespace DomainTests
 
             char characterGenerated = generator.GenerateCharacter();
             Assert.IsTrue(
-                PasswordGeneratorConstants.ALL_MAYUS_CHARACTERS.Any(
+                CharacterConstants.ALL_MAYUS_CHARACTERS.Any(
                     theCharacter => theCharacter == characterGenerated));
         }
 
@@ -25,7 +28,7 @@ namespace DomainTests
 
             char characterGenerated = generator.GenerateCharacter();
             Assert.IsTrue(
-                PasswordGeneratorConstants.ALL_MINUS_CHARACTERS.Any(
+                CharacterConstants.ALL_MINUS_CHARACTERS.Any(
                     theCharacter => theCharacter == characterGenerated));
         }
 
@@ -36,7 +39,7 @@ namespace DomainTests
 
             char characterGenerated = generator.GenerateCharacter();
             Assert.IsTrue(
-                PasswordGeneratorConstants.ALL_DIGIT_CHARACTERS.Any(
+                CharacterConstants.ALL_DIGIT_CHARACTERS.Any(
                     theCharacter => theCharacter == characterGenerated));
         }
 
@@ -47,7 +50,75 @@ namespace DomainTests
 
             char characterGenerated = generator.GenerateCharacter();
             Assert.IsTrue(
-                PasswordGeneratorConstants.ALL_SYMBOL_CHARACTERS.Any(
+                CharacterConstants.ALL_SYMBOL_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+        }
+
+        [TestMethod]
+        public void GenerateCharacterOfTypeSymbolsDoesntGenerateOtherCharacter()
+        {
+            CharacterGenerator generator = new SymbolCharacterGenerator();
+
+            char characterGenerated = generator.GenerateCharacter();
+            Assert.IsFalse(
+                CharacterConstants.ALL_MINUS_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+            Assert.IsFalse(
+                CharacterConstants.ALL_MAYUS_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+            Assert.IsFalse(
+                CharacterConstants.ALL_DIGIT_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+        }
+
+        [TestMethod]
+        public void GenerateCharacterOfTypeMinusDoesntGenerateOtherCharacter()
+        {
+            CharacterGenerator generator = new MinusCharacterGenerator();
+
+            char characterGenerated = generator.GenerateCharacter();
+            Assert.IsFalse(
+                CharacterConstants.ALL_SYMBOL_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+            Assert.IsFalse(
+                CharacterConstants.ALL_MAYUS_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+            Assert.IsFalse(
+                CharacterConstants.ALL_DIGIT_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+        }
+
+        [TestMethod]
+        public void GenerateCharacterOfTypeMayusDoesntGenerateOtherCharacter()
+        {
+            CharacterGenerator generator = new MayusCharacterGenerator();
+
+            char characterGenerated = generator.GenerateCharacter();
+            Assert.IsFalse(
+                CharacterConstants.ALL_SYMBOL_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+            Assert.IsFalse(
+                CharacterConstants.ALL_MINUS_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+            Assert.IsFalse(
+                CharacterConstants.ALL_DIGIT_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+        }
+
+        [TestMethod]
+        public void GenerateCharacterOfTypeDigitDoesntGenerateOtherCharacter()
+        {
+            CharacterGenerator generator = new DigitCharacterGenerator();
+
+            char characterGenerated = generator.GenerateCharacter();
+            Assert.IsFalse(
+                CharacterConstants.ALL_SYMBOL_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+            Assert.IsFalse(
+                CharacterConstants.ALL_MINUS_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+            Assert.IsFalse(
+                CharacterConstants.ALL_MAYUS_CHARACTERS.Any(
                     theCharacter => theCharacter == characterGenerated));
         }
     }

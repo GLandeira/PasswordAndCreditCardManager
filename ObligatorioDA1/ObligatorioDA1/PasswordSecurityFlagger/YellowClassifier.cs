@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace Domain.PasswordSecurityFlagger
 {
     public class YellowClassifier : ColorClassifier
     {
-        public static bool MeetsColorCriteria(String password)
+        public override SecurityLevelPasswords AssociatedSecurityLevel { get; } = SecurityLevelPasswords.YELLOW;
+        public override bool MeetsColorCriteria(String password)
         {
             bool meetsCriteria = false;
 
