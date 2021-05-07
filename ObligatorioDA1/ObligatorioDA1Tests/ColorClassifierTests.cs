@@ -2,7 +2,7 @@
 using System;
 using Domain;
 
-namespace ObligatorioDA1Tests
+namespace DomainTests
 {
     [TestClass]
     public class ColorClassifierTests

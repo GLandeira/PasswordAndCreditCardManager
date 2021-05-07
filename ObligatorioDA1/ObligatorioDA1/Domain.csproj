@@ -54,6 +54,8 @@
   <ItemGroup>
     <Compile Include="CardTypes.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="ColorClassifier.cs" />
+    <Compile Include="DarkGreenClassifier.cs" />
     <Compile Include="Exceptions\AlreadyExistingPasswordException.cs" />
     <Compile Include="Exceptions\CategoryNotFoundException.cs" />
     <Compile Include="CreditCard.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="Exceptions\CreditCardRepeatedException.cs" />
     <Compile Include="Exceptions\DomainException.cs" />
     <Compile Include="Exceptions\LongCategoryNameException.cs" />
+    <Compile Include="LightGreenClassifier.cs" />
     <Compile Include="Password.cs" />
     <Compile Include="PasswordGenerationSettings.cs" />
     <Compile Include="PasswordGenerator.cs" />
@@ -76,6 +79,7 @@
     <Compile Include="Exceptions\UserNotPresentException.cs" />
     <Compile Include="UserPassword.cs" />
     <Compile Include="Verifier.cs" />
+    <Compile Include="YellowClassifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
