@@ -136,32 +136,6 @@ namespace DomainTests
             Assert.IsFalse(sharedPasswordInSharer.UsersSharedWith.Contains(_shareeName));
         }
 
-        [TestMethod]
-        public void UnsharingPasswordAffectsSharedPasswordsListLength()
-        {
-            _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
-            _testUserSharer.UserPasswords.SharePassword(_testUserShareeTwo, _sharedPassword);
-
-            _testUserSharer.UserPasswords.StopSharingPassword(_testUserSharee, _sharedPassword);
-
-            //Assert.AreEqual(1, _testUserSharer.UserPasswords.SharedPasswords.Count);
-        }
-
-        [TestMethod]
-        public void UnsharingPasswordAffectsSharedPasswordsListLengthMultiple()
-        {
-            _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
-            _testUserSharer.UserPasswords.SharePassword(_testUserShareeTwo, _sharedPassword);
-            _testUserSharer.UserPasswords.SharePassword(_testUserShareeThree, _sharedPassword);
-
-            _testUserSharer.UserPasswords.StopSharingPassword(_testUserSharee, _sharedPassword);
-            _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
-
-            _testUserSharer.UserPasswords.StopSharingPassword(_testUserShareeThree, _sharedPassword);
-
-            //Assert.AreEqual(2, _testUserSharer.UserPasswords.SharedPasswords.Count);
-        }
-
 
         [TestMethod]
         public void ModifiedPasswordCascadesCorrectlyTest()
