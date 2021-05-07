@@ -68,7 +68,6 @@
     <Compile Include="Exceptions\CouldntAssignSecurityLevelException.cs" />
     <Compile Include="Exceptions\CreditCardRepeatedException.cs" />
     <Compile Include="Exceptions\DomainException.cs" />
-    <Compile Include="Exceptions\LongCategoryNameException.cs" />
     <Compile Include="LightGreenClassifier.cs" />
     <Compile Include="OrangeClassifier.cs" />
     <Compile Include="Exceptions\MainPasswordUserException.cs" />

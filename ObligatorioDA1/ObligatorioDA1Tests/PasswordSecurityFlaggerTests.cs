@@ -2,7 +2,7 @@
 using System;
 using Domain;
 
-namespace Domain
+namespace DomainTests
 {
     [TestClass]
     public class PasswordSecurityFlaggerTests
