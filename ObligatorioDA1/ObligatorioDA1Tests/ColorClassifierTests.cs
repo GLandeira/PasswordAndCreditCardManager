@@ -86,5 +86,47 @@ namespace DomainTests
             bool meetsYellowCriteria = YellowClassifier.meetsColorCriteria(password);
             Assert.AreEqual(false, meetsYellowCriteria);
         }
+
+        [TestMethod]
+        public void TestLightGreenClassifierMeetsCriteriaTrueCase1()
+        {
+            String password = "MaTiasGonZAlEzG";
+            bool meetsLightGreenCriteria = LightGreenClassifier.meetsColorCriteria(password);
+            Assert.AreEqual(true, meetsLightGreenCriteria);
+        }
+
+        [TestMethod]
+        public void TestLightGreenClassifierMeetsCriteriaTrueCase2()
+        {
+            String password = "matias1#2@3gonzalez";
+            bool meetsLightGreenCriteria = LightGreenClassifier.meetsColorCriteria(password);
+            Assert.AreEqual(true, meetsLightGreenCriteria);
+        }
+
+        [TestMethod]
+        public void TestLightGreenClassifierMeetsCriteriaTrueCase3()
+        {
+            String password = "MATIAS1#2@3GONZALEZ";
+            bool meetsLightGreenCriteria = LightGreenClassifier.meetsColorCriteria(password);
+            Assert.AreEqual(true, meetsLightGreenCriteria);
+        }
+
+        [TestMethod]
+        public void TestLightGreenClassifierMeetsCriteriaFalseCase1()
+        {
+            String password = "aB1@GD";
+            bool meetsLightGreenCriteria = LightGreenClassifier.meetsColorCriteria(password);
+            Assert.AreEqual(false, meetsLightGreenCriteria);
+        }
+
+        [TestMethod]
+        public void TestLightGreenClassifierMeetsCriteriaFalseCase2()
+        {
+            String password = "abc123de4f56";
+            bool meetsLightGreenCriteria = LightGreenClassifier.meetsColorCriteria(password);
+            Assert.AreEqual(false, meetsLightGreenCriteria);
+        }
+
+
     }
 }
