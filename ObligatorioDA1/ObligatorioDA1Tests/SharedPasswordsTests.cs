@@ -89,6 +89,19 @@ namespace DomainTests
         }
 
         [TestMethod]
+        public void SharedPasswordHasRightCategoryAfterRemovingAnotherPasswordTest()
+        {
+            _testUserSharer.UserPasswords.SharePassword(_testUserShareeTwo, _sharedPassword);
+            _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
+            
+            Password sharedPasswordInSharee = _testUserSharee.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
+
+            _testUserSharer.UserPasswords.StopSharingPassword(_testUserShareeTwo, _sharedPassword);
+
+            Assert.AreEqual(User.SHARED_WITH_ME_CATEGORY, sharedPasswordInSharee.Category);
+        }
+
+        [TestMethod]
         public void SharedPasswordHasRightCategoryAfterModificationTest()
         {
             _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
