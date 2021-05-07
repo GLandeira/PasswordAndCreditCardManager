@@ -89,7 +89,7 @@
     <Compile Include="PasswordGenerator\PasswordGenerationSettings.cs" />
     <Compile Include="PasswordGenerator\PasswordGenerator.cs" />
     <Compile Include="CharacterConstants.cs" />
-    <Compile Include="SymbolCharacterGenerator.cs" />
+    <Compile Include="PasswordGenerator\SymbolCharacterGenerator.cs" />
     <Compile Include="PasswordSecurityFlagger\PasswordSecurityFlagger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
