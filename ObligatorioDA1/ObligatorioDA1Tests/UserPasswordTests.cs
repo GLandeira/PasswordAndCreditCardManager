@@ -18,7 +18,7 @@ namespace DomainTests
         [TestInitialize]
         public void TestInitialize()
         {
-            userPasswordTest = new UserPassword(testUser);
+            userPasswordTest = new UserPassword();
 
             Category trabajo = new Category("trabajo");
             testPassword1 = new Password

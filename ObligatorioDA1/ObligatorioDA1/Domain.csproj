@@ -55,6 +55,7 @@
     <Compile Include="CardTypes.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Exceptions\PasswordDoesntExistException.cs" />
+    <Compile Include="Exceptions\PasswordAlreadySharedException.cs" />
     <Compile Include="PasswordShareDetails.cs" />
     <Compile Include="Exceptions\AlreadyExistingPasswordException.cs" />
     <Compile Include="Exceptions\CategoryNotFoundException.cs" />

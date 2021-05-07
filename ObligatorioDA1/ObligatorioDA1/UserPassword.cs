@@ -67,6 +67,8 @@ namespace Domain
 
         public void SharePassword(User sharee, Password sharedPassword)
         {
+            CheckIfShareeHasSharedPassword(sharee, sharedPassword);
+
             AddUserToPasswordUsersSharedWith(sharee.Name, sharedPassword);
 
             Password sharedClone = (Password)sharedPassword.Clone();
@@ -79,6 +81,14 @@ namespace Domain
         {
             RemoveUserFromPasswordUsersSharedWith(sharee.Name, sharedPassword);
             sharee.UserPasswords.RemovePassword(sharedPassword);
+        }
+
+        private void CheckIfShareeHasSharedPassword(User sharee, Password sharedPassword)
+        {
+            if (sharee.UserPasswords.Passwords.Any(pass => pass.Equals(sharedPassword)))
+            {
+                throw new PasswordAlreadySharedException();
+            }
         }
 
         private void AddUserToPasswordUsersSharedWith(string shareeName, Password sharedPassword)

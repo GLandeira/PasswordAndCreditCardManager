@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
+using Domain.Exceptions;
 
 namespace DomainTests
 {
@@ -76,7 +77,7 @@ namespace DomainTests
         {
             _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
 
-            Assert.ThrowsException<PasswordAlreadySharedException>(_testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword));
+            Assert.ThrowsException<PasswordAlreadySharedException>(() => _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword));
         }
 
         [TestMethod]
