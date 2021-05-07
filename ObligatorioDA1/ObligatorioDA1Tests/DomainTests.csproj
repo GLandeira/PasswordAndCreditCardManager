@@ -50,6 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryTests.cs" />
+    <Compile Include="ColorClassifierTests.cs" />
+    <Compile Include="DomainTests.cs" />
+    <Compile Include="PasswordSecurityFlaggerTests.cs" />
     <Compile Include="CharacterGeneratorTests.cs" />
     <Compile Include="DomainTests.cs" />
     <Compile Include="PasswordGeneratorTests.cs" />
