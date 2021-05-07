@@ -220,5 +220,21 @@ namespace DomainTests
 
             Assert.AreEqual(1, sharedPasswordSharer.UsersSharedWith.Count);
         }
+
+        [TestMethod]
+        public void GetSharedPasswordHasRightMultipleAmountsTest()
+        {
+            UserPassword sharerUserPasswords = _testUserSharer.UserPasswords;
+
+            sharerUserPasswords.SharePassword(_testUserSharee, _sharedPassword);
+            sharerUserPasswords.SharePassword(_testUserShareeTwo, _sharedPassword);
+            sharerUserPasswords.SharePassword(_testUserShareeThree, _sharedPassword);
+
+            Password sharedPasswordSharer = sharerUserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
+
+            Assert.AreEqual(3, sharedPasswordSharer.UsersSharedWith.Count);
+        }
+
+        
     }
 }
