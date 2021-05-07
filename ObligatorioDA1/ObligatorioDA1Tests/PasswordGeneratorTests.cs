@@ -1,4 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Domain;
 using Domain.PasswordGenerator;
 using Domain.Exceptions;
 
@@ -78,7 +82,7 @@ namespace DomainTests
             // If IndexOfAny computes -1, it means that none of the characters in the input are in the string.
             // If its different to -1, then it means that atleast one of the caracters in the list
             // is in the string.
-            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MAYUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_MAYUS_CHARACTERS));
         }
 
         [TestMethod]
@@ -92,7 +96,7 @@ namespace DomainTests
 
             string generatedPassword = PasswordGenerator.GeneratePassword(_generationSettings);
 
-            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MINUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_MINUS_CHARACTERS));
         }
 
         [TestMethod]
@@ -106,7 +110,7 @@ namespace DomainTests
 
             string generatedPassword = PasswordGenerator.GeneratePassword(_generationSettings);
 
-            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_DIGIT_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_DIGIT_CHARACTERS));
         }
 
         [TestMethod]
@@ -120,7 +124,7 @@ namespace DomainTests
 
             string generatedPassword = PasswordGenerator.GeneratePassword(_generationSettings);
 
-            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_SYMBOL_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_SYMBOL_CHARACTERS));
         }
 
         [TestMethod]
@@ -134,8 +138,8 @@ namespace DomainTests
 
             string generatedPassword = PasswordGenerator.GeneratePassword(_generationSettings);
 
-            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MAYUS_CHARACTERS));
-            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MINUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_MAYUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_MINUS_CHARACTERS));
         }
 
         [TestMethod]
@@ -149,10 +153,10 @@ namespace DomainTests
 
             string generatedPassword = PasswordGenerator.GeneratePassword(_generationSettings);
 
-            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_SYMBOL_CHARACTERS));
-            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MINUS_CHARACTERS));
-            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MAYUS_CHARACTERS));
-            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_DIGIT_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_SYMBOL_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_MINUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_MAYUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_DIGIT_CHARACTERS));
         }
 
         [TestMethod]
@@ -169,10 +173,10 @@ namespace DomainTests
             string generatedPassword = PasswordGenerator.GeneratePassword(_generationSettings);
 
             Assert.IsTrue(generatedPassword.Length == passwordLength);
-            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MAYUS_CHARACTERS));
-            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_MINUS_CHARACTERS));
-            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_SYMBOL_CHARACTERS));
-            Assert.IsTrue(-1 == generatedPassword.IndexOfAny(PasswordGeneratorConstants.ALL_DIGIT_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_MAYUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_MINUS_CHARACTERS));
+            Assert.IsTrue(-1 != generatedPassword.IndexOfAny(CharacterConstants.ALL_SYMBOL_CHARACTERS));
+            Assert.IsTrue(-1 == generatedPassword.IndexOfAny(CharacterConstants.ALL_DIGIT_CHARACTERS));
         }
     }
 }
