@@ -164,7 +164,7 @@ namespace DomainTests
             string siteNameThatDoesntExist = "Inexistent Site";
             string userNameThatDoesntExist = "Inexistent Username";
 
-            Assert.ThrowsException<PasswordNotFoundException>(() => userPasswordTest.GetPassword(siteNameThatDoesntExist, userNameThatDoesntExist));
+            Assert.ThrowsException<PasswordNotFoundException>(() => _userPasswordTest.GetPassword(siteNameThatDoesntExist, userNameThatDoesntExist));
         }
 
         [TestMethod]
