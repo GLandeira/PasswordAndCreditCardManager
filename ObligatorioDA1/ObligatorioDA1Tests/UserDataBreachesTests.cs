@@ -35,17 +35,17 @@ namespace DomainTests
         [TestInitialize]
         public void TestInitialize()
         {
-
+            _testUser = new User();
             _userDataBreaches = new UserDataBreaches(_testUser);
 
-            _breach1 = "1111111111111111";
+            _breach1 = "1111 1111 1111 1111";
             _breach2 = "micontra";
             _breach3 = "123456"; 
-            _breach4 = "2222222222222222";
-            _breach5 = "3333333333333333"; 
+            _breach4 = "2222 2222 2222 2222";
+            _breach5 = "3333 3333 3333 3333"; 
             _breach6 = "prueba#contra";
 
-            _userCreditCardTest = new UserCreditCard();
+            _userCreditCardTest = _testUser.UserCreditCards;
             _creditCard1 = new CreditCard
             {
                 Name = "Visa Gold",
@@ -62,7 +62,7 @@ namespace DomainTests
                 Number = "4444444444444444",
             };  
             
-            _userPasswordTest = new UserPassword();
+            _userPasswordTest = _testUser.UserPasswords;
             _password1 = new Password
             {
                 PasswordString = "micontra",
@@ -81,6 +81,7 @@ namespace DomainTests
                 Site = "www.twitch.tv/GLandeira",
                 Username = "GLandeira",
             };
+
         }
 
         [TestMethod]
@@ -139,7 +140,8 @@ namespace DomainTests
             _userPasswordTest.AddPassword(_password3);
             _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest);
 
-            Assert.AreEqual(6, _dataBreachTest.PasswordBreaches.Count);
+            int _listQuantity = _dataBreachTest.PasswordBreaches.Count + _dataBreachTest.CreditCardsBreaches.Count;
+            Assert.AreEqual(4, _listQuantity);
         }
 
         [TestMethod]
@@ -155,7 +157,7 @@ namespace DomainTests
             _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest);
 
             int _listQuantity = _dataBreachTest.PasswordBreaches.Count + _dataBreachTest.CreditCardsBreaches.Count;
-            Assert.AreEqual(6, _listQuantity);
+            Assert.AreEqual(4, _listQuantity);
         }
     }
 }

@@ -20,6 +20,8 @@ namespace Domain
         {
             Categories = new List<Category>();
             UserDataBreaches = new UserDataBreaches(this);
+            UserCreditCards = new UserCreditCard();
+            UserPasswords = new UserPassword();
         }
 
         public User(string name, string mainPassword)
@@ -27,6 +29,9 @@ namespace Domain
             Categories = new List<Category>();
             Name = name;
             MainPassword = mainPassword;
+            UserDataBreaches = new UserDataBreaches(this);
+            UserCreditCards = new UserCreditCard();
+            UserPasswords = new UserPassword();
         }
 
         public void AddCategory(Category aCategory)

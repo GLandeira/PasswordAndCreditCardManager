@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Domain;
+using System.Collections.Generic;
+using Domain.Exceptions;
 
 namespace DomainTests
 {
@@ -11,6 +13,7 @@ namespace DomainTests
         UserPassword userPasswordTest;
         Password testPassword1;
         Password testPassword2;
+        Password testPassword3;
         Category trabajo;
         Category personal;
 
@@ -41,6 +44,15 @@ namespace DomainTests
                 Notes = "cuenta streaming"
             };
 
+            testPassword3 = new Password
+            {
+                PasswordString = "1111",
+                Site = "www.twitch.tv",
+                Username = "GLandeira",
+                LastModification = DateTime.Today,
+                Category = personal,
+                Notes = "cuenta streaming 2"
+            };
 
         }
 
@@ -124,7 +136,34 @@ namespace DomainTests
             Assert.AreEqual(true, passwordWasModified);
         }
 
+        [TestMethod]
+        public void GetPasswordsByPasswordStringOneThatExistsInTheList()
+        {
+            userPasswordTest.AddPassword(testPassword1);
+            userPasswordTest.AddPassword(testPassword2);
+            List<Password> passwordsTest = userPasswordTest.GetPasswordsByPasswordString("1111");
 
+            Assert.AreEqual(testPassword1, passwordsTest.Find(passwordInList => passwordInList.PasswordString.Equals("1111")));
+        }
 
+        [ExpectedException(typeof(PasswordNotFoundException))]
+        [TestMethod]
+        public void GetPasswordsByPasswordStringThatNotExistsInTheList()
+        {
+            userPasswordTest.AddPassword(testPassword1);
+            userPasswordTest.AddPassword(testPassword2);
+            List<Password> passwordsTest = userPasswordTest.GetPasswordsByPasswordString("PasswordThatDoesntExist");
+        }
+
+        [TestMethod]
+        public void GetPasswordsByPasswordStringTwoThatExistsInTheList()
+        {
+            userPasswordTest.AddPassword(testPassword1);
+            userPasswordTest.AddPassword(testPassword2);
+            userPasswordTest.AddPassword(testPassword3);
+            List<Password> passwordsTest = userPasswordTest.GetPasswordsByPasswordString("1111");
+
+            Assert.AreEqual(2, passwordsTest.Count);
+        }
     }
 }

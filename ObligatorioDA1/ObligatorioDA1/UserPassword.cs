@@ -51,5 +51,14 @@ namespace Domain
             }
         }
 
+        public List<Password> GetPasswordsByPasswordString(String passwordStringToLook)
+        {
+
+            if (!Passwords.Exists(passwordInList => passwordInList.PasswordString.Equals(passwordStringToLook)))
+            {
+                throw new PasswordNotFoundException();
+            }
+            return Passwords.FindAll(passwordInList => passwordInList.PasswordString.Equals(passwordStringToLook));
+        }
     }
 }
