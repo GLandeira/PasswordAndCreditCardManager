@@ -122,7 +122,7 @@ namespace Domain
         [TestMethod]
         public void TestMoreThan14LettersLowerCaseUpperCaseAndSpecialCharsPassword()
         {
-            String password = "bC@DD%hellOWO99rld";
+            String password = "bC@DD%hellOWOrld";
             SecurityLevelPasswords TestSecurityLevel = PasswordSecurityFlagger.GetSecurityLevel(password);
             Assert.AreEqual(SecurityLevelPasswords.LIGHT_GREEN, TestSecurityLevel);
         }
@@ -138,7 +138,7 @@ namespace Domain
         [TestMethod]
         public void TestMoreThan14LettersUpperCaseDigitsAndSpecialCharsPassword()
         {
-            String password = "INAKI3321@GG.Hel98Wor";
+            String password = "INAKI3321@GG.HEL98WOR";
             SecurityLevelPasswords TestSecurityLevel = PasswordSecurityFlagger.GetSecurityLevel(password);
             Assert.AreEqual(SecurityLevelPasswords.LIGHT_GREEN, TestSecurityLevel);
         }
@@ -154,6 +154,4 @@ namespace Domain
 
 }
 
-        
-}
 
