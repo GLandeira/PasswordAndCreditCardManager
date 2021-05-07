@@ -15,7 +15,6 @@ namespace Domain
         private DateTime _validDue;
         private Category _category;
         private string _notes;
-        private bool _isBreached = false;
 
         public string Name
         {
@@ -94,17 +93,7 @@ namespace Domain
                 _notes = value;
             }
         }
-        public bool IsBreached
-        {
-            get
-            {
-                return _isBreached;
-            }
-            set
-            {
-                _isBreached = value;
-            }
-        }
+
         public override bool Equals(object obj)
         {
             if (obj == null)

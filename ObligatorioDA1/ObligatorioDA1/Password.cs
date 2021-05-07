@@ -8,15 +8,14 @@ namespace Domain
 {
     public class Password : ICloneable
     {
-        private string _passwordString;
-        private string _site;
-        private string _username;
-        private DateTime _lastModification;
-        private SecurityLevelPasswords _securityLevel;
-        private Category _category;
-        private string _notes;
-        private bool _isBreached = false;
-        private List<string> _usersSharedWith = new List<string>();
+        public string _passwordString;
+        public string _site;
+        public string _username;
+        public DateTime _lastModification;
+        public SecurityLevelPasswords _securityLevel;
+        public Category _category;
+        public string _notes;
+        public List<string> _usersSharedWith = new List<string>();
 
         public string PasswordString
         {
@@ -99,18 +98,6 @@ namespace Domain
             set
             {
                 _notes = value;
-            }
-        }
-
-        public bool IsBreached
-        {
-            get
-            {
-                return _isBreached;
-            }
-            set
-            {
-                _isBreached = value;
             }
         }
 

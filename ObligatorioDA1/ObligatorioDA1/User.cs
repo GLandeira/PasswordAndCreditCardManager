@@ -13,6 +13,7 @@ namespace Domain
         public string MainPassword { get; set; }
         public UserPassword UserPasswords { get; private set; }
         public UserCreditCard UserCreditCards { get; private set; }
+        UserDataBreaches UserDataBreaches;
         public List<Category> Categories { get; set; }
 
         private const int MAXIMUM_CHARACTERS_CATEGORY_NAME = 15;
@@ -24,9 +25,10 @@ namespace Domain
         public User()
         {
             Categories = new List<Category>();
-            Categories.Add(SHARED_WITH_ME_CATEGORY);
-            UserPasswords = new UserPassword();
+            UserDataBreaches = new UserDataBreaches(this);
             UserCreditCards = new UserCreditCard();
+            UserPasswords = new UserPassword();
+            Categories.Add(SHARED_WITH_ME_CATEGORY);
         }
 
         public User(string name, string mainPassword)
@@ -36,6 +38,9 @@ namespace Domain
             UserCreditCards = new UserCreditCard();
             Name = name;
             MainPassword = mainPassword;
+            UserDataBreaches = new UserDataBreaches(this);
+            UserCreditCards = new UserCreditCard();
+            UserPasswords = new UserPassword();
         }
 
         public void AddCategory(Category aCategory)

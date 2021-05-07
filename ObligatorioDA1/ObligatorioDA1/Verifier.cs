@@ -24,7 +24,7 @@ using Domain.Exceptions;
 
 namespace Domain
 {
-    public static class Verifier
+    public class Verifier
     {
         //Users Variables
         private const int MAXIMUM_CHARACTERS_USER_NAMExMAINPASSWORD = 25;

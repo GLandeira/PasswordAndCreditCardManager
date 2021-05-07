@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="CardTypes.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="DataBreaches.cs" />
     <Compile Include="ColorClassifier.cs" />
     <Compile Include="DarkGreenClassifier.cs" />
     <Compile Include="Exceptions\PasswordDoesntExistException.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Exceptions\CategoryNotFoundException.cs" />
     <Compile Include="CreditCard.cs" />
     <Compile Include="Domain.cs" />
+    <Compile Include="Exceptions\CreditCardNotFoundException.cs" />
     <Compile Include="Exceptions\CouldntAssignSecurityLevelException.cs" />
     <Compile Include="Exceptions\CreditCardRepeatedException.cs" />
     <Compile Include="Exceptions\DomainException.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Exceptions\NameUserException.cs" />
     <Compile Include="Exceptions\NotesException.cs" />
     <Compile Include="Exceptions\NumberCreditCardException.cs" />
+    <Compile Include="Exceptions\PasswordNotFoundException.cs" />
     <Compile Include="Exceptions\PasswordStringPasswordException.cs" />
     <Compile Include="Exceptions\SecurityCodeCreditCardException.cs" />
     <Compile Include="Exceptions\UsernamePasswordException.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="UserCreditCard.cs" />
     <Compile Include="Exceptions\UserException.cs" />
     <Compile Include="Exceptions\UserNotPresentException.cs" />
+    <Compile Include="UserDataBreaches.cs" />
     <Compile Include="UserPassword.cs" />
     <Compile Include="Verifier.cs" />
     <Compile Include="YellowClassifier.cs" />
