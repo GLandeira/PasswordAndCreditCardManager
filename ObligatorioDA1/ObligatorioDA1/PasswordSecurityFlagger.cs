@@ -8,9 +8,12 @@ namespace Domain
 {
     public class PasswordSecurityFlagger
     {
+        public static SecurityLevelPasswords GetSecurityLevel(String password)
+        {
+            SecurityLevelPasswords passwordSecurityLevel = SecurityLevelPasswords.RED;
 
-
-
+            return passwordSecurityLevel;
+        }
 
 
     }
