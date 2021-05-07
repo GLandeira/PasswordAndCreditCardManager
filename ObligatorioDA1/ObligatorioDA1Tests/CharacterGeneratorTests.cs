@@ -108,7 +108,7 @@ namespace DomainTests
         [TestMethod]
         public void GenerateCharacterOfTypeDigitDoesntGenerateOtherCharacter()
         {
-            CharacterGenerator generator = new MayusCharacterGenerator();
+            CharacterGenerator generator = new DigitCharacterGenerator();
 
             char characterGenerated = generator.GenerateCharacter();
             Assert.IsFalse(
