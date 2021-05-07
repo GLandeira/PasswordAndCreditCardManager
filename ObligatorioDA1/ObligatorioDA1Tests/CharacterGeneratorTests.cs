@@ -104,5 +104,22 @@ namespace DomainTests
                 CharacterConstants.ALL_DIGIT_CHARACTERS.Any(
                     theCharacter => theCharacter == characterGenerated));
         }
+
+        [TestMethod]
+        public void GenerateCharacterOfTypeDigitDoesntGenerateOtherCharacter()
+        {
+            CharacterGenerator generator = new MayusCharacterGenerator();
+
+            char characterGenerated = generator.GenerateCharacter();
+            Assert.IsFalse(
+                CharacterConstants.ALL_SYMBOL_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+            Assert.IsFalse(
+                CharacterConstants.ALL_MINUS_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+            Assert.IsFalse(
+                CharacterConstants.ALL_MAYUS_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+        }
     }
 }
