@@ -159,6 +159,22 @@ namespace DomainTests
             Assert.AreEqual(false, meetsDarkGreenCriteria);
         }
 
+        [TestMethod]
+        public void TestRedClassifierMeetsCriteriaTrueCase()
+        {
+            String password = "aaab";
+            bool meetsRedCriteria = RedClassifier.meetsColorCriteria(password);
+            Assert.AreEqual(true, meetsRedCriteria);
+        }
+
+        [TestMethod]
+        public void TestRedClassifierMeetsCriteriaFalseCase()
+        {
+            String password = "abcdefghijk";
+            bool meetsRedCriteria = RedClassifier.meetsColorCriteria(password);
+            Assert.AreEqual(false, meetsRedCriteria);
+        }
+
 
     }
 }

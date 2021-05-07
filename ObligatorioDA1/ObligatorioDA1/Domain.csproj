@@ -64,12 +64,14 @@
     <Compile Include="Exceptions\DomainException.cs" />
     <Compile Include="Exceptions\LongCategoryNameException.cs" />
     <Compile Include="LightGreenClassifier.cs" />
+    <Compile Include="OrangeClassifier.cs" />
     <Compile Include="Password.cs" />
     <Compile Include="PasswordGenerationSettings.cs" />
     <Compile Include="PasswordGenerator.cs" />
     <Compile Include="PasswordSecurityFlagger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RedClassifier.cs" />
     <Compile Include="SecurityLevelPasswords.cs" />
     <Compile Include="Exceptions\ShortCategoryNameException.cs" />
     <Compile Include="User.cs" />
