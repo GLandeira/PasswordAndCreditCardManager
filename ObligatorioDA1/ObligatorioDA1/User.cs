@@ -40,16 +40,7 @@ namespace Domain
 
         public void AddCategory(Category aCategory)
         {
-            if (aCategory.Name.Length > MAXIMUM_CHARACTERS_CATEGORY_NAME)
-            {
-                throw new LongCategoryNameException();
-            }
-
-            if (aCategory.Name.Length < MINIMUM_CHARACTERS_CATEGORY_NAME)
-            {
-                throw new ShortCategoryNameException();
-            }
-
+            Verifier.VerifyCategory(aCategory);
             Categories.Add(aCategory);
         }
 
@@ -71,22 +62,19 @@ namespace Domain
             }
         }
 
-        public void ModifyCategory(Category categoryToModify, string newName)
+        public void ModifyCategory(Category categoryToModify, Category newCategory)
         {
-            if (newName.Length > MAXIMUM_CHARACTERS_CATEGORY_NAME)
-            {
-                throw new LongCategoryNameException();
-            }
-
-            if (newName.Length < MINIMUM_CHARACTERS_CATEGORY_NAME)
-            {
-                throw new ShortCategoryNameException();
-            }
+            //modificar metodo modify, que el string ya sea otra categoria -> no lo hago para chequear antes con el team
+            //por ahora hago esto
+            Verifier.VerifyCategory(newCategory);
 
             // Find category in list
             try
             {
-                Categories.First(cat => cat.Equals(categoryToModify)).Name = newName;
+                Category a = Categories.First(cat => cat.Equals(categoryToModify));
+                Categories.Remove(a);
+                Categories.Add(newCategory);
+
             }
             catch (InvalidOperationException isEmptyOrNotPresent)
             {
