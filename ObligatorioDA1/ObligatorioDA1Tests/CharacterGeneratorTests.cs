@@ -71,7 +71,22 @@ namespace DomainTests
                     theCharacter => theCharacter == characterGenerated));
         }
 
+        [TestMethod]
+        public void GenerateCharacterOfTypeMinusDoesntGenerateOtherCharacter()
+        {
+            CharacterGenerator generator = new MinusCharacterGenerator();
 
-        
+            char characterGenerated = generator.GenerateCharacter();
+            Assert.IsFalse(
+                CharacterConstants.ALL_SYMBOL_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+            Assert.IsFalse(
+                CharacterConstants.ALL_MAYUS_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+            Assert.IsFalse(
+                CharacterConstants.ALL_DIGIT_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+        }
+
     }
 }
