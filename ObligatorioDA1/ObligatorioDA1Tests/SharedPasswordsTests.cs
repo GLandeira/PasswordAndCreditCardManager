@@ -72,6 +72,14 @@ namespace DomainTests
         }
 
         [TestMethod]
+        public void SharingAPasswordAlreadySharedThrowsExceptionTest()
+        {
+            _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
+
+            Assert.ThrowsException<PasswordAlreadySharedException>(_testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword));
+        }
+
+        [TestMethod]
         public void SharedPasswordHasRightCategoryTest()
         {
             _testUserSharer.UserPasswords.SharePassword(_testUserSharee, _sharedPassword);
