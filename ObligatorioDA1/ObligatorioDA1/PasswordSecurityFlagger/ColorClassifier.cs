@@ -10,7 +10,7 @@ namespace Domain.PasswordSecurityFlagger
     {
         public virtual SecurityLevelPasswords AssociatedSecurityLevel { get; }
 
-        protected bool HasUpperCase(String password)
+        public bool HasUpperCase(String password)
         {
             bool upperCaseFound = false;
 
@@ -22,7 +22,7 @@ namespace Domain.PasswordSecurityFlagger
             return upperCaseFound;
         }
 
-        protected bool HasLowerCase(String password)
+        public bool HasLowerCase(String password)
         {
             bool lowerCaseFound = false;
 
@@ -35,7 +35,7 @@ namespace Domain.PasswordSecurityFlagger
         }
 
 
-        protected bool HasDigits(String password)
+        public bool HasDigits(String password)
         {
 
             bool digitFound = false;
@@ -48,7 +48,7 @@ namespace Domain.PasswordSecurityFlagger
             return digitFound;
         }
 
-        protected bool HasSpecialCharacters(String password)
+        public bool HasSpecialCharacters(String password)
         {
             bool symbolFound = false;
 

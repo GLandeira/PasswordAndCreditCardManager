@@ -8,11 +8,19 @@ namespace DomainTests
     [TestClass]
     public class ColorClassifierTests
     {
+        private ColorClassifier _colorClassifier;
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            _colorClassifier = new ColorClassifier();
+        }
+
         [TestMethod]
         public void TestHasUpperCaseValidCase()
         {
             String password = "aA123bc#";
-            bool passwordHasUpperCase = ColorClassifier.HasUpperCase(password);
+            bool passwordHasUpperCase = _colorClassifier.HasUpperCase(password);
             Assert.AreEqual(true, passwordHasUpperCase);
         }
 
@@ -20,7 +28,7 @@ namespace DomainTests
         public void TestHasUpperCaseInvalidCase()
         {
             String password = "cdf33b@#";
-            bool passwordHasUpperCase = ColorClassifier.HasUpperCase(password);
+            bool passwordHasUpperCase = _colorClassifier.HasUpperCase(password);
             Assert.AreEqual(false, passwordHasUpperCase);
         }
 
@@ -28,7 +36,7 @@ namespace DomainTests
         public void TestHasLowerCaseValidCase()
         {
             String password = "JL@b2d3";
-            bool passwordHasLowerCase = ColorClassifier.HasLowerCase(password);
+            bool passwordHasLowerCase = _colorClassifier.HasLowerCase(password);
             Assert.AreEqual(true, passwordHasLowerCase);
         }
 
@@ -36,7 +44,7 @@ namespace DomainTests
         public void TestHasLowerCaseInvalidCase()
         {
             String password = "L#$P23";
-            bool passwordHasLowerCase = ColorClassifier.HasLowerCase(password);
+            bool passwordHasLowerCase = _colorClassifier.HasLowerCase(password);
             Assert.AreEqual(false, passwordHasLowerCase);
         }
 
@@ -44,7 +52,7 @@ namespace DomainTests
         public void TestHasDigitsValidCase()
         {
             String password = "12lmN@4";
-            bool passwordHasDigits = ColorClassifier.HasDigits(password);
+            bool passwordHasDigits = _colorClassifier.HasDigits(password);
             Assert.AreEqual(true, passwordHasDigits);
         }
 
@@ -52,7 +60,7 @@ namespace DomainTests
         public void TestHasDigitsInvalidCase()
         {
             String password = "BDjavier@&ee";
-            bool passwordHasDigits = ColorClassifier.HasDigits(password);
+            bool passwordHasDigits = _colorClassifier.HasDigits(password);
             Assert.AreEqual(false, passwordHasDigits);
         }
 
@@ -60,7 +68,7 @@ namespace DomainTests
         public void TestHasSpecialCharacterValidCase()
         {
             String password = "@&#abhaschars!";
-            bool passwordHasSpecialCharacters = ColorClassifier.HasSpecialCharacters(password);
+            bool passwordHasSpecialCharacters = _colorClassifier.HasSpecialCharacters(password);
             Assert.AreEqual(true, passwordHasSpecialCharacters);
         }
 
@@ -68,135 +76,167 @@ namespace DomainTests
         public void TestHasSpecialCharacterInvalidCase()
         {
             String password = "contra23sin12characteresespeciales";
-            bool passwordHasSpecialCharacters = ColorClassifier.HasSpecialCharacters(password);
+            bool passwordHasSpecialCharacters = _colorClassifier.HasSpecialCharacters(password);
             Assert.AreEqual(false, passwordHasSpecialCharacters);
         }
 
         [TestMethod]
         public void TestYellowClassifierMeetsCriteriaTrueCase()
         {
+            _colorClassifier = new YellowClassifier();
+
             String password = "aAaXefggwlmopre";
-            bool meetsYellowCriteria = YellowClassifier.MeetsColorCriteria(password);
+            bool meetsYellowCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(true, meetsYellowCriteria);
         }
 
         [TestMethod]
         public void TestYellowClassifierMeetsCriteriaFalseCase()
         {
+            _colorClassifier = new YellowClassifier();
+
             String password = "defghij";
-            bool meetsYellowCriteria = YellowClassifier.MeetsColorCriteria(password);
+            bool meetsYellowCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsYellowCriteria);
         }
 
         [TestMethod]
         public void TestLightGreenClassifierMeetsCriteriaTrueCase1()
         {
+            _colorClassifier = new LightGreenClassifier();
+
             String password = "MaTiasGonZAlEzG";
-            bool meetsLightGreenCriteria = LightGreenClassifier.MeetsColorCriteria(password);
+            bool meetsLightGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(true, meetsLightGreenCriteria);
         }
 
         [TestMethod]
         public void TestLightGreenClassifierMeetsCriteriaTrueCase2()
         {
+            _colorClassifier = new LightGreenClassifier();
+
             String password = "matias1#2@3gonzalez";
-            bool meetsLightGreenCriteria = LightGreenClassifier.MeetsColorCriteria(password);
+            bool meetsLightGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(true, meetsLightGreenCriteria);
         }
 
         [TestMethod]
         public void TestLightGreenClassifierMeetsCriteriaTrueCase3()
         {
+            _colorClassifier = new LightGreenClassifier();
+
             String password = "MATIAS1#2@3GONZALEZ";
-            bool meetsLightGreenCriteria = LightGreenClassifier.MeetsColorCriteria(password);
+            bool meetsLightGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(true, meetsLightGreenCriteria);
         }
 
         [TestMethod]
         public void TestLightGreenClassifierMeetsCriteriaFalseCase1()
         {
+            _colorClassifier = new LightGreenClassifier();
+
             String password = "aB1@GD";
-            bool meetsLightGreenCriteria = LightGreenClassifier.MeetsColorCriteria(password);
+            bool meetsLightGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsLightGreenCriteria);
         }
 
         [TestMethod]
         public void TestLightGreenClassifierMeetsCriteriaFalseCase2()
         {
+            _colorClassifier = new LightGreenClassifier();
+
             String password = "abc123de4f56";
-            bool meetsLightGreenCriteria = LightGreenClassifier.MeetsColorCriteria(password);
+            bool meetsLightGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsLightGreenCriteria);
         }
 
         [TestMethod]
         public void TestDarkGreenClassifierMeetsCriteriaTrueCase()
         {
+            _colorClassifier = new DarkGreenClassifier();
+
             String password = "Ab3D/%45zweXJcf16";
-            bool meetsDarkGreenCriteria = DarkGreenClassifier.MeetsColorCriteria(password);
+            bool meetsDarkGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(true, meetsDarkGreenCriteria);
         }
 
         [TestMethod]
         public void TestDarkGreenClassifierMeetsCriteriaFalseCase1()
         {
+            _colorClassifier = new DarkGreenClassifier();
+
             String password = "Az@#23D";
-            bool meetsDarkGreenCriteria = DarkGreenClassifier.MeetsColorCriteria(password);
+            bool meetsDarkGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsDarkGreenCriteria);
         }
 
         [TestMethod]
         public void TestDarkGreenClassifierMeetsCriteriaFalseCase2()
         {
+            _colorClassifier = new DarkGreenClassifier();
+
             String password = "AjKl$$#[bdd]{}hhh";
-            bool meetsDarkGreenCriteria = DarkGreenClassifier.MeetsColorCriteria(password);
+            bool meetsDarkGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsDarkGreenCriteria);
         }
 
         [TestMethod]
         public void TestDarkGreenClassifierMeetsCriteriaFalseCase3()
         {
+            _colorClassifier = new DarkGreenClassifier();
+
             String password = "A933lLM73bdd622hh";
-            bool meetsDarkGreenCriteria = DarkGreenClassifier.MeetsColorCriteria(password);
+            bool meetsDarkGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsDarkGreenCriteria);
         }
 
         [TestMethod]
         public void TestRedClassifierMeetsCriteriaTrueCase()
         {
+            _colorClassifier = new RedClassifier();
+
             String password = "aaab";
-            bool meetsRedCriteria = RedClassifier.MeetsColorCriteria(password);
+            bool meetsRedCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(true, meetsRedCriteria);
         }
 
         [TestMethod]
         public void TestRedClassifierMeetsCriteriaFalseCase()
         {
+            _colorClassifier = new RedClassifier();
+
             String password = "abcdefghijk";
-            bool meetsRedCriteria = RedClassifier.MeetsColorCriteria(password);
+            bool meetsRedCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsRedCriteria);
         }
 
         [TestMethod]
         public void TestOrangeClassifierMeetsCriteriaTrueCase()
         {
+            _colorClassifier = new OrangeClassifier();
+
             String password = "abc23dd$#45cj";
-            bool meetsOrangeCriteria = OrangeClassifier.MeetsColorCriteria(password);
+            bool meetsOrangeCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(true, meetsOrangeCriteria);
         }
 
         [TestMethod]
         public void TestOrangeClassifierMeetsCriteriaFalseCase1()
         {
+            _colorClassifier = new OrangeClassifier();
+
             String password = "abc123";
-            bool meetsOrangeCriteria = OrangeClassifier.MeetsColorCriteria(password);
+            bool meetsOrangeCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsOrangeCriteria);
         }
 
         [TestMethod]
         public void TestOrangeClassifierMeetsCriteriaFalseCase2()
         {
+            _colorClassifier = new OrangeClassifier();
+
             String password = "abcDJ%&@123HelloMotto";
-            bool meetsOrangeCriteria = OrangeClassifier.MeetsColorCriteria(password);
+            bool meetsOrangeCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsOrangeCriteria);
         }
 
