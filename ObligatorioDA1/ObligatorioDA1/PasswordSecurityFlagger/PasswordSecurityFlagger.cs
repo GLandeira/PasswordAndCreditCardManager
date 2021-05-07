@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Exceptions;
 
-namespace Domain
+namespace Domain.PasswordSecurityFlagger
 {
     public class PasswordSecurityFlagger
     {
