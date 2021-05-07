@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class PasswordSecurityFlagger
+    public class DarkGreenClassifier : ColorClassifier
     {
-
-
-
-
-
+       
     }
 }
