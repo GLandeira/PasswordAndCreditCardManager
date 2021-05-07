@@ -10,7 +10,7 @@ namespace Domain
     {
         public static bool MeetsColorCriteria(String password)
         {
-            bool meetsCriteria = false;
+            bool meetsCriteria = (password.Length > 7 && password.Length < 15);
             return meetsCriteria;
         }
     }
