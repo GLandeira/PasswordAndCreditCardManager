@@ -8,11 +8,9 @@ namespace Domain
 {
     public class RedClassifier
     {
-        public static bool meetsColorCriteria(String password)
+        public static bool MeetsColorCriteria(String password)
         {
-            bool meetsCriteria = false;
-
-            
+            bool meetsCriteria = password.Length < 8;
 
             return meetsCriteria;
         }

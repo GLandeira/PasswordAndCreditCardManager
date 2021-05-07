@@ -8,7 +8,7 @@ namespace Domain
 {
     public class YellowClassifier : ColorClassifier
     {
-        public static bool meetsColorCriteria(String password)
+        public static bool MeetsColorCriteria(String password)
         {
             bool meetsCriteria = false;
 

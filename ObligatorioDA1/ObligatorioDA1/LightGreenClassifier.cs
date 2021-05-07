@@ -8,7 +8,7 @@ namespace Domain
 {
     public class LightGreenClassifier : ColorClassifier
     {
-        public static bool meetsColorCriteria(String password)
+        public static bool MeetsColorCriteria(String password)
         {
             bool UpperCaseFound = HasUpperCase(password);
             bool LowerCaseFound = HasLowerCase(password);

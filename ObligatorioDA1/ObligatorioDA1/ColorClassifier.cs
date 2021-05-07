@@ -8,6 +8,7 @@ namespace Domain
 {
     public class ColorClassifier
     {
+        //TODO: Use ALL_SYMBOL_CHARACTER from passwordGeneratorConstants
         public static readonly char[] ALL_SYMBOL_CHARACTERS =
         {
             '!', '@', '#', '$', '%', '^', '&',
@@ -75,7 +76,7 @@ namespace Domain
             return symbolFound;
         }
 
-        public static bool meetsColorCriteria(String password)
+        public static bool MeetsColorCriteria(String password)
         {
             return true;
         }

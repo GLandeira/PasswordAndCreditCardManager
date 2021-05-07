@@ -8,12 +8,9 @@ namespace Domain
 {
     public class OrangeClassifier
     {
-        public static bool meetsColorCriteria(String password)
+        public static bool MeetsColorCriteria(String password)
         {
             bool meetsCriteria = false;
-
-            
-
             return meetsCriteria;
         }
     }
