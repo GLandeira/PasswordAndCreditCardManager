@@ -8,7 +8,8 @@ namespace Domain.PasswordSecurityFlagger
 {
     public class LightGreenClassifier : ColorClassifier
     {
-        public static bool MeetsColorCriteria(String password)
+        public override SecurityLevelPasswords AssociatedSecurityLevel { get; } = SecurityLevelPasswords.LIGHT_GREEN;
+        public override bool MeetsColorCriteria(String password)
         {
             bool UpperCaseFound = HasUpperCase(password);
             bool LowerCaseFound = HasLowerCase(password);

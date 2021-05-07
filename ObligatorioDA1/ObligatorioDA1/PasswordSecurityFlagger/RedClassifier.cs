@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain.PasswordSecurityFlagger
 {
-    public class RedClassifier
+    public class RedClassifier : ColorClassifier
     {
-        public static bool MeetsColorCriteria(String password)
+        public override SecurityLevelPasswords AssociatedSecurityLevel { get; } = SecurityLevelPasswords.RED;
+        public override bool MeetsColorCriteria(String password)
         {
             bool meetsCriteria = password.Length < 8;
 

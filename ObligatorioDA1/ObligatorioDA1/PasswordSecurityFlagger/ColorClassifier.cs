@@ -8,7 +8,9 @@ namespace Domain.PasswordSecurityFlagger
 {
     public class ColorClassifier
     {
-        public static bool HasUpperCase(String password)
+        public virtual SecurityLevelPasswords AssociatedSecurityLevel { get; }
+
+        protected bool HasUpperCase(String password)
         {
             bool upperCaseFound = false;
 
@@ -20,7 +22,7 @@ namespace Domain.PasswordSecurityFlagger
             return upperCaseFound;
         }
 
-        public static bool HasLowerCase(String password)
+        protected bool HasLowerCase(String password)
         {
             bool lowerCaseFound = false;
 
@@ -33,7 +35,7 @@ namespace Domain.PasswordSecurityFlagger
         }
 
 
-        public static bool HasDigits(String password)
+        protected bool HasDigits(String password)
         {
 
             bool digitFound = false;
@@ -46,7 +48,7 @@ namespace Domain.PasswordSecurityFlagger
             return digitFound;
         }
 
-        public static bool HasSpecialCharacters(String password)
+        protected bool HasSpecialCharacters(String password)
         {
             bool symbolFound = false;
 
@@ -58,7 +60,7 @@ namespace Domain.PasswordSecurityFlagger
             return symbolFound;
         }
 
-        public static bool MeetsColorCriteria(String password)
+        public virtual bool MeetsColorCriteria(String password)
         {
             return true;
         }

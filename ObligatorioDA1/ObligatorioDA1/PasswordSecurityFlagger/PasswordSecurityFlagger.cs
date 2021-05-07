@@ -11,20 +11,37 @@ namespace Domain.PasswordSecurityFlagger
     {
         public static SecurityLevelPasswords GetSecurityLevel(String password)
         {
-            if (RedClassifier.MeetsColorCriteria(password)) return SecurityLevelPasswords.RED;
+            ColorClassifier colorClassifier = new RedClassifier();
 
-            if (OrangeClassifier.MeetsColorCriteria(password)) return SecurityLevelPasswords.ORANGE;
-
-            // Order of execution matters for Dark green, Light Green and Yellow
-            if (DarkGreenClassifier.MeetsColorCriteria(password)) return SecurityLevelPasswords.DARK_GREEN;
-
-            if (LightGreenClassifier.MeetsColorCriteria(password)) return SecurityLevelPasswords.LIGHT_GREEN;
-
-            if (YellowClassifier.MeetsColorCriteria(password)) return SecurityLevelPasswords.YELLOW;
-
-            throw new CouldntAssignSecurityLevelException();
+            return DetermineSecurityLevel(colorClassifier, password);
         }
 
+        private static SecurityLevelPasswords DetermineSecurityLevel(ColorClassifier colorClassifier, String password)
+        {
+            if (colorClassifier.MeetsColorCriteria(password)) return colorClassifier.AssociatedSecurityLevel;
 
+            colorClassifier = DetermineNextColorClassifierType(colorClassifier);
+
+            return DetermineSecurityLevel(colorClassifier, password);
+        }  
+        
+        private static ColorClassifier DetermineNextColorClassifierType(ColorClassifier colorClassifier)
+        {
+            switch (colorClassifier)
+            {
+                case RedClassifier red:
+                    return new OrangeClassifier();
+                case OrangeClassifier orange:
+                    return new DarkGreenClassifier();
+                case YellowClassifier yellow:
+                    throw new CouldntAssignSecurityLevelException();
+                case LightGreenClassifier lightGreen:
+                    return new YellowClassifier();
+                case DarkGreenClassifier darkGreen:
+                    return new LightGreenClassifier();
+                default:
+                    throw new CouldntAssignSecurityLevelException();
+            }
+        }
     }
 }
