@@ -88,5 +88,21 @@ namespace DomainTests
                     theCharacter => theCharacter == characterGenerated));
         }
 
+        [TestMethod]
+        public void GenerateCharacterOfTypeMayusDoesntGenerateOtherCharacter()
+        {
+            CharacterGenerator generator = new MayusCharacterGenerator();
+
+            char characterGenerated = generator.GenerateCharacter();
+            Assert.IsFalse(
+                CharacterConstants.ALL_SYMBOL_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+            Assert.IsFalse(
+                CharacterConstants.ALL_MINUS_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+            Assert.IsFalse(
+                CharacterConstants.ALL_DIGIT_CHARACTERS.Any(
+                    theCharacter => theCharacter == characterGenerated));
+        }
     }
 }
