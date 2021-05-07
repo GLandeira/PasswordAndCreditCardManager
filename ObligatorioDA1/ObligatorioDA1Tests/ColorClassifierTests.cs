@@ -70,5 +70,21 @@ namespace ObligatorioDA1Tests
             bool passwordHasSpecialCharacters = ColorClassifier.HasSpecialCharacters(password);
             Assert.AreEqual(false, passwordHasSpecialCharacters);
         }
+
+        [TestMethod]
+        public void TestYellowClassifierMeetsCriteriaTrueCase()
+        {
+            String password = "aAaXefggwlmopre";
+            bool meetsYellowCriteria = YellowClassifier.meetsColorCriteria(password);
+            Assert.AreEqual(true, meetsYellowCriteria);
+        }
+
+        [TestMethod]
+        public void TestYellowClassifierMeetsCriteriaFalseCase()
+        {
+            String password = "defghij";
+            bool meetsYellowCriteria = YellowClassifier.meetsColorCriteria(password);
+            Assert.AreEqual(false, meetsYellowCriteria);
+        }
     }
 }

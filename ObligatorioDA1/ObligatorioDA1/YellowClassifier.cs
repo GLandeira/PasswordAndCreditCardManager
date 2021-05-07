@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class YellowClassifier : ColorClassifier
+    public class YellowClassifier : ColorClassifier
     {
         
     }
