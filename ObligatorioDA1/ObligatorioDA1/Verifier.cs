@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System;
 using Domain.Exceptions;
 
 //Creditcard
@@ -57,6 +58,7 @@ namespace Domain
             VerifyCreditCardNumber(creditCardTested);
             VerifyCreditCardSecurityCode(creditCardTested);
             VerifyCreditCardNotes(creditCardTested);
+            VerifyCreditCardValidDue(creditCardTested);
         }
 
         public static void VerifyPassword(Password passwordTested)
@@ -127,6 +129,14 @@ namespace Domain
             if (creditCardTested.Notes.Length > CHARACTERS_NOTES)
             {
                 throw new NotesException();
+            }
+        }
+
+        private static void VerifyCreditCardValidDue(CreditCard creditCardTested)
+        {
+            if (creditCardTested.ValidDue < DateTime.Today)
+            {
+                throw new ValidDueCreditCardException();
             }
         }
 

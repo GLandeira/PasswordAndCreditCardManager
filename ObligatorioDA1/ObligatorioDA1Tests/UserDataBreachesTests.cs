@@ -51,6 +51,7 @@ namespace DomainTests
                 Number = "1111111111111111",
                 SecurityCode = "122",
                 Notes = "im a note",
+                ValidDue = DateTime.Today
             };
             _creditCard2 = new CreditCard
             {
@@ -58,13 +59,15 @@ namespace DomainTests
                 Number = "2222222222222222",
                 SecurityCode = "123",
                 Notes = "",
-            };
+                ValidDue = DateTime.Today
+        };
             _creditCard3 = new CreditCard
             {
                 Name = "Master Platinum",
                 Number = "4444444444444444",
                 SecurityCode = "1234",
                 Notes = "No note",
+                ValidDue = DateTime.Today
             };  
             
             _userPasswordTest = _testUser.UserPasswords;
