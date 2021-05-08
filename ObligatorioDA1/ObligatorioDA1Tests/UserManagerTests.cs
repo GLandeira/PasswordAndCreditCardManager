@@ -6,16 +6,16 @@ using Domain.Exceptions;
 namespace DomainTests
 {
     [TestClass]
-    public class DomainTests
+    public class UserManagerTests
     {
-        private Domain.Domain _mockDomain;
+        private Domain.UserManager _mockDomain;
         private string _userNameInDomain;
         private string _userPasswordInDomain;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _mockDomain = new Domain.Domain();
+            _mockDomain = new Domain.UserManager();
 
             _userNameInDomain = "User In Domain";
             _userPasswordInDomain = "Password for User In Domain";

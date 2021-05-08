@@ -7,12 +7,12 @@ using Domain.Exceptions;
 
 namespace Domain
 {
-    public class Domain
+    public class UserManager
     {
         public List<User> Users { get; private set; }
 
 
-        public Domain()
+        public UserManager()
         {
             Users = new List<User>();
         }

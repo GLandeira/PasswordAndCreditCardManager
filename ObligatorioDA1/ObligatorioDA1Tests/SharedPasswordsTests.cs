@@ -9,7 +9,7 @@ namespace DomainTests
     [TestClass]
     public class SharedPasswordsTests
     {
-        private Domain.Domain _testDomain;
+        private Domain.UserManager _testDomain;
 
         private string _sharerName = "Sharer";
         private User _testUserSharer;
@@ -25,7 +25,7 @@ namespace DomainTests
 
         public SharedPasswordsTests()
         {
-            _testDomain = new Domain.Domain();
+            _testDomain = new Domain.UserManager();
 
             _testUserSharer = SetupSharer();
 
