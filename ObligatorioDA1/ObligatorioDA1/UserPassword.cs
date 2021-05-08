@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Exceptions;
+using Domain.PasswordSecurityFlagger;
 
 namespace Domain
 {
@@ -101,6 +102,32 @@ namespace Domain
         {
             Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
             sharerPasswordInMemory.UsersSharedWith.Remove(shareeName);
+        }
+
+        public List<Password> GetPasswordsWithSecurityLevel(SecurityLevelPasswords securityLevel)
+        {
+            List<Password> metSecurityLevelPasswords = new List<Password>();
+            foreach(Password currentPassword in Passwords)
+            {
+                if(currentPassword.SecurityLevel == securityLevel)
+                {
+                    metSecurityLevelPasswords.Add(currentPassword);
+                }
+            }
+            return metSecurityLevelPasswords;
+        }
+
+        public int GetAmountOfPasswordsWithSecurityLevelAndCategory(SecurityLevelPasswords securityLevel, Category category)
+        {
+            int amountOfPasswords = 0;
+            foreach(Password currentPassword in Passwords)
+            {
+                if ((currentPassword.SecurityLevel == securityLevel) && (currentPassword.Category.Equals(category)))
+                {
+                    amountOfPasswords++;
+                }
+            }
+            return amountOfPasswords;
         }
     }
 }
