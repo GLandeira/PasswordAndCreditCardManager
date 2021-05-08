@@ -49,16 +49,22 @@ namespace DomainTests
             {
                 Name = "Visa Gold",
                 Number = "1111111111111111",
+                SecurityCode = "122",
+                Notes = "im a note",
             };
             _creditCard2 = new CreditCard
             {
                 Name = "Santander Rio",
                 Number = "2222222222222222",
+                SecurityCode = "123",
+                Notes = "",
             };
             _creditCard3 = new CreditCard
             {
                 Name = "Master Platinum",
                 Number = "4444444444444444",
+                SecurityCode = "1234",
+                Notes = "No note",
             };  
             
             _userPasswordTest = _testUser.UserPasswords;
@@ -67,18 +73,21 @@ namespace DomainTests
                 PasswordString = "micontra",
                 Site = "www.ort.edu.uy",
                 Username = "Gaston Landeira",
+                Notes = "im a note",
             };
             _password2 = new Password
             {
                 PasswordString = "whatsthis",
                 Site = "www.ort.edu.uy",
-                Username = "OwO",
+                Username = "OwO123",
+                Notes = "",
             };
             _password3 = new Password
             {
                 PasswordString = "prueba#contra",
                 Site = "www.twitch.tv/GLandeira",
                 Username = "GLandeira",
+                Notes = "No note",
             };
 
         }

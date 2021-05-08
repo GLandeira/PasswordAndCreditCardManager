@@ -26,7 +26,7 @@ namespace DomainTests
         [TestMethod]
         public void TestAddingAUserActuallyAddsIt()
         {
-            string newName = "User";
+            string newName = "UserTest";
             User newUser = new User(newName, "pass1");
 
             _mockDomain.AddUser(newUser);
@@ -45,7 +45,8 @@ namespace DomainTests
         public void TestModifyingUserMainPasswordActuallyModifiesIt()
         {
             string newPassword = "fjk187Abs2";
-            _mockDomain.ModifyPassword(_userNameInDomain, newPassword);
+            User modifiedUser = new User(_userNameInDomain, newPassword);
+            _mockDomain.ModifyPassword(modifiedUser);
 
             Assert.AreEqual(newPassword, _mockDomain.Users.First(us => us.Name == _userNameInDomain).MainPassword);
         }
@@ -53,9 +54,10 @@ namespace DomainTests
         [TestMethod]
         public void TestModifyingMainPasswordForUnexistingUserThrowsException()
         {
-            string userNameNotPresent = "John";
+            string userNameNotPresent = "Johny";
             string newPassword = "akshndjplk232";
-            Assert.ThrowsException<UserNotPresentException>(() => _mockDomain.ModifyPassword(userNameNotPresent, newPassword));
+            User modifiedUser = new User(userNameNotPresent, newPassword);
+            Assert.ThrowsException<UserNotPresentException>(() => _mockDomain.ModifyPassword(modifiedUser));
         }
 
         [TestMethod]
@@ -67,7 +69,7 @@ namespace DomainTests
         [TestMethod]
         public void TestLoggingInWithWrongUserReturnsFalse()
         {
-            string falseUsername = "John";
+            string falseUsername = "Johny";
 
             Assert.IsFalse(_mockDomain.LogIn(falseUsername, _userPasswordInDomain));
         }
@@ -83,7 +85,7 @@ namespace DomainTests
         [TestMethod]
         public void TestLoggingInWithWrongUserAndPasswordReturnsFalse ()
         {
-            string falseUsername = "John";
+            string falseUsername = "Johny";
             string falsePassword = "akakak23Aj/&";
 
             Assert.IsFalse(_mockDomain.LogIn(falseUsername, falsePassword));
@@ -99,7 +101,8 @@ namespace DomainTests
         public void TestGettingAUserAfterAddingReturnsIt()
         {
             string userName = "testName";
-            User testUser = new User(userName, "");
+            string userPassword = "akakak23Aj/&";
+            User testUser = new User(userName, userPassword);
 
             _mockDomain.AddUser(testUser);
 

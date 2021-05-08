@@ -25,6 +25,7 @@ namespace DomainTests
                 Name = "Visa Gold",
                 Type = visa,
                 Number = "1111111111111111",
+                SecurityCode = "1234",
                 ValidDue = DateTime.Today,
                 Category = trabajo,
                 Notes = "super secreta, no compartir"
@@ -37,6 +38,7 @@ namespace DomainTests
                 Name = "Master",
                 Type = master,
                 Number = "2222222222222222",
+                SecurityCode = "143",
                 ValidDue = DateTime.Today,
                 Category = personal,
                 Notes = "para compartir"
@@ -47,6 +49,7 @@ namespace DomainTests
                 Name = "Visa Platinum",
                 Type = visa,
                 Number = "3333333333333333",
+                SecurityCode = "123",
                 ValidDue = DateTime.Today,
                 Category = trabajo,
                 Notes = ""
@@ -116,7 +119,8 @@ namespace DomainTests
             {
                 Name = "Visa Platinum",
                 Type = visa,
-                Number = "1111 1111 1111 1112",
+                Number = "1111111111111112",
+                SecurityCode = "123",
                 ValidDue = DateTime.Today,
                 Category = trabajo,
                 Notes = ""
@@ -149,6 +153,7 @@ namespace DomainTests
                 Name = "Visa Platinum",
                 Type = visa,
                 Number = "4444444444444444",
+                SecurityCode = "123",
                 ValidDue = new DateTime(2022, 12, 31),
                 Category = trabajo,
                 Notes = "La modifique a esta"
@@ -178,6 +183,7 @@ namespace DomainTests
                 Name = "Visa Platinum",
                 Type = master,
                 Number = "1111111111111111",
+                SecurityCode = "123",
                 ValidDue = new DateTime(2022, 12, 31),
                 Category = personal,
                 Notes = "La modifique a esta"

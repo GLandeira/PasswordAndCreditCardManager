@@ -18,6 +18,7 @@ namespace Domain
 
         public void AddPassword(Password password)
         {
+            Verifier.VerifyPassword(password);
             this.Passwords.Add(password);
         }
 
@@ -52,7 +53,8 @@ namespace Domain
 
         public void ModifyPassword(Password modifiedPassword, Password oldPassword)
         {
-            if(this.Passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(modifiedPassword)))
+            Verifier.VerifyPassword(oldPassword);
+            if (this.Passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(modifiedPassword)))
             {
                 throw new AlreadyExistingPasswordException();
             }

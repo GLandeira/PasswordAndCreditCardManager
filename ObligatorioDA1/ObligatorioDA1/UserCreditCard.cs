@@ -15,6 +15,7 @@ namespace Domain
 
         public void AddCreditCard(CreditCard creditCard)
         {
+            Verifier.VerifyCreditCard(creditCard);
             IsAlreadyInTheList(creditCard);
             CreditCards.Add(creditCard);
         }
@@ -26,6 +27,7 @@ namespace Domain
 
         public void ModifyCreditCard(CreditCard creditCardToRemove, CreditCard creditCardToAdd)
         {
+            Verifier.VerifyCreditCard(creditCardToAdd);
             if (!creditCardToRemove.Equals(creditCardToAdd))
             {
                 IsAlreadyInTheList(creditCardToAdd);
