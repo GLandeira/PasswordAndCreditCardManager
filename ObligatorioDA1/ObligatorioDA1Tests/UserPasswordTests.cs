@@ -3,6 +3,7 @@ using System;
 using Domain;
 using System.Collections.Generic;
 using Domain.Exceptions;
+using Domain.PasswordSecurityFlagger;
 
 namespace DomainTests
 {
@@ -195,6 +196,35 @@ namespace DomainTests
             List<Password> passwordsTest = _userPasswordTest.GetPasswordsByPasswordString("1111");
 
             Assert.AreEqual(2, passwordsTest.Count);
+        }
+
+        [TestMethod]
+        public void TestGetPasswordsWithSecurityLevel()
+        {
+            _userPasswordTest.AddPassword(_testPassword1);
+            _userPasswordTest.AddPassword(_testPassword2);
+            _userPasswordTest.AddPassword(_testPassword3);
+            List<Password> passwordsTest = _userPasswordTest.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.RED);
+            List<Password> correctResult = new List<Password>(){_testPassword1, _testPassword2, _testPassword3};
+            bool areEqual = true;
+            foreach(Password currentPassword in passwordsTest)
+            {
+                if(!correctResult.Exists(elem => elem.Equals(currentPassword)))
+                {
+                    areEqual = false;
+                }
+            }
+            Assert.IsTrue(areEqual);
+        }
+
+        [TestMethod]
+        public void TestGetPasswordsFromSecurityLevelAndCategory()
+        {
+            _userPasswordTest.AddPassword(_testPassword1);
+            _userPasswordTest.AddPassword(_testPassword2);
+            _userPasswordTest.AddPassword(_testPassword3);
+            int passwordCount = _userPasswordTest.GetAmountOfPasswordsWithSecurityLevelAndCategory(SecurityLevelPasswords.RED, _personal);
+            Assert.AreEqual(2,2);
         }
     }
 }
