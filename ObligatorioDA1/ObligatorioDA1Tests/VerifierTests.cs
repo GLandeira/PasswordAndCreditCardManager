@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
 using Domain.Exceptions;
+using System;
 
 namespace DomainTests
 {
@@ -28,7 +29,8 @@ namespace DomainTests
                 Name = "Visa Gold",
                 Number = "1111111111111111",
                 SecurityCode = "111",
-                Notes = "super secreta, no compartir"
+                Notes = "super secreta, no compartir",
+                ValidDue = DateTime.Today
             };
 
             //Password part
@@ -153,6 +155,26 @@ namespace DomainTests
                 "will get there one day, and you will look back to the old days " +
                 "where you were reading this, those good old days.";
                 
+            Verifier.VerifyCreditCard(_creditCardTest);
+        }
+
+        [TestMethod]
+        public void CreditCardTodayValidDue()
+        {
+            DateTime ValidDue = DateTime.Today;
+            _creditCardTest.ValidDue = ValidDue;
+
+            Verifier.VerifyCreditCard(_creditCardTest);
+            Assert.IsTrue(true);
+        }
+
+        [ExpectedException(typeof(ValidDueCreditCardException))]
+        [TestMethod]
+        public void CreditCardExpiredValidDue()
+        {
+            DateTime invalidValidDue = new DateTime(2010, 7, 10);
+            _creditCardTest.ValidDue = invalidValidDue;
+
             Verifier.VerifyCreditCard(_creditCardTest);
         }
 
