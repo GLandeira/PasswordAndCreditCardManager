@@ -325,6 +325,7 @@ namespace DomainTests
             _userPasswordTest.AddPassword(_testPasswordDarkGreen);
             int passwordCount = _userPasswordTest.GetAmountOfPasswordsWithSecurityLevelAndCategory(SecurityLevelPasswords.DARK_GREEN, _trabajo);
             Assert.AreEqual(0, 0);
+        }
 
         public void CheckAbsolutEqualityBetweenTwoSamePassword()
         {
