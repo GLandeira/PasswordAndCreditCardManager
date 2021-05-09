@@ -4,38 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Exceptions;
+using Domain.PasswordSecurityFlagger;
 
 namespace Domain
 {
     public class UserPassword
     {
-        private List<Password> _passwords;
-
-        public List<Password> Passwords
-        {
-            get
-            {
-                return _passwords;
-            }
-            set
-            {
-                _passwords = value;
-            }
-        }
+        public List<Password> Passwords { get; private set; }
 
         public UserPassword()
         {
-            this._passwords = new List<Password>();
+            this.Passwords = new List<Password>();
         }
 
         public void AddPassword(Password password)
         {
-            this._passwords.Add(password);
+            Verifier.VerifyPassword(password);
+            password.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(password.PasswordString);
+            this.Passwords.Add(password);
         }
 
         public void RemovePassword(Password password)
         {
-            this._passwords.Remove(password);
+            this.Passwords.Remove(password);
         }
 
         public Password GetPassword(string siteName, string siteUserName)
@@ -44,25 +35,36 @@ namespace Domain
             passwordImitator.Site = siteName;
             passwordImitator.Username = siteUserName;
 
-            if(!_passwords.Any(pass => pass.Equals(passwordImitator)))
+            if(!Passwords.Any(pass => pass.Equals(passwordImitator)))
             {
-                throw new PasswordDoesntExistException();
+                throw new PasswordNotFoundException();
             }
 
-            return _passwords.First(pass => pass.Equals(passwordImitator));
+            return Passwords.First(pass => pass.Equals(passwordImitator));
+        }
+
+        public List<Password> GetPasswordsByPasswordString(String passwordStringToLook)
+        {
+
+            if (!Passwords.Exists(passwordInList => passwordInList.PasswordString.Equals(passwordStringToLook)))
+            {
+                throw new PasswordNotFoundException();
+            }
+            return Passwords.FindAll(passwordInList => passwordInList.PasswordString.Equals(passwordStringToLook));
         }
 
         public void ModifyPassword(Password modifiedPassword, Password oldPassword)
         {
-            if(this._passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(modifiedPassword)))
+            Verifier.VerifyPassword(oldPassword);
+            if (this.Passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(modifiedPassword)))
             {
                 throw new AlreadyExistingPasswordException();
             }
 
             modifiedPassword.LastModification = DateTime.Now;
-
-            this._passwords.Remove(oldPassword);
-            this._passwords.Add(modifiedPassword);
+            modifiedPassword.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(modifiedPassword.PasswordString);
+            this.Passwords.Remove(oldPassword);
+            this.Passwords.Add(modifiedPassword);
         }
 
         public void SharePassword(User sharee, Password sharedPassword)
@@ -91,26 +93,42 @@ namespace Domain
             }
         }
 
-        public List<Password> GetPasswordsByPasswordString(String passwordStringToLook)
-        {
-
-            if (!Passwords.Exists(passwordInList => passwordInList.PasswordString.Equals(passwordStringToLook)))
-            {
-                throw new PasswordNotFoundException();
-            }
-            return Passwords.FindAll(passwordInList => passwordInList.PasswordString.Equals(passwordStringToLook));
-        }
-
         private void AddUserToPasswordUsersSharedWith(string shareeName, Password sharedPassword)
         {
-            Password sharerPasswordInMemory = _passwords.Find(pass => pass.Equals(sharedPassword));
+            Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
             sharerPasswordInMemory.UsersSharedWith.Add(shareeName);
         }
 
         private void RemoveUserFromPasswordUsersSharedWith(string shareeName, Password sharedPassword)
         {
-            Password sharerPasswordInMemory = _passwords.Find(pass => pass.Equals(sharedPassword));
+            Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
             sharerPasswordInMemory.UsersSharedWith.Remove(shareeName);
+        }
+
+        public List<Password> GetPasswordsWithSecurityLevel(SecurityLevelPasswords securityLevel)
+        {
+            List<Password> metSecurityLevelPasswords = new List<Password>();
+            foreach(Password currentPassword in Passwords)
+            {
+                if(currentPassword.SecurityLevel == securityLevel)
+                {
+                    metSecurityLevelPasswords.Add(currentPassword);
+                }
+            }
+            return metSecurityLevelPasswords;
+        }
+
+        public int GetAmountOfPasswordsWithSecurityLevelAndCategory(SecurityLevelPasswords securityLevel, Category category)
+        {
+            int amountOfPasswords = 0;
+            foreach(Password currentPassword in Passwords)
+            {
+                if ((currentPassword.SecurityLevel == securityLevel) && (currentPassword.Category.Equals(category)))
+                {
+                    amountOfPasswords++;
+                }
+            }
+            return amountOfPasswords;
         }
     }
 }

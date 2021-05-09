@@ -13,21 +13,17 @@ namespace Domain
         public string MainPassword { get; set; }
         public UserPassword UserPasswords { get; private set; }
         public UserCreditCard UserCreditCards { get; private set; }
-        UserDataBreaches UserDataBreaches;
+        public UserDataBreaches UserDataBreaches { get; private set; }
         public List<Category> Categories { get; set; }
-
-        private const int MAXIMUM_CHARACTERS_CATEGORY_NAME = 15;
-        private const int MINIMUM_CHARACTERS_CATEGORY_NAME = 3;
         public const string SHARED_PASSWORD_CATEGORY_NAME = "Shared With Me";
-
         public static Category SHARED_WITH_ME_CATEGORY = new Category(SHARED_PASSWORD_CATEGORY_NAME);
 
         public User()
         {
             Categories = new List<Category>();
-            UserDataBreaches = new UserDataBreaches(this);
-            UserCreditCards = new UserCreditCard();
             UserPasswords = new UserPassword();
+            UserCreditCards = new UserCreditCard();
+            UserDataBreaches = new UserDataBreaches(this);
             Categories.Add(SHARED_WITH_ME_CATEGORY);
         }
 
@@ -36,11 +32,10 @@ namespace Domain
             Categories = new List<Category>();
             UserPasswords = new UserPassword();
             UserCreditCards = new UserCreditCard();
+            UserDataBreaches = new UserDataBreaches(this);
             Name = name;
             MainPassword = mainPassword;
-            UserDataBreaches = new UserDataBreaches(this);
-            UserCreditCards = new UserCreditCard();
-            UserPasswords = new UserPassword();
+            Categories.Add(SHARED_WITH_ME_CATEGORY);
         }
 
         public void AddCategory(Category aCategory)
@@ -69,11 +64,8 @@ namespace Domain
 
         public void ModifyCategory(Category categoryToModify, Category newCategory)
         {
-            //modificar metodo modify, que el string ya sea otra categoria -> no lo hago para chequear antes con el team
-            //por ahora hago esto
             Verifier.VerifyCategory(newCategory);
 
-            // Find category in list
             try
             {
                 Category a = Categories.First(cat => cat.Equals(categoryToModify));

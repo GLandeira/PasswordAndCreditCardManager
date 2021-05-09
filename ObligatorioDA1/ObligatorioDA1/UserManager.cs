@@ -7,18 +7,19 @@ using Domain.Exceptions;
 
 namespace Domain
 {
-    public class Domain
+    public class UserManager
     {
         public List<User> Users { get; private set; }
 
 
-        public Domain()
+        public UserManager()
         {
             Users = new List<User>();
         }
 
         public void AddUser(User newUser)
         {
+            Verifier.VerifyUser(newUser);
             if (Users.Contains(newUser))
             {
                 throw new UserAlreadyExistsException();
@@ -37,11 +38,12 @@ namespace Domain
             return Users.First(user => user.Name == username);
         }
 
-        public void ModifyPassword(string userNameInDomain, string newPassword)
+        public void ModifyPassword(User userWithNewPassword)
         {
+            Verifier.VerifyUser(userWithNewPassword);
             try
             {
-                Users.First(us => us.Name == userNameInDomain).MainPassword = newPassword;
+                Users.First(us => us.Name == userWithNewPassword.Name).MainPassword = userWithNewPassword.MainPassword;
             }
             catch (InvalidOperationException isEmptyOrNotPresent)
             {

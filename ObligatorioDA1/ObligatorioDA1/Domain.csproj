@@ -55,21 +55,21 @@
     <Compile Include="CardTypes.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="DataBreaches.cs" />
-    <Compile Include="ColorClassifier.cs" />
-    <Compile Include="DarkGreenClassifier.cs" />
-    <Compile Include="Exceptions\PasswordDoesntExistException.cs" />
+    <Compile Include="Exceptions\ValidDueCreditCardException.cs" />
+    <Compile Include="PasswordSecurityFlagger\ColorClassifier.cs" />
+    <Compile Include="PasswordSecurityFlagger\DarkGreenClassifier.cs" />
     <Compile Include="Exceptions\PasswordAlreadySharedException.cs" />
     <Compile Include="PasswordShareDetails.cs" />
     <Compile Include="Exceptions\AlreadyExistingPasswordException.cs" />
     <Compile Include="Exceptions\CategoryNotFoundException.cs" />
     <Compile Include="CreditCard.cs" />
-    <Compile Include="Domain.cs" />
+    <Compile Include="UserManager.cs" />
     <Compile Include="Exceptions\CreditCardNotFoundException.cs" />
     <Compile Include="Exceptions\CouldntAssignSecurityLevelException.cs" />
     <Compile Include="Exceptions\CreditCardRepeatedException.cs" />
     <Compile Include="Exceptions\DomainException.cs" />
-    <Compile Include="LightGreenClassifier.cs" />
-    <Compile Include="OrangeClassifier.cs" />
+    <Compile Include="PasswordSecurityFlagger\LightGreenClassifier.cs" />
+    <Compile Include="PasswordSecurityFlagger\OrangeClassifier.cs" />
     <Compile Include="Exceptions\MainPasswordUserException.cs" />
     <Compile Include="Exceptions\NameCategoryException.cs" />
     <Compile Include="Exceptions\NameCreditCardException.cs" />
@@ -89,13 +89,13 @@
     <Compile Include="PasswordGenerator\MinusCharacterGenerator.cs" />
     <Compile Include="PasswordGenerator\PasswordGenerationSettings.cs" />
     <Compile Include="PasswordGenerator\PasswordGenerator.cs" />
-    <Compile Include="PasswordGenerator\PasswordGeneratorConstants.cs" />
+    <Compile Include="CharacterConstants.cs" />
     <Compile Include="PasswordGenerator\SymbolCharacterGenerator.cs" />
-    <Compile Include="PasswordSecurityFlagger.cs" />
+    <Compile Include="PasswordSecurityFlagger\PasswordSecurityFlagger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RedClassifier.cs" />
-    <Compile Include="SecurityLevelPasswords.cs" />
+    <Compile Include="PasswordSecurityFlagger\RedClassifier.cs" />
+    <Compile Include="PasswordSecurityFlagger\SecurityLevelPasswords.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Exceptions\UserAlreadyExistsException.cs" />
     <Compile Include="UserCreditCard.cs" />
@@ -104,7 +104,7 @@
     <Compile Include="UserDataBreaches.cs" />
     <Compile Include="UserPassword.cs" />
     <Compile Include="Verifier.cs" />
-    <Compile Include="YellowClassifier.cs" />
+    <Compile Include="PasswordSecurityFlagger\YellowClassifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

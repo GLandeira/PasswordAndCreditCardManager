@@ -1,33 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Domain.Exceptions;
 
 namespace Domain
 {
     public class UserCreditCard
     {
-        private List<CreditCard> _creditCards;
+        public List<CreditCard> CreditCards { get; private set; }
 
-        public List<CreditCard> CreditCards
-        {
-            get
-            {
-                return _creditCards;
-            }
-            set
-            {
-                _creditCards = value;
-            }
-        }
         public UserCreditCard()
         {
-            this._creditCards = new List<CreditCard>();
+            this.CreditCards = new List<CreditCard>();
         }
+
         public void AddCreditCard(CreditCard creditCard)
         {
+            Verifier.VerifyCreditCard(creditCard);
             IsAlreadyInTheList(creditCard);
             CreditCards.Add(creditCard);
         }
@@ -39,6 +27,7 @@ namespace Domain
 
         public void ModifyCreditCard(CreditCard creditCardToRemove, CreditCard creditCardToAdd)
         {
+            Verifier.VerifyCreditCard(creditCardToAdd);
             if (!creditCardToRemove.Equals(creditCardToAdd))
             {
                 IsAlreadyInTheList(creditCardToAdd);

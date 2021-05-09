@@ -1,119 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.PasswordSecurityFlagger;
 
 namespace Domain
 {
     public class Password : ICloneable
     {
-        public string _passwordString;
-        public string _site;
-        public string _username;
-        public DateTime _lastModification;
-        public SecurityLevelPasswords _securityLevel;
-        public Category _category;
-        public string _notes;
-        public List<string> _usersSharedWith = new List<string>();
+        public string PasswordString { get; set; }
+        public string Site { get; set; }
+        public string Username { get; set; }
+        public DateTime LastModification { get; set; }
+        public SecurityLevelPasswords SecurityLevel { get; set; }
+        public Category Category { get; set; }
+        public string Notes { get; set; }
+        public List<string> UsersSharedWith { get; private set; }
 
-        public string PasswordString
+        public Password()
         {
-            get 
-            {
-                return _passwordString;
-            }
-            set 
-            {
-                _passwordString = value;
-            }
+            UsersSharedWith = new List<string>();
         }
 
-        public string Site
-        {
-            get
-            {
-                return _site;
-            }
-            set
-            {
-                _site = value;
-            }
-        }
-
-        public string Username
-        {
-            get
-            {
-                return _username;
-            }
-            set
-            {
-                _username = value;
-            }
-        }
-
-        public DateTime LastModification
-        {
-            get
-            {
-                return _lastModification;
-            }
-            set
-            {
-                _lastModification = value;
-            }
-        }
-
-        public SecurityLevelPasswords SecurityLevel
-        {
-            get
-            {
-                return _securityLevel;
-            }
-            set
-            {
-                _securityLevel = value;
-            }
-        }
-
-        public Category Category
-        {
-            get
-            {
-                return _category;
-            }
-            set
-            {
-                _category = value;
-            }
-        }
-
-        public string Notes
-        {
-            get
-            {
-                return _notes;
-            }
-            set
-            {
-                _notes = value;
-            }
-        }
-
-        public List<string> UsersSharedWith
-        {
-            get
-            {
-                return _usersSharedWith;
-            }
-            set
-            {
-                _usersSharedWith = value;
-            }
-        }
-
-        internal bool AbsoluteEquals(Password password)
+        public bool AbsoluteEquals(Password password)
         {
             if (password == null)
             {
