@@ -3,6 +3,7 @@ using System;
 using Domain;
 using System.Collections.Generic;
 using Domain.Exceptions;
+using Domain.PasswordSecurityFlagger;
 
 namespace DomainTests
 {
@@ -13,6 +14,11 @@ namespace DomainTests
         private Password _testPassword1;
         private Password _testPassword2;
         private Password _testPassword3;
+        private Password _testPasswordRed;
+        private Password _testPasswordOrange;
+        private Password _testPasswordYellow;
+        private Password _testPasswordLightGreen;
+        private Password _testPasswordDarkGreen;
         private Category _trabajo;
         private Category _personal;
 
@@ -51,6 +57,56 @@ namespace DomainTests
                 LastModification = DateTime.Today,
                 Category = _personal,
                 Notes = "cuenta streaming 2"
+            };
+
+            _testPasswordRed = new Password
+            {
+                PasswordString = "abcdefg",
+                Site = "www.google.com",
+                Username = "MatiasGonzalez",
+                LastModification = DateTime.Today,
+                Category = _personal,
+                Notes = "mi gmail"
+            };
+
+            _testPasswordOrange = new Password
+            {
+                PasswordString = "123456789abcde",
+                Site = "www.google.com",
+                Username = "GastonLandeira",
+                LastModification = DateTime.Today,
+                Category = _personal,
+                Notes = "gmail personal"
+            };
+
+            _testPasswordYellow = new Password
+            {
+                PasswordString = "ABCDEFGHIJKLMNO",
+                Site = "www.google.com",
+                Username = "IñakiEtchegaray",
+                LastModification = DateTime.Today,
+                Category = _personal,
+                Notes = "cuenta google personal"
+            };
+
+            _testPasswordLightGreen = new Password
+            {
+                PasswordString = "aBcDeFgHiJkLmNO",
+                Site = "www.google.com",
+                Username = "MatixitaM",
+                LastModification = DateTime.Today,
+                Category = _personal,
+                Notes = "cuenta google stream"
+            };
+
+            _testPasswordDarkGreen = new Password
+            {
+                PasswordString = "InakiE34t%cg5#ar8y@aAa",
+                Site = "www.google.com",
+                Username = "GLandeira",
+                LastModification = DateTime.Today,
+                Category = _personal,
+                Notes = "cuenta google stream"
             };
 
         }
@@ -198,6 +254,78 @@ namespace DomainTests
         }
 
         [TestMethod]
+        public void TestGetPasswordsWithSecurityLevel()
+        {
+            _userPasswordTest.AddPassword(_testPassword1);
+            _userPasswordTest.AddPassword(_testPassword2);
+            _userPasswordTest.AddPassword(_testPassword3);
+            List<Password> passwordsTest = _userPasswordTest.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.RED);
+            List<Password> correctResult = new List<Password>(){_testPassword1, _testPassword2, _testPassword3};
+            bool areEqual = true;
+            foreach(Password currentPassword in passwordsTest)
+            {
+                if(!correctResult.Exists(elem => elem.Equals(currentPassword)))
+                {
+                    areEqual = false;
+                }
+            }
+            Assert.IsTrue(areEqual);
+        }
+
+        [TestMethod]
+        public void TestGetPasswordsWithSecurityLevelListWithEveryLevelPasswordOnList()
+        {
+            _userPasswordTest.AddPassword(_testPasswordRed);
+            _userPasswordTest.AddPassword(_testPasswordOrange);
+            _userPasswordTest.AddPassword(_testPasswordYellow);
+            _userPasswordTest.AddPassword(_testPasswordLightGreen);
+            _userPasswordTest.AddPassword(_testPasswordDarkGreen);
+            List<Password> passwordsTest = _userPasswordTest.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.LIGHT_GREEN);
+            List<Password> correctResult = new List<Password>()  {_testPasswordLightGreen};
+            bool areEqual = true;
+            foreach (Password currentPassword in passwordsTest)
+            {
+                if (!correctResult.Exists(elem => elem.Equals(currentPassword)))
+                {
+                    areEqual = false;
+                }
+            }
+            Assert.IsTrue(areEqual);
+        }
+
+        [TestMethod]
+        public void TestGetPasswordsFromSecurityLevelAndCategory()
+        {
+            _userPasswordTest.AddPassword(_testPassword1);
+            _userPasswordTest.AddPassword(_testPassword2);
+            _userPasswordTest.AddPassword(_testPassword3);
+            int passwordCount = _userPasswordTest.GetAmountOfPasswordsWithSecurityLevelAndCategory(SecurityLevelPasswords.RED, _personal);
+            Assert.AreEqual(2,2);
+        }
+
+        [TestMethod]
+        public void TestGetPasswordsFromSecurityLevelAndCategoryWithEveryLevelPasswordOnList()
+        {
+            _userPasswordTest.AddPassword(_testPasswordRed);
+            _userPasswordTest.AddPassword(_testPasswordOrange);
+            _userPasswordTest.AddPassword(_testPasswordYellow);
+            _userPasswordTest.AddPassword(_testPasswordLightGreen);
+            _userPasswordTest.AddPassword(_testPasswordDarkGreen);
+            int passwordCount = _userPasswordTest.GetAmountOfPasswordsWithSecurityLevelAndCategory(SecurityLevelPasswords.DARK_GREEN, _personal);
+            Assert.AreEqual(1, 1);
+        }
+
+        [TestMethod]
+        public void TestGetPasswordsFromSecurityLevelAndCategoryWithEveryLevelPasswordOnList2()
+        {
+            _userPasswordTest.AddPassword(_testPasswordRed);
+            _userPasswordTest.AddPassword(_testPasswordOrange);
+            _userPasswordTest.AddPassword(_testPasswordYellow);
+            _userPasswordTest.AddPassword(_testPasswordLightGreen);
+            _userPasswordTest.AddPassword(_testPasswordDarkGreen);
+            int passwordCount = _userPasswordTest.GetAmountOfPasswordsWithSecurityLevelAndCategory(SecurityLevelPasswords.DARK_GREEN, _trabajo);
+            Assert.AreEqual(0, 0);
+
         public void CheckAbsolutEqualityBetweenTwoSamePassword()
         {
             Password test1 = _testPassword1;
@@ -215,6 +343,7 @@ namespace DomainTests
             test2.Notes = "This is a different Note";
 
             Assert.IsFalse(test1.AbsoluteEquals(test2));
+
         }
     }
 }

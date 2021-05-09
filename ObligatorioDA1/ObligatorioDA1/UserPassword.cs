@@ -20,6 +20,7 @@ namespace Domain
         public void AddPassword(Password password)
         {
             Verifier.VerifyPassword(password);
+            password.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(password.PasswordString);
             this.Passwords.Add(password);
         }
 
@@ -61,7 +62,7 @@ namespace Domain
             }
 
             modifiedPassword.LastModification = DateTime.Now;
-
+            modifiedPassword.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(modifiedPassword.PasswordString);
             this.Passwords.Remove(oldPassword);
             this.Passwords.Add(modifiedPassword);
         }
