@@ -13,22 +13,18 @@ namespace UserInterface
 {
     public partial class MainWindow : Form
     {
+        private User _loggedUser;
         private UserManager _userManager;
-
         public MainWindow()
         {
             InitializeComponent();
+            _userManager = new UserManager();
         }
 
-        private void LogInPage_Load(object sender, EventArgs e)
+        private void MainWindow_Load(object sender, EventArgs e)
         {
-            UserControl logInPage = new LogIn(_userManager);
-            pnlLogIn.Controls.Add(logInPage);
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            Form logIn = new LogInWindow(_userManager);
+            logIn.ShowDialog();
         }
     }
 }

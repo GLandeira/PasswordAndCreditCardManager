@@ -83,6 +83,11 @@ namespace Domain
             }
         }
 
+        public override string ToString()
+        {
+            return Name;
+        }
+
         public override bool Equals(object obj)
         {
             User theUser = (User)obj;

@@ -61,11 +61,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LogIn.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="LogInWindow.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LogIn.Designer.cs">
-      <DependentUpon>LogIn.cs</DependentUpon>
+    <Compile Include="LogInWindow.Designer.cs">
+      <DependentUpon>LogInWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -75,8 +75,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="LogIn.resx">
-      <DependentUpon>LogIn.cs</DependentUpon>
+    <EmbeddedResource Include="LogInWindow.resx">
+      <DependentUpon>LogInWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

@@ -9,6 +9,7 @@ namespace Domain
 {
     public class UserManager
     {
+        public User LoggedUser { get; set; }
         public List<User> Users { get; private set; }
 
 
@@ -57,10 +58,17 @@ namespace Domain
 
         public bool LogIn(string userNameToLogInWith, string userPasswordToLogInWith)
         {
-            return Users.Any
-                (us => us.Name == userNameToLogInWith && 
-
+            bool userExists = Users.Any
+                (us => us.Name == userNameToLogInWith &&
                        us.MainPassword == userPasswordToLogInWith);
+
+            if (userExists)
+            {
+                LoggedUser = GetUser(userNameToLogInWith);
+                return true;
+            }
+
+            return false;
         }
     }
 }

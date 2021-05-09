@@ -29,32 +29,20 @@ namespace UserInterface
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnlLogIn = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // pnlLogIn
-            // 
-            this.pnlLogIn.Location = new System.Drawing.Point(30, 12);
-            this.pnlLogIn.Name = "pnlLogIn";
-            this.pnlLogIn.Size = new System.Drawing.Size(740, 410);
-            this.pnlLogIn.TabIndex = 0;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pnlLogIn);
+            this.ClientSize = new System.Drawing.Size(1200, 668);
             this.Name = "MainWindow";
-            this.Text = "NOMBRE APP";
-            this.Load += new System.EventHandler(this.LogInPage_Load);
+            this.Text = "MainWindow";
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel pnlLogIn;
     }
 }
-
