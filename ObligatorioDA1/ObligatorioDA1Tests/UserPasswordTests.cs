@@ -325,6 +325,25 @@ namespace DomainTests
             _userPasswordTest.AddPassword(_testPasswordDarkGreen);
             int passwordCount = _userPasswordTest.GetAmountOfPasswordsWithSecurityLevelAndCategory(SecurityLevelPasswords.DARK_GREEN, _trabajo);
             Assert.AreEqual(0, 0);
+
+        public void CheckAbsolutEqualityBetweenTwoSamePassword()
+        {
+            Password test1 = _testPassword1;
+            Password test2 = (Password)_testPassword1.Clone();
+
+            Assert.IsTrue(test1.AbsoluteEquals(test2));
+        }
+
+        [TestMethod]
+        public void CheckAbsolutEqualityBetweenDifNotesPassword()
+        {
+            Password test1 = _testPassword1;
+            Password test2 = (Password)_testPassword1.Clone();
+
+            test2.Notes = "This is a different Note";
+
+            Assert.IsFalse(test1.AbsoluteEquals(test2));
+
         }
     }
 }

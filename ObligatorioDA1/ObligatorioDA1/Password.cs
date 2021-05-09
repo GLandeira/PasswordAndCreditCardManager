@@ -20,7 +20,7 @@ namespace Domain
             UsersSharedWith = new List<string>();
         }
 
-        internal bool AbsoluteEquals(Password password)
+        public bool AbsoluteEquals(Password password)
         {
             if (password == null)
             {
