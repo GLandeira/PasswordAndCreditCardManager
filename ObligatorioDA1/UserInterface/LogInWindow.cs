@@ -46,7 +46,7 @@ namespace UserInterface
                     txtbxSignUpPassword.Text = "";
                     txtbxConfirmPassword.Text = "";
                 }
-                catch(MainPasswordUserException me)
+                catch(UserException me)
                 {
                     lblSignUpStatusLabel.Text = me.Message;
                 }
