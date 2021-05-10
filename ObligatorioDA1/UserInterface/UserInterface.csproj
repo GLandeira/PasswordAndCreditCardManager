@@ -61,6 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CategoryController.Designer.cs">
+      <DependentUpon>CategoryController.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogInWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,13 +79,25 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="PasswordsController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PasswordsController.Designer.cs">
+      <DependentUpon>PasswordsController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CategoryController.resx">
+      <DependentUpon>CategoryController.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LogInWindow.resx">
       <DependentUpon>LogInWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PasswordsController.resx">
+      <DependentUpon>PasswordsController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
