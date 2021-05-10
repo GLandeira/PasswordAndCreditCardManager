@@ -14,6 +14,8 @@ namespace UserInterface
     public partial class MainWindow : Form
     {
         private UserManager _userManager;
+
+        private const string WELCOME_TEXT_BASE = "Welcome ";
         public MainWindow()
         {
             InitializeComponent();
@@ -34,8 +36,11 @@ namespace UserInterface
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            Form logIn = new LogInWindow(_userManager);
-            logIn.ShowDialog();
+            ActivateLogInSequence();
+
+            pnlMain.Controls.Clear();
+            UserControl passwordController = new LogoController();
+            pnlMain.Controls.Add(passwordController);
         }
 
         private void btnCategory_Click(object sender, EventArgs e)
@@ -50,6 +55,29 @@ namespace UserInterface
             pnlMain.Controls.Clear();
             UserControl passwordController = new PasswordsController();
             pnlMain.Controls.Add(passwordController);
+        }
+
+        private void lblLogOut_Click(object sender, EventArgs e)
+        {
+            ActivateLogInSequence();
+
+            pnlMain.Controls.Clear();
+            UserControl passwordController = new LogoController();
+            pnlMain.Controls.Add(passwordController);
+        }
+
+        private void lblChangePassword_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void ActivateLogInSequence()
+        {
+            Form logIn = new LogInWindow(_userManager);
+            Hide();
+            logIn.ShowDialog();
+            Show();
+            lblWelcome.Text = WELCOME_TEXT_BASE + _userManager.LoggedUser.Name + "!";
         }
     }
 }
