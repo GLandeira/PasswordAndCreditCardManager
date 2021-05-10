@@ -57,6 +57,13 @@ namespace UserInterface
             pnlMain.Controls.Add(passwordController);
         }
 
+        private void btnDataBreaches_Click(object sender, EventArgs e)
+        {
+            pnlMain.Controls.Clear();
+            UserControl passwordController = new PasswordsController();
+            pnlMain.Controls.Add(passwordController);
+        }
+
         private void lblLogOut_Click(object sender, EventArgs e)
         {
             ActivateLogInSequence();

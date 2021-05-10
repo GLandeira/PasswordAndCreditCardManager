@@ -59,6 +59,7 @@ namespace UserInterface
             this.grdvwCategoryTable.AllowUserToAddRows = false;
             this.grdvwCategoryTable.AllowUserToDeleteRows = false;
             this.grdvwCategoryTable.AutoGenerateColumns = false;
+            this.grdvwCategoryTable.BackgroundColor = System.Drawing.SystemColors.Window;
             this.grdvwCategoryTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdvwCategoryTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn});
