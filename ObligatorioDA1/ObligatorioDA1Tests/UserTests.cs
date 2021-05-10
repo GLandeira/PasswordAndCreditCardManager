@@ -164,7 +164,7 @@ namespace DomainTests
 
             _testUser.AddCategory(category1);
 
-            Assert.ThrowsException<CategoryAlreadyExistsException>(_testUser.AddCategory(category2));
+            Assert.ThrowsException<CategoryAlreadyExistsException>(() => _testUser.AddCategory(category2));
         }
     }
 }

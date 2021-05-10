@@ -18,7 +18,7 @@ namespace Domain
         public override bool Equals(object obj)
         {
             Category otherCategory = (Category)obj;
-            return this.Name == otherCategory.Name;
+            return this.Name.ToLower() == otherCategory.Name.ToLower();
         }
 
         public object Clone()
