@@ -153,5 +153,18 @@ namespace DomainTests
 
             Assert.AreNotEqual(userOne, userTwo);
         }
+
+        [TestMethod]
+        public void TestAddingTwoCategoriesWithSameNameThrowsException()
+        {
+            string categoryString1 = "My Job";
+            string categoryString2 = "My Job";
+            Category category1 = new Category(categoryString1);
+            Category category2 = new Category(categoryString2);
+
+            _testUser.AddCategory(category1);
+
+            Assert.ThrowsException<CategoryAlreadyExistsException>(_testUser.AddCategory(category2));
+        }
     }
 }
