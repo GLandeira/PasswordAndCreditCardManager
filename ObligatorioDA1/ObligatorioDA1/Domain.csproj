@@ -55,6 +55,7 @@
     <Compile Include="CardTypes.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="DataBreaches.cs" />
+    <Compile Include="Exceptions\PasswordExceptions.cs" />
     <Compile Include="Exceptions\ValidDueCreditCardException.cs" />
     <Compile Include="PasswordSecurityFlagger\ColorClassifier.cs" />
     <Compile Include="PasswordSecurityFlagger\DarkGreenClassifier.cs" />
@@ -73,7 +74,7 @@
     <Compile Include="Exceptions\MainPasswordUserException.cs" />
     <Compile Include="Exceptions\NameCategoryException.cs" />
     <Compile Include="Exceptions\NameCreditCardException.cs" />
-    <Compile Include="Exceptions\NamePasswordException.cs" />
+    <Compile Include="Exceptions\SitePasswordException.cs" />
     <Compile Include="Exceptions\NameUserException.cs" />
     <Compile Include="Exceptions\NotesException.cs" />
     <Compile Include="Exceptions\NumberCreditCardException.cs" />

@@ -142,16 +142,16 @@ namespace Domain
 
         private static void VerifyPasswordSite(Password passwordTested)
         {
-            if (passwordTested.Site.Length < MINIMUM_CHARACTERS_PASSWORD_USERxPASSWORD
+            if (passwordTested.Site.Length < MINIMUM_CHARACTERS_PASSWORD_SITE
                             || passwordTested.Site.Length > MAXIMUM_CHARACTERS_PASSWORD_USERxPASSWORDxSITE)
             {
-                throw new NamePasswordException();
+                throw new SitePasswordException();
             }   
         }
 
         private static void VerifyPasswordPasswordString(Password passwordTested)
         {
-            if (passwordTested.PasswordString.Length < MINIMUM_CHARACTERS_PASSWORD_SITE
+            if (passwordTested.PasswordString.Length < MINIMUM_CHARACTERS_PASSWORD_USERxPASSWORD
                             || passwordTested.PasswordString.Length > MAXIMUM_CHARACTERS_PASSWORD_USERxPASSWORDxSITE)
             {
                 throw new PasswordStringPasswordException();
