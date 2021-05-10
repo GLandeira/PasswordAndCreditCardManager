@@ -13,7 +13,6 @@ namespace UserInterface
 {
     public partial class MainWindow : Form
     {
-        private User _loggedUser;
         private UserManager _userManager;
         public MainWindow()
         {
@@ -42,7 +41,7 @@ namespace UserInterface
         private void btnCategory_Click(object sender, EventArgs e)
         {
             pnlMain.Controls.Clear();
-            UserControl categoryController = new CategoryController();
+            UserControl categoryController = new CategoryController(_userManager);
             pnlMain.Controls.Add(categoryController);
         }
 

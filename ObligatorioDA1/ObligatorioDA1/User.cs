@@ -41,6 +41,12 @@ namespace Domain
         public void AddCategory(Category aCategory)
         {
             Verifier.VerifyCategory(aCategory);
+
+            if(Categories.Any(cat => cat.Equals(aCategory)))
+            {
+                throw new CategoryAlreadyExistsException();
+            }
+
             Categories.Add(aCategory);
         }
 

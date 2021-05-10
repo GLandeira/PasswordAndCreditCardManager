@@ -61,6 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddCategoryModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddCategoryModal.Designer.cs">
+      <DependentUpon>AddCategoryModal.cs</DependentUpon>
+    </Compile>
     <Compile Include="CategoryController.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -79,6 +85,12 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModifyCategoryModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModifyCategoryModal.Designer.cs">
+      <DependentUpon>ModifyCategoryModal.cs</DependentUpon>
+    </Compile>
     <Compile Include="PasswordsController.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -87,6 +99,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddCategoryModal.resx">
+      <DependentUpon>AddCategoryModal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CategoryController.resx">
       <DependentUpon>CategoryController.cs</DependentUpon>
     </EmbeddedResource>
@@ -95,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModifyCategoryModal.resx">
+      <DependentUpon>ModifyCategoryModal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PasswordsController.resx">
       <DependentUpon>PasswordsController.cs</DependentUpon>
@@ -108,6 +126,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\Domain.Category.datasource" />
+    <None Include="Properties\DataSources\Domain.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
