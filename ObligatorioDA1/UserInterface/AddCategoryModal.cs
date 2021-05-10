@@ -14,6 +14,9 @@ namespace UserInterface
 {
     public partial class AddCategoryModal : Form
     {
+        public delegate void AddedCategoryEvent();
+        public static event AddedCategoryEvent onAddedCategory;
+
         private User _currentUser;
 
         public AddCategoryModal(User loggedUser)
@@ -29,18 +32,20 @@ namespace UserInterface
             {
                 Category newCategory = new Category(categoryName);
                 _currentUser.AddCategory(newCategory);
+                onAddedCategory?.Invoke();
+                Close();
             }
-            catch(NameCategoryException categoryException)
+            catch(UserException categoryException)
             {
                 MessageBox.Show(categoryException.Message, "ERROR",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            Close();
+            //Dispose();
         }
     }
 }

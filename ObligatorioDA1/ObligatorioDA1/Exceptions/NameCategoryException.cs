@@ -2,7 +2,7 @@
 
 namespace Domain.Exceptions
 {
-    public class NameCategoryException : Exception
+    public class NameCategoryException : UserException
     {
         public NameCategoryException()
         {

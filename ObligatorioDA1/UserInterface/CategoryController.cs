@@ -21,6 +21,7 @@ namespace UserInterface
             InitializeComponent();
             _userManager = userManager;
             _currentUser = _userManager.LoggedUser;
+            AddCategoryModal.onAddedCategory += OnAddedCategory;
         }
 
         private void CategoryController_Load(object sender, EventArgs e)
@@ -44,7 +45,19 @@ namespace UserInterface
         private void btnNewCategory_Click(object sender, EventArgs e)
         {
             Form newCategoryModal = new AddCategoryModal(_currentUser);
+            newCategoryModal.StartPosition = FormStartPosition.CenterScreen;
             newCategoryModal.ShowDialog();
+        }
+
+        protected override void OnHandleDestroyed(EventArgs e)
+        {
+            base.OnHandleDestroyed(e);
+            AddCategoryModal.onAddedCategory -= OnAddedCategory;
+        }
+
+        private void OnAddedCategory()
+        {
+            LoadDataGridViewWithListOfCategories(_currentUser.Categories);
         }
     }
 }
