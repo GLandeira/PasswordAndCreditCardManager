@@ -15,7 +15,7 @@ namespace UserInterface
     {
         private UserManager _userManager;
 
-        private const string WELCOME_TEXT_BASE = "Welcome ";
+        private const string WELCOME_TEXT_BASE = "Welcome {0}!";
         public MainWindow()
         {
             InitializeComponent();
@@ -81,7 +81,7 @@ namespace UserInterface
 
             if(_userManager.LoggedUser != null)
             {
-                lblWelcome.Text = WELCOME_TEXT_BASE + _userManager.LoggedUser.Name + "!";
+                lblWelcome.Text = string.Format(WELCOME_TEXT_BASE, _userManager.LoggedUser.Name);
             }
         }
     }

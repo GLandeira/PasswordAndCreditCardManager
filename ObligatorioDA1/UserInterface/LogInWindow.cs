@@ -14,6 +14,9 @@ namespace UserInterface
 {
     public partial class LogInWindow : Form
     {
+        private const string WRONG_CREDENTIALS = "Incorrect Username or Password.";
+        private const string USER_CREATED_SUCCESS = "User {0} created successfully!";
+
         private UserManager _userManager;
         private bool _loggedIn;
 
@@ -21,11 +24,6 @@ namespace UserInterface
         {
             InitializeComponent();
             _userManager = userManager;
-        }
-
-        private void LogInPage_Load(object sender, EventArgs e)
-        {
-            
         }
 
         private void btnSignUp_Click(object sender, EventArgs e)
@@ -41,14 +39,17 @@ namespace UserInterface
                 try
                 {
                     _userManager.AddUser(newUser);
-                    lblSignUpStatusLabel.Text = newUser.ToString();
                     txtbxSignUpUsername.Text = "";
                     txtbxSignUpPassword.Text = "";
                     txtbxConfirmPassword.Text = "";
+
+                    MessageBox.Show(string.Format(USER_CREATED_SUCCESS, username), "Success",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch(MainPasswordUserException me)
                 {
-                    lblSignUpStatusLabel.Text = me.Message;
+                    MessageBox.Show(me.Message, "ERROR",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -61,7 +62,12 @@ namespace UserInterface
             if (_userManager.LogIn(username, password))
             {
                 _loggedIn = true;
-                this.Close();
+                Close();
+            }
+            else
+            {
+                MessageBox.Show(WRONG_CREDENTIALS, "ERROR",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

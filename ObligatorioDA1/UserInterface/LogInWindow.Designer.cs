@@ -44,7 +44,6 @@ namespace UserInterface
             this.lblConfirmPassword = new System.Windows.Forms.Label();
             this.lblLogIn = new System.Windows.Forms.Label();
             this.lblSignUp = new System.Windows.Forms.Label();
-            this.lblSignUpStatusLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnLogIn
@@ -178,20 +177,11 @@ namespace UserInterface
             this.lblSignUp.TabIndex = 15;
             this.lblSignUp.Text = "Sign Up";
             // 
-            // lblSignUpStatusLabel
-            // 
-            this.lblSignUpStatusLabel.AutoSize = true;
-            this.lblSignUpStatusLabel.Location = new System.Drawing.Point(443, 404);
-            this.lblSignUpStatusLabel.Name = "lblSignUpStatusLabel";
-            this.lblSignUpStatusLabel.Size = new System.Drawing.Size(0, 13);
-            this.lblSignUpStatusLabel.TabIndex = 16;
-            // 
             // LogInWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 461);
-            this.Controls.Add(this.lblSignUpStatusLabel);
             this.Controls.Add(this.lblSignUp);
             this.Controls.Add(this.lblLogIn);
             this.Controls.Add(this.lblConfirmPassword);
@@ -211,7 +201,6 @@ namespace UserInterface
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Log In";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LogInWindow_FormClosed);
-            this.Load += new System.EventHandler(this.LogInPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -234,7 +223,6 @@ namespace UserInterface
         private System.Windows.Forms.Label lblConfirmPassword;
         private System.Windows.Forms.Label lblLogIn;
         private System.Windows.Forms.Label lblSignUp;
-        private System.Windows.Forms.Label lblSignUpStatusLabel;
     }
 }
 

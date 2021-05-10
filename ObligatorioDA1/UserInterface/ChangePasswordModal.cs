@@ -38,7 +38,7 @@ namespace UserInterface
                 try
                 {
                     _userManager.ModifyPassword(newUser);
-                    MessageBox.Show(PASSWORD_MODIFY_SUCCESS, "ERROR",
+                    MessageBox.Show(PASSWORD_MODIFY_SUCCESS, "Success",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Close();
                 }
