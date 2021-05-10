@@ -48,7 +48,7 @@ namespace UserInterface
             // 
             this.txtbxCategoryName.Location = new System.Drawing.Point(41, 62);
             this.txtbxCategoryName.Name = "txtbxCategoryName";
-            this.txtbxCategoryName.Size = new System.Drawing.Size(247, 20);
+            this.txtbxCategoryName.Size = new System.Drawing.Size(250, 20);
             this.txtbxCategoryName.TabIndex = 1;
             // 
             // btnOk
@@ -75,7 +75,7 @@ namespace UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(332, 152);
+            this.ClientSize = new System.Drawing.Size(334, 161);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.txtbxCategoryName);

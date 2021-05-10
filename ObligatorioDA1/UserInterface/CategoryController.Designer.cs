@@ -30,17 +30,18 @@ namespace UserInterface
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblCategoryTitle = new System.Windows.Forms.Label();
-            this.categoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.grdvwCategoryTable = new System.Windows.Forms.DataGridView();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.categoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnNewCategory = new System.Windows.Forms.Button();
             this.btnModifyCategory = new System.Windows.Forms.Button();
+            this.lblDebug = new System.Windows.Forms.Label();
+            this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.grdvwCategoryTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdvwCategoryTable)).BeginInit();
             this.SuspendLayout();
             // 
             // lblCategoryTitle
@@ -53,16 +54,10 @@ namespace UserInterface
             this.lblCategoryTitle.TabIndex = 3;
             this.lblCategoryTitle.Text = "Your Categories";
             // 
-            // categoryBindingSource
-            // 
-            this.categoryBindingSource.DataSource = typeof(Domain.Category);
-            // 
-            // userBindingSource
-            // 
-            this.userBindingSource.DataSource = typeof(Domain.User);
-            // 
             // grdvwCategoryTable
             // 
+            this.grdvwCategoryTable.AllowUserToAddRows = false;
+            this.grdvwCategoryTable.AllowUserToDeleteRows = false;
             this.grdvwCategoryTable.AutoGenerateColumns = false;
             this.grdvwCategoryTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdvwCategoryTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -70,24 +65,30 @@ namespace UserInterface
             this.grdvwCategoryTable.DataSource = this.categoryBindingSource;
             this.grdvwCategoryTable.Location = new System.Drawing.Point(50, 125);
             this.grdvwCategoryTable.Name = "grdvwCategoryTable";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdvwCategoryTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.grdvwCategoryTable.ReadOnly = true;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdvwCategoryTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grdvwCategoryTable.Size = new System.Drawing.Size(800, 435);
             this.grdvwCategoryTable.TabIndex = 0;
-            this.grdvwCategoryTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdvwCategoryTable_CellContentClick);
+            this.grdvwCategoryTable.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdvwCategoryTable_CellEnter);
             // 
             // nameDataGridViewTextBoxColumn
             // 
             this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
             this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
             this.nameDataGridViewTextBoxColumn.Width = 757;
+            // 
+            // categoryBindingSource
+            // 
+            this.categoryBindingSource.DataSource = typeof(Domain.Category);
             // 
             // btnNewCategory
             // 
@@ -107,11 +108,26 @@ namespace UserInterface
             this.btnModifyCategory.TabIndex = 6;
             this.btnModifyCategory.Text = "Modify";
             this.btnModifyCategory.UseVisualStyleBackColor = true;
+            this.btnModifyCategory.Click += new System.EventHandler(this.btnModifyCategory_Click);
+            // 
+            // lblDebug
+            // 
+            this.lblDebug.AutoSize = true;
+            this.lblDebug.Location = new System.Drawing.Point(454, 46);
+            this.lblDebug.Name = "lblDebug";
+            this.lblDebug.Size = new System.Drawing.Size(68, 13);
+            this.lblDebug.TabIndex = 7;
+            this.lblDebug.Text = "Debug Label";
+            // 
+            // userBindingSource
+            // 
+            this.userBindingSource.DataSource = typeof(Domain.User);
             // 
             // CategoryController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.btnModifyCategory);
             this.Controls.Add(this.btnNewCategory);
             this.Controls.Add(this.grdvwCategoryTable);
@@ -119,9 +135,9 @@ namespace UserInterface
             this.Name = "CategoryController";
             this.Size = new System.Drawing.Size(904, 656);
             this.Load += new System.EventHandler(this.CategoryController_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.grdvwCategoryTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdvwCategoryTable)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,5 +151,6 @@ namespace UserInterface
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btnNewCategory;
         private System.Windows.Forms.Button btnModifyCategory;
+        private System.Windows.Forms.Label lblDebug;
     }
 }

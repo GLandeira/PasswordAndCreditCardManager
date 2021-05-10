@@ -12,39 +12,42 @@ using Domain.Exceptions;
 
 namespace UserInterface
 {
-    public partial class AddCategoryModal : Form
+    public partial class ModifyCategoryModal : Form
     {
-        public delegate void AddedCategoryEvent();
-        public static event AddedCategoryEvent onAddedCategory;
+        public delegate void ModifiedCategoryEvent();
+        public static event ModifiedCategoryEvent onModifyCategory;
 
         private User _currentUser;
+        private Category _categoryToModify;
 
-        public AddCategoryModal(User loggedUser)
+        public ModifyCategoryModal(User loggedUser, Category categoryToModify)
         {
             InitializeComponent();
             _currentUser = loggedUser;
-        }
-
-        private void btnOk_Click(object sender, EventArgs e)
-        {
-            string categoryName = txtbxCategoryName.Text;
-            try
-            {
-                Category newCategory = new Category(categoryName);
-                _currentUser.AddCategory(newCategory);
-                onAddedCategory?.Invoke();
-                Close();
-            }
-            catch(UserException categoryException)
-            {
-                MessageBox.Show(categoryException.Message, "ERROR",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            _categoryToModify = categoryToModify;
+            txtbxNewCategoryName.Text = categoryToModify.Name;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            string categoryName = txtbxNewCategoryName.Text;
+            try
+            {
+                Category newCategory = new Category(categoryName);
+                _currentUser.ModifyCategory(_categoryToModify, newCategory);
+                onModifyCategory?.Invoke();
+                Close();
+            }
+            catch (UserException categoryException)
+            {
+                MessageBox.Show(categoryException.Message, "ERROR",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
