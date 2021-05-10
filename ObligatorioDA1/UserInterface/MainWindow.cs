@@ -68,7 +68,8 @@ namespace UserInterface
 
         private void lblChangePassword_Click(object sender, EventArgs e)
         {
-            
+            Form changePassword = new ChangePasswordModal(_userManager);
+            changePassword.ShowDialog();
         }
 
         private void ActivateLogInSequence()
@@ -77,7 +78,11 @@ namespace UserInterface
             Hide();
             logIn.ShowDialog();
             Show();
-            lblWelcome.Text = WELCOME_TEXT_BASE + _userManager.LoggedUser.Name + "!";
+
+            if(_userManager.LoggedUser != null)
+            {
+                lblWelcome.Text = WELCOME_TEXT_BASE + _userManager.LoggedUser.Name + "!";
+            }
         }
     }
 }

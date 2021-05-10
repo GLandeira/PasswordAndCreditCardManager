@@ -73,6 +73,12 @@
     <Compile Include="CategoryController.Designer.cs">
       <DependentUpon>CategoryController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChangePasswordModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangePasswordModal.Designer.cs">
+      <DependentUpon>ChangePasswordModal.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogInWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CategoryController.resx">
       <DependentUpon>CategoryController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangePasswordModal.resx">
+      <DependentUpon>ChangePasswordModal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LogInWindow.resx">
       <DependentUpon>LogInWindow.cs</DependentUpon>

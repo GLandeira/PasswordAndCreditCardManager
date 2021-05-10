@@ -144,6 +144,7 @@ namespace UserInterface
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.btnCategory);
             this.Name = "MainWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainWindow";
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.ResumeLayout(false);

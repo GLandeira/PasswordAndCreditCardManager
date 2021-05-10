@@ -208,6 +208,7 @@ namespace UserInterface
             this.Controls.Add(this.btnSignUp);
             this.Controls.Add(this.btnLogIn);
             this.Name = "LogInWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Log In";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LogInWindow_FormClosed);
             this.Load += new System.EventHandler(this.LogInPage_Load);
