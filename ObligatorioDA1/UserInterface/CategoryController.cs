@@ -110,7 +110,5 @@ namespace UserInterface
             base.OnHandleDestroyed(e);
             UnsubscribeToEvents();
         }
-
-        
     }
 }
