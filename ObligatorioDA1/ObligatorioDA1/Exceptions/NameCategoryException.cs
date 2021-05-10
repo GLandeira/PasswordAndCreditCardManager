@@ -16,7 +16,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "That name is either too long or too short!";
 
         public override string ToString()
         {
