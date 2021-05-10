@@ -16,6 +16,7 @@ namespace UserInterface
     {
         private const string WRONG_CREDENTIALS = "Incorrect Username or Password.";
         private const string USER_CREATED_SUCCESS = "User {0} created successfully!";
+        private const string PASSWORD_MODIFY_FAILURE = "Password and confirmation do not match.";
 
         private UserManager _userManager;
         private bool _loggedIn;
@@ -34,23 +35,12 @@ namespace UserInterface
 
             if(password == passwordConfirm)
             {
-                User newUser = new User(username, password);
-
-                try
-                {
-                    _userManager.AddUser(newUser);
-                    txtbxSignUpUsername.Text = "";
-                    txtbxSignUpPassword.Text = "";
-                    txtbxConfirmPassword.Text = "";
-
-                    MessageBox.Show(string.Format(USER_CREATED_SUCCESS, username), "Success",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch(MainPasswordUserException me)
-                {
-                    MessageBox.Show(me.Message, "ERROR",
+                TryToAddUser(password, username);
+            }
+            else
+            {
+                MessageBox.Show(PASSWORD_MODIFY_FAILURE, "ERROR",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
         }
 
@@ -76,6 +66,27 @@ namespace UserInterface
             if (!_loggedIn)
             {
                 Application.Exit();
+            }
+        }
+
+        private void TryToAddUser(string username, string password)
+        {
+            User newUser = new User(username, password);
+
+            try
+            {
+                _userManager.AddUser(newUser);
+                txtbxSignUpUsername.Text = "";
+                txtbxSignUpPassword.Text = "";
+                txtbxConfirmPassword.Text = "";
+
+                MessageBox.Show(string.Format(USER_CREATED_SUCCESS, username), "Success",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (MainPasswordUserException me)
+            {
+                MessageBox.Show(me.Message, "ERROR",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

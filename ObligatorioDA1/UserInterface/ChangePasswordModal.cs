@@ -18,6 +18,7 @@ namespace UserInterface
         private User _currentUser;
 
         private const string PASSWORD_MODIFY_SUCCESS = "Password modified successfully.";
+        private const string PASSWORD_MODIFY_FAILURE = "Password and confirmation do not match.";
 
         public ChangePasswordModal(UserManager userManager)
         {
@@ -33,26 +34,36 @@ namespace UserInterface
 
             if (password == passwordConfirm)
             {
-                User newUser = new User(_currentUser.Name, password);
-
-                try
-                {
-                    _userManager.ModifyPassword(newUser);
-                    MessageBox.Show(PASSWORD_MODIFY_SUCCESS, "Success",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Close();
-                }
-                catch (UserException ue)
-                {
-                    MessageBox.Show(ue.Message, "ERROR",
+                TryToModifyPassword(password);
+            }
+            else
+            {
+                MessageBox.Show(PASSWORD_MODIFY_FAILURE, "ERROR",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void TryToModifyPassword(string password)
+        {
+            User newUser = new User(_currentUser.Name, password);
+
+            try
+            {
+                _userManager.ModifyPassword(newUser);
+                MessageBox.Show(PASSWORD_MODIFY_SUCCESS, "Success",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
+            }
+            catch (UserException ue)
+            {
+                MessageBox.Show(ue.Message, "ERROR",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
