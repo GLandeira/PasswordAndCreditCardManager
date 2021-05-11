@@ -36,90 +36,16 @@ namespace UserInterface
         {
             InitializeComponent();
             _theDataBreaches = dataBreaches;
-
-            // Temporary passwords and credit cards for testing
-            Password p1 = new Password()
-            {
-                Username = "Popi",
-                Site = "www.pops.com",
-                Category = new Category("Personal"),
-                Notes = "Aiaiai popi popaa aiaiai",
-                PasswordString = "1234abc",
-                SecurityLevel = Domain.PasswordSecurityFlagger.SecurityLevelPasswords.RED,
-                LastModification = DateTime.Today
-            };
-
-            Password p2 = new Password()
-            {
-                Username = "Pogdgi",
-                Site = "www.popsddd.com",
-                Category = new Category("Personal"),
-                Notes = "A aiaiai",
-                PasswordString = "12bc",
-                SecurityLevel = Domain.PasswordSecurityFlagger.SecurityLevelPasswords.RED,
-                LastModification = DateTime.Today
-            };
-
-            Password p3 = new Password()
-            {
-                Username = "Popaaai",
-                Site = "www.poasdasdps.com",
-                Category = new Category("Personal"),
-                Notes = "Aiaiai popi popaa aiaiai",
-                PasswordString = "abc123",
-                SecurityLevel = Domain.PasswordSecurityFlagger.SecurityLevelPasswords.RED,
-                LastModification = DateTime.Today
-            };
-
-            _testPasswords.Add(p1);
-            _testPasswords.Add(p2);
-            _testPasswords.Add(p3);
-
-            CreditCard c1 = new CreditCard()
-            {
-                Number = "1111111111112222",
-                Category = new Category("Personal"),
-                Notes = "Aiaiai popi popaa aiaiai",
-                Name = "Visa Gold",
-                Type = CardTypes.VISA,
-                ValidDue = DateTime.Today,
-                SecurityCode = "111"
-            };
-
-            CreditCard c2 = new CreditCard()
-            {
-                Number = "1331111111112222",
-                Category = new Category("Personal"),
-                Notes = "Aiaiai popi popaa aiaiai",
-                Name = "Visa Gold",
-                Type = CardTypes.VISA,
-                ValidDue = DateTime.Today,
-                SecurityCode = "211"
-            };
-
-            CreditCard c3 = new CreditCard()
-            {
-                Number = "1111111661112222",
-                Category = new Category("Personal"),
-                Notes = "Aiaiai popi popaa aiaiai",
-                Name = "Visa Gold",
-                Type = CardTypes.VISA,
-                ValidDue = DateTime.Today,
-                SecurityCode = "131"
-            };
-
-            _testCreditCards.Add(c1);
-            _testCreditCards.Add(c2);
-            _testCreditCards.Add(c3);
         }
 
         private void DataBreachMatchesModal_Load(object sender, EventArgs e)
         {
             List<Password> breachedPasswords = _theDataBreaches.PasswordBreaches;
+            List<CreditCard> breachedCreditCards = _theDataBreaches.CreditCardsBreaches;
 
-            GenerateBreachedPasswordVisuals(_testPasswords);
+            GenerateBreachedPasswordVisuals(breachedPasswords);
 
-            GenerateBreachedCreditCardVisuals(_testCreditCards);
+            GenerateBreachedCreditCardVisuals(breachedCreditCards);
         }
 
         private void GenerateBreachedPasswordVisuals(List<Password> passwords)
@@ -134,7 +60,7 @@ namespace UserInterface
 
         private void GenerateBreachedCreditCardVisuals(List<CreditCard> creditCards)
         {
-            for (int i = 0; i < _testCreditCards.Count; i++)
+            for (int i = 0; i < creditCards.Count; i++)
             {
                 CreditCard currentCreditCard = creditCards[i];
 
