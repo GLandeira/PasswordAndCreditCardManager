@@ -29,9 +29,6 @@ namespace UserInterface
 
         private DataBreaches _theDataBreaches;
 
-        private List<Password> _testPasswords = new List<Password>();
-        private List<CreditCard> _testCreditCards = new List<CreditCard>();
-
         public DataBreachMatchesModal(DataBreaches dataBreaches)
         {
             InitializeComponent();

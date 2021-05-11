@@ -13,6 +13,8 @@ namespace UserInterface
 {
     public partial class DataBreachesController : UserControl
     {
+        private const string NO_BREACHED_PASSWORDS = "No breaches found.";
+
         private UserManager _userManager;
         private User _currentUser;
 
@@ -103,6 +105,13 @@ namespace UserInterface
             string[] fields = GetEntryFieldsSeparatedWithEnter(txtbxDataBreaches.Text);
 
             DataBreaches dataBreaches = _currentUser.UserDataBreaches.CheckDataBreaches(fields);
+
+            if(dataBreaches.CreditCardsBreaches.Count == 0 && dataBreaches.PasswordBreaches.Count == 0)
+            {
+                MessageBox.Show(NO_BREACHED_PASSWORDS, "Attention",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
             Form matchesDataBreaches = new DataBreachMatchesModal(dataBreaches);
             matchesDataBreaches.ShowDialog();
