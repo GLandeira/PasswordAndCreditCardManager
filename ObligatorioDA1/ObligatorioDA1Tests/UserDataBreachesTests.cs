@@ -182,5 +182,15 @@ namespace DomainTests
             Assert.AreEqual(1, _listQuantity);
         }
 
+        [TestMethod]
+        public void CheckMultipleDataBreachesOfSameCreditCardsDoesntShowRepeatedBreaches()
+        {
+            _breachTest = new string[] { _breach1, _breach1, _breach1 };
+            _userCreditCardTest.AddCreditCard(_creditCard1);
+            _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest);
+
+            int _listQuantity = _dataBreachTest.PasswordBreaches.Count;
+            Assert.AreEqual(1, _listQuantity);
+        }
     }
 }
