@@ -22,6 +22,7 @@ namespace UserInterface
         public AddOrModifyPasswordModal(User loggedUser, Password passwordToModify)
         {
             InitializeComponent();
+            PasswordGeneratorModal.onPasswordGeneration += UpdatePasswordTextBox;
             _currentUser = loggedUser;
             _passwordToModify = passwordToModify;
             _modify = (!(passwordToModify == null)); 
@@ -78,10 +79,23 @@ namespace UserInterface
                 txtBxNotes.Text = _passwordToModify.Notes;
             }
             
+        }
 
+        private void UpdatePasswordTextBox(string passwordGenerated)
+        {
+            txtBxPassword.Text = passwordGenerated;
+        }
 
+        protected override void OnHandleDestroyed(EventArgs e)
+        {
+            PasswordGeneratorModal.onPasswordGeneration -= UpdatePasswordTextBox;
+            base.OnHandleDestroyed(e);
+        }
 
-
+        private void btnGeneratePassword_Click(object sender, EventArgs e)
+        {
+            Form passwordGeneratorModal = new PasswordGeneratorModal();
+            passwordGeneratorModal.ShowDialog();
         }
     }
 }

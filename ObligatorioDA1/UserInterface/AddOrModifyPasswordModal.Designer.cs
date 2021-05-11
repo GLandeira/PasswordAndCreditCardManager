@@ -115,6 +115,7 @@ namespace UserInterface
             this.btnGeneratePassword.TabIndex = 8;
             this.btnGeneratePassword.Text = "Generate";
             this.btnGeneratePassword.UseVisualStyleBackColor = true;
+            this.btnGeneratePassword.Click += new System.EventHandler(this.btnGeneratePassword_Click);
             // 
             // lblNotes
             // 
