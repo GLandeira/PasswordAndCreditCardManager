@@ -29,7 +29,17 @@ namespace UserInterface
             bool wantsMayus = chkBxMayus.Checked;
             bool wantsDigits = chkBxDigits.Checked;
             bool wantsSymbols = chkBxSymbols.Checked;
-            int lengthWanted = int.Parse(txtBxLength.Text);
+            int lengthWanted;
+            try
+            {
+                lengthWanted = int.Parse(txtBxLength.Text);
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show(exception.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
 
             try
             {
