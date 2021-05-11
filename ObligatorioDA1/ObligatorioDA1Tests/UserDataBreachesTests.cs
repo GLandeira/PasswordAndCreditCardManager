@@ -202,11 +202,11 @@ namespace DomainTests
             _userPasswordTest.AddPassword(_password1);
             _userPasswordTest.AddPassword(_password2);
             _userCreditCardTest.AddCreditCard(_creditCard2);
-            _userCreditCardTest.AddCreditCard(_creditCard3);
+            _userCreditCardTest.AddCreditCard(_creditCard1);
             _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest);
 
             int _listQuantity = _dataBreachTest.CreditCardsBreaches.Count + _dataBreachTest.PasswordBreaches.Count;
-            Assert.AreEqual(4, _listQuantity);
+            Assert.AreEqual(3, _listQuantity);
         }
     }
 }
