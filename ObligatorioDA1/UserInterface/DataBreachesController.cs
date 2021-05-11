@@ -25,14 +25,20 @@ namespace UserInterface
 
         private void btnVerify_Click(object sender, EventArgs e)
         {
-            string fieldsWithoutSeparation = txtbxDataBreaches.Text;
-            string[] separator = new string[] { Environment.NewLine };
+            string[] fields = GetEntryFieldsSeparatedWithEnter(txtbxDataBreaches.Text);
 
-            string[] fields = fieldsWithoutSeparation.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             DataBreaches dataBreaches = _currentUser.UserDataBreaches.CheckDataBreaches(fields);
 
             Form matchesDataBreaches = new DataBreachMatchesModal(dataBreaches);
             matchesDataBreaches.ShowDialog();
+        }
+
+        private string[] GetEntryFieldsSeparatedWithEnter(string entry)
+        {
+            string[] separator = new string[] { Environment.NewLine };
+            string[] fields = entry.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+            return fields;
         }
     }
 }

@@ -33,10 +33,6 @@ namespace UserInterface
             this.lblBreachedCreditCards = new System.Windows.Forms.Label();
             this.fwlytBreachedPassword = new System.Windows.Forms.FlowLayoutPanel();
             this.fwlytBreachedCreditCards = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.fwlytBreachedCreditCards.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblBreachedPasswords
@@ -74,31 +70,12 @@ namespace UserInterface
             // 
             this.fwlytBreachedCreditCards.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.fwlytBreachedCreditCards.AutoScroll = true;
-            this.fwlytBreachedCreditCards.Controls.Add(this.panel1);
             this.fwlytBreachedCreditCards.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fwlytBreachedCreditCards.Location = new System.Drawing.Point(12, 266);
             this.fwlytBreachedCreditCards.Name = "fwlytBreachedCreditCards";
             this.fwlytBreachedCreditCards.Size = new System.Drawing.Size(515, 166);
             this.fwlytBreachedCreditCards.TabIndex = 7;
             this.fwlytBreachedCreditCards.WrapContents = false;
-            this.fwlytBreachedCreditCards.Paint += new System.Windows.Forms.PaintEventHandler(this.fwlytBreachedCreditCards_Paint);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(500, 23);
-            this.panel1.TabIndex = 8;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(40, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "label1";
             // 
             // DataBreachMatchesModal
             // 
@@ -113,9 +90,6 @@ namespace UserInterface
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Results";
             this.Load += new System.EventHandler(this.DataBreachMatchesModal_Load);
-            this.fwlytBreachedCreditCards.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,7 +101,5 @@ namespace UserInterface
         private System.Windows.Forms.Label lblBreachedCreditCards;
         private System.Windows.Forms.FlowLayoutPanel fwlytBreachedPassword;
         private System.Windows.Forms.FlowLayoutPanel fwlytBreachedCreditCards;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
     }
 }
