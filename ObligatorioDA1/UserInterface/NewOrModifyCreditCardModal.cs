@@ -18,22 +18,28 @@ namespace UserInterface
         public static event ModifiedCreditCardEvent onNewOrModifyCreditCard;
 
         private User _currentUser;
+        private bool _isModification;
+        private CreditCard _CreditCardToModify;
 
         public NewOrModifyCreditCardModal(User user, CreditCard creditCardModified)
         {
             _currentUser = user;
+            _CreditCardToModify = creditCardModified;
             InitializeComponent();
-            dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.CustomFormat = "MM/yyyy";
+
+            //set DateTimePicker to month/year format
+            dtmCreditCardDateDue.Format = DateTimePickerFormat.Custom;
+            dtmCreditCardDateDue.CustomFormat = "MM/yyyy";
 
             if (creditCardModified != null)
             {
+                _isModification = true;
+
                 txtbxCreditCardName.Text = creditCardModified.Name;
                 cmbbxCreditCardType.SelectedIndex = cmbbxCreditCardType.Items.IndexOf(creditCardModified.Type);
                 txtbxCreditCardNumber.Text = creditCardModified.Number;
                 txtbxCreditCardSecurityNumber.Text = creditCardModified.SecurityCode;
-                //numCreditCardMonth
-                //numCreditCardYear. = creditCardModified.ValidDue.Year;
+                dtmCreditCardDateDue.Value = creditCardModified.ValidDue;
                 cmbbxCreditCardCategory.SelectedIndex = cmbbxCreditCardCategory.Items.IndexOf(creditCardModified.Category);
                 txtbxCreditCardNotes.Text = creditCardModified.Notes;
             }
@@ -44,17 +50,25 @@ namespace UserInterface
             CreditCard newCreditCard = new CreditCard
             {
                 Name = txtbxCreditCardName.Text,
-                Type = (CardTypes) cmbbxCreditCardType.SelectedItem,
+                Type = (CardTypes)cmbbxCreditCardType.SelectedItem,
                 Number = txtbxCreditCardNumber.Text,
                 SecurityCode = txtbxCreditCardSecurityNumber.Text,
-                //ValidDue = Convert.ToDateTime(txtbxCreditCardDateDue.Text),
+                ValidDue = dtmCreditCardDateDue.Value,
                 Category = (Category) cmbbxCreditCardCategory.SelectedItem,
                 Notes = txtbxCreditCardNotes.Text,
             };
 
             try
             {
-                _currentUser.UserCreditCards.AddCreditCard(newCreditCard);
+                if(_isModification == false)
+                {
+                    _currentUser.UserCreditCards.AddCreditCard(newCreditCard);
+                }
+                else
+                {
+                    _currentUser.UserCreditCards.ModifyCreditCard(_CreditCardToModify, newCreditCard);
+                }
+                
                 onNewOrModifyCreditCard?.Invoke();
                 Close();
             }

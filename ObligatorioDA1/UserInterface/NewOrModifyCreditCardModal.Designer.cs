@@ -46,7 +46,7 @@ namespace UserInterface
             this.cmbbxCreditCardCategory = new System.Windows.Forms.ComboBox();
             this.categoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cmbbxCreditCardType = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtmCreditCardDateDue = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.creditCardBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -113,11 +113,11 @@ namespace UserInterface
             // lblCreditCardDateDue
             // 
             this.lblCreditCardDateDue.AutoSize = true;
-            this.lblCreditCardDateDue.Location = new System.Drawing.Point(22, 171);
+            this.lblCreditCardDateDue.Location = new System.Drawing.Point(21, 172);
             this.lblCreditCardDateDue.Name = "lblCreditCardDateDue";
-            this.lblCreditCardDateDue.Size = new System.Drawing.Size(10, 13);
+            this.lblCreditCardDateDue.Size = new System.Drawing.Size(56, 13);
             this.lblCreditCardDateDue.TabIndex = 9;
-            this.lblCreditCardDateDue.Text = " ";
+            this.lblCreditCardDateDue.Text = " Date Due";
             // 
             // lblCreditCardNotes
             // 
@@ -132,7 +132,7 @@ namespace UserInterface
             // 
             this.txtbxCreditCardSecurityNumber.Location = new System.Drawing.Point(115, 133);
             this.txtbxCreditCardSecurityNumber.Name = "txtbxCreditCardSecurityNumber";
-            this.txtbxCreditCardSecurityNumber.Size = new System.Drawing.Size(161, 20);
+            this.txtbxCreditCardSecurityNumber.Size = new System.Drawing.Size(82, 20);
             this.txtbxCreditCardSecurityNumber.TabIndex = 11;
             // 
             // txtbxCreditCardNotes
@@ -180,23 +180,24 @@ namespace UserInterface
             this.cmbbxCreditCardType.Size = new System.Drawing.Size(161, 21);
             this.cmbbxCreditCardType.TabIndex = 17;
             // 
-            // dateTimePicker1
+            // dtmCreditCardDateDue
             // 
-            this.dateTimePicker1.CustomFormat = "\"MM/yyyy\"";
-            this.dateTimePicker1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dateTimePicker1.Location = new System.Drawing.Point(115, 169);
-            this.dateTimePicker1.MinDate = new System.DateTime(2021, 5, 25, 23, 59, 59, 0);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(82, 20);
-            this.dateTimePicker1.TabIndex = 22;
-            this.dateTimePicker1.Value = new System.DateTime(2021, 5, 25, 23, 59, 59, 0);
+            this.dtmCreditCardDateDue.CustomFormat = "\"MM/yyyy\"";
+            this.dtmCreditCardDateDue.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dtmCreditCardDateDue.Location = new System.Drawing.Point(115, 169);
+            this.dtmCreditCardDateDue.MinDate = new System.DateTime(2021, 5, 25, 23, 59, 59, 0);
+            this.dtmCreditCardDateDue.Name = "dtmCreditCardDateDue";
+            this.dtmCreditCardDateDue.ShowUpDown = true;
+            this.dtmCreditCardDateDue.Size = new System.Drawing.Size(82, 20);
+            this.dtmCreditCardDateDue.TabIndex = 22;
+            this.dtmCreditCardDateDue.Value = new System.DateTime(2021, 5, 25, 23, 59, 59, 0);
             // 
             // NewOrModifyCreditCardModal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(362, 420);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dtmCreditCardDateDue);
             this.Controls.Add(this.cmbbxCreditCardType);
             this.Controls.Add(this.cmbbxCreditCardCategory);
             this.Controls.Add(this.btnCreditCardConfirm);
@@ -212,7 +213,6 @@ namespace UserInterface
             this.Controls.Add(this.txtbxCreditCardNumber);
             this.Controls.Add(this.txtbxCreditCardName);
             this.Name = "NewOrModifyCreditCardModal";
-            this.Text = "Credit Card ";
             this.Load += new System.EventHandler(this.NewOrModifyCreditCardModal_Load);
             ((System.ComponentModel.ISupportInitialize)(this.creditCardBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).EndInit();
@@ -238,6 +238,6 @@ namespace UserInterface
         private System.Windows.Forms.ComboBox cmbbxCreditCardCategory;
         private System.Windows.Forms.BindingSource categoryBindingSource;
         private System.Windows.Forms.ComboBox cmbbxCreditCardType;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtmCreditCardDateDue;
     }
 }

@@ -19,35 +19,43 @@ namespace UserInterface
         private CreditCard _selectedCreditCard;
 
         //pruebas
-        private Category _trabajo = new Category("Trabajo");
-        private CardTypes _visa = CardTypes.VISA;
-        private CreditCard _creditCard1 = new CreditCard
-        {
-            Name = "Visa Gold",
-            Number = "1111111111111111",
-            SecurityCode = "1234",
-            ValidDue = DateTime.Today,
-            Notes = "super secreta, no compartir"
-        };
+        private Category _trabajo;
+        private CardTypes _visa;
+        private CreditCard _creditCard1;
+
 
         public CreditCardController(UserManager userManager)
         {
             _userManager = userManager;
             _currentUser = _userManager.LoggedUser;
-            _currentUser.UserCreditCards.AddCreditCard(_creditCard1);
+
             InitializeComponent();
             NewOrModifyCreditCardModal.onNewOrModifyCreditCard += CreditCardLoad;
         }
 
         private void CreditCardController_Load(object sender, EventArgs e)
         {
+            _trabajo = new Category("Personal");
+            _visa = CardTypes.VISA;
+            _creditCard1 = new CreditCard
+            {
+                Category = _currentUser.GetACategory("Personal"),
+                Name = "Visa Gold",
+                Number = "1111111111111111",
+                SecurityCode = "1234",
+                Type = _visa,
+                ValidDue = new DateTime(2022, 03, 08),
+                Notes = "super secreta, no compartir"
+            };
+            _currentUser.UserCreditCards.AddCreditCard(_creditCard1);
             CreditCardLoad();
         }
 
         private void CreditCardLoad()
         {
-            List<CreditCard> bs = _currentUser.UserCreditCards.CreditCards;
-            grdvwCreditCard.AutoGenerateColumns = false;
+            BindingSource bs = new BindingSource();
+            List<CreditCard> creditCards = _currentUser.UserCreditCards.CreditCards;
+            bs.DataSource = creditCards;
             grdvwCreditCard.DataSource = bs;
         }
 
@@ -61,26 +69,26 @@ namespace UserInterface
         {
             try
             {
-                _currentUser.UserCreditCards.RemoveCreditCard(_selectedCreditCard);
+                DialogResult dialogResultDeleteCreditCard = MessageBox.Show("Are you sure you want to delete this Credit Card?", "Confirmation",
+                                                                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dialogResultDeleteCreditCard == DialogResult.Yes)
+                {
+                    _currentUser.UserCreditCards.RemoveCreditCard(_selectedCreditCard);
+                    CreditCardLoad();
+                }
             }
-            catch(CreditCardException creditCardException)
+            catch (CreditCardException creditCardException)
             {
                 MessageBox.Show(creditCardException.Message, "ERROR",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-    
+
         }
 
-        private void btnModifyCreditCard_Click(object sender, EventArgs e)
-        {;
+        private void btnModifyCreditCard_Click_1(object sender, EventArgs e)
+        {
             Form newOrModifyCreditCardModal = new NewOrModifyCreditCardModal(_currentUser, _selectedCreditCard);
             newOrModifyCreditCardModal.ShowDialog();
-        }
-
-        private void grdvwCreditCard_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            CreditCard selectedRowCreditCard = (CreditCard)grdvwCreditCard.Rows[e.RowIndex].DataBoundItem;
-            _selectedCreditCard = selectedRowCreditCard;
         }
 
         protected override void OnHandleDestroyed(EventArgs e)
@@ -88,5 +96,46 @@ namespace UserInterface
             base.OnHandleDestroyed(e);
             NewOrModifyCreditCardModal.onNewOrModifyCreditCard -= CreditCardLoad;
         }
+
+        private void grdvwCreditCard_CellEnter_1(object sender, DataGridViewCellEventArgs e)
+        {
+            CreditCard selectedRowCreditCard = (CreditCard)grdvwCreditCard.Rows[e.RowIndex].DataBoundItem;
+            _selectedCreditCard = selectedRowCreditCard;
+        }
+
+        private void grdvwCreditCard_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Form moreCreditCardInfo = new CreditCardMoreInfoModal(_selectedCreditCard);
+            moreCreditCardInfo.ShowDialog();
+        }
+
+        private void grdvwCreditCard_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+
+            try
+            {
+                if (this.grdvwCreditCard.Columns[e.ColumnIndex].Name == "numberDataGridViewTextBoxColumn")
+                {
+                    string numberValue = (string)e.Value;
+                    e.Value = "XXXX-XXXX-XXXX-" + numberValue.Substring(12, 4);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+        //    if (this.dataGridView1.Columns[e.ColumnIndex].Name == "Artist")
+        //{
+        //        if (e.Value != null)
+        //        {
+        //            // Check for the string "pink" in the cell.
+        //            string stringValue = (string)e.Value;
+        //            stringValue = stringValue.ToLower();
+        //            if ((stringValue.IndexOf("pink") > -1))
+        //            {
+        //                e.CellStyle.BackColor = Color.Pink;
+        //            }
+        //        }
+        //    }
     }
 }

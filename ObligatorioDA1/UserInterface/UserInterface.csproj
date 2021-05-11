@@ -73,6 +73,12 @@
     <Compile Include="CreditCardController.Designer.cs">
       <DependentUpon>CreditCardController.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreditCardMoreInfoModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreditCardMoreInfoModal.Designer.cs">
+      <DependentUpon>CreditCardMoreInfoModal.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogInWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreditCardController.resx">
       <DependentUpon>CreditCardController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreditCardMoreInfoModal.resx">
+      <DependentUpon>CreditCardMoreInfoModal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LogInWindow.resx">
       <DependentUpon>LogInWindow.cs</DependentUpon>
