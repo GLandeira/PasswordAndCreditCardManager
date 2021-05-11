@@ -189,7 +189,7 @@ namespace DomainTests
             _userCreditCardTest.AddCreditCard(_creditCard1);
             _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest);
 
-            int _listQuantity = _dataBreachTest.PasswordBreaches.Count;
+            int _listQuantity = _dataBreachTest.CreditCardsBreaches.Count;
             Assert.AreEqual(1, _listQuantity);
         }
     }

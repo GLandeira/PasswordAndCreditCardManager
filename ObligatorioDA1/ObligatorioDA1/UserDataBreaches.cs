@@ -44,7 +44,11 @@ namespace Domain
             try
             {
                 CreditCard creditCardBreached = _theUser.UserCreditCards.GetCreditCard(inputBreach);
-                breach.CreditCardsBreaches.Add(creditCardBreached);
+
+                if (!breach.CreditCardsBreaches.Any(pass => pass.Equals(creditCardBreached)))
+                {
+                    breach.CreditCardsBreaches.Add(creditCardBreached);
+                }
             }
             catch (CreditCardNotFoundException ex)
             {
