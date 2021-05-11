@@ -30,7 +30,7 @@ namespace DomainTests
             _trabajo = new Category("Trabajo");
             _testPassword1 = new Password
             {
-                PasswordString = "1111",
+                PasswordString = "111111",
                 Site = "www.ort.edu.uy",
                 Username = "Matias Gonzalez",
                 LastModification = DateTime.Today,
@@ -41,7 +41,7 @@ namespace DomainTests
             _personal = new Category("Personal");
             _testPassword2 = new Password
             {
-                PasswordString = "abcd",
+                PasswordString = "abcdef",
                 Site = "www.twitch.tv",
                 Username = "MatixitaM",
                 LastModification = DateTime.Today,
@@ -51,7 +51,7 @@ namespace DomainTests
 
             _testPassword3 = new Password
             {
-                PasswordString = "1111",
+                PasswordString = "111111",
                 Site = "www.twitch.tv",
                 Username = "GLandeira",
                 LastModification = DateTime.Today,
@@ -228,9 +228,9 @@ namespace DomainTests
         {
             _userPasswordTest.AddPassword(_testPassword1);
             _userPasswordTest.AddPassword(_testPassword2);
-            List<Password> passwordsTest = _userPasswordTest.GetPasswordsByPasswordString("1111");
+            List<Password> passwordsTest = _userPasswordTest.GetPasswordsByPasswordString("111111");
 
-            Assert.AreEqual(_testPassword1, passwordsTest.Find(passwordInList => passwordInList.PasswordString.Equals("1111")));
+            Assert.AreEqual(_testPassword1, passwordsTest.Find(passwordInList => passwordInList.PasswordString.Equals("111111")));
         }
       
         [ExpectedException(typeof(PasswordNotFoundException))]
@@ -248,7 +248,7 @@ namespace DomainTests
             _userPasswordTest.AddPassword(_testPassword1);
             _userPasswordTest.AddPassword(_testPassword2);
             _userPasswordTest.AddPassword(_testPassword3);
-            List<Password> passwordsTest = _userPasswordTest.GetPasswordsByPasswordString("1111");
+            List<Password> passwordsTest = _userPasswordTest.GetPasswordsByPasswordString("111111");
 
             Assert.AreEqual(2, passwordsTest.Count);
         }
@@ -327,6 +327,7 @@ namespace DomainTests
             Assert.AreEqual(0, 0);
         }
 
+        [TestMethod]
         public void CheckAbsolutEqualityBetweenTwoSamePassword()
         {
             Password test1 = _testPassword1;

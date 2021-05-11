@@ -37,6 +37,7 @@ namespace UserInterface
             this.BtnModifyPassword = new System.Windows.Forms.Button();
             this.BtnSharePassword = new System.Windows.Forms.Button();
             this.passwordBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.categoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.siteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usernameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,6 +47,7 @@ namespace UserInterface
             this.notesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdvwPasswordsTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.passwordBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -77,8 +79,9 @@ namespace UserInterface
             this.grdvwPasswordsTable.Name = "grdvwPasswordsTable";
             this.grdvwPasswordsTable.ReadOnly = true;
             this.grdvwPasswordsTable.RowTemplate.ReadOnly = true;
-            this.grdvwPasswordsTable.Size = new System.Drawing.Size(793, 423);
+            this.grdvwPasswordsTable.Size = new System.Drawing.Size(746, 417);
             this.grdvwPasswordsTable.TabIndex = 1;
+            this.grdvwPasswordsTable.VirtualMode = true;
             this.grdvwPasswordsTable.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdvwPasswordsTable_CellEnter);
             // 
             // BtnNewPassword
@@ -93,7 +96,7 @@ namespace UserInterface
             // 
             // BtnDeletePassword
             // 
-            this.BtnDeletePassword.Location = new System.Drawing.Point(274, 582);
+            this.BtnDeletePassword.Location = new System.Drawing.Point(259, 582);
             this.BtnDeletePassword.Name = "BtnDeletePassword";
             this.BtnDeletePassword.Size = new System.Drawing.Size(158, 46);
             this.BtnDeletePassword.TabIndex = 3;
@@ -102,7 +105,7 @@ namespace UserInterface
             // 
             // BtnModifyPassword
             // 
-            this.BtnModifyPassword.Location = new System.Drawing.Point(482, 582);
+            this.BtnModifyPassword.Location = new System.Drawing.Point(455, 582);
             this.BtnModifyPassword.Name = "BtnModifyPassword";
             this.BtnModifyPassword.Size = new System.Drawing.Size(158, 46);
             this.BtnModifyPassword.TabIndex = 4;
@@ -112,7 +115,7 @@ namespace UserInterface
             // 
             // BtnSharePassword
             // 
-            this.BtnSharePassword.Location = new System.Drawing.Point(696, 582);
+            this.BtnSharePassword.Location = new System.Drawing.Point(649, 582);
             this.BtnSharePassword.Name = "BtnSharePassword";
             this.BtnSharePassword.Size = new System.Drawing.Size(158, 46);
             this.BtnSharePassword.TabIndex = 5;
@@ -122,6 +125,10 @@ namespace UserInterface
             // passwordBindingSource
             // 
             this.passwordBindingSource.DataSource = typeof(Domain.Password);
+            // 
+            // categoryBindingSource
+            // 
+            this.categoryBindingSource.DataSource = typeof(Domain.Category);
             // 
             // categoryDataGridViewTextBoxColumn
             // 
@@ -161,7 +168,7 @@ namespace UserInterface
             // passwordStringDataGridViewTextBoxColumn
             // 
             this.passwordStringDataGridViewTextBoxColumn.DataPropertyName = "PasswordString";
-            this.passwordStringDataGridViewTextBoxColumn.HeaderText = "Password";
+            this.passwordStringDataGridViewTextBoxColumn.HeaderText = "PasswordString";
             this.passwordStringDataGridViewTextBoxColumn.Name = "passwordStringDataGridViewTextBoxColumn";
             this.passwordStringDataGridViewTextBoxColumn.ReadOnly = true;
             // 
@@ -171,7 +178,6 @@ namespace UserInterface
             this.notesDataGridViewTextBoxColumn.HeaderText = "Notes";
             this.notesDataGridViewTextBoxColumn.Name = "notesDataGridViewTextBoxColumn";
             this.notesDataGridViewTextBoxColumn.ReadOnly = true;
-            this.notesDataGridViewTextBoxColumn.Width = 150;
             // 
             // PasswordsController
             // 
@@ -188,6 +194,7 @@ namespace UserInterface
             this.Load += new System.EventHandler(this.PasswordsController_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdvwPasswordsTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.passwordBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,12 +203,13 @@ namespace UserInterface
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView grdvwPasswordsTable;
         private System.Windows.Forms.BindingSource passwordBindingSource;
         private System.Windows.Forms.Button BtnNewPassword;
         private System.Windows.Forms.Button BtnDeletePassword;
         private System.Windows.Forms.Button BtnModifyPassword;
         private System.Windows.Forms.Button BtnSharePassword;
+        private System.Windows.Forms.BindingSource categoryBindingSource;
+        private System.Windows.Forms.DataGridView grdvwPasswordsTable;
         private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn siteDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn usernameDataGridViewTextBoxColumn;

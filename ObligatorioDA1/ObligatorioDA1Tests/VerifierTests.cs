@@ -179,15 +179,15 @@ namespace DomainTests
         }
 
         //-----------Password TestMethods--------------------
-        [ExpectedException(typeof(NamePasswordException))]
+        [ExpectedException(typeof(SitePasswordException))]
         [TestMethod]
         public void PasswordShortSite()
         {
-            _passwordTest.Site = "aaaa";
+            _passwordTest.Site = "aa";
             Verifier.VerifyPassword(_passwordTest);
         }
 
-        [ExpectedException(typeof(NamePasswordException))]
+        [ExpectedException(typeof(SitePasswordException))]
         [TestMethod]
         public void PasswordLongSite()
         {

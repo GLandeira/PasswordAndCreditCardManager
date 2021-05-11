@@ -26,6 +26,7 @@ namespace UserInterface
 
         private void PasswordsController_Load(object sender, EventArgs e)
         {
+
             LoadDataGridPasswords();
         }
 
@@ -43,16 +44,16 @@ namespace UserInterface
 
         private void grdvwPasswordsTable_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-            Password selectedPassword = (Password)grdvwPasswordsTable.Rows[e.RowIndex].DataBoundItem;
+            Password selectedPassword = (Password) grdvwPasswordsTable.Rows[e.RowIndex].DataBoundItem;
             _lastPasswordSelected = selectedPassword;
         }
 
         private void LoadDataGridPasswords()
         {
-            BindingSource bs = new BindingSource();
-            bs.DataSource = _currentUser.UserPasswords.Passwords;
-            grdvwPasswordsTable.AutoGenerateColumns = false;
-            grdvwPasswordsTable.DataSource = bs;
+            grdvwPasswordsTable.DataSource = null;
+            List<Password> passwordsList = _currentUser.UserPasswords.Passwords;
+            grdvwPasswordsTable.DataSource = passwordsList;
+
         }
 
         protected override void OnHandleDestroyed(EventArgs e)

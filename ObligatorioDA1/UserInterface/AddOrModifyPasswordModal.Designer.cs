@@ -43,7 +43,6 @@ namespace UserInterface
             this.btnAdd = new System.Windows.Forms.Button();
             this.cmbBxCategory = new System.Windows.Forms.ComboBox();
             this.categoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.lblDebug = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -148,6 +147,7 @@ namespace UserInterface
             // cmbBxCategory
             // 
             this.cmbBxCategory.DataSource = this.categoryBindingSource;
+            this.cmbBxCategory.DisplayMember = "Name";
             this.cmbBxCategory.FormattingEnabled = true;
             this.cmbBxCategory.Location = new System.Drawing.Point(205, 47);
             this.cmbBxCategory.Name = "cmbBxCategory";
@@ -159,21 +159,11 @@ namespace UserInterface
             // 
             this.categoryBindingSource.DataSource = typeof(Domain.Category);
             // 
-            // lblDebug
-            // 
-            this.lblDebug.AutoSize = true;
-            this.lblDebug.Location = new System.Drawing.Point(530, 48);
-            this.lblDebug.Name = "lblDebug";
-            this.lblDebug.Size = new System.Drawing.Size(35, 13);
-            this.lblDebug.TabIndex = 13;
-            this.lblDebug.Text = "label1";
-            // 
             // AddOrModifyPasswordModal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.cmbBxCategory);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtBxNotes);
@@ -210,6 +200,5 @@ namespace UserInterface
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.ComboBox cmbBxCategory;
         private System.Windows.Forms.BindingSource categoryBindingSource;
-        private System.Windows.Forms.Label lblDebug;
     }
 }

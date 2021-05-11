@@ -51,6 +51,7 @@ namespace UserInterface
                 {
                     _currentUser.UserPasswords.AddPassword(newPassword);
                 }
+                List<Password> passwordsList = _currentUser.UserPasswords.Passwords;
                 onModifyOrAddPassword?.Invoke();
                 Close();
             }
@@ -70,7 +71,6 @@ namespace UserInterface
 
 
 
-            //lblDebug.Text = _currentUser.Categories.Count.ToString();
         }
     }
 }
