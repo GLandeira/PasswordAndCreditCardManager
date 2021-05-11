@@ -60,8 +60,8 @@ namespace UserInterface
         private void btnDataBreaches_Click(object sender, EventArgs e)
         {
             pnlMain.Controls.Clear();
-            UserControl passwordController = new PasswordsController();
-            pnlMain.Controls.Add(passwordController);
+            UserControl dataBreachesController = new DataBreachesController(_userManager);
+            pnlMain.Controls.Add(dataBreachesController);
         }
 
         private void lblLogOut_Click(object sender, EventArgs e)

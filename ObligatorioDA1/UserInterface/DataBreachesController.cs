@@ -30,6 +30,9 @@ namespace UserInterface
 
             string[] fields = fieldsWithoutSeparation.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             DataBreaches dataBreaches = _currentUser.UserDataBreaches.CheckDataBreaches(fields);
+
+            Form matchesDataBreaches = new DataBreachMatchesModal(dataBreaches);
+            matchesDataBreaches.ShowDialog();
         }
     }
 }

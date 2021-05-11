@@ -26,5 +26,10 @@ namespace Domain
             Category clone = new Category(this.Name);
             return clone;
         }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

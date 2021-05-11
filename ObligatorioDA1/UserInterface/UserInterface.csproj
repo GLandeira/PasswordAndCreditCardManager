@@ -79,6 +79,18 @@
     <Compile Include="ChangePasswordModal.Designer.cs">
       <DependentUpon>ChangePasswordModal.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataBreachesController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataBreachesController.Designer.cs">
+      <DependentUpon>DataBreachesController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataBreachMatchesModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataBreachMatchesModal.Designer.cs">
+      <DependentUpon>DataBreachMatchesModal.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogInWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +131,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChangePasswordModal.resx">
       <DependentUpon>ChangePasswordModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataBreachesController.resx">
+      <DependentUpon>DataBreachesController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataBreachMatchesModal.resx">
+      <DependentUpon>DataBreachMatchesModal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LogInWindow.resx">
       <DependentUpon>LogInWindow.cs</DependentUpon>
