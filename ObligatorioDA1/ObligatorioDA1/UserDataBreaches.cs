@@ -58,7 +58,10 @@ namespace Domain
                 List<Password> passwordBreached = _theUser.UserPasswords.GetPasswordsByPasswordString(inputBreach);
                 foreach(Password password in passwordBreached)
                 {
-                    breach.PasswordBreaches.Add(password);
+                    if(!breach.PasswordBreaches.Any(pass => pass.Equals(password)))
+                    {
+                        breach.PasswordBreaches.Add(password);
+                    }
                 }
             }
             catch (PasswordNotFoundException ex)
