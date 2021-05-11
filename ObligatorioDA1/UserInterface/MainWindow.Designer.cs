@@ -74,6 +74,7 @@ namespace UserInterface
             this.btnCreditCard.TabIndex = 3;
             this.btnCreditCard.Text = "Credit Cards";
             this.btnCreditCard.UseVisualStyleBackColor = true;
+            this.btnCreditCard.Click += new System.EventHandler(this.btnCreditCard_Click);
             // 
             // btnSecurityReport
             // 

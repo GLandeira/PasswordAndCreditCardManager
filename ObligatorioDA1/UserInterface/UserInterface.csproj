@@ -67,6 +67,12 @@
     <Compile Include="CategoryController.Designer.cs">
       <DependentUpon>CategoryController.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreditCardController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CreditCardController.Designer.cs">
+      <DependentUpon>CreditCardController.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogInWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +85,12 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewOrModifyCreditCardModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewOrModifyCreditCardModal.Designer.cs">
+      <DependentUpon>NewOrModifyCreditCardModal.cs</DependentUpon>
+    </Compile>
     <Compile Include="PasswordsController.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -90,11 +102,17 @@
     <EmbeddedResource Include="CategoryController.resx">
       <DependentUpon>CategoryController.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CreditCardController.resx">
+      <DependentUpon>CreditCardController.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LogInWindow.resx">
       <DependentUpon>LogInWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewOrModifyCreditCardModal.resx">
+      <DependentUpon>NewOrModifyCreditCardModal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PasswordsController.resx">
       <DependentUpon>PasswordsController.cs</DependentUpon>
@@ -108,6 +126,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\Domain.Category.datasource" />
+    <None Include="Properties\DataSources\Domain.CreditCard.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

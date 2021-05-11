@@ -128,7 +128,7 @@ namespace Domain
         {
             if (creditCardTested.Notes.Length > CHARACTERS_NOTES)
             {
-                throw new NotesException();
+                throw new NotesCreditCardException();
             }
         }
 
@@ -171,7 +171,7 @@ namespace Domain
         {
             if (passwordTested.Notes.Length > CHARACTERS_NOTES)
             {
-                throw new NotesException();
+                throw new NotesPasswordException();
             }
         }
 
