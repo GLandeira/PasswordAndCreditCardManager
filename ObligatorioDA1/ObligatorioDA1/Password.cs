@@ -59,5 +59,10 @@ namespace Domain
 
             return clone;
         }
+
+        public override string ToString()
+        {
+            return "[" + Category.ToString() + "][" + Site + "][" + Username + "]";  
+        }
     }
 }

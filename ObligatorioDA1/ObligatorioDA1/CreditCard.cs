@@ -20,8 +20,11 @@ namespace Domain
             }
             return this.Number == ((CreditCard)obj).Number;
         }
+
+        public override string ToString()
+        {
+            return "[" + Name + "][" + Type.ToString() + "][" + Number + "]";
+        }
     }
-
-
 
 }

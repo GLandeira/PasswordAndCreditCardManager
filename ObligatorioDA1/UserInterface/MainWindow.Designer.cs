@@ -93,6 +93,7 @@ namespace UserInterface
             this.btnDataBreaches.TabIndex = 5;
             this.btnDataBreaches.Text = "Data Breaches";
             this.btnDataBreaches.UseVisualStyleBackColor = true;
+            this.btnDataBreaches.Click += new System.EventHandler(this.btnDataBreaches_Click);
             // 
             // lblLogOut
             // 

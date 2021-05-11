@@ -44,7 +44,11 @@ namespace Domain
             try
             {
                 CreditCard creditCardBreached = _theUser.UserCreditCards.GetCreditCard(inputBreach);
-                breach.CreditCardsBreaches.Add(creditCardBreached);
+
+                if (!breach.CreditCardsBreaches.Any(pass => pass.Equals(creditCardBreached)))
+                {
+                    breach.CreditCardsBreaches.Add(creditCardBreached);
+                }
             }
             catch (CreditCardNotFoundException ex)
             {
@@ -58,7 +62,10 @@ namespace Domain
                 List<Password> passwordBreached = _theUser.UserPasswords.GetPasswordsByPasswordString(inputBreach);
                 foreach(Password password in passwordBreached)
                 {
-                    breach.PasswordBreaches.Add(password);
+                    if(!breach.PasswordBreaches.Any(pass => pass.Equals(password)))
+                    {
+                        breach.PasswordBreaches.Add(password);
+                    }
                 }
             }
             catch (PasswordNotFoundException ex)
