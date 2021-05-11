@@ -20,6 +20,7 @@ namespace Domain
         public void AddPassword(Password password)
         {
             Verifier.VerifyPassword(password);
+            password.LastModification = DateTime.Now;
             password.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(password.PasswordString);
             this.Passwords.Add(password);
         }

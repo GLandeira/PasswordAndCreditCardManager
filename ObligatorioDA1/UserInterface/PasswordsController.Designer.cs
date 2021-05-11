@@ -30,6 +30,7 @@ namespace UserInterface
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.grdvwPasswordsTable = new System.Windows.Forms.DataGridView();
             this.BtnNewPassword = new System.Windows.Forms.Button();
@@ -43,8 +44,8 @@ namespace UserInterface
             this.usernameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastModificationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.securityLevelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.passwordStringDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.notesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PasswordString = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdvwPasswordsTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.passwordBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).BeginInit();
@@ -65,6 +66,7 @@ namespace UserInterface
             this.grdvwPasswordsTable.AllowUserToAddRows = false;
             this.grdvwPasswordsTable.AllowUserToDeleteRows = false;
             this.grdvwPasswordsTable.AutoGenerateColumns = false;
+            this.grdvwPasswordsTable.BackgroundColor = System.Drawing.SystemColors.Window;
             this.grdvwPasswordsTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdvwPasswordsTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.categoryDataGridViewTextBoxColumn,
@@ -72,16 +74,17 @@ namespace UserInterface
             this.usernameDataGridViewTextBoxColumn,
             this.lastModificationDataGridViewTextBoxColumn,
             this.securityLevelDataGridViewTextBoxColumn,
-            this.passwordStringDataGridViewTextBoxColumn,
-            this.notesDataGridViewTextBoxColumn});
+            this.notesDataGridViewTextBoxColumn,
+            this.PasswordString});
             this.grdvwPasswordsTable.DataSource = this.passwordBindingSource;
-            this.grdvwPasswordsTable.Location = new System.Drawing.Point(61, 106);
+            this.grdvwPasswordsTable.Location = new System.Drawing.Point(112, 108);
             this.grdvwPasswordsTable.Name = "grdvwPasswordsTable";
             this.grdvwPasswordsTable.ReadOnly = true;
             this.grdvwPasswordsTable.RowTemplate.ReadOnly = true;
-            this.grdvwPasswordsTable.Size = new System.Drawing.Size(746, 417);
+            this.grdvwPasswordsTable.Size = new System.Drawing.Size(645, 427);
             this.grdvwPasswordsTable.TabIndex = 1;
             this.grdvwPasswordsTable.VirtualMode = true;
+            this.grdvwPasswordsTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdvwPasswordsTable_CellDoubleClick);
             this.grdvwPasswordsTable.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdvwPasswordsTable_CellEnter);
             // 
             // BtnNewPassword
@@ -102,6 +105,7 @@ namespace UserInterface
             this.BtnDeletePassword.TabIndex = 3;
             this.BtnDeletePassword.Text = "Delete";
             this.BtnDeletePassword.UseVisualStyleBackColor = true;
+            this.BtnDeletePassword.Click += new System.EventHandler(this.BtnDeletePassword_Click);
             // 
             // BtnModifyPassword
             // 
@@ -121,6 +125,7 @@ namespace UserInterface
             this.BtnSharePassword.TabIndex = 5;
             this.BtnSharePassword.Text = "Share";
             this.BtnSharePassword.UseVisualStyleBackColor = true;
+            this.BtnSharePassword.Click += new System.EventHandler(this.BtnSharePassword_Click);
             // 
             // passwordBindingSource
             // 
@@ -165,19 +170,22 @@ namespace UserInterface
             this.securityLevelDataGridViewTextBoxColumn.Name = "securityLevelDataGridViewTextBoxColumn";
             this.securityLevelDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // passwordStringDataGridViewTextBoxColumn
-            // 
-            this.passwordStringDataGridViewTextBoxColumn.DataPropertyName = "PasswordString";
-            this.passwordStringDataGridViewTextBoxColumn.HeaderText = "PasswordString";
-            this.passwordStringDataGridViewTextBoxColumn.Name = "passwordStringDataGridViewTextBoxColumn";
-            this.passwordStringDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // notesDataGridViewTextBoxColumn
             // 
             this.notesDataGridViewTextBoxColumn.DataPropertyName = "Notes";
             this.notesDataGridViewTextBoxColumn.HeaderText = "Notes";
             this.notesDataGridViewTextBoxColumn.Name = "notesDataGridViewTextBoxColumn";
             this.notesDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // PasswordString
+            // 
+            this.PasswordString.DataPropertyName = "PasswordString";
+            dataGridViewCellStyle3.NullValue = null;
+            this.PasswordString.DefaultCellStyle = dataGridViewCellStyle3;
+            this.PasswordString.HeaderText = "PasswordString";
+            this.PasswordString.Name = "PasswordString";
+            this.PasswordString.ReadOnly = true;
+            this.PasswordString.Visible = false;
             // 
             // PasswordsController
             // 
@@ -215,7 +223,7 @@ namespace UserInterface
         private System.Windows.Forms.DataGridViewTextBoxColumn usernameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lastModificationDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn securityLevelDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn passwordStringDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn notesDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PasswordString;
     }
 }

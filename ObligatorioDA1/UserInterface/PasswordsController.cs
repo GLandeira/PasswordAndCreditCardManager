@@ -28,6 +28,7 @@ namespace UserInterface
         {
 
             LoadDataGridPasswords();
+            grdvwPasswordsTable.ClearSelection();
         }
 
         private void BtnNewPassword_Click(object sender, EventArgs e)
@@ -51,8 +52,9 @@ namespace UserInterface
         private void LoadDataGridPasswords()
         {
             grdvwPasswordsTable.DataSource = null;
-            List<Password> passwordsList = _currentUser.UserPasswords.Passwords;
-            grdvwPasswordsTable.DataSource = passwordsList;
+            BindingSource bs = new BindingSource();
+            bs.DataSource = _currentUser.UserPasswords.Passwords;
+            grdvwPasswordsTable.DataSource = bs;
 
         }
 
@@ -60,6 +62,30 @@ namespace UserInterface
         {
             AddOrModifyPasswordModal.onModifyOrAddPassword -= LoadDataGridPasswords;
             base.OnHandleDestroyed(e);
+        }
+
+        private void BtnDeletePassword_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResultDeletePassword = MessageBox.Show("Are you sure you want to delete this password?", "Confirmation",
+                                                                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialogResultDeletePassword == DialogResult.Yes)
+            {
+                _currentUser.UserPasswords.RemovePassword(_lastPasswordSelected);
+                LoadDataGridPasswords();
+            }
+        }
+
+        private void grdvwPasswordsTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            Form passwordMoreInfoModal = new PasswordMoreInfoModal(_lastPasswordSelected);
+            passwordMoreInfoModal.ShowDialog();
+        }
+
+        private void BtnSharePassword_Click(object sender, EventArgs e)
+        {
+            Form sharePasswordModal = new SharePasswordModal(_userManager, _lastPasswordSelected);
+            sharePasswordModal.ShowDialog();
         }
     }
 }

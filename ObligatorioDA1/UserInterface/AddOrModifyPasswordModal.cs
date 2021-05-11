@@ -45,7 +45,7 @@ namespace UserInterface
             {
                 if (_modify)
                 {
-                    _currentUser.UserPasswords.ModifyPassword(_passwordToModify, newPassword);
+                    _currentUser.UserPasswords.ModifyPassword(newPassword, _passwordToModify);
                 }
                 else
                 {
@@ -67,6 +67,17 @@ namespace UserInterface
             List<Category> bs = _currentUser.Categories;
             bs.Remove(User.SHARED_WITH_ME_CATEGORY);
             cmbBxCategory.DataSource = bs;
+            
+            
+            if (!(_passwordToModify == null))
+            {
+                cmbBxCategory.SelectedItem = _passwordToModify.Category;
+                txtBxSite.Text = _passwordToModify.Site;
+                txtBxUsername.Text = _passwordToModify.Username;
+                txtBxPassword.Text = _passwordToModify.PasswordString;
+                txtBxNotes.Text = _passwordToModify.Notes;
+            }
+            
 
 
 
