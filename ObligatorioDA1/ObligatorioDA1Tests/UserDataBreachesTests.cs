@@ -170,5 +170,17 @@ namespace DomainTests
             int _listQuantity = _dataBreachTest.PasswordBreaches.Count + _dataBreachTest.CreditCardsBreaches.Count;
             Assert.AreEqual(4, _listQuantity);
         }
+
+        [TestMethod]
+        public void CheckMultipleDataBreachesOfSamePasswordsDoesntShowRepeatedBreaches()
+        {
+            _breachTest = new string[] { _breach2, _breach2, _breach2 };
+            _userPasswordTest.AddPassword(_password1);
+            _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest);
+
+            int _listQuantity = _dataBreachTest.PasswordBreaches.Count;
+            Assert.AreEqual(1, _listQuantity);
+        }
+
     }
 }
