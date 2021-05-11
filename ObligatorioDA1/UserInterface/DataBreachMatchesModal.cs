@@ -113,13 +113,14 @@ namespace UserInterface
 
             for(int i = 0; i < _testPasswords.Count; i++)
             {
+                Password currentPassword = _testPasswords[i];
                 Panel pnlParentPanel = new Panel();
                 fwlytBreachedPassword.Controls.Add(pnlParentPanel);
                 pnlParentPanel.Size = new Size(500, 23);
 
                 Label lblPassword = new Label();
                 pnlParentPanel.Controls.Add(lblPassword);
-                lblPassword.Text = _testPasswords[i].ToString();
+                lblPassword.Text = currentPassword.ToString();
                 lblPassword.Size = new Size(415, 13);
                 lblPassword.Location = new Point(LABEL_X, LABEL_Y);
 
@@ -127,12 +128,26 @@ namespace UserInterface
                 pnlParentPanel.Controls.Add(btnModifyPassword);
                 btnModifyPassword.Text = BUTTON_MODIFY_TEXT;
                 btnModifyPassword.Location = new Point(BUTTON_X, BUTTON_Y);
+                btnModifyPassword.Click += new EventHandler((obj, ev) => ModifyButtonsOnClick(obj, ev, currentPassword));
             }
 
-            for(int i = 0; i < _testPasswords.Count; i++)
+            for(int i = 0; i < _testCreditCards.Count; i++)
             {
+                Panel pnlParentPanel = new Panel();
+                fwlytBreachedCreditCards.Controls.Add(pnlParentPanel);
+                pnlParentPanel.Size = new Size(500, 23);
 
+                Label lblCreditCard = new Label();
+                pnlParentPanel.Controls.Add(lblCreditCard);
+                lblCreditCard.Text = _testCreditCards[i].ToString();
+                lblCreditCard.Size = new Size(415, 13);
+                lblCreditCard.Location = new Point(LABEL_X, LABEL_Y);
             }
+        }
+
+        private void ModifyButtonsOnClick(object sender, EventArgs e, Password thePassword)
+        {
+            //TODO Add PasswordModify call
         }
 
         private void label1_Click(object sender, EventArgs e)
