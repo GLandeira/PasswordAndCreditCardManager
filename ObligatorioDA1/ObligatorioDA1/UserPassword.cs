@@ -145,5 +145,13 @@ namespace Domain
 
             return sharedPasswords;
         }
+
+        public void StopSharingPasswordWithEveryone(Password password)
+        {
+            foreach(string username in password.UsersSharedWith)
+            {
+                
+            }
+        }
     }
 }
