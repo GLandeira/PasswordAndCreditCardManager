@@ -42,5 +42,11 @@ namespace UserInterface
             lblLightGreenAmount.Text = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.LIGHT_GREEN).Count.ToString();
             lblDarkGreenAmount.Text = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.DARK_GREEN).Count.ToString();
         }
+
+        private void btn_Click(object sender, EventArgs e)
+        {
+            Form securityReportGraphModal = new SecurityReportGraphModal(_userManager);
+            securityReportGraphModal.ShowDialog();
+        }
     }
 }
