@@ -39,11 +39,11 @@ namespace UserInterface
             this.lblDarkGreen = new System.Windows.Forms.Label();
             this.btn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnCheckRed = new System.Windows.Forms.Button();
-            this.lblRedAmount = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.lblRedAmount = new System.Windows.Forms.Label();
+            this.btnCheckRed = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblYellowAmount = new System.Windows.Forms.Label();
             this.btnCheckYellow = new System.Windows.Forms.Button();
@@ -177,27 +177,6 @@ namespace UserInterface
             this.panel1.Size = new System.Drawing.Size(393, 64);
             this.panel1.TabIndex = 10;
             // 
-            // btnCheckRed
-            // 
-            this.btnCheckRed.Location = new System.Drawing.Point(282, 19);
-            this.btnCheckRed.Name = "btnCheckRed";
-            this.btnCheckRed.Size = new System.Drawing.Size(96, 27);
-            this.btnCheckRed.TabIndex = 0;
-            this.btnCheckRed.Text = "Check";
-            this.btnCheckRed.UseVisualStyleBackColor = true;
-            // 
-            // lblRedAmount
-            // 
-            this.lblRedAmount.AutoSize = true;
-            this.lblRedAmount.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.lblRedAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRedAmount.Location = new System.Drawing.Point(21, 21);
-            this.lblRedAmount.Name = "lblRedAmount";
-            this.lblRedAmount.Size = new System.Drawing.Size(51, 20);
-            this.lblRedAmount.TabIndex = 1;
-            this.lblRedAmount.Text = "label1";
-            this.lblRedAmount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -229,6 +208,28 @@ namespace UserInterface
             this.button1.Text = "Check";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // lblRedAmount
+            // 
+            this.lblRedAmount.AutoSize = true;
+            this.lblRedAmount.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.lblRedAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRedAmount.Location = new System.Drawing.Point(21, 21);
+            this.lblRedAmount.Name = "lblRedAmount";
+            this.lblRedAmount.Size = new System.Drawing.Size(51, 20);
+            this.lblRedAmount.TabIndex = 1;
+            this.lblRedAmount.Text = "label1";
+            this.lblRedAmount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btnCheckRed
+            // 
+            this.btnCheckRed.Location = new System.Drawing.Point(282, 19);
+            this.btnCheckRed.Name = "btnCheckRed";
+            this.btnCheckRed.Size = new System.Drawing.Size(96, 27);
+            this.btnCheckRed.TabIndex = 0;
+            this.btnCheckRed.Text = "Check";
+            this.btnCheckRed.UseVisualStyleBackColor = true;
+            this.btnCheckRed.Click += new System.EventHandler(this.btnCheckRed_Click);
+            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -259,6 +260,7 @@ namespace UserInterface
             this.btnCheckYellow.TabIndex = 0;
             this.btnCheckYellow.Text = "Check";
             this.btnCheckYellow.UseVisualStyleBackColor = true;
+            this.btnCheckYellow.Click += new System.EventHandler(this.btnCheckYellow_Click);
             // 
             // panel4
             // 
@@ -290,6 +292,7 @@ namespace UserInterface
             this.btnCheckOrange.TabIndex = 0;
             this.btnCheckOrange.Text = "Check";
             this.btnCheckOrange.UseVisualStyleBackColor = true;
+            this.btnCheckOrange.Click += new System.EventHandler(this.btnCheckOrange_Click);
             // 
             // panel5
             // 
@@ -321,6 +324,7 @@ namespace UserInterface
             this.btnCheckLightGreen.TabIndex = 0;
             this.btnCheckLightGreen.Text = "Check";
             this.btnCheckLightGreen.UseVisualStyleBackColor = true;
+            this.btnCheckLightGreen.Click += new System.EventHandler(this.btnCheckLightGreen_Click);
             // 
             // panel6
             // 
@@ -352,6 +356,7 @@ namespace UserInterface
             this.btnCheckDarkGreen.TabIndex = 0;
             this.btnCheckDarkGreen.Text = "Check";
             this.btnCheckDarkGreen.UseVisualStyleBackColor = true;
+            this.btnCheckDarkGreen.Click += new System.EventHandler(this.btnCheckDarkGreen_Click);
             // 
             // SecurityReportController
             // 

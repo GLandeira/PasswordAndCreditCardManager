@@ -42,5 +42,36 @@ namespace UserInterface
             lblLightGreenAmount.Text = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.LIGHT_GREEN).Count.ToString();
             lblDarkGreenAmount.Text = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.DARK_GREEN).Count.ToString();
         }
+
+        private void btnCheckRed_Click(object sender, EventArgs e)
+        {
+            LoadCheckForm(SecurityLevelPasswords.RED);
+        }
+
+        private void btnCheckOrange_Click(object sender, EventArgs e)
+        {
+            LoadCheckForm(SecurityLevelPasswords.ORANGE);
+        }
+
+        private void btnCheckYellow_Click(object sender, EventArgs e)
+        {
+            LoadCheckForm(SecurityLevelPasswords.YELLOW);
+        }
+
+        private void btnCheckLightGreen_Click(object sender, EventArgs e)
+        {
+            LoadCheckForm(SecurityLevelPasswords.LIGHT_GREEN);
+        }
+
+        private void btnCheckDarkGreen_Click(object sender, EventArgs e)
+        {
+            LoadCheckForm(SecurityLevelPasswords.DARK_GREEN);
+        }
+
+        private void LoadCheckForm(SecurityLevelPasswords securityLevel)
+        {
+            List<Password> passwordsOfSecurityLevel = _currentUserPassword.GetPasswordsWithSecurityLevel(securityLevel);
+            //Form checkForm = new Form();
+        }
     }
 }
