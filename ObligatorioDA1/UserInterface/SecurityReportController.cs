@@ -81,5 +81,11 @@ namespace UserInterface
             Form checkForm = new CheckSecurityPasswordsModal(passwordsOfSecurityLevel);
             checkForm.ShowDialog();
         }
+
+        private void btn_Click(object sender, EventArgs e)
+        {
+            Form securityReportGraphModal = new SecurityReportGraphModal(_userManager);
+            securityReportGraphModal.ShowDialog();
+        }
     }
 }

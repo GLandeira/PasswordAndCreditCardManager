@@ -50,6 +50,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -171,6 +172,12 @@
     <Compile Include="SecurityReportController.Designer.cs">
       <DependentUpon>SecurityReportController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SecurityReportGraphModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SecurityReportGraphModal.Designer.cs">
+      <DependentUpon>SecurityReportGraphModal.cs</DependentUpon>
+    </Compile>
     <Compile Include="SharePasswordModal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -245,6 +252,9 @@
     </Compile>
     <EmbeddedResource Include="SecurityReportController.resx">
       <DependentUpon>SecurityReportController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SecurityReportGraphModal.resx">
+      <DependentUpon>SecurityReportGraphModal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharePasswordModal.resx">
       <DependentUpon>SharePasswordModal.cs</DependentUpon>

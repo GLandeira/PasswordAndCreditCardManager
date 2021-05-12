@@ -165,6 +165,7 @@ namespace UserInterface
             this.btn.TabIndex = 9;
             this.btn.Text = "Security Graph";
             this.btn.UseVisualStyleBackColor = true;
+            this.btn.Click += new System.EventHandler(this.btn_Click);
             // 
             // panel1
             // 
