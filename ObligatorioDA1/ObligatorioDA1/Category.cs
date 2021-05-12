@@ -19,7 +19,7 @@ namespace Domain
         {
             if (obj == DBNull.Value) return false;
             Category otherCategory = (Category)obj;
-            return this.Name == otherCategory.Name;
+            return this.Name.ToLower() == otherCategory.Name.ToLower();
         }
 
         public object Clone()

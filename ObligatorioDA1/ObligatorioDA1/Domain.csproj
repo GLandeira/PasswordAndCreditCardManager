@@ -57,6 +57,7 @@
     <Compile Include="DataBreaches.cs" />
     <Compile Include="Exceptions\CreditCardException.cs" />
     <Compile Include="Exceptions\NotesPasswordException.cs" />
+    <Compile Include="Exceptions\CategoryAlreadyExistsException.cs" />
     <Compile Include="Exceptions\ValidDueCreditCardException.cs" />
     <Compile Include="PasswordSecurityFlagger\ColorClassifier.cs" />
     <Compile Include="PasswordSecurityFlagger\DarkGreenClassifier.cs" />

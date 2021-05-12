@@ -170,5 +170,43 @@ namespace DomainTests
             int _listQuantity = _dataBreachTest.PasswordBreaches.Count + _dataBreachTest.CreditCardsBreaches.Count;
             Assert.AreEqual(4, _listQuantity);
         }
+
+        [TestMethod]
+        public void CheckMultipleDataBreachesOfSamePasswordsDoesntShowRepeatedBreaches()
+        {
+            _breachTest = new string[] { _breach2, _breach2, _breach2 };
+            _userPasswordTest.AddPassword(_password1);
+            _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest);
+
+            int _listQuantity = _dataBreachTest.PasswordBreaches.Count;
+            Assert.AreEqual(1, _listQuantity);
+        }
+
+        [TestMethod]
+        public void CheckMultipleDataBreachesOfSameCreditCardsDoesntShowRepeatedBreaches()
+        {
+            _breachTest = new string[] { _breach1, _breach1, _breach1 };
+            _userCreditCardTest.AddCreditCard(_creditCard1);
+            _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest);
+
+            int _listQuantity = _dataBreachTest.CreditCardsBreaches.Count;
+            Assert.AreEqual(1, _listQuantity);
+        }
+
+        [TestMethod]
+        public void CheckMultipleDataBreachesOfSameCreditCardsAndPasswordsDoesntShowRepeatedBreaches()
+        {
+            _breachTest = new string[] { _breach1, _breach1, _breach1, _breach2, _breach2, _breach3,
+                                         _breach3, _breach4, _breach4, _breach4, _breach5, _breach5,
+                                         _breach6, _breach6, _breach6, _breach6};
+            _userPasswordTest.AddPassword(_password1);
+            _userPasswordTest.AddPassword(_password2);
+            _userCreditCardTest.AddCreditCard(_creditCard2);
+            _userCreditCardTest.AddCreditCard(_creditCard1);
+            _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest);
+
+            int _listQuantity = _dataBreachTest.CreditCardsBreaches.Count + _dataBreachTest.PasswordBreaches.Count;
+            Assert.AreEqual(3, _listQuantity);
+        }
     }
 }
