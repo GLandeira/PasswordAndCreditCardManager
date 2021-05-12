@@ -11,6 +11,7 @@ namespace DomainTests
     public class UserPasswordTests
     {
         private UserPassword _userPasswordTest;
+        private User _userSharedTo;
         private Password _testPassword1;
         private Password _testPassword2;
         private Password _testPassword3;
@@ -19,18 +20,25 @@ namespace DomainTests
         private Password _testPasswordYellow;
         private Password _testPasswordLightGreen;
         private Password _testPasswordDarkGreen;
+        private Password _testPasswordSharedPassword1;
+        private Password _testPasswordSharedPassword2;
         private Category _trabajo;
         private Category _personal;
 
         [TestInitialize]
         public void TestInitialize()
         {
+            
             _userPasswordTest = new UserPassword();
-
+            _userSharedTo = new User
+            {
+                Name = "userPrueba",
+                MainPassword = "contraseñaPrueba"
+            };
             _trabajo = new Category("Trabajo");
             _testPassword1 = new Password
             {
-                PasswordString = "1111",
+                PasswordString = "111111",
                 Site = "www.ort.edu.uy",
                 Username = "Matias Gonzalez",
                 LastModification = DateTime.Today,
@@ -41,7 +49,7 @@ namespace DomainTests
             _personal = new Category("Personal");
             _testPassword2 = new Password
             {
-                PasswordString = "abcd",
+                PasswordString = "abcdef",
                 Site = "www.twitch.tv",
                 Username = "MatixitaM",
                 LastModification = DateTime.Today,
@@ -51,7 +59,7 @@ namespace DomainTests
 
             _testPassword3 = new Password
             {
-                PasswordString = "1111",
+                PasswordString = "111111",
                 Site = "www.twitch.tv",
                 Username = "GLandeira",
                 LastModification = DateTime.Today,
@@ -100,6 +108,16 @@ namespace DomainTests
             };
 
             _testPasswordDarkGreen = new Password
+            {
+                PasswordString = "InakiE34t%cg5#ar8y@aAa",
+                Site = "www.google.com",
+                Username = "GLandeira",
+                LastModification = DateTime.Today,
+                Category = _personal,
+                Notes = "cuenta google stream"
+            };
+
+            _testPasswordSharedPassword1 = new Password
             {
                 PasswordString = "InakiE34t%cg5#ar8y@aAa",
                 Site = "www.google.com",
@@ -228,9 +246,9 @@ namespace DomainTests
         {
             _userPasswordTest.AddPassword(_testPassword1);
             _userPasswordTest.AddPassword(_testPassword2);
-            List<Password> passwordsTest = _userPasswordTest.GetPasswordsByPasswordString("1111");
+            List<Password> passwordsTest = _userPasswordTest.GetPasswordsByPasswordString("111111");
 
-            Assert.AreEqual(_testPassword1, passwordsTest.Find(passwordInList => passwordInList.PasswordString.Equals("1111")));
+            Assert.AreEqual(_testPassword1, passwordsTest.Find(passwordInList => passwordInList.PasswordString.Equals("111111")));
         }
       
         [ExpectedException(typeof(PasswordNotFoundException))]
@@ -248,7 +266,7 @@ namespace DomainTests
             _userPasswordTest.AddPassword(_testPassword1);
             _userPasswordTest.AddPassword(_testPassword2);
             _userPasswordTest.AddPassword(_testPassword3);
-            List<Password> passwordsTest = _userPasswordTest.GetPasswordsByPasswordString("1111");
+            List<Password> passwordsTest = _userPasswordTest.GetPasswordsByPasswordString("111111");
 
             Assert.AreEqual(2, passwordsTest.Count);
         }
@@ -327,6 +345,7 @@ namespace DomainTests
             Assert.AreEqual(0, 0);
         }
 
+        [TestMethod]
         public void CheckAbsolutEqualityBetweenTwoSamePassword()
         {
             Password test1 = _testPassword1;
@@ -346,5 +365,63 @@ namespace DomainTests
             Assert.IsFalse(test1.AbsoluteEquals(test2));
 
         }
+
+        [TestMethod]
+        public void TestGetPasswordsImSharingNoPasswordsShared()
+        {
+            List<Password> sharedPasswordsList = _userPasswordTest.GetPasswordsImSharing();
+            List<Password> expectedResult = new List<Password>();
+            bool areSameList = true;
+            foreach (Password sharedPassword in sharedPasswordsList)
+            {
+                if (!(expectedResult.Contains(sharedPassword)))
+                {
+                    areSameList = false;
+                }
+            }
+            Assert.IsTrue(areSameList); ;
+        }
+
+        [TestMethod]
+        public void TestGetPasswordsImSharingOnePasswordShared()
+        {
+            _userPasswordTest.AddPassword(_testPassword1);
+            _userPasswordTest.SharePassword(_userSharedTo, _testPassword1);
+            List<Password> sharedPasswordsList = _userPasswordTest.GetPasswordsImSharing();
+            List<Password> expectedResult = new List<Password>();
+            expectedResult.Add(_testPassword1);
+            bool areSameList = true;
+            foreach(Password sharedPassword in sharedPasswordsList)
+            {
+                if (!(expectedResult.Contains(sharedPassword)))
+                {
+                    areSameList = false;
+                }
+            }
+            Assert.IsTrue(areSameList);
+        }
+
+        [TestMethod]
+        public void TestGetPasswordsImSharingMoreThanOnePasswordShared()
+        {
+            _userPasswordTest.AddPassword(_testPassword1);
+            _userPasswordTest.AddPassword(_testPassword2);
+            _userPasswordTest.SharePassword(_userSharedTo, _testPassword1);
+            _userPasswordTest.SharePassword(_userSharedTo, _testPassword2);
+            List<Password> sharedPasswordsList = _userPasswordTest.GetPasswordsImSharing();
+            List<Password> expectedResult = new List<Password>();
+            expectedResult.Add(_testPassword1);
+            expectedResult.Add(_testPassword2);
+            bool areSameList = true;
+            foreach (Password sharedPassword in sharedPasswordsList)
+            {
+                if (!(expectedResult.Contains(sharedPassword)))
+                {
+                    areSameList = false;
+                }
+            }
+            Assert.IsTrue(areSameList); ;
+        }
+
     }
 }

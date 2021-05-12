@@ -20,6 +20,7 @@ namespace Domain
         public void AddPassword(Password password)
         {
             Verifier.VerifyPassword(password);
+            password.LastModification = DateTime.Now;
             password.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(password.PasswordString);
             this.Passwords.Add(password);
         }
@@ -129,6 +130,20 @@ namespace Domain
                 }
             }
             return amountOfPasswords;
+        }
+
+        public List<Password> GetPasswordsImSharing()
+        {
+            List<Password> sharedPasswords = new List<Password>();
+            foreach(Password currentPassword in Passwords)
+            {
+                if (currentPassword.UsersSharedWith.Count() > 0)
+                {
+                    sharedPasswords.Add(currentPassword);
+                }
+            }
+
+            return sharedPasswords;
         }
     }
 }

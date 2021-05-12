@@ -55,6 +55,7 @@
     <Compile Include="CardTypes.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="DataBreaches.cs" />
+    <Compile Include="Exceptions\PasswordExceptions.cs" />
     <Compile Include="Exceptions\CreditCardException.cs" />
     <Compile Include="Exceptions\CreditCardListIsEmptyException.cs" />
     <Compile Include="Exceptions\NotesPasswordException.cs" />
@@ -78,6 +79,8 @@
     <Compile Include="Exceptions\MainPasswordUserException.cs" />
     <Compile Include="Exceptions\NameCategoryException.cs" />
     <Compile Include="Exceptions\NameCreditCardException.cs" />
+    <Compile Include="Exceptions\SitePasswordException.cs" />
+    <Compile Include="Exceptions\NameUserException.cs" />
     <Compile Include="Exceptions\NameUserException.cs" />
     <Compile Include="Exceptions\NotesCreditCardException.cs" />
     <Compile Include="Exceptions\NumberCreditCardException.cs" />

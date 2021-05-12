@@ -1,8 +1,10 @@
 ﻿using System;
+
 using System.Runtime.Serialization;
 
 namespace Domain.Exceptions
 {
+
     public class NotesPasswordException : Exception
     {
         public NotesPasswordException()
@@ -24,3 +26,4 @@ namespace Domain.Exceptions
         public override string Message => base.Message;
     }
 }
+

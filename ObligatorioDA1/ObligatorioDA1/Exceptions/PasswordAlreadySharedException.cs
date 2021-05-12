@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Domain.Exceptions
 {
-    public class PasswordAlreadySharedException : Exception
+    public class PasswordAlreadySharedException : PasswordExceptions
     {
         public PasswordAlreadySharedException()
         {
@@ -17,10 +17,7 @@ namespace Domain.Exceptions
         {
         }
 
-        protected PasswordAlreadySharedException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
 
-        public override string Message => base.Message;
+        public override string Message => "This password is already shared with that user";
     }
 }

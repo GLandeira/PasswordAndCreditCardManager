@@ -50,11 +50,11 @@ namespace Domain
             Categories.Add(aCategory);
         }
 
-        public Category GetACategory(string nameToTest)
+        public Category GetACategory(string category)
         {
             try
             {
-                Category foundCategory = Categories.First(cat => cat.Name == nameToTest);
+                Category foundCategory = Categories.First(cat => cat.Name == category);
 
                 return foundCategory;
             }

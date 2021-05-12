@@ -2,7 +2,9 @@
 
 namespace Domain.Exceptions
 {
-    public class SitePasswordException : CreditCardException
+
+    public class SitePasswordException : PasswordExceptions
+
     {
         public SitePasswordException()
         {
@@ -16,7 +18,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "Site needs to be between 3 and 25 characters";
 
         public override string ToString()
         {

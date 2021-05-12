@@ -183,7 +183,7 @@ namespace DomainTests
         [TestMethod]
         public void PasswordShortSite()
         {
-            _passwordTest.Site = "aaaa";
+            _passwordTest.Site = "aa";
             Verifier.VerifyPassword(_passwordTest);
         }
 

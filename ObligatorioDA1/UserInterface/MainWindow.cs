@@ -53,7 +53,7 @@ namespace UserInterface
         private void btnPasswords_Click(object sender, EventArgs e)
         {
             pnlMain.Controls.Clear();
-            UserControl passwordController = new PasswordsController();
+            UserControl passwordController = new PasswordsController(_userManager);
             pnlMain.Controls.Add(passwordController);
         }
 

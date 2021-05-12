@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public class AlreadyExistingPasswordException : Exception
+    public class AlreadyExistingPasswordException : PasswordExceptions
     {
         public AlreadyExistingPasswordException()
         {
@@ -20,7 +20,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "The password already exists";
 
         public override string ToString()
         {
