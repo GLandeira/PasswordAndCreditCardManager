@@ -41,6 +41,12 @@ namespace Domain
         public void AddCategory(Category aCategory)
         {
             Verifier.VerifyCategory(aCategory);
+
+            if(Categories.Any(cat => cat.Equals(aCategory)))
+            {
+                throw new CategoryAlreadyExistsException();
+            }
+
             Categories.Add(aCategory);
         }
 
@@ -81,6 +87,11 @@ namespace Domain
             {
                 throw new CategoryNotFoundException();
             }
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
 
         public override bool Equals(object obj)

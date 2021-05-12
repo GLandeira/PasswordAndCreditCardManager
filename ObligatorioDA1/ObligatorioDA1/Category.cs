@@ -17,14 +17,20 @@ namespace Domain
 
         public override bool Equals(object obj)
         {
+            if (obj == DBNull.Value) return false;
             Category otherCategory = (Category)obj;
-            return this.Name == otherCategory.Name;
+            return this.Name.ToLower() == otherCategory.Name.ToLower();
         }
 
         public object Clone()
         {
             Category clone = new Category(this.Name);
             return clone;
+        }
+
+        public override string ToString()
+        {
+            return this.Name;
         }
     }
 }

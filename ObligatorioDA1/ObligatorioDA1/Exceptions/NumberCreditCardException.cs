@@ -2,7 +2,7 @@
 
 namespace Domain.Exceptions
 {
-    public class NumberCreditCardException : Exception
+    public class NumberCreditCardException : CreditCardException
     {
         public NumberCreditCardException()
         {
@@ -16,7 +16,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "Number input is incorrect, Credit Card numbers are 16 digits long";
 
         public override string ToString()
         {

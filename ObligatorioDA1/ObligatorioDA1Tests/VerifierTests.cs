@@ -144,7 +144,7 @@ namespace DomainTests
             Verifier.VerifyCreditCard(_creditCardTest);
         }
 
-        [ExpectedException(typeof(NotesException))]
+        [ExpectedException(typeof(NotesCreditCardException))]
         [TestMethod]
         public void CreditCardLongNotes()
         {
@@ -179,7 +179,7 @@ namespace DomainTests
         }
 
         //-----------Password TestMethods--------------------
-        [ExpectedException(typeof(NamePasswordException))]
+        [ExpectedException(typeof(SitePasswordException))]
         [TestMethod]
         public void PasswordShortSite()
         {
@@ -187,7 +187,7 @@ namespace DomainTests
             Verifier.VerifyPassword(_passwordTest);
         }
 
-        [ExpectedException(typeof(NamePasswordException))]
+        [ExpectedException(typeof(SitePasswordException))]
         [TestMethod]
         public void PasswordLongSite()
         {
@@ -227,7 +227,7 @@ namespace DomainTests
             Verifier.VerifyPassword(_passwordTest);
         }
 
-        [ExpectedException(typeof(NotesException))]
+        [ExpectedException(typeof(NotesPasswordException))]
         [TestMethod]
         public void PasswordLongNotes()
         {

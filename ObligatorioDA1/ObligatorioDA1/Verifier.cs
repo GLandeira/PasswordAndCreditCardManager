@@ -98,8 +98,8 @@ namespace Domain
 
         private static void VerifyCreditCardName(CreditCard creditCardTested)
         {
-            if (creditCardTested.Name.Length <= MINIMUM_CHARACTERS_CREDITCARD_NAME
-                                        || creditCardTested.Name.Length >= MAXIMUM_CHARACTERS_CREDITCARD_NAME)
+            if (creditCardTested.Name.Length < MINIMUM_CHARACTERS_CREDITCARD_NAME
+                                        || creditCardTested.Name.Length > MAXIMUM_CHARACTERS_CREDITCARD_NAME)
             {
                 throw new NameCreditCardException();
             }
@@ -128,7 +128,7 @@ namespace Domain
         {
             if (creditCardTested.Notes.Length > CHARACTERS_NOTES)
             {
-                throw new NotesException();
+                throw new NotesCreditCardException();
             }
         }
 
@@ -145,7 +145,7 @@ namespace Domain
             if (passwordTested.Site.Length < MINIMUM_CHARACTERS_PASSWORD_USERxPASSWORD
                             || passwordTested.Site.Length > MAXIMUM_CHARACTERS_PASSWORD_USERxPASSWORDxSITE)
             {
-                throw new NamePasswordException();
+                throw new SitePasswordException();
             }   
         }
 
@@ -171,7 +171,7 @@ namespace Domain
         {
             if (passwordTested.Notes.Length > CHARACTERS_NOTES)
             {
-                throw new NotesException();
+                throw new NotesPasswordException();
             }
         }
 

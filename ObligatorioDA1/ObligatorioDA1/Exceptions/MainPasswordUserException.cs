@@ -2,7 +2,7 @@
 
 namespace Domain.Exceptions
 {
-    public class MainPasswordUserException : Exception
+    public class MainPasswordUserException : UserException
     {
         public MainPasswordUserException()
         {
@@ -16,7 +16,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "That Password is too long or too short!";
 
         public override string ToString()
         {

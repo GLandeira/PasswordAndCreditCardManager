@@ -2,7 +2,7 @@
 
 namespace Domain.Exceptions
 {
-    public class NameCategoryException : Exception
+    public class NameCategoryException : UserException
     {
         public NameCategoryException()
         {
@@ -16,7 +16,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "Name input is incorrect, categorie's names are between 3 and 15 characters long";
 
         public override string ToString()
         {

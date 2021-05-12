@@ -2,7 +2,7 @@
 
 namespace Domain.Exceptions
 {
-    public class NameCreditCardException : Exception
+    public class NameCreditCardException : CreditCardException
     {
         public NameCreditCardException()
         {
@@ -16,7 +16,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "Name input is incorrect, Credit Card names are between 3 and 25 characters";
 
         public override string ToString()
         {
