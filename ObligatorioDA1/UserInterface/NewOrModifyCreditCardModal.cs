@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
@@ -51,7 +52,7 @@ namespace UserInterface
             {
                 Name = txtbxCreditCardName.Text,
                 Type = (CardTypes)cmbbxCreditCardType.SelectedItem,
-                Number = txtbxCreditCardNumber.Text,
+                Number = NumberCreditCardFormatter(txtbxCreditCardNumber.Text),
                 SecurityCode = txtbxCreditCardSecurityNumber.Text,
                 ValidDue = dtmCreditCardDateDue.Value,
                 Category = (Category) cmbbxCreditCardCategory.SelectedItem,
@@ -87,6 +88,48 @@ namespace UserInterface
 
             cmbbxCreditCardCategory.DataSource = categoryList;
             cmbbxCreditCardType.DataSource = System.Enum.GetValues(typeof(CardTypes));
+        }
+
+        //malismo el metodo
+        private void txtbxCreditCardNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(e.KeyChar >= '0'
+                        && e.KeyChar <= '9') 
+                            && !(e.KeyChar == '\b'))
+            {
+                e.Handled = true;
+            }
+        }
+
+
+
+        private void txtbxCreditCardNumber_TextChanged(object sender, EventArgs e)
+        {
+            string numberFormatted = Regex.Replace(txtbxCreditCardNumber.Text, "-", "");
+            int numberFormattedSize = numberFormatted.Length;
+
+            if (numberFormattedSize >= 4)
+            {
+                numberFormatted = numberFormatted.Insert(4, "-");
+                numberFormattedSize++;
+                if (numberFormattedSize > 9)
+                {
+                    numberFormatted = numberFormatted.Insert(9, "-");
+                    numberFormattedSize++;
+                    if (numberFormattedSize > 14)
+                    {
+                        numberFormatted = numberFormatted.Insert(14, "-");
+                    }
+                }
+
+                txtbxCreditCardNumber.Text = numberFormatted;
+                txtbxCreditCardNumber.Select(txtbxCreditCardNumber.Text.Length, 0);
+            }
+        }
+
+        private string NumberCreditCardFormatter(string number)
+        {
+            return Regex.Replace(number, "-", "");
         }
     }
 }

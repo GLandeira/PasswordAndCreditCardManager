@@ -64,6 +64,8 @@ namespace UserInterface
             this.txtbxCreditCardNumber.Name = "txtbxCreditCardNumber";
             this.txtbxCreditCardNumber.Size = new System.Drawing.Size(161, 20);
             this.txtbxCreditCardNumber.TabIndex = 3;
+            this.txtbxCreditCardNumber.TextChanged += new System.EventHandler(this.txtbxCreditCardNumber_TextChanged);
+            this.txtbxCreditCardNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbxCreditCardNumber_KeyPress);
             // 
             // lblCreditCardCategory
             // 
@@ -161,6 +163,7 @@ namespace UserInterface
             // 
             this.cmbbxCreditCardCategory.DataSource = this.categoryBindingSource;
             this.cmbbxCreditCardCategory.DisplayMember = "Name";
+            this.cmbbxCreditCardCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbbxCreditCardCategory.FormattingEnabled = true;
             this.cmbbxCreditCardCategory.Location = new System.Drawing.Point(115, 27);
             this.cmbbxCreditCardCategory.Name = "cmbbxCreditCardCategory";
@@ -174,6 +177,7 @@ namespace UserInterface
             // 
             // cmbbxCreditCardType
             // 
+            this.cmbbxCreditCardType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbbxCreditCardType.FormattingEnabled = true;
             this.cmbbxCreditCardType.Location = new System.Drawing.Point(116, 80);
             this.cmbbxCreditCardType.Name = "cmbbxCreditCardType";
