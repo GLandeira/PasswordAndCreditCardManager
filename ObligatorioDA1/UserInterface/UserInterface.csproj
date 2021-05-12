@@ -84,6 +84,7 @@
     </Compile>
     <Compile Include="CreditCardMoreInfoModal.Designer.cs">
       <DependentUpon>CreditCardMoreInfoModal.cs</DependentUpon>
+		</Compile>
     <Compile Include="ChangePasswordModal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +126,7 @@
     </Compile>
     <Compile Include="NewOrModifyCreditCardModal.Designer.cs">
       <DependentUpon>NewOrModifyCreditCardModal.cs</DependentUpon>
+		</Compile>
     <Compile Include="ModifyCategoryModal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +152,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreditCardMoreInfoModal.resx">
       <DependentUpon>CreditCardMoreInfoModal.cs</DependentUpon>
+		</EmbeddedResource>
     <EmbeddedResource Include="ChangePasswordModal.resx">
       <DependentUpon>ChangePasswordModal.cs</DependentUpon>
     </EmbeddedResource>
@@ -170,6 +173,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewOrModifyCreditCardModal.resx">
       <DependentUpon>NewOrModifyCreditCardModal.cs</DependentUpon>
+		</EmbeddedResource>
     <EmbeddedResource Include="ModifyCategoryModal.resx">
       <DependentUpon>ModifyCategoryModal.cs</DependentUpon>
     </EmbeddedResource>
