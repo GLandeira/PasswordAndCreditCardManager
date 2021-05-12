@@ -45,6 +45,8 @@ namespace UserInterface
             this.timerPasswordMoreInfo = new System.Windows.Forms.Timer(this.components);
             this.lblTimeLeft = new System.Windows.Forms.Label();
             this.txtBxTimeLeft = new System.Windows.Forms.TextBox();
+            this.lblSharedWith = new System.Windows.Forms.Label();
+            this.fwlytSharedWith = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // lblCategory
@@ -176,11 +178,30 @@ namespace UserInterface
             this.txtBxTimeLeft.Size = new System.Drawing.Size(27, 20);
             this.txtBxTimeLeft.TabIndex = 13;
             // 
+            // lblSharedWith
+            // 
+            this.lblSharedWith.AutoSize = true;
+            this.lblSharedWith.Location = new System.Drawing.Point(66, 299);
+            this.lblSharedWith.Name = "lblSharedWith";
+            this.lblSharedWith.Size = new System.Drawing.Size(66, 13);
+            this.lblSharedWith.TabIndex = 14;
+            this.lblSharedWith.Text = "Shared with:";
+            // 
+            // fwlytSharedWith
+            // 
+            this.fwlytSharedWith.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.fwlytSharedWith.Location = new System.Drawing.Point(181, 299);
+            this.fwlytSharedWith.Name = "fwlytSharedWith";
+            this.fwlytSharedWith.Size = new System.Drawing.Size(118, 60);
+            this.fwlytSharedWith.TabIndex = 15;
+            // 
             // PasswordMoreInfoModal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(379, 432);
+            this.Controls.Add(this.fwlytSharedWith);
+            this.Controls.Add(this.lblSharedWith);
             this.Controls.Add(this.txtBxTimeLeft);
             this.Controls.Add(this.lblTimeLeft);
             this.Controls.Add(this.lblNotesFill);
@@ -219,5 +240,7 @@ namespace UserInterface
         private System.Windows.Forms.Timer timerPasswordMoreInfo;
         private System.Windows.Forms.Label lblTimeLeft;
         private System.Windows.Forms.TextBox txtBxTimeLeft;
+        private System.Windows.Forms.Label lblSharedWith;
+        private System.Windows.Forms.FlowLayoutPanel fwlytSharedWith;
     }
 }

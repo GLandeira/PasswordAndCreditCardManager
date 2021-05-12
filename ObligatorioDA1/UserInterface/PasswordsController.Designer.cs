@@ -208,6 +208,7 @@ namespace UserInterface
             this.btnUnshare.Text = "unshare";
             this.btnUnshare.UseVisualStyleBackColor = true;
             this.btnUnshare.Visible = false;
+            this.btnUnshare.Click += new System.EventHandler(this.btnUnshare_Click);
             // 
             // PasswordsController
             // 

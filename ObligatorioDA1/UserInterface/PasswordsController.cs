@@ -101,17 +101,28 @@ namespace UserInterface
 
         private void btnShowUnshowSharedPasswords_Click(object sender, EventArgs e)
         {
-            if (btnUnshare.Visible)
+            if (!btnUnshare.Visible)
             {
-                //grdvwPasswordsTable.DataSource = null;
-                //BindingSource bs = new BindingSource();
-                //bs.DataSource = _currentUser.UserPasswords.;
-                //grdvwPasswordsTable.DataSource = bs;
+                grdvwPasswordsTable.DataSource = null;
+                BindingSource bs = new BindingSource();
+                bs.DataSource = _currentUser.UserPasswords.GetPasswordsImSharing();
+                grdvwPasswordsTable.DataSource = bs;
                 btnShowUnshowSharedPasswords.Text = "Show all passwords";
-                btnUnshare.Visible = !btnUnshare.Visible;
+                btnUnshare.Visible =  true;
+            }
+            else
+            {
+                LoadDataGridPasswords();
+                btnShowUnshowSharedPasswords.Text = "Show shared passwords";
+                btnUnshare.Visible = false;
             }
             
 
+        }
+
+        private void btnUnshare_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
