@@ -41,12 +41,23 @@ namespace UserInterface
         {
             Form addOrModifyPasswordModal = new AddOrModifyPasswordModal(_currentUser, _lastPasswordSelected);
             addOrModifyPasswordModal.ShowDialog();
+           
         }
 
         private void grdvwPasswordsTable_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             Password selectedPassword = (Password) grdvwPasswordsTable.Rows[e.RowIndex].DataBoundItem;
             _lastPasswordSelected = selectedPassword;
+            if(_lastPasswordSelected.Category == User.SHARED_WITH_ME_CATEGORY)
+            {
+                BtnModifyPassword.Enabled = false;
+                BtnDeletePassword.Enabled = false;
+            }
+            else
+            {
+                BtnModifyPassword.Enabled = true;
+                BtnDeletePassword.Enabled = true;
+            }
         }
 
         private void LoadDataGridPasswords()
@@ -86,6 +97,21 @@ namespace UserInterface
         {
             Form sharePasswordModal = new SharePasswordModal(_userManager, _lastPasswordSelected);
             sharePasswordModal.ShowDialog();
+        }
+
+        private void btnShowUnshowSharedPasswords_Click(object sender, EventArgs e)
+        {
+            if (btnUnshare.Visible)
+            {
+                //grdvwPasswordsTable.DataSource = null;
+                //BindingSource bs = new BindingSource();
+                //bs.DataSource = _currentUser.UserPasswords.;
+                //grdvwPasswordsTable.DataSource = bs;
+                btnShowUnshowSharedPasswords.Text = "Show all passwords";
+                btnUnshare.Visible = !btnUnshare.Visible;
+            }
+            
+
         }
     }
 }
