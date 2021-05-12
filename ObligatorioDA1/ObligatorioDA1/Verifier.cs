@@ -145,7 +145,7 @@ namespace Domain
             if (passwordTested.Site.Length < MINIMUM_CHARACTERS_PASSWORD_USERxPASSWORD
                             || passwordTested.Site.Length > MAXIMUM_CHARACTERS_PASSWORD_USERxPASSWORDxSITE)
             {
-                throw new NamePasswordException();
+                throw new SitePasswordException();
             }   
         }
 
