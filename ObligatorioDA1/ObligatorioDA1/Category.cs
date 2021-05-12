@@ -32,6 +32,5 @@ namespace Domain
         {
             return this.Name;
         }
-
     }
 }
