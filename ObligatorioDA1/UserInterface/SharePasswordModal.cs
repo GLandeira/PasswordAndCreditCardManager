@@ -14,14 +14,17 @@ namespace UserInterface
 {
     public partial class SharePasswordModal : Form
     {
-        UserManager _currentUserManager;
-        Password _sharedPassword;
+        private UserManager _currentUserManager;
+        private User _currentUser;
+        private Password _sharedPassword;
         public SharePasswordModal(UserManager userManager, Password password)
         {
             InitializeComponent();
             _currentUserManager = userManager;
             _sharedPassword = password;
+            _currentUser = _currentUserManager.LoggedUser;
             List<User> bs = _currentUserManager.Users;
+            bs.Remove(_currentUser);
             cmbBxUsers.DataSource = bs;
 
         }
