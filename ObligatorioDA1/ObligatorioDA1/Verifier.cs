@@ -98,8 +98,8 @@ namespace Domain
 
         private static void VerifyCreditCardName(CreditCard creditCardTested)
         {
-            if (creditCardTested.Name.Length < MINIMUM_CHARACTERS_CREDITCARD_NAME
-                                        || creditCardTested.Name.Length > MAXIMUM_CHARACTERS_CREDITCARD_NAME)
+            if (creditCardTested.Name.Length <= MINIMUM_CHARACTERS_CREDITCARD_NAME
+                                        || creditCardTested.Name.Length >= MAXIMUM_CHARACTERS_CREDITCARD_NAME)
             {
                 throw new NameCreditCardException();
             }

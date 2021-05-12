@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using Domain.Exceptions;
 
@@ -23,26 +22,18 @@ namespace Domain
 
         public void RemoveCreditCard(CreditCard creditCard)
         {
-            if (!CreditCards.Remove(creditCard))
-            {
-                throw new CreditCardListIsEmptyException();
-            }
+            CreditCards.Remove(creditCard);
         }
 
         public void ModifyCreditCard(CreditCard creditCardToRemove, CreditCard creditCardToAdd)
         {
-            if (!CreditCards.Any()) {
-                throw new CreditCardListIsEmptyException();
+            Verifier.VerifyCreditCard(creditCardToAdd);
+            if (!creditCardToRemove.Equals(creditCardToAdd))
+            {
+                IsAlreadyInTheList(creditCardToAdd);
             }
-            else {
-                Verifier.VerifyCreditCard(creditCardToAdd);
-                if (!creditCardToRemove.Equals(creditCardToAdd))
-                {
-                    IsAlreadyInTheList(creditCardToAdd);
-                }
-                RemoveCreditCard(creditCardToRemove);
-                AddCreditCard(creditCardToAdd);
-            }
+            RemoveCreditCard(creditCardToRemove);
+            AddCreditCard(creditCardToAdd);
         }
 
         public CreditCard GetCreditCard(String creditCardNumberToLook)
