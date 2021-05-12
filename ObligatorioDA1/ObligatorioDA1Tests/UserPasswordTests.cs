@@ -369,9 +369,17 @@ namespace DomainTests
         [TestMethod]
         public void TestGetPasswordsImSharingNoPasswordsShared()
         {
-            List<Password> sharedPasswordsList = _userSharedTo.UserPasswords.GetPasswordsImSharing();
+            List<Password> sharedPasswordsList = _userPasswordTest.GetPasswordsImSharing();
             List<Password> expectedResult = new List<Password>();
-            Assert.AreEqual(expectedResult, sharedPasswordsList);
+            bool areSameList = true;
+            foreach (Password sharedPassword in sharedPasswordsList)
+            {
+                if (!(expectedResult.Contains(sharedPassword)))
+                {
+                    areSameList = false;
+                }
+            }
+            Assert.IsTrue(areSameList); ;
         }
 
         [TestMethod]
@@ -379,10 +387,18 @@ namespace DomainTests
         {
             _userPasswordTest.AddPassword(_testPassword1);
             _userPasswordTest.SharePassword(_userSharedTo, _testPassword1);
-            List<Password> sharedPasswordsList = _userSharedTo.UserPasswords.GetPasswordsImSharing();
+            List<Password> sharedPasswordsList = _userPasswordTest.GetPasswordsImSharing();
             List<Password> expectedResult = new List<Password>();
             expectedResult.Add(_testPassword1);
-            Assert.AreEqual(expectedResult, sharedPasswordsList);
+            bool areSameList = true;
+            foreach(Password sharedPassword in sharedPasswordsList)
+            {
+                if (!(expectedResult.Contains(sharedPassword)))
+                {
+                    areSameList = false;
+                }
+            }
+            Assert.IsTrue(areSameList);
         }
 
         [TestMethod]
@@ -392,10 +408,19 @@ namespace DomainTests
             _userPasswordTest.AddPassword(_testPassword2);
             _userPasswordTest.SharePassword(_userSharedTo, _testPassword1);
             _userPasswordTest.SharePassword(_userSharedTo, _testPassword2);
-            List<Password> sharedPasswordsList = _userSharedTo.UserPasswords.GetPasswordsImSharing();
+            List<Password> sharedPasswordsList = _userPasswordTest.GetPasswordsImSharing();
             List<Password> expectedResult = new List<Password>();
             expectedResult.Add(_testPassword1);
-            Assert.AreEqual(expectedResult, sharedPasswordsList);
+            expectedResult.Add(_testPassword2);
+            bool areSameList = true;
+            foreach (Password sharedPassword in sharedPasswordsList)
+            {
+                if (!(expectedResult.Contains(sharedPassword)))
+                {
+                    areSameList = false;
+                }
+            }
+            Assert.IsTrue(areSameList); ;
         }
 
     }

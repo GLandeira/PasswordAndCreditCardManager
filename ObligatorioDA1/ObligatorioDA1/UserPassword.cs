@@ -135,7 +135,13 @@ namespace Domain
         public List<Password> GetPasswordsImSharing()
         {
             List<Password> sharedPasswords = new List<Password>();
-
+            foreach(Password currentPassword in Passwords)
+            {
+                if (currentPassword.UsersSharedWith.Count() > 0)
+                {
+                    sharedPasswords.Add(currentPassword);
+                }
+            }
 
             return sharedPasswords;
         }
