@@ -22,13 +22,13 @@ namespace UserInterface
             _userManager = userManager;
             _currentUser = _userManager.LoggedUser;
             AddOrModifyPasswordModal.onModifyOrAddPassword += LoadDataGridPasswords;
-            UnsharePasswordModal.onSharePassword += LoadSharedPasswordsDataGrid;
+            UnsharePasswordModal.onSharePassword += LoadDataGridPasswords;
         }
 
         private void PasswordsController_Load(object sender, EventArgs e)
         {
-
-            LoadDataGridPasswords();
+            List<Password> passwordList = _currentUser.UserPasswords.Passwords;
+            LoadDataGridPasswords(passwordList);
             grdvwPasswordsTable.ClearSelection();
         }
 
@@ -61,26 +61,20 @@ namespace UserInterface
             }
         }
 
-        private void LoadDataGridPasswords()
+        private void LoadDataGridPasswords(List<Password> passwordList)
         {
             grdvwPasswordsTable.DataSource = null;
             BindingSource bs = new BindingSource();
-            bs.DataSource = _currentUser.UserPasswords.Passwords;
+            List<Password> sortedPasswordList = passwordList.OrderBy(p => p.Category.Name.ToUpper()).ToList();
+            bs.DataSource = sortedPasswordList;
             grdvwPasswordsTable.DataSource = bs;
 
-        }
 
-        private void LoadSharedPasswordsDataGrid()
-        {
-            grdvwPasswordsTable.DataSource = null;
-            BindingSource bs = new BindingSource();
-            bs.DataSource = _currentUser.UserPasswords.GetPasswordsImSharing();
-            grdvwPasswordsTable.DataSource = bs;
         }
 
         protected override void OnHandleDestroyed(EventArgs e)
         {
-            UnsharePasswordModal.onSharePassword -= LoadSharedPasswordsDataGrid;
+            UnsharePasswordModal.onSharePassword -= LoadDataGridPasswords;
             AddOrModifyPasswordModal.onModifyOrAddPassword -= LoadDataGridPasswords;
             base.OnHandleDestroyed(e);
         }
@@ -92,7 +86,7 @@ namespace UserInterface
             if (dialogResultDeletePassword == DialogResult.Yes)
             {
                 _currentUser.UserPasswords.RemovePassword(_lastPasswordSelected);
-                LoadDataGridPasswords();
+                LoadDataGridPasswords(_currentUser.UserPasswords.Passwords);
             }
         }
 
@@ -113,13 +107,15 @@ namespace UserInterface
         {
             if (!btnUnshare.Visible)
             {
-                LoadSharedPasswordsDataGrid();
+                List<Password> sharedPasswordsList = _currentUser.UserPasswords.GetPasswordsImSharing();
+                LoadDataGridPasswords(sharedPasswordsList);
                 btnShowUnshowSharedPasswords.Text = "Show all passwords";
                 btnUnshare.Visible =  true;
             }
             else
             {
-                LoadDataGridPasswords();
+                List<Password> passwordsList = _currentUser.UserPasswords.Passwords;
+                LoadDataGridPasswords(passwordsList);
                 btnShowUnshowSharedPasswords.Text = "Show shared passwords";
                 btnUnshare.Visible = false;
             }

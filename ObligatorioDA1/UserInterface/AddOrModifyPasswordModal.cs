@@ -14,7 +14,7 @@ namespace UserInterface
 {
     public partial class AddOrModifyPasswordModal : Form
     {
-        public delegate void ModifiedPasswordEvent();
+        public delegate void ModifiedPasswordEvent(List<Password> passwordList);
         public static event ModifiedPasswordEvent onModifyOrAddPassword;
         private User _currentUser;
         private Password _passwordToModify;
@@ -53,7 +53,7 @@ namespace UserInterface
                     _currentUser.UserPasswords.AddPassword(newPassword);
                 }
                 List<Password> passwordsList = _currentUser.UserPasswords.Passwords;
-                onModifyOrAddPassword?.Invoke();
+                onModifyOrAddPassword?.Invoke(passwordsList);
                 Close();
             }
             catch (PasswordExceptions exception)

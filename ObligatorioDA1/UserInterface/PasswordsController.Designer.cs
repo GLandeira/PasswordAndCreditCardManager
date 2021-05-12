@@ -33,13 +33,6 @@ namespace UserInterface
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.grdvwPasswordsTable = new System.Windows.Forms.DataGridView();
-            this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.siteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.usernameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastModificationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.securityLevelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.notesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PasswordString = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.passwordBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.BtnNewPassword = new System.Windows.Forms.Button();
             this.BtnDeletePassword = new System.Windows.Forms.Button();
@@ -48,6 +41,13 @@ namespace UserInterface
             this.categoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnShowUnshowSharedPasswords = new System.Windows.Forms.Button();
             this.btnUnshare = new System.Windows.Forms.Button();
+            this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.siteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usernameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastModificationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.securityLevelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.notesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PasswordString = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdvwPasswordsTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.passwordBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).BeginInit();
@@ -88,58 +88,6 @@ namespace UserInterface
             this.grdvwPasswordsTable.VirtualMode = true;
             this.grdvwPasswordsTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdvwPasswordsTable_CellDoubleClick);
             this.grdvwPasswordsTable.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdvwPasswordsTable_CellEnter);
-            // 
-            // categoryDataGridViewTextBoxColumn
-            // 
-            this.categoryDataGridViewTextBoxColumn.DataPropertyName = "Category";
-            this.categoryDataGridViewTextBoxColumn.HeaderText = "Category";
-            this.categoryDataGridViewTextBoxColumn.Name = "categoryDataGridViewTextBoxColumn";
-            this.categoryDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // siteDataGridViewTextBoxColumn
-            // 
-            this.siteDataGridViewTextBoxColumn.DataPropertyName = "Site";
-            this.siteDataGridViewTextBoxColumn.HeaderText = "Site";
-            this.siteDataGridViewTextBoxColumn.Name = "siteDataGridViewTextBoxColumn";
-            this.siteDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // usernameDataGridViewTextBoxColumn
-            // 
-            this.usernameDataGridViewTextBoxColumn.DataPropertyName = "Username";
-            this.usernameDataGridViewTextBoxColumn.HeaderText = "Username";
-            this.usernameDataGridViewTextBoxColumn.Name = "usernameDataGridViewTextBoxColumn";
-            this.usernameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // lastModificationDataGridViewTextBoxColumn
-            // 
-            this.lastModificationDataGridViewTextBoxColumn.DataPropertyName = "LastModification";
-            this.lastModificationDataGridViewTextBoxColumn.HeaderText = "LastModification";
-            this.lastModificationDataGridViewTextBoxColumn.Name = "lastModificationDataGridViewTextBoxColumn";
-            this.lastModificationDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // securityLevelDataGridViewTextBoxColumn
-            // 
-            this.securityLevelDataGridViewTextBoxColumn.DataPropertyName = "SecurityLevel";
-            this.securityLevelDataGridViewTextBoxColumn.HeaderText = "SecurityLevel";
-            this.securityLevelDataGridViewTextBoxColumn.Name = "securityLevelDataGridViewTextBoxColumn";
-            this.securityLevelDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // notesDataGridViewTextBoxColumn
-            // 
-            this.notesDataGridViewTextBoxColumn.DataPropertyName = "Notes";
-            this.notesDataGridViewTextBoxColumn.HeaderText = "Notes";
-            this.notesDataGridViewTextBoxColumn.Name = "notesDataGridViewTextBoxColumn";
-            this.notesDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // PasswordString
-            // 
-            this.PasswordString.DataPropertyName = "PasswordString";
-            dataGridViewCellStyle1.NullValue = null;
-            this.PasswordString.DefaultCellStyle = dataGridViewCellStyle1;
-            this.PasswordString.HeaderText = "PasswordString";
-            this.PasswordString.Name = "PasswordString";
-            this.PasswordString.ReadOnly = true;
-            this.PasswordString.Visible = false;
             // 
             // passwordBindingSource
             // 
@@ -210,6 +158,59 @@ namespace UserInterface
             this.btnUnshare.Visible = false;
             this.btnUnshare.Click += new System.EventHandler(this.btnUnshare_Click);
             // 
+            // categoryDataGridViewTextBoxColumn
+            // 
+            this.categoryDataGridViewTextBoxColumn.DataPropertyName = "Category";
+            this.categoryDataGridViewTextBoxColumn.HeaderText = "Category";
+            this.categoryDataGridViewTextBoxColumn.Name = "categoryDataGridViewTextBoxColumn";
+            this.categoryDataGridViewTextBoxColumn.ReadOnly = true;
+            this.categoryDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // siteDataGridViewTextBoxColumn
+            // 
+            this.siteDataGridViewTextBoxColumn.DataPropertyName = "Site";
+            this.siteDataGridViewTextBoxColumn.HeaderText = "Site";
+            this.siteDataGridViewTextBoxColumn.Name = "siteDataGridViewTextBoxColumn";
+            this.siteDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // usernameDataGridViewTextBoxColumn
+            // 
+            this.usernameDataGridViewTextBoxColumn.DataPropertyName = "Username";
+            this.usernameDataGridViewTextBoxColumn.HeaderText = "Username";
+            this.usernameDataGridViewTextBoxColumn.Name = "usernameDataGridViewTextBoxColumn";
+            this.usernameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // lastModificationDataGridViewTextBoxColumn
+            // 
+            this.lastModificationDataGridViewTextBoxColumn.DataPropertyName = "LastModification";
+            this.lastModificationDataGridViewTextBoxColumn.HeaderText = "LastModification";
+            this.lastModificationDataGridViewTextBoxColumn.Name = "lastModificationDataGridViewTextBoxColumn";
+            this.lastModificationDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // securityLevelDataGridViewTextBoxColumn
+            // 
+            this.securityLevelDataGridViewTextBoxColumn.DataPropertyName = "SecurityLevel";
+            this.securityLevelDataGridViewTextBoxColumn.HeaderText = "SecurityLevel";
+            this.securityLevelDataGridViewTextBoxColumn.Name = "securityLevelDataGridViewTextBoxColumn";
+            this.securityLevelDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // notesDataGridViewTextBoxColumn
+            // 
+            this.notesDataGridViewTextBoxColumn.DataPropertyName = "Notes";
+            this.notesDataGridViewTextBoxColumn.HeaderText = "Notes";
+            this.notesDataGridViewTextBoxColumn.Name = "notesDataGridViewTextBoxColumn";
+            this.notesDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // PasswordString
+            // 
+            this.PasswordString.DataPropertyName = "PasswordString";
+            dataGridViewCellStyle1.NullValue = null;
+            this.PasswordString.DefaultCellStyle = dataGridViewCellStyle1;
+            this.PasswordString.HeaderText = "PasswordString";
+            this.PasswordString.Name = "PasswordString";
+            this.PasswordString.ReadOnly = true;
+            this.PasswordString.Visible = false;
+            // 
             // PasswordsController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -243,6 +244,8 @@ namespace UserInterface
         private System.Windows.Forms.Button BtnSharePassword;
         private System.Windows.Forms.BindingSource categoryBindingSource;
         private System.Windows.Forms.DataGridView grdvwPasswordsTable;
+        private System.Windows.Forms.Button btnShowUnshowSharedPasswords;
+        private System.Windows.Forms.Button btnUnshare;
         private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn siteDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn usernameDataGridViewTextBoxColumn;
@@ -250,7 +253,5 @@ namespace UserInterface
         private System.Windows.Forms.DataGridViewTextBoxColumn securityLevelDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn notesDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn PasswordString;
-        private System.Windows.Forms.Button btnShowUnshowSharedPasswords;
-        private System.Windows.Forms.Button btnUnshare;
     }
 }

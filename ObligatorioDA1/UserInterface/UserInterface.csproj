@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="AddOrModifyPasswordModal.Designer.cs">
       <DependentUpon>AddOrModifyPasswordModal.cs</DependentUpon>
+	</Compile>
     <Compile Include="AddCategoryModal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +138,7 @@
     </Compile>
     <Compile Include="PasswordMoreInfoModal.Designer.cs">
       <DependentUpon>PasswordMoreInfoModal.cs</DependentUpon>
+	</Compile>
     <Compile Include="NewOrModifyCreditCardModal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +173,7 @@
     </Compile>
     <EmbeddedResource Include="AddOrModifyPasswordModal.resx">
       <DependentUpon>AddOrModifyPasswordModal.cs</DependentUpon>
+	</EmbeddedResource>
     <EmbeddedResource Include="AddCategoryModal.resx">
       <DependentUpon>AddCategoryModal.cs</DependentUpon>
     </EmbeddedResource>
@@ -182,7 +185,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreditCardMoreInfoModal.resx">
       <DependentUpon>CreditCardMoreInfoModal.cs</DependentUpon>
-		</EmbeddedResource>
+	</EmbeddedResource>
     <EmbeddedResource Include="ChangePasswordModal.resx">
       <DependentUpon>ChangePasswordModal.cs</DependentUpon>
     </EmbeddedResource>
@@ -206,6 +209,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PasswordMoreInfoModal.resx">
       <DependentUpon>PasswordMoreInfoModal.cs</DependentUpon>
+	</EmbeddedResource>
     <EmbeddedResource Include="NewOrModifyCreditCardModal.resx">
       <DependentUpon>NewOrModifyCreditCardModal.cs</DependentUpon>
 		</EmbeddedResource>

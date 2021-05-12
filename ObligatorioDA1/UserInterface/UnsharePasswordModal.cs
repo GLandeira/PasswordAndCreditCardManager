@@ -16,7 +16,7 @@ namespace UserInterface
         private UserManager _currentUserManager;
         private Password _unsharedPassword;
         private User _currentUser;
-        public delegate void UnsharedPasswordEvent();
+        public delegate void UnsharedPasswordEvent(List<Password> passwordList);
         public static event UnsharedPasswordEvent onSharePassword;
         public UnsharePasswordModal(UserManager userManager, Password unsharedPassword)
         {
@@ -37,7 +37,8 @@ namespace UserInterface
         {
             User userPasswordUnsharedWith = (User) cmbBxUsers.SelectedItem;
             _currentUser.UserPasswords.StopSharingPassword(userPasswordUnsharedWith, _unsharedPassword);
-            onSharePassword?.Invoke();
+            List<Password> sharedWithList = _currentUser.UserPasswords.GetPasswordsImSharing();
+            onSharePassword?.Invoke(sharedWithList);
             this.Close();
         }
 
