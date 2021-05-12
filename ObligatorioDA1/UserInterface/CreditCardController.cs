@@ -24,6 +24,9 @@ namespace UserInterface
             _currentUser = _userManager.LoggedUser;
 
             InitializeComponent();
+            btnDeleteCreditCard.Enabled = false;
+            btnModifyCreditCard.Enabled = false;
+
             NewOrModifyCreditCardModal.onNewOrModifyCreditCard += CreditCardLoad;
         }
 
@@ -38,6 +41,17 @@ namespace UserInterface
             List<CreditCard> creditCards = _currentUser.UserCreditCards.CreditCards;
             bs.DataSource = creditCards;
             grdvwCreditCard.DataSource = bs;
+
+            if (_selectedCreditCard != null)
+            {
+                btnDeleteCreditCard.Enabled = true;
+                btnModifyCreditCard.Enabled = true;
+            }
+            else
+            {
+                btnDeleteCreditCard.Enabled = false;
+                btnModifyCreditCard.Enabled = false;
+            }
         }
 
         private void btnNewCreditCard_Click(object sender, EventArgs e)
@@ -50,7 +64,7 @@ namespace UserInterface
         {
             try
             {
-                DialogResult dialogResultDeleteCreditCard = MessageBox.Show("Are you sure you want to delete this Credit Card?", "Confirmation",
+                DialogResult dialogResultDeleteCreditCard = MessageBox.Show("Are you sure you want to delete " + _selectedCreditCard.Name + " Credit Card?", "Confirmation",
                                                                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (dialogResultDeleteCreditCard == DialogResult.Yes)
                 {
@@ -68,8 +82,16 @@ namespace UserInterface
 
         private void btnModifyCreditCard_Click_1(object sender, EventArgs e)
         {
-            Form newOrModifyCreditCardModal = new NewOrModifyCreditCardModal(_currentUser, _selectedCreditCard);
-            newOrModifyCreditCardModal.ShowDialog();
+            try
+            {
+                Form newOrModifyCreditCardModal = new NewOrModifyCreditCardModal(_currentUser, _selectedCreditCard);
+                newOrModifyCreditCardModal.ShowDialog();
+            }
+            catch (Exception creditCardException)
+            {
+                MessageBox.Show(creditCardException.Message, "ERROR",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         protected override void OnHandleDestroyed(EventArgs e)
