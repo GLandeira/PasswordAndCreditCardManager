@@ -66,6 +66,11 @@
     </Compile>
     <Compile Include="AddOrModifyPasswordModal.Designer.cs">
       <DependentUpon>AddOrModifyPasswordModal.cs</DependentUpon>
+    <Compile Include="AddCategoryModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddCategoryModal.Designer.cs">
+      <DependentUpon>AddCategoryModal.cs</DependentUpon>
     </Compile>
     <Compile Include="CategoryController.cs">
       <SubType>UserControl</SubType>
@@ -73,11 +78,47 @@
     <Compile Include="CategoryController.Designer.cs">
       <DependentUpon>CategoryController.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreditCardController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CreditCardController.Designer.cs">
+      <DependentUpon>CreditCardController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreditCardMoreInfoModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreditCardMoreInfoModal.Designer.cs">
+      <DependentUpon>CreditCardMoreInfoModal.cs</DependentUpon>
+		</Compile>
+    <Compile Include="ChangePasswordModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangePasswordModal.Designer.cs">
+      <DependentUpon>ChangePasswordModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataBreachesController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataBreachesController.Designer.cs">
+      <DependentUpon>DataBreachesController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataBreachMatchesModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataBreachMatchesModal.Designer.cs">
+      <DependentUpon>DataBreachMatchesModal.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogInWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LogInWindow.Designer.cs">
       <DependentUpon>LogInWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogoController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LogoController.Designer.cs">
+      <DependentUpon>LogoController.cs</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -96,6 +137,17 @@
     </Compile>
     <Compile Include="PasswordMoreInfoModal.Designer.cs">
       <DependentUpon>PasswordMoreInfoModal.cs</DependentUpon>
+    <Compile Include="NewOrModifyCreditCardModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewOrModifyCreditCardModal.Designer.cs">
+      <DependentUpon>NewOrModifyCreditCardModal.cs</DependentUpon>
+		</Compile>
+    <Compile Include="ModifyCategoryModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModifyCategoryModal.Designer.cs">
+      <DependentUpon>ModifyCategoryModal.cs</DependentUpon>
     </Compile>
     <Compile Include="PasswordsController.cs">
       <SubType>UserControl</SubType>
@@ -119,12 +171,32 @@
     </Compile>
     <EmbeddedResource Include="AddOrModifyPasswordModal.resx">
       <DependentUpon>AddOrModifyPasswordModal.cs</DependentUpon>
+    <EmbeddedResource Include="AddCategoryModal.resx">
+      <DependentUpon>AddCategoryModal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CategoryController.resx">
       <DependentUpon>CategoryController.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CreditCardController.resx">
+      <DependentUpon>CreditCardController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreditCardMoreInfoModal.resx">
+      <DependentUpon>CreditCardMoreInfoModal.cs</DependentUpon>
+		</EmbeddedResource>
+    <EmbeddedResource Include="ChangePasswordModal.resx">
+      <DependentUpon>ChangePasswordModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataBreachesController.resx">
+      <DependentUpon>DataBreachesController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataBreachMatchesModal.resx">
+      <DependentUpon>DataBreachMatchesModal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LogInWindow.resx">
       <DependentUpon>LogInWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogoController.resx">
+      <DependentUpon>LogoController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
@@ -134,6 +206,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PasswordMoreInfoModal.resx">
       <DependentUpon>PasswordMoreInfoModal.cs</DependentUpon>
+    <EmbeddedResource Include="NewOrModifyCreditCardModal.resx">
+      <DependentUpon>NewOrModifyCreditCardModal.cs</DependentUpon>
+		</EmbeddedResource>
+    <EmbeddedResource Include="ModifyCategoryModal.resx">
+      <DependentUpon>ModifyCategoryModal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PasswordsController.resx">
       <DependentUpon>PasswordsController.cs</DependentUpon>
@@ -155,6 +232,8 @@
     </EmbeddedResource>
     <None Include="Properties\DataSources\Domain.Category.datasource" />
     <None Include="Properties\DataSources\Domain.Password.datasource" />
+    <None Include="Properties\DataSources\Domain.Category.datasource" />
+    <None Include="Properties\DataSources\Domain.CreditCard.datasource" />
     <None Include="Properties\DataSources\Domain.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

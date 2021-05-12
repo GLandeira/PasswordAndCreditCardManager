@@ -2,7 +2,7 @@
 
 namespace Domain.Exceptions
 {
-    public class ValidDueCreditCardException : Exception
+    public class ValidDueCreditCardException : CreditCardException
     {
         public ValidDueCreditCardException()
         {
@@ -16,7 +16,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "Can not insert expired credit card";
 
         public override string ToString()
         {

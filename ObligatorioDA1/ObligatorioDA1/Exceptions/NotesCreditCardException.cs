@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Domain.Exceptions
 {
+    public class NotesCreditCardException : CreditCardException
 
-    public class NotesCreditCardException : Exception
     {
         public NotesCreditCardException()
         {
@@ -21,7 +18,9 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+
+        public override string Message => "Notes can not extend from 250 characters";
+
 
         public override string ToString()
         {
@@ -29,3 +28,4 @@ namespace Domain.Exceptions
         }
     }
 }
+

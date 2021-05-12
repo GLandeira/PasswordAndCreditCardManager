@@ -2,7 +2,7 @@
 
 namespace Domain.Exceptions
 {
-    public class CreditCardNotFoundException : UserException
+    public class CreditCardNotFoundException : CreditCardException
     {
         public CreditCardNotFoundException()
         {
@@ -16,7 +16,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "Credit Card wasnt found in the list";
 
         public override string ToString()
         {

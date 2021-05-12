@@ -2,7 +2,9 @@
 
 namespace Domain.Exceptions
 {
+
     public class SitePasswordException : PasswordExceptions
+
     {
         public SitePasswordException()
         {

@@ -2,7 +2,7 @@
 
 namespace Domain.Exceptions
 {
-    public class MainPasswordUserException : Exception
+    public class MainPasswordUserException : UserException
     {
         public MainPasswordUserException()
         {

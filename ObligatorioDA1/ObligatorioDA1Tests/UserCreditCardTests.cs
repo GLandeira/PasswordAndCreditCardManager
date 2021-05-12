@@ -108,6 +108,13 @@ namespace DomainTests
             Assert.AreEqual(false, numberIsEqual);
         }
 
+        [ExpectedException(typeof(CreditCardListIsEmptyException))]
+        [TestMethod]
+        public void RemoveCreditCardWithNoItemsInTheList()
+        {
+            _userCreditCardTest.RemoveCreditCard(_creditCard1);
+        }
+
         [TestMethod]
         public void ModifyOneCreditCardNameAddedToTheListWithJustOneCreditCard()
         {
@@ -218,6 +225,13 @@ namespace DomainTests
             _userCreditCardTest.AddCreditCard(_creditCard1);
             _userCreditCardTest.AddCreditCard(_creditCard2);
 
+            _userCreditCardTest.ModifyCreditCard(_creditCard1, _creditCard2);
+        }
+
+        [ExpectedException(typeof(CreditCardListIsEmptyException))]
+        [TestMethod]
+        public void ModifyCreditCardWithAnEmptyList()
+        {
             _userCreditCardTest.ModifyCreditCard(_creditCard1, _creditCard2);
         }
 

@@ -20,7 +20,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "That Category doesn't exist!";
 
         public override string ToString()
         {

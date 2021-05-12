@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using System.Runtime.Serialization;
 
 namespace Domain.Exceptions
 {
@@ -21,11 +19,11 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
-
-        public override string ToString()
+        protected NotesPasswordException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            return base.ToString();
         }
+
+        public override string Message => base.Message;
     }
 }
+
