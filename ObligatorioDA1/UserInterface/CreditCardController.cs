@@ -18,12 +18,6 @@ namespace UserInterface
         private User _currentUser;
         private CreditCard _selectedCreditCard;
 
-        //pruebas
-        private Category _trabajo;
-        private CardTypes _visa;
-        private CreditCard _creditCard1;
-
-
         public CreditCardController(UserManager userManager)
         {
             _userManager = userManager;
@@ -35,19 +29,6 @@ namespace UserInterface
 
         private void CreditCardController_Load(object sender, EventArgs e)
         {
-            _trabajo = new Category("Personal");
-            _visa = CardTypes.VISA;
-            _creditCard1 = new CreditCard
-            {
-                Category = _currentUser.GetACategory("Personal"),
-                Name = "Visa Gold",
-                Number = "1111111111111111",
-                SecurityCode = "1234",
-                Type = _visa,
-                ValidDue = new DateTime(2022, 03, 08),
-                Notes = "super secreta, no compartir"
-            };
-            _currentUser.UserCreditCards.AddCreditCard(_creditCard1);
             CreditCardLoad();
         }
 
@@ -111,7 +92,6 @@ namespace UserInterface
 
         private void grdvwCreditCard_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-
             try
             {
                 if (this.grdvwCreditCard.Columns[e.ColumnIndex].Name == "numberDataGridViewTextBoxColumn")
@@ -124,18 +104,5 @@ namespace UserInterface
             {
             }
         }
-        //    if (this.dataGridView1.Columns[e.ColumnIndex].Name == "Artist")
-        //{
-        //        if (e.Value != null)
-        //        {
-        //            // Check for the string "pink" in the cell.
-        //            string stringValue = (string)e.Value;
-        //            stringValue = stringValue.ToLower();
-        //            if ((stringValue.IndexOf("pink") > -1))
-        //            {
-        //                e.CellStyle.BackColor = Color.Pink;
-        //            }
-        //        }
-        //    }
     }
 }
