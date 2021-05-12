@@ -16,7 +16,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => "Security code input is incorrect, Credit Card CVV are between 3 and 4 digits long";
+        public override string Message => "CVV input is incorrect, Credit Card CVV are between 3 and 4 digits long";
 
         public override string ToString()
         {

@@ -16,7 +16,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => "That name is either too long or too short!";
+        public override string Message => "Name input is incorrect, categorie's names are between 3 and 15 characters long";
 
         public override string ToString()
         {
