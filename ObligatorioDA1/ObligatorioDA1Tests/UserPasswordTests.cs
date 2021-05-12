@@ -367,7 +367,7 @@ namespace DomainTests
         }
 
         [TestMethod]
-        public void GetPasswordsSharedImSharingNoPasswordsShared()
+        public void TestGetPasswordsImSharingNoPasswordsShared()
         {
             List<Password> sharedPasswordsList = _userSharedTo.UserPasswords.GetPasswordsImSharing();
             List<Password> expectedResult = new List<Password>();
@@ -375,7 +375,7 @@ namespace DomainTests
         }
 
         [TestMethod]
-        public void GetPasswordsSharedImSharingOnePasswordShared()
+        public void TestGetPasswordsImSharingOnePasswordShared()
         {
             _userPasswordTest.AddPassword(_testPassword1);
             _userPasswordTest.SharePassword(_userSharedTo, _testPassword1);
@@ -386,7 +386,7 @@ namespace DomainTests
         }
 
         [TestMethod]
-        public void GetPasswordsSharedImSharingMoreThanOnePasswordShared()
+        public void TestGetPasswordsImSharingMoreThanOnePasswordShared()
         {
             _userPasswordTest.AddPassword(_testPassword1);
             _userPasswordTest.AddPassword(_testPassword2);
