@@ -56,6 +56,7 @@
     <Compile Include="Category.cs" />
     <Compile Include="DataBreaches.cs" />
     <Compile Include="Exceptions\CreditCardException.cs" />
+    <Compile Include="Exceptions\CreditCardListIsEmptyException.cs" />
     <Compile Include="Exceptions\NotesPasswordException.cs" />
     <Compile Include="Exceptions\CategoryAlreadyExistsException.cs" />
     <Compile Include="Exceptions\ValidDueCreditCardException.cs" />
