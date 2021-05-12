@@ -131,5 +131,13 @@ namespace Domain
             }
             return amountOfPasswords;
         }
+
+        public List<Password> GetPasswordsImSharing()
+        {
+            List<Password> sharedPasswords = new List<Password>();
+
+
+            return sharedPasswords;
+        }
     }
 }
