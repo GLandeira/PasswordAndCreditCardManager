@@ -99,5 +99,12 @@ namespace UserInterface
                 lblWelcome.Text = string.Format(WELCOME_TEXT_BASE, _userManager.LoggedUser.Name);
             }
         }
+
+        private void btnSecurityReport_Click(object sender, EventArgs e)
+        {
+            pnlMain.Controls.Clear();
+            UserControl securityLevelController = new SecurityReportController(_userManager);
+            pnlMain.Controls.Add(securityLevelController);
+        }
     }
 }
