@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
+using Domain.Exceptions;
 
 namespace UserInterface
 {
@@ -27,10 +28,17 @@ namespace UserInterface
 
         private void btnShare_Click(object sender, EventArgs e)
         {
-            User _currentUser = _currentUserManager.LoggedUser;
-            User _userSharedWith = (User) cmbBxUsers.SelectedItem;
-            _currentUser.UserPasswords.SharePassword(_userSharedWith, _sharedPassword);
-            this.Close();
+            try
+            {
+                User _currentUser = _currentUserManager.LoggedUser;
+                User _userSharedWith = (User)cmbBxUsers.SelectedItem;
+                _currentUser.UserPasswords.SharePassword(_userSharedWith, _sharedPassword);
+                this.Close();
+            }catch(PasswordExceptions exception)
+            {
+                MessageBox.Show(exception.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
     }
 }

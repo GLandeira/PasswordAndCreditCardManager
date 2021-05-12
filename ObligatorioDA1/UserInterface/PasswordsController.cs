@@ -22,6 +22,7 @@ namespace UserInterface
             _userManager = userManager;
             _currentUser = _userManager.LoggedUser;
             AddOrModifyPasswordModal.onModifyOrAddPassword += LoadDataGridPasswords;
+            UnsharePasswordModal.onSharePassword += LoadSharedPasswordsDataGrid;
         }
 
         private void PasswordsController_Load(object sender, EventArgs e)
@@ -69,8 +70,17 @@ namespace UserInterface
 
         }
 
+        private void LoadSharedPasswordsDataGrid()
+        {
+            grdvwPasswordsTable.DataSource = null;
+            BindingSource bs = new BindingSource();
+            bs.DataSource = _currentUser.UserPasswords.GetPasswordsImSharing();
+            grdvwPasswordsTable.DataSource = bs;
+        }
+
         protected override void OnHandleDestroyed(EventArgs e)
         {
+            UnsharePasswordModal.onSharePassword -= LoadSharedPasswordsDataGrid;
             AddOrModifyPasswordModal.onModifyOrAddPassword -= LoadDataGridPasswords;
             base.OnHandleDestroyed(e);
         }
@@ -103,10 +113,7 @@ namespace UserInterface
         {
             if (!btnUnshare.Visible)
             {
-                grdvwPasswordsTable.DataSource = null;
-                BindingSource bs = new BindingSource();
-                bs.DataSource = _currentUser.UserPasswords.GetPasswordsImSharing();
-                grdvwPasswordsTable.DataSource = bs;
+                LoadSharedPasswordsDataGrid();
                 btnShowUnshowSharedPasswords.Text = "Show all passwords";
                 btnUnshare.Visible =  true;
             }
@@ -122,7 +129,8 @@ namespace UserInterface
 
         private void btnUnshare_Click(object sender, EventArgs e)
         {
-            
+            Form unsharePasswordModal = new UnsharePasswordModal(_userManager,_lastPasswordSelected);
+            unsharePasswordModal.ShowDialog();
         }
     }
 }

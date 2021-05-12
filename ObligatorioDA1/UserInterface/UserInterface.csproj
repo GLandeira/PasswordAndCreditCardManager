@@ -111,6 +111,12 @@
     <Compile Include="SharePasswordModal.Designer.cs">
       <DependentUpon>SharePasswordModal.cs</DependentUpon>
     </Compile>
+    <Compile Include="UnsharePasswordModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UnsharePasswordModal.Designer.cs">
+      <DependentUpon>UnsharePasswordModal.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddOrModifyPasswordModal.resx">
       <DependentUpon>AddOrModifyPasswordModal.cs</DependentUpon>
     </EmbeddedResource>
@@ -143,6 +149,9 @@
     </Compile>
     <EmbeddedResource Include="SharePasswordModal.resx">
       <DependentUpon>SharePasswordModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UnsharePasswordModal.resx">
+      <DependentUpon>UnsharePasswordModal.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\Domain.Category.datasource" />
     <None Include="Properties\DataSources\Domain.Password.datasource" />
