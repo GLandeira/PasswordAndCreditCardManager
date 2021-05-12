@@ -79,6 +79,12 @@
     <Compile Include="CategoryController.Designer.cs">
       <DependentUpon>CategoryController.cs</DependentUpon>
     </Compile>
+    <Compile Include="CheckSecurityPasswordsModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckSecurityPasswordsModal.Designer.cs">
+      <DependentUpon>CheckSecurityPasswordsModal.cs</DependentUpon>
+    </Compile>
     <Compile Include="CreditCardController.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -185,6 +191,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CategoryController.resx">
       <DependentUpon>CategoryController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CheckSecurityPasswordsModal.resx">
+      <DependentUpon>CheckSecurityPasswordsModal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreditCardController.resx">
       <DependentUpon>CreditCardController.cs</DependentUpon>

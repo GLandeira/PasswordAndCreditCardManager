@@ -14,6 +14,8 @@ namespace UserInterface
 {
     public partial class SecurityReportController : UserControl
     {
+        private const string NO_PASSWORDS_OF_THAT_COLOR = "There are no passwords of that color.";
+
         private UserManager _userManager;
         private User _currentUser;
         private UserPassword _currentUserPassword;
@@ -25,22 +27,59 @@ namespace UserInterface
             InitializeComponent();
         }
 
-        public Panel creatPanelComponent(int securityLevelCount)
-        {
-            Panel panel = new Panel();
-            Label label = new Label();
-            Button button = new Button();
-            label.Text = securityLevelCount.ToString();
-            return panel;
-        }
-
         private void SecurityReportController_Load(object sender, EventArgs e)
         {
-            lblRedAmount.Text = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.RED).Count.ToString();
-            lblOrangeAmount.Text = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.ORANGE).Count.ToString();
-            lblYellowAmount.Text = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.YELLOW).Count.ToString();
-            lblLightGreenAmount.Text = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.LIGHT_GREEN).Count.ToString();
-            lblDarkGreenAmount.Text = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.DARK_GREEN).Count.ToString();
+            List<Password> redPasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.RED);
+            List<Password> orangePasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.ORANGE);
+            List<Password> yellowPasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.YELLOW);
+            List<Password> lightGreenPasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.LIGHT_GREEN);
+            List<Password> darkGreenPasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.DARK_GREEN);
+
+            lblRedAmount.Text = redPasswords.Count.ToString();
+            lblOrangeAmount.Text = orangePasswords.Count.ToString();
+            lblYellowAmount.Text = yellowPasswords.Count.ToString();
+            lblLightGreenAmount.Text = lightGreenPasswords.Count.ToString();
+            lblDarkGreenAmount.Text = darkGreenPasswords.Count.ToString();
+        }
+
+        private void btnCheckRed_Click(object sender, EventArgs e)
+        {
+            LoadCheckForm(SecurityLevelPasswords.RED);
+        }
+
+        private void btnCheckOrange_Click(object sender, EventArgs e)
+        {
+            LoadCheckForm(SecurityLevelPasswords.ORANGE);
+        }
+
+        private void btnCheckYellow_Click(object sender, EventArgs e)
+        {
+            LoadCheckForm(SecurityLevelPasswords.YELLOW);
+        }
+
+        private void btnCheckLightGreen_Click(object sender, EventArgs e)
+        {
+            LoadCheckForm(SecurityLevelPasswords.LIGHT_GREEN);
+        }
+
+        private void btnCheckDarkGreen_Click(object sender, EventArgs e)
+        {
+            LoadCheckForm(SecurityLevelPasswords.DARK_GREEN);
+        }
+
+        private void LoadCheckForm(SecurityLevelPasswords securityLevel)
+        {
+            List<Password> passwordsOfSecurityLevel = _currentUserPassword.GetPasswordsWithSecurityLevel(securityLevel);
+
+            if(passwordsOfSecurityLevel.Count <= 0)
+            {
+                MessageBox.Show(NO_PASSWORDS_OF_THAT_COLOR, "Attention",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            Form checkForm = new CheckSecurityPasswordsModal(passwordsOfSecurityLevel);
+            checkForm.ShowDialog();
         }
     }
 }
