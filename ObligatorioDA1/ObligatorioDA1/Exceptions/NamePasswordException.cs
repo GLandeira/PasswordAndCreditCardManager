@@ -2,7 +2,7 @@
 
 namespace Domain.Exceptions
 {
-    public class NamePasswordException : Exception
+    public class NamePasswordException : CreditCardException
     {
         public NamePasswordException()
         {
@@ -16,7 +16,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "";
 
         public override string ToString()
         {

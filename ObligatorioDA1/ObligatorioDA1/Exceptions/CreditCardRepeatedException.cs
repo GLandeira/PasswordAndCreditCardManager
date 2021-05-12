@@ -2,7 +2,7 @@
 
 namespace Domain.Exceptions
 {
-    public class CreditCardRepeatedException : Exception
+    public class CreditCardRepeatedException : CreditCardException
     {
         public CreditCardRepeatedException()
         {
@@ -16,7 +16,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "This credit card number already exists in the database";
 
         public override string ToString()
         {

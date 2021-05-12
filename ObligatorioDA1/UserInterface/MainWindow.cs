@@ -57,6 +57,14 @@ namespace UserInterface
             pnlMain.Controls.Add(passwordController);
         }
 
+
+        private void btnCreditCard_Click(object sender, EventArgs e)
+        {
+            pnlMain.Controls.Clear();
+            UserControl creditCardController = new CreditCardController(_userManager);
+            pnlMain.Controls.Add(creditCardController);
+        }
+        
         private void btnDataBreaches_Click(object sender, EventArgs e)
         {
             pnlMain.Controls.Clear();

@@ -2,17 +2,17 @@
 
 namespace Domain.Exceptions
 {
-    public class NotesException : Exception
+    public class CreditCardException : Exception
     {
-        public NotesException()
+        public CreditCardException()
         {
         }
 
-        public NotesException(string message) : base(message)
+        public CreditCardException(string message) : base(message)
         {
         }
 
-        public NotesException(string message, Exception innerException) : base(message, innerException)
+        public CreditCardException(string message, Exception innerException) : base(message, innerException)
         {
         }
 

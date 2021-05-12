@@ -73,6 +73,17 @@
     <Compile Include="CategoryController.Designer.cs">
       <DependentUpon>CategoryController.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreditCardController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CreditCardController.Designer.cs">
+      <DependentUpon>CreditCardController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreditCardMoreInfoModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreditCardMoreInfoModal.Designer.cs">
+      <DependentUpon>CreditCardMoreInfoModal.cs</DependentUpon>
     <Compile Include="ChangePasswordModal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +120,11 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewOrModifyCreditCardModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewOrModifyCreditCardModal.Designer.cs">
+      <DependentUpon>NewOrModifyCreditCardModal.cs</DependentUpon>
     <Compile Include="ModifyCategoryModal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +145,11 @@
     <EmbeddedResource Include="CategoryController.resx">
       <DependentUpon>CategoryController.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CreditCardController.resx">
+      <DependentUpon>CreditCardController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreditCardMoreInfoModal.resx">
+      <DependentUpon>CreditCardMoreInfoModal.cs</DependentUpon>
     <EmbeddedResource Include="ChangePasswordModal.resx">
       <DependentUpon>ChangePasswordModal.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,6 +168,8 @@
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewOrModifyCreditCardModal.resx">
+      <DependentUpon>NewOrModifyCreditCardModal.cs</DependentUpon>
     <EmbeddedResource Include="ModifyCategoryModal.resx">
       <DependentUpon>ModifyCategoryModal.cs</DependentUpon>
     </EmbeddedResource>
@@ -163,6 +186,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="Properties\DataSources\Domain.Category.datasource" />
+    <None Include="Properties\DataSources\Domain.CreditCard.datasource" />
     <None Include="Properties\DataSources\Domain.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
