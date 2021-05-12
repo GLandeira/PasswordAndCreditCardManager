@@ -11,7 +11,8 @@ namespace DomainTests
     public class UserPasswordTests
     {
         private UserPassword _userPasswordTest;
-        private User _userSharedTo;
+        private User _userSharedTo1;
+        private User _userSharedTo2;
         private Password _testPassword1;
         private Password _testPassword2;
         private Password _testPassword3;
@@ -30,10 +31,16 @@ namespace DomainTests
         {
             
             _userPasswordTest = new UserPassword();
-            _userSharedTo = new User
+            _userSharedTo1 = new User
             {
-                Name = "userPrueba",
-                MainPassword = "contraseñaPrueba"
+                Name = "userPrueba1",
+                MainPassword = "contraseñaPrueba1"
+            };
+
+            _userSharedTo2 = new User
+            {
+                Name = "userPrueba2",
+                MainPassword = "contraseñaPrueba2"
             };
             _trabajo = new Category("Trabajo");
             _testPassword1 = new Password
@@ -406,8 +413,8 @@ namespace DomainTests
         {
             _userPasswordTest.AddPassword(_testPassword1);
             _userPasswordTest.AddPassword(_testPassword2);
-            _userPasswordTest.SharePassword(_userSharedTo, _testPassword1);
-            _userPasswordTest.SharePassword(_userSharedTo, _testPassword2);
+            _userPasswordTest.SharePassword(_userSharedTo1, _testPassword1);
+            _userPasswordTest.SharePassword(_userSharedTo1, _testPassword2);
             List<Password> sharedPasswordsList = _userPasswordTest.GetPasswordsImSharing();
             List<Password> expectedResult = new List<Password>();
             expectedResult.Add(_testPassword1);
@@ -423,5 +430,25 @@ namespace DomainTests
             Assert.IsTrue(areSameList); ;
         }
 
+        [TestMethod]
+        public void TestStopSharingPasswordWithEveryoneOneUserSharedWith()
+        {
+            _userPasswordTest.AddPassword(_testPassword1);
+            _userPasswordTest.SharePassword(_userSharedTo1, _testPassword1);
+            _userPasswordTest.StopSharingPasswordWithEveryone(_testPassword1);
+            int usersSharedWithCount = _testPassword1.UsersSharedWith.Count;
+            Assert.AreEqual(0, usersSharedWithCount);
+        }
+
+        [TestMethod]
+        public void TestStopSharingPasswordWithEveryoneMoreThanOneUserSharedWith()
+        {
+            _userPasswordTest.AddPassword(_testPassword1);
+            _userPasswordTest.SharePassword(_userSharedTo1, _testPassword1);
+            _userPasswordTest.SharePassword(_userSharedTo2, _testPassword1);
+            _userPasswordTest.StopSharingPasswordWithEveryone(_testPassword1);
+            int usersSharedWithCount = _testPassword1.UsersSharedWith.Count;
+            Assert.AreEqual(0, usersSharedWithCount);
+        }
     }
 }
