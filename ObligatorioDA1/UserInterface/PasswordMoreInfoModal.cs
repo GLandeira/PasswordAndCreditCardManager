@@ -18,6 +18,10 @@ namespace UserInterface
         public PasswordMoreInfoModal(Password password)
         {
             InitializeComponent();
+            dtmPasswordLastModified.Format = DateTimePickerFormat.Custom;
+            dtmPasswordLastModified.CustomFormat = "MM/yyyy";
+
+
             _timeLeft = 30;
             timerPasswordMoreInfo.Start();
             txtbxPasswordCategory.Text = password.Category.ToString();
@@ -26,6 +30,7 @@ namespace UserInterface
             txtbxPasswordString.Text = password.PasswordString;
             txtbxPasswordSecurityLevel.Text = password.SecurityLevel.ToString();
             txtbxPasswordUsername.Text = password.Username;
+            dtmPasswordLastModified.Value = password.LastModification;
             Label userLabel;
             foreach (string username in password.UsersSharedWith)
             {

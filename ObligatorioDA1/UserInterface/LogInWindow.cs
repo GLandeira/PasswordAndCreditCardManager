@@ -83,7 +83,7 @@ namespace UserInterface
                 MessageBox.Show(string.Format(USER_CREATED_SUCCESS, username), "Success",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (MainPasswordUserException me)
+            catch (UserException me)
             {
                 MessageBox.Show(me.Message, "ERROR",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
