@@ -28,11 +28,13 @@ namespace UserInterface
 
         private void SecurityReportGraphModal_Load(object sender, EventArgs e)
         {
-            foreach(Category category in _currentUser.Categories)
+            chrtSecurityReport.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
+            chrtSecurityReport.ChartAreas[0].AxisY.MajorGrid.LineWidth = 0;
+
+            foreach (Category category in _currentUser.Categories)
             {
                 GenerateGraphSectionForCategory(category);
             }
-            
         }
 
         private void GenerateGraphSectionForCategory(Category category)

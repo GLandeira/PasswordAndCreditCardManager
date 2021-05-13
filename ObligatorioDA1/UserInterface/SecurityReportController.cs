@@ -19,6 +19,8 @@ namespace UserInterface
         private UserManager _userManager;
         private User _currentUser;
         private UserPassword _currentUserPassword;
+
+        private bool _passwordsPresentForGraph;
         public SecurityReportController(UserManager userManager)
         {
             _userManager = userManager;
@@ -29,7 +31,12 @@ namespace UserInterface
 
         private void SecurityReportController_Load(object sender, EventArgs e)
         {
-            LoadSecurityCounters();   
+            LoadSecurityCounters();
+
+            if (!_passwordsPresentForGraph)
+            {
+                btnSecurityGraph.Enabled = false;
+            }
         }
 
         private void btnCheckRed_Click(object sender, EventArgs e)
@@ -82,14 +89,26 @@ namespace UserInterface
             List<Password> lightGreenPasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.LIGHT_GREEN);
             List<Password> darkGreenPasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.DARK_GREEN);
 
-            lblRedAmount.Text = redPasswords.Count.ToString();
-            lblOrangeAmount.Text = orangePasswords.Count.ToString();
-            lblYellowAmount.Text = yellowPasswords.Count.ToString();
-            lblLightGreenAmount.Text = lightGreenPasswords.Count.ToString();
-            lblDarkGreenAmount.Text = darkGreenPasswords.Count.ToString();
+            int amountRedPasswords = redPasswords.Count;
+            int amountOrangePasswords = orangePasswords.Count;
+            int amountYellowPasswords = yellowPasswords.Count;
+            int amountLightGreenPasswords = lightGreenPasswords.Count;
+            int amountDarkGreenPasswords = darkGreenPasswords.Count;
+
+            lblRedAmount.Text = amountRedPasswords.ToString();
+            lblOrangeAmount.Text = amountOrangePasswords.ToString();
+            lblYellowAmount.Text = amountYellowPasswords.ToString();
+            lblLightGreenAmount.Text = amountLightGreenPasswords.ToString();
+            lblDarkGreenAmount.Text = amountDarkGreenPasswords.ToString();
+
+            int totalAmountOfPasswords = amountRedPasswords + amountYellowPasswords + 
+                                        amountOrangePasswords + amountDarkGreenPasswords + 
+                                        amountLightGreenPasswords;
+
+            _passwordsPresentForGraph = totalAmountOfPasswords != 0;
         }
 
-        private void btn_Click(object sender, EventArgs e)
+        private void btnSecurityGraph_Click(object sender, EventArgs e)
         {
             Form securityReportGraphModal = new SecurityReportGraphModal(_userManager);
             securityReportGraphModal.ShowDialog();
