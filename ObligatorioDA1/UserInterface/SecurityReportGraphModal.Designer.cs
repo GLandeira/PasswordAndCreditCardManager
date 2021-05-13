@@ -110,7 +110,12 @@ namespace UserInterface
             this.Controls.Add(this.lblSecurityReport);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.chrtSecurityReport);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(816, 489);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "SecurityReportGraphModal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SecurityReportGraphModal";
             this.Load += new System.EventHandler(this.SecurityReportGraphModal_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chrtSecurityReport)).EndInit();

@@ -80,6 +80,10 @@ namespace UserInterface
             this.Controls.Add(this.txtbxNewCategoryName);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.lblNewCategoryName);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(350, 200);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(350, 200);
             this.Name = "ModifyCategoryModal";
             this.Text = "ModifyCategoryModal";
             this.ResumeLayout(false);

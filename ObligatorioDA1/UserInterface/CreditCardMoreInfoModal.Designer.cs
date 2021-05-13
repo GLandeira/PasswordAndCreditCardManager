@@ -56,7 +56,7 @@ namespace UserInterface
             this.lblCreditCardInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCreditCardInfo.Location = new System.Drawing.Point(12, 9);
             this.lblCreditCardInfo.Name = "lblCreditCardInfo";
-            this.lblCreditCardInfo.Size = new System.Drawing.Size(173, 16);
+            this.lblCreditCardInfo.Size = new System.Drawing.Size(166, 16);
             this.lblCreditCardInfo.TabIndex = 0;
             this.lblCreditCardInfo.Text = "Credit Card Information";
             // 
@@ -225,6 +225,10 @@ namespace UserInterface
             this.Controls.Add(this.lblType);
             this.Controls.Add(this.lblCreditCardName);
             this.Controls.Add(this.lblCreditCardInfo);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(309, 452);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(309, 452);
             this.Name = "CreditCardMoreInfoModal";
             this.ShowIcon = false;
             this.ResumeLayout(false);
