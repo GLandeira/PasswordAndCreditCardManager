@@ -12,14 +12,6 @@ namespace Domain.Exceptions
         {
         }
 
-        public PasswordExceptions(string message) : base(message)
-        {
-        }
-
-        public PasswordExceptions(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
         public override string Message => base.Message;
 
         public override string ToString()

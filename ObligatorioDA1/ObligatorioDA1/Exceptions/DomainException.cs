@@ -12,14 +12,6 @@ namespace Domain.Exceptions
         {
         }
 
-        public DomainException(string message) : base(message)
-        {
-        }
-
-        public DomainException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
         public override string Message => base.Message;
 
         public override string ToString()

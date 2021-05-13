@@ -12,14 +12,6 @@ namespace Domain.Exceptions
         {
         }
 
-        public InvalidPasswordGenerationSettingsException(string message) : base(message)
-        {
-        }
-
-        public InvalidPasswordGenerationSettingsException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
         public override string Message => "Invalid password generation settings";
 
         public override string ToString()
