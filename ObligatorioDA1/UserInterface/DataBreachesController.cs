@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
+using Domain.DataBreachesTranslator;
 
 namespace UserInterface
 {
@@ -102,7 +103,8 @@ namespace UserInterface
 
         private void btnVerify_Click(object sender, EventArgs e)
         {
-            string[] fields = GetEntryFieldsSeparatedWithEnter(txtbxDataBreaches.Text);
+            ITranslator textBoxTranslator = new TextBoxTranslator();
+            string[] fields = textBoxTranslator.Translate(txtbxDataBreaches.Text);
 
             DataBreaches dataBreaches = _currentUser.UserDataBreaches.CheckDataBreaches(fields);
 
@@ -115,14 +117,6 @@ namespace UserInterface
 
             Form matchesDataBreaches = new DataBreachMatchesModal(dataBreaches);
             matchesDataBreaches.ShowDialog();
-        }
-
-        private string[] GetEntryFieldsSeparatedWithEnter(string entry)
-        {
-            string[] separator = new string[] { Environment.NewLine };
-            string[] fields = entry.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-
-            return fields;
         }
     }
 }
