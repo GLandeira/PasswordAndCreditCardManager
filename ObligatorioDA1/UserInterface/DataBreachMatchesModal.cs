@@ -83,7 +83,8 @@ namespace UserInterface
             Button btnModifyPassword = CreateButtonWithSettings(BUTTON_MODIFY_TEXT, new Point(BUTTON_X, BUTTON_Y));
             // EventHandler takes a function of object and EventArgs parameters.
             // By providing a wrapper I can call any function that takes any parameter
-            btnModifyPassword.Click += new EventHandler((obj, eventArgs) => ModifyButtonsOnClick(password));
+            EventHandler onClickEvent = new EventHandler((obj, eventArgs) => ModifyButtonsOnClick(password));
+            btnModifyPassword.Click += onClickEvent;
             pnlParentPanel.Controls.Add(btnModifyPassword);
         }
 
@@ -134,14 +135,17 @@ namespace UserInterface
 
         private void OnPasswordModified(Password modifiedPassword)
         {
-            if(modifiedPassword.PasswordString != _auxPasswordForModificationChecks.PasswordString)
+            List<Password> breachedPasswords = _theDataBreaches.PasswordBreaches;
+            breachedPasswords.RemoveAll(pass => pass.PasswordString == _auxPasswordForModificationChecks.PasswordString);
+            if (modifiedPassword.PasswordString != _auxPasswordForModificationChecks.PasswordString)
             {
-                List<Password> breachedPasswords = _theDataBreaches.PasswordBreaches;
-                breachedPasswords.RemoveAll(pass => pass.PasswordString == _auxPasswordForModificationChecks.PasswordString);
-                GenerateBreachedPasswordVisuals(breachedPasswords);
-
                 StopBreachedChecksIfNoMoreBreaches(breachedPasswords);
             }
+            else
+            {
+                breachedPasswords.Add(modifiedPassword);
+            }
+            GenerateBreachedPasswordVisuals(breachedPasswords);
         }
 
         private void StopBreachedChecksIfNoMoreBreaches(List<Password> breachedPasswords)

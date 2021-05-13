@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
+using Domain.PasswordSecurityFlagger;
 
 namespace UserInterface
 {
@@ -29,11 +30,13 @@ namespace UserInterface
         private Password _auxPasswordForModificationChecks;
         private List<Password> _passwords;
         private User _currentUser;
-        public CheckSecurityPasswordsModal(User loggedUser, List<Password> passwords)
+        private SecurityLevelPasswords _securityLevelChecking;
+        public CheckSecurityPasswordsModal(User loggedUser, List<Password> passwords, SecurityLevelPasswords securityLevelChecking)
         {
             InitializeComponent();
             _passwords = passwords;
             _currentUser = loggedUser;
+            _securityLevelChecking = securityLevelChecking;
             AddOrModifyPasswordModal.onModifySinglePassword += OnPasswordModified;
         }
 
@@ -49,6 +52,7 @@ namespace UserInterface
 
         private void GeneratePasswordVisuals(List<Password> passwords)
         {
+            fwlytPasswords.Controls.Clear();
             for (int i = 0; i < passwords.Count; i++)
             {
                 Password currentPassword = passwords[i];
@@ -110,7 +114,7 @@ namespace UserInterface
 
         private void OnPasswordModified(Password modifiedPassword)
         {
-            if (modifiedPassword.PasswordString != _auxPasswordForModificationChecks.PasswordString)
+            if (PasswordSecurityFlagger.GetSecurityLevel(modifiedPassword.PasswordString) != _securityLevelChecking)
             {
                 List<Password> breachedPasswords = _passwords;
                 breachedPasswords.RemoveAll(pass => pass.PasswordString == _auxPasswordForModificationChecks.PasswordString);
