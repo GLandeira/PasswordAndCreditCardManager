@@ -26,12 +26,15 @@ namespace UserInterface
 
         private const string BUTTON_MODIFY_TEXT = "Modify";
 
+        private Password _auxPasswordForModificationChecks;
         private List<Password> _passwords;
-
-        public CheckSecurityPasswordsModal(List<Password> passwords)
+        private User _currentUser;
+        public CheckSecurityPasswordsModal(User loggedUser, List<Password> passwords)
         {
             InitializeComponent();
             _passwords = passwords;
+            _currentUser = loggedUser;
+            AddOrModifyPasswordModal.onModifySinglePassword += OnPasswordModified;
         }
 
         private void CheckSecurityPasswordsModal_Load(object sender, EventArgs e)
@@ -100,7 +103,25 @@ namespace UserInterface
 
         private void ModifyButtonsOnClick(Password thePassword)
         {
-            //TODO Add PasswordModify call
+            _auxPasswordForModificationChecks = thePassword;
+            Form modifyPassword = new AddOrModifyPasswordModal(_currentUser, thePassword);
+            modifyPassword.ShowDialog();
+        }
+
+        private void OnPasswordModified(Password modifiedPassword)
+        {
+            if (modifiedPassword.PasswordString != _auxPasswordForModificationChecks.PasswordString)
+            {
+                List<Password> breachedPasswords = _passwords;
+                breachedPasswords.RemoveAll(pass => pass.PasswordString == _auxPasswordForModificationChecks.PasswordString);
+                GeneratePasswordVisuals(breachedPasswords);
+            }
+        }
+
+        protected override void OnHandleDestroyed(EventArgs e)
+        {
+            base.OnHandleDestroyed(e);
+            AddOrModifyPasswordModal.onModifySinglePassword -= OnPasswordModified;
         }
     }
 }

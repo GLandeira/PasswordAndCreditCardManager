@@ -78,7 +78,7 @@ namespace UserInterface
                 return;
             }
 
-            Form checkForm = new CheckSecurityPasswordsModal(passwordsOfSecurityLevel);
+            Form checkForm = new CheckSecurityPasswordsModal(_currentUser, passwordsOfSecurityLevel);
             checkForm.ShowDialog();
         }
 
