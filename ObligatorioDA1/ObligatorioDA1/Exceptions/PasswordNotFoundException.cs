@@ -16,7 +16,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "The password does not exist";
 
         public override string ToString()
         {

@@ -20,7 +20,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "The user is not present";
 
         public override string ToString()
         {
