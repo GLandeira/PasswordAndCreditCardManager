@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace Domain.DataBreachesTranslator
 {
-    class Program
+    public interface ITranslator
     {
-        static void Main(string[] args)
-        {
-        }
+        string[] Translate(string entry);
     }
 }
- 

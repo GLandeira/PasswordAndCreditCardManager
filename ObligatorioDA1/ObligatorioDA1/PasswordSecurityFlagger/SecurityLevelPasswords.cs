@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace Domain.PasswordSecurityFlagger
 {
-    class Program
+    public enum SecurityLevelPasswords
     {
-        static void Main(string[] args)
-        {
-        }
+        RED, ORANGE, YELLOW, LIGHT_GREEN, DARK_GREEN
     }
 }
- 

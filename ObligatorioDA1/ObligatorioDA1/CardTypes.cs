@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Program
+    public enum CardTypes
     {
-        static void Main(string[] args)
-        {
-        }
+        VISA, MASTERCARD, AMERICAN_EXPRESS, DISCOVER, AMEX
     }
 }
- 

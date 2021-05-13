@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4EC544D5-F022-4C2E-ABA9-B22BE739FB33}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>UserInterface</RootNamespace>
+    <AssemblyName>UserInterface</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddOrModifyPasswordModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddOrModifyPasswordModal.Designer.cs">
+      <DependentUpon>AddOrModifyPasswordModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddCategoryModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddCategoryModal.Designer.cs">
+      <DependentUpon>AddCategoryModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CategoryController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CategoryController.Designer.cs">
+      <DependentUpon>CategoryController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CheckSecurityPasswordsModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckSecurityPasswordsModal.Designer.cs">
+      <DependentUpon>CheckSecurityPasswordsModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreditCardController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CreditCardController.Designer.cs">
+      <DependentUpon>CreditCardController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreditCardMoreInfoModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreditCardMoreInfoModal.Designer.cs">
+      <DependentUpon>CreditCardMoreInfoModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChangePasswordModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangePasswordModal.Designer.cs">
+      <DependentUpon>ChangePasswordModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataBreachesController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataBreachesController.Designer.cs">
+      <DependentUpon>DataBreachesController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataBreachMatchesModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataBreachMatchesModal.Designer.cs">
+      <DependentUpon>DataBreachMatchesModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogInWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogInWindow.Designer.cs">
+      <DependentUpon>LogInWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogoController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LogoController.Designer.cs">
+      <DependentUpon>LogoController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordGeneratorModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PasswordGeneratorModal.Designer.cs">
+      <DependentUpon>PasswordGeneratorModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordMoreInfoModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PasswordMoreInfoModal.Designer.cs">
+      <DependentUpon>PasswordMoreInfoModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewOrModifyCreditCardModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewOrModifyCreditCardModal.Designer.cs">
+      <DependentUpon>NewOrModifyCreditCardModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModifyCategoryModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModifyCategoryModal.Designer.cs">
+      <DependentUpon>ModifyCategoryModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordsController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PasswordsController.Designer.cs">
+      <DependentUpon>PasswordsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecurityReportController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SecurityReportController.Designer.cs">
+      <DependentUpon>SecurityReportController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SecurityReportGraphModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SecurityReportGraphModal.Designer.cs">
+      <DependentUpon>SecurityReportGraphModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SharePasswordModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharePasswordModal.Designer.cs">
+      <DependentUpon>SharePasswordModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UnsharePasswordModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UnsharePasswordModal.Designer.cs">
+      <DependentUpon>UnsharePasswordModal.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AddOrModifyPasswordModal.resx">
+      <DependentUpon>AddOrModifyPasswordModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddCategoryModal.resx">
+      <DependentUpon>AddCategoryModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CategoryController.resx">
+      <DependentUpon>CategoryController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CheckSecurityPasswordsModal.resx">
+      <DependentUpon>CheckSecurityPasswordsModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreditCardController.resx">
+      <DependentUpon>CreditCardController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreditCardMoreInfoModal.resx">
+      <DependentUpon>CreditCardMoreInfoModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangePasswordModal.resx">
+      <DependentUpon>ChangePasswordModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataBreachesController.resx">
+      <DependentUpon>DataBreachesController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataBreachMatchesModal.resx">
+      <DependentUpon>DataBreachMatchesModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogInWindow.resx">
+      <DependentUpon>LogInWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogoController.resx">
+      <DependentUpon>LogoController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PasswordGeneratorModal.resx">
+      <DependentUpon>PasswordGeneratorModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PasswordMoreInfoModal.resx">
+      <DependentUpon>PasswordMoreInfoModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewOrModifyCreditCardModal.resx">
+      <DependentUpon>NewOrModifyCreditCardModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModifyCategoryModal.resx">
+      <DependentUpon>ModifyCategoryModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PasswordsController.resx">
+      <DependentUpon>PasswordsController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="SecurityReportController.resx">
+      <DependentUpon>SecurityReportController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SecurityReportGraphModal.resx">
+      <DependentUpon>SecurityReportGraphModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharePasswordModal.resx">
+      <DependentUpon>SharePasswordModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UnsharePasswordModal.resx">
+      <DependentUpon>UnsharePasswordModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\DataSources\Domain.Category.datasource" />
+    <None Include="Properties\DataSources\Domain.Password.datasource" />
+    <None Include="Properties\DataSources\Domain.Category.datasource" />
+    <None Include="Properties\DataSources\Domain.CreditCard.datasource" />
+    <None Include="Properties\DataSources\Domain.User.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ObligatorioDA1\Domain.csproj">
+      <Project>{0f791814-83de-4f3e-9ef4-45d96b43f68d}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
