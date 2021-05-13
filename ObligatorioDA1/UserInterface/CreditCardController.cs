@@ -37,8 +37,10 @@ namespace UserInterface
         private void CreditCardLoad()
         {
             BindingSource creditCardsDataSource = new BindingSource();
-            List<CreditCard> creditCards = _currentUser.UserCreditCards.CreditCards;
+            List<CreditCard> creditCards = _currentUser.UserCreditCards.CreditCards.
+                                                    OrderBy(p => p.Category.Name.ToUpper()).ToList();
             creditCardsDataSource.DataSource = creditCards;
+
             grdvwCreditCard.DataSource = creditCardsDataSource;
 
             ButtonDeleteModifyEnabler(creditCardsDataSource.Count != 0);
@@ -54,7 +56,8 @@ namespace UserInterface
         {
             try
             {
-                DialogResult dialogResultDeleteCreditCard = MessageBox.Show("Are you sure you want to delete " + _selectedCreditCard.Name + " Credit Card?", "Confirmation",
+                DialogResult dialogResultDeleteCreditCard = MessageBox.Show("Are you sure you want to delete " +
+                                                             _selectedCreditCard.Name + " Credit Card?", "Confirmation",
                                                                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (dialogResultDeleteCreditCard == DialogResult.Yes)
                 {
