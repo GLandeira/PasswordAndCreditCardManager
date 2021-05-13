@@ -26,6 +26,14 @@ namespace UserInterface
             List<User> bs = new List<User>(_currentUserManager.Users);
             bs.Remove(_currentUser);
             cmbBxUsers.DataSource = bs;
+            if (bs.Count == 0)
+            {
+                btnShare.Enabled = false;
+            }
+            else
+            {
+                btnShare.Enabled = true;
+            }
 
         }
 

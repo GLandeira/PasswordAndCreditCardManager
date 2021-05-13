@@ -30,6 +30,7 @@ namespace UserInterface
             _currentUser = loggedUser;
             _passwordToModify = passwordToModify;
             _modify = (!(passwordToModify == null)); 
+
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -70,9 +71,17 @@ namespace UserInterface
 
         private void AddOrModifyPasswordModal_Load(object sender, EventArgs e)
         {
-            List<Category> bs = _currentUser.Categories;
+            List<Category> bs = new List<Category>(_currentUser.Categories);
             bs.Remove(User.SHARED_WITH_ME_CATEGORY);
             cmbBxCategory.DataSource = bs;
+            if (bs.Count == 0)
+            {
+                btnAdd.Enabled = false;
+            }
+            else
+            {
+                btnAdd.Enabled = true;
+            }
             
             
             if (!(_passwordToModify == null))
