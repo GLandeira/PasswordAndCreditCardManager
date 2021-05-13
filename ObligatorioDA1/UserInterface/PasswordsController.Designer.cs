@@ -33,14 +33,6 @@ namespace UserInterface
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.grdvwPasswordsTable = new System.Windows.Forms.DataGridView();
-            this.passwordBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.BtnNewPassword = new System.Windows.Forms.Button();
-            this.BtnDeletePassword = new System.Windows.Forms.Button();
-            this.BtnModifyPassword = new System.Windows.Forms.Button();
-            this.BtnSharePassword = new System.Windows.Forms.Button();
-            this.categoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btnShowUnshowSharedPasswords = new System.Windows.Forms.Button();
-            this.btnUnshare = new System.Windows.Forms.Button();
             this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.siteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usernameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,6 +40,14 @@ namespace UserInterface
             this.securityLevelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.notesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PasswordString = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.passwordBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btnNewPassword = new System.Windows.Forms.Button();
+            this.btnDeletePassword = new System.Windows.Forms.Button();
+            this.btnModifyPassword = new System.Windows.Forms.Button();
+            this.btnSharePassword = new System.Windows.Forms.Button();
+            this.categoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btnShowUnshowSharedPasswords = new System.Windows.Forms.Button();
+            this.btnUnshare = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grdvwPasswordsTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.passwordBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).BeginInit();
@@ -88,75 +88,6 @@ namespace UserInterface
             this.grdvwPasswordsTable.VirtualMode = true;
             this.grdvwPasswordsTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdvwPasswordsTable_CellDoubleClick);
             this.grdvwPasswordsTable.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdvwPasswordsTable_CellEnter);
-            // 
-            // passwordBindingSource
-            // 
-            this.passwordBindingSource.DataSource = typeof(Domain.Password);
-            // 
-            // BtnNewPassword
-            // 
-            this.BtnNewPassword.Location = new System.Drawing.Point(67, 582);
-            this.BtnNewPassword.Name = "BtnNewPassword";
-            this.BtnNewPassword.Size = new System.Drawing.Size(158, 46);
-            this.BtnNewPassword.TabIndex = 2;
-            this.BtnNewPassword.Text = "New";
-            this.BtnNewPassword.UseVisualStyleBackColor = true;
-            this.BtnNewPassword.Click += new System.EventHandler(this.BtnNewPassword_Click);
-            // 
-            // BtnDeletePassword
-            // 
-            this.BtnDeletePassword.Location = new System.Drawing.Point(259, 582);
-            this.BtnDeletePassword.Name = "BtnDeletePassword";
-            this.BtnDeletePassword.Size = new System.Drawing.Size(158, 46);
-            this.BtnDeletePassword.TabIndex = 3;
-            this.BtnDeletePassword.Text = "Delete";
-            this.BtnDeletePassword.UseVisualStyleBackColor = true;
-            this.BtnDeletePassword.Click += new System.EventHandler(this.BtnDeletePassword_Click);
-            // 
-            // BtnModifyPassword
-            // 
-            this.BtnModifyPassword.Location = new System.Drawing.Point(455, 582);
-            this.BtnModifyPassword.Name = "BtnModifyPassword";
-            this.BtnModifyPassword.Size = new System.Drawing.Size(158, 46);
-            this.BtnModifyPassword.TabIndex = 4;
-            this.BtnModifyPassword.Text = "Modify";
-            this.BtnModifyPassword.UseVisualStyleBackColor = true;
-            this.BtnModifyPassword.Click += new System.EventHandler(this.BtnModifyPassword_Click);
-            // 
-            // BtnSharePassword
-            // 
-            this.BtnSharePassword.Location = new System.Drawing.Point(649, 582);
-            this.BtnSharePassword.Name = "BtnSharePassword";
-            this.BtnSharePassword.Size = new System.Drawing.Size(158, 46);
-            this.BtnSharePassword.TabIndex = 5;
-            this.BtnSharePassword.Text = "Share";
-            this.BtnSharePassword.UseVisualStyleBackColor = true;
-            this.BtnSharePassword.Click += new System.EventHandler(this.BtnSharePassword_Click);
-            // 
-            // categoryBindingSource
-            // 
-            this.categoryBindingSource.DataSource = typeof(Domain.Category);
-            // 
-            // btnShowUnshowSharedPasswords
-            // 
-            this.btnShowUnshowSharedPasswords.Location = new System.Drawing.Point(599, 541);
-            this.btnShowUnshowSharedPasswords.Name = "btnShowUnshowSharedPasswords";
-            this.btnShowUnshowSharedPasswords.Size = new System.Drawing.Size(158, 22);
-            this.btnShowUnshowSharedPasswords.TabIndex = 6;
-            this.btnShowUnshowSharedPasswords.Text = "Show my shared passwords";
-            this.btnShowUnshowSharedPasswords.UseVisualStyleBackColor = true;
-            this.btnShowUnshowSharedPasswords.Click += new System.EventHandler(this.btnShowUnshowSharedPasswords_Click);
-            // 
-            // btnUnshare
-            // 
-            this.btnUnshare.Location = new System.Drawing.Point(763, 543);
-            this.btnUnshare.Name = "btnUnshare";
-            this.btnUnshare.Size = new System.Drawing.Size(92, 19);
-            this.btnUnshare.TabIndex = 7;
-            this.btnUnshare.Text = "unshare";
-            this.btnUnshare.UseVisualStyleBackColor = true;
-            this.btnUnshare.Visible = false;
-            this.btnUnshare.Click += new System.EventHandler(this.btnUnshare_Click);
             // 
             // categoryDataGridViewTextBoxColumn
             // 
@@ -211,16 +142,85 @@ namespace UserInterface
             this.PasswordString.ReadOnly = true;
             this.PasswordString.Visible = false;
             // 
+            // passwordBindingSource
+            // 
+            this.passwordBindingSource.DataSource = typeof(Domain.Password);
+            // 
+            // btnNewPassword
+            // 
+            this.btnNewPassword.Location = new System.Drawing.Point(67, 582);
+            this.btnNewPassword.Name = "btnNewPassword";
+            this.btnNewPassword.Size = new System.Drawing.Size(158, 46);
+            this.btnNewPassword.TabIndex = 2;
+            this.btnNewPassword.Text = "New";
+            this.btnNewPassword.UseVisualStyleBackColor = true;
+            this.btnNewPassword.Click += new System.EventHandler(this.btnNewPassword_Click);
+            // 
+            // btnDeletePassword
+            // 
+            this.btnDeletePassword.Location = new System.Drawing.Point(259, 582);
+            this.btnDeletePassword.Name = "btnDeletePassword";
+            this.btnDeletePassword.Size = new System.Drawing.Size(158, 46);
+            this.btnDeletePassword.TabIndex = 3;
+            this.btnDeletePassword.Text = "Delete";
+            this.btnDeletePassword.UseVisualStyleBackColor = true;
+            this.btnDeletePassword.Click += new System.EventHandler(this.btnDeletePassword_Click);
+            // 
+            // btnModifyPassword
+            // 
+            this.btnModifyPassword.Location = new System.Drawing.Point(455, 582);
+            this.btnModifyPassword.Name = "btnModifyPassword";
+            this.btnModifyPassword.Size = new System.Drawing.Size(158, 46);
+            this.btnModifyPassword.TabIndex = 4;
+            this.btnModifyPassword.Text = "Modify";
+            this.btnModifyPassword.UseVisualStyleBackColor = true;
+            this.btnModifyPassword.Click += new System.EventHandler(this.btnModifyPassword_Click);
+            // 
+            // btnSharePassword
+            // 
+            this.btnSharePassword.Location = new System.Drawing.Point(649, 582);
+            this.btnSharePassword.Name = "btnSharePassword";
+            this.btnSharePassword.Size = new System.Drawing.Size(158, 46);
+            this.btnSharePassword.TabIndex = 5;
+            this.btnSharePassword.Text = "Share";
+            this.btnSharePassword.UseVisualStyleBackColor = true;
+            this.btnSharePassword.Click += new System.EventHandler(this.btnSharePassword_Click);
+            // 
+            // categoryBindingSource
+            // 
+            this.categoryBindingSource.DataSource = typeof(Domain.Category);
+            // 
+            // btnShowUnshowSharedPasswords
+            // 
+            this.btnShowUnshowSharedPasswords.Location = new System.Drawing.Point(599, 541);
+            this.btnShowUnshowSharedPasswords.Name = "btnShowUnshowSharedPasswords";
+            this.btnShowUnshowSharedPasswords.Size = new System.Drawing.Size(158, 22);
+            this.btnShowUnshowSharedPasswords.TabIndex = 6;
+            this.btnShowUnshowSharedPasswords.Text = "Show my shared passwords";
+            this.btnShowUnshowSharedPasswords.UseVisualStyleBackColor = true;
+            this.btnShowUnshowSharedPasswords.Click += new System.EventHandler(this.btnShowUnshowSharedPasswords_Click);
+            // 
+            // btnUnshare
+            // 
+            this.btnUnshare.Location = new System.Drawing.Point(763, 543);
+            this.btnUnshare.Name = "btnUnshare";
+            this.btnUnshare.Size = new System.Drawing.Size(92, 19);
+            this.btnUnshare.TabIndex = 7;
+            this.btnUnshare.Text = "unshare";
+            this.btnUnshare.UseVisualStyleBackColor = true;
+            this.btnUnshare.Visible = false;
+            this.btnUnshare.Click += new System.EventHandler(this.btnUnshare_Click);
+            // 
             // PasswordsController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnUnshare);
             this.Controls.Add(this.btnShowUnshowSharedPasswords);
-            this.Controls.Add(this.BtnSharePassword);
-            this.Controls.Add(this.BtnModifyPassword);
-            this.Controls.Add(this.BtnDeletePassword);
-            this.Controls.Add(this.BtnNewPassword);
+            this.Controls.Add(this.btnSharePassword);
+            this.Controls.Add(this.btnModifyPassword);
+            this.Controls.Add(this.btnDeletePassword);
+            this.Controls.Add(this.btnNewPassword);
             this.Controls.Add(this.grdvwPasswordsTable);
             this.Controls.Add(this.label1);
             this.Name = "PasswordsController";
@@ -238,10 +238,10 @@ namespace UserInterface
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.BindingSource passwordBindingSource;
-        private System.Windows.Forms.Button BtnNewPassword;
-        private System.Windows.Forms.Button BtnDeletePassword;
-        private System.Windows.Forms.Button BtnModifyPassword;
-        private System.Windows.Forms.Button BtnSharePassword;
+        private System.Windows.Forms.Button btnNewPassword;
+        private System.Windows.Forms.Button btnDeletePassword;
+        private System.Windows.Forms.Button btnModifyPassword;
+        private System.Windows.Forms.Button btnSharePassword;
         private System.Windows.Forms.BindingSource categoryBindingSource;
         private System.Windows.Forms.DataGridView grdvwPasswordsTable;
         private System.Windows.Forms.Button btnShowUnshowSharedPasswords;
