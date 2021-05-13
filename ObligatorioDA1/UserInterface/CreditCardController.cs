@@ -24,8 +24,7 @@ namespace UserInterface
             _currentUser = _userManager.LoggedUser;
 
             InitializeComponent();
-            btnDeleteCreditCard.Enabled = false;
-            btnModifyCreditCard.Enabled = false;
+            ButtonDeleteModifyEnabler(false);
 
             NewOrModifyCreditCardModal.onNewOrModifyCreditCard += CreditCardLoad;
         }
@@ -37,21 +36,12 @@ namespace UserInterface
 
         private void CreditCardLoad()
         {
-            BindingSource bs = new BindingSource();
+            BindingSource creditCardsDataSource = new BindingSource();
             List<CreditCard> creditCards = _currentUser.UserCreditCards.CreditCards;
-            bs.DataSource = creditCards;
-            grdvwCreditCard.DataSource = bs;
+            creditCardsDataSource.DataSource = creditCards;
+            grdvwCreditCard.DataSource = creditCardsDataSource;
 
-            if (_selectedCreditCard != null)
-            {
-                btnDeleteCreditCard.Enabled = true;
-                btnModifyCreditCard.Enabled = true;
-            }
-            else
-            {
-                btnDeleteCreditCard.Enabled = false;
-                btnModifyCreditCard.Enabled = false;
-            }
+            ButtonDeleteModifyEnabler(creditCardsDataSource.Count != 0);
         }
 
         private void btnNewCreditCard_Click(object sender, EventArgs e)
@@ -124,6 +114,20 @@ namespace UserInterface
             }
             catch (Exception)
             {
+            }
+        }
+
+        private void ButtonDeleteModifyEnabler(bool enable)
+        {
+            if (enable)
+            {
+                btnDeleteCreditCard.Enabled = true;
+                btnModifyCreditCard.Enabled = true;
+            }
+            else
+            {
+                btnDeleteCreditCard.Enabled = false;
+                btnModifyCreditCard.Enabled = false;
             }
         }
     }
