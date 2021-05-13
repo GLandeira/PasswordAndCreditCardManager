@@ -91,6 +91,8 @@ namespace UserInterface
 
         private void btnShowUnshowSharedPasswords_Click(object sender, EventArgs e)
         {
+            DisableAddButtonIfNoCategoriesAdded(_currentUser.Categories);
+
             if (!btnUnshare.Visible)
             {
                 List<Password> sharedPasswordsList = _currentUser.UserPasswords.GetPasswordsImSharing();
