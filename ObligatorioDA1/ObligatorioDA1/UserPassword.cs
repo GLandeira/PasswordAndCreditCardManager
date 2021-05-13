@@ -61,7 +61,7 @@ namespace Domain
 
         public void ModifyPassword(Password modifiedPassword, Password oldPassword)
         {
-            Verifier.VerifyPassword(oldPassword);
+            Verifier.VerifyPassword(modifiedPassword);
             if (this.Passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(modifiedPassword)))
             {
                 throw new AlreadyExistingPasswordException();
