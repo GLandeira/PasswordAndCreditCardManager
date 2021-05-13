@@ -37,7 +37,7 @@ namespace UserInterface
             this.lblYellow = new System.Windows.Forms.Label();
             this.lblLightGreen = new System.Windows.Forms.Label();
             this.lblDarkGreen = new System.Windows.Forms.Label();
-            this.btn = new System.Windows.Forms.Button();
+            this.btnSecurityGraph = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -156,16 +156,16 @@ namespace UserInterface
             this.lblDarkGreen.Text = "Dark Green:";
             this.lblDarkGreen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btn
+            // btnSecurityGraph
             // 
-            this.btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn.Location = new System.Drawing.Point(636, 562);
-            this.btn.Name = "btn";
-            this.btn.Size = new System.Drawing.Size(212, 52);
-            this.btn.TabIndex = 9;
-            this.btn.Text = "Security Graph";
-            this.btn.UseVisualStyleBackColor = true;
-            this.btn.Click += new System.EventHandler(this.btn_Click);
+            this.btnSecurityGraph.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSecurityGraph.Location = new System.Drawing.Point(636, 562);
+            this.btnSecurityGraph.Name = "btnSecurityGraph";
+            this.btnSecurityGraph.Size = new System.Drawing.Size(212, 52);
+            this.btnSecurityGraph.TabIndex = 9;
+            this.btnSecurityGraph.Text = "Security Graph";
+            this.btnSecurityGraph.UseVisualStyleBackColor = true;
+            this.btnSecurityGraph.Click += new System.EventHandler(this.btnSecurityGraph_Click);
             // 
             // panel1
             // 
@@ -368,7 +368,7 @@ namespace UserInterface
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btn);
+            this.Controls.Add(this.btnSecurityGraph);
             this.Controls.Add(this.lblDarkGreen);
             this.Controls.Add(this.lblLightGreen);
             this.Controls.Add(this.lblYellow);
@@ -407,7 +407,7 @@ namespace UserInterface
         private System.Windows.Forms.Label lblYellow;
         private System.Windows.Forms.Label lblLightGreen;
         private System.Windows.Forms.Label lblDarkGreen;
-        private System.Windows.Forms.Button btn;
+        private System.Windows.Forms.Button btnSecurityGraph;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;

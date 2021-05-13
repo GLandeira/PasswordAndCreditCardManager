@@ -14,6 +14,8 @@ namespace UserInterface
 {
     public partial class PasswordsController : UserControl
     {
+        private const string NO_CATEGORIES = "Add a Category to add a Password.";
+
         private UserManager _userManager;
         private User _currentUser;
         private Password _lastPasswordSelected;
@@ -30,22 +32,10 @@ namespace UserInterface
 
         private void PasswordsController_Load(object sender, EventArgs e)
         {
+            DisableAddButtonIfNoCategoriesAdded(_currentUser.Categories);
+
             List<Password> passwordList = _currentUser.UserPasswords.Passwords;
             LoadDataGridPasswords(passwordList);
-
-        }
-
-        private void BtnNewPassword_Click(object sender, EventArgs e)
-        {
-            Form addOrModifyPasswordModal = new AddOrModifyPasswordModal(_currentUser, null);
-            addOrModifyPasswordModal.ShowDialog();
-        }
-
-        private void BtnModifyPassword_Click(object sender, EventArgs e)
-        {
-            Form addOrModifyPasswordModal = new AddOrModifyPasswordModal(_currentUser, _lastPasswordSelected);
-            addOrModifyPasswordModal.ShowDialog();
-           
         }
 
         private void grdvwPasswordsTable_CellEnter(object sender, DataGridViewCellEventArgs e)
@@ -64,9 +54,9 @@ namespace UserInterface
 
         private void ButtonsEnabler(bool enabled)
         {
-            BtnModifyPassword.Enabled = enabled;
-            BtnDeletePassword.Enabled = enabled;
-            BtnSharePassword.Enabled = enabled;
+            btnModifyPassword.Enabled = enabled;
+            btnDeletePassword.Enabled = enabled;
+            btnSharePassword.Enabled = enabled;
         }
 
         private void LoadDataGridPasswords(List<Password> passwordList)
@@ -84,8 +74,6 @@ namespace UserInterface
                ButtonsEnabler(true);
             }
             grdvwPasswordsTable.DataSource = bs;
-
-
         }
 
         protected override void OnHandleDestroyed(EventArgs e)
@@ -95,7 +83,51 @@ namespace UserInterface
             base.OnHandleDestroyed(e);
         }
 
-        private void BtnDeletePassword_Click(object sender, EventArgs e)
+        private void grdvwPasswordsTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Form passwordMoreInfoModal = new PasswordMoreInfoModal(_lastPasswordSelected);
+            passwordMoreInfoModal.ShowDialog();
+        }
+
+        private void btnShowUnshowSharedPasswords_Click(object sender, EventArgs e)
+        {
+            DisableAddButtonIfNoCategoriesAdded(_currentUser.Categories);
+
+            if (!btnUnshare.Visible)
+            {
+                List<Password> sharedPasswordsList = _currentUser.UserPasswords.GetPasswordsImSharing();
+                LoadDataGridPasswords(sharedPasswordsList);
+                btnShowUnshowSharedPasswords.Text = "Show all passwords";
+                btnUnshare.Visible =  true;
+            }
+            else
+            {
+                List<Password> passwordsList = _currentUser.UserPasswords.Passwords;
+                LoadDataGridPasswords(passwordsList);
+                btnShowUnshowSharedPasswords.Text = "Show shared passwords";
+                btnUnshare.Visible = false;
+            }
+        }
+
+        private void btnUnshare_Click(object sender, EventArgs e)
+        {
+            Form unsharePasswordModal = new UnsharePasswordModal(_userManager,_lastPasswordSelected);
+            unsharePasswordModal.ShowDialog();
+        }
+
+        private void btnNewPassword_Click(object sender, EventArgs e)
+        {
+            Form addOrModifyPasswordModal = new AddOrModifyPasswordModal(_currentUser, null);
+            addOrModifyPasswordModal.ShowDialog();
+        }
+
+        private void btnSharePassword_Click(object sender, EventArgs e)
+        {
+            Form sharePasswordModal = new SharePasswordModal(_userManager, _lastPasswordSelected);
+            sharePasswordModal.ShowDialog();
+        }
+
+        private void btnDeletePassword_Click(object sender, EventArgs e)
         {
             DialogResult dialogResultDeletePassword = MessageBox.Show("Are you sure you want to delete this password?", "Confirmation",
                                                                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -106,44 +138,21 @@ namespace UserInterface
             }
         }
 
-        private void grdvwPasswordsTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void btnModifyPassword_Click(object sender, EventArgs e)
         {
-
-            Form passwordMoreInfoModal = new PasswordMoreInfoModal(_lastPasswordSelected);
-            passwordMoreInfoModal.ShowDialog();
+            Form addOrModifyPasswordModal = new AddOrModifyPasswordModal(_currentUser, _lastPasswordSelected);
+            addOrModifyPasswordModal.ShowDialog();
         }
 
-        private void BtnSharePassword_Click(object sender, EventArgs e)
+        private void DisableAddButtonIfNoCategoriesAdded(List<Category> categories)
         {
-            Form sharePasswordModal = new SharePasswordModal(_userManager, _lastPasswordSelected);
-            sharePasswordModal.ShowDialog();
-        }
-
-        private void btnShowUnshowSharedPasswords_Click(object sender, EventArgs e)
-        {
-            if (!btnUnshare.Visible)
+            if (categories.Count - 1 <= 0) // Taking into account the reserved Shared With Me
             {
-                List<Password> sharedPasswordsList = _currentUser.UserPasswords.GetPasswordsImSharing();
-                LoadDataGridPasswords(sharedPasswordsList);
-                btnShowUnshowSharedPasswords.Text = "Show all passwords";
-                btnUnshare.Visible =  true;
+                btnNewPassword.Enabled = false;
 
+                MessageBox.Show(NO_CATEGORIES, "Attention",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else
-            {
-                List<Password> passwordsList = _currentUser.UserPasswords.Passwords;
-                LoadDataGridPasswords(passwordsList);
-                btnShowUnshowSharedPasswords.Text = "Show shared passwords";
-                btnUnshare.Visible = false;
-            }
-            
-
-        }
-
-        private void btnUnshare_Click(object sender, EventArgs e)
-        {
-            Form unsharePasswordModal = new UnsharePasswordModal(_userManager,_lastPasswordSelected);
-            unsharePasswordModal.ShowDialog();
         }
     }
 }

@@ -14,6 +14,8 @@ namespace UserInterface
 {
     public partial class CreditCardController : UserControl
     {
+        private const string NO_CATEGORIES = "Please add a category to add a Credit Card.";
+
         private UserManager _userManager;
         private User _currentUser;
         private CreditCard _selectedCreditCard;
@@ -31,6 +33,8 @@ namespace UserInterface
 
         private void CreditCardController_Load(object sender, EventArgs e)
         {
+            DisableAddButtonIfNoCategoriesAdded(_currentUser.Categories);
+            
             CreditCardLoad();
         }
 
@@ -117,6 +121,17 @@ namespace UserInterface
             }
             catch (Exception)
             {
+            }
+        }
+
+        private void DisableAddButtonIfNoCategoriesAdded(List<Category> categories)
+        {
+            if (categories.Count - 1 <= 0) // Taking into account the reserved Shared With Me
+            {
+                btnNewCreditCard.Enabled = false;
+
+                MessageBox.Show(NO_CATEGORIES, "Attention",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

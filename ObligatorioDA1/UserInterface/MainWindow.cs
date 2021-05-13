@@ -20,18 +20,6 @@ namespace UserInterface
         {
             InitializeComponent();
             _userManager = new UserManager();
-
-            User mati = new User("matixitam", "1234abcd", _userManager);
-            mati.AddCategory(new Category("Personal"));
-            _userManager.AddUser(mati);
-
-            User gastao = new User("GLandeira", "bardo", _userManager);
-            gastao.AddCategory(new Category("Personal"));
-            _userManager.AddUser(gastao);
-
-            User sleepz = new User("sleepz", "milia", _userManager);
-            sleepz.AddCategory(new Category("Personal"));
-            _userManager.AddUser(sleepz);
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
