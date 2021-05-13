@@ -40,7 +40,7 @@ namespace UserInterface
                 return;
             }
 
-            Form matchesDataBreaches = new DataBreachMatchesModal(dataBreaches);
+            Form matchesDataBreaches = new DataBreachMatchesModal(_currentUser, dataBreaches);
             matchesDataBreaches.ShowDialog();
         }
     }

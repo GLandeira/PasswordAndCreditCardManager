@@ -29,17 +29,7 @@ namespace UserInterface
 
         private void SecurityReportController_Load(object sender, EventArgs e)
         {
-            List<Password> redPasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.RED);
-            List<Password> orangePasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.ORANGE);
-            List<Password> yellowPasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.YELLOW);
-            List<Password> lightGreenPasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.LIGHT_GREEN);
-            List<Password> darkGreenPasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.DARK_GREEN);
-
-            lblRedAmount.Text = redPasswords.Count.ToString();
-            lblOrangeAmount.Text = orangePasswords.Count.ToString();
-            lblYellowAmount.Text = yellowPasswords.Count.ToString();
-            lblLightGreenAmount.Text = lightGreenPasswords.Count.ToString();
-            lblDarkGreenAmount.Text = darkGreenPasswords.Count.ToString();
+            LoadSecurityCounters();   
         }
 
         private void btnCheckRed_Click(object sender, EventArgs e)
@@ -78,8 +68,25 @@ namespace UserInterface
                 return;
             }
 
-            Form checkForm = new CheckSecurityPasswordsModal(passwordsOfSecurityLevel);
+            Form checkForm = new CheckSecurityPasswordsModal(_currentUser, passwordsOfSecurityLevel, securityLevel);
             checkForm.ShowDialog();
+
+            LoadSecurityCounters();
+        }
+
+        private void LoadSecurityCounters()
+        {
+            List<Password> redPasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.RED);
+            List<Password> orangePasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.ORANGE);
+            List<Password> yellowPasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.YELLOW);
+            List<Password> lightGreenPasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.LIGHT_GREEN);
+            List<Password> darkGreenPasswords = _currentUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.DARK_GREEN);
+
+            lblRedAmount.Text = redPasswords.Count.ToString();
+            lblOrangeAmount.Text = orangePasswords.Count.ToString();
+            lblYellowAmount.Text = yellowPasswords.Count.ToString();
+            lblLightGreenAmount.Text = lightGreenPasswords.Count.ToString();
+            lblDarkGreenAmount.Text = darkGreenPasswords.Count.ToString();
         }
 
         private void btn_Click(object sender, EventArgs e)

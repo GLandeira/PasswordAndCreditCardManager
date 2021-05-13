@@ -16,6 +16,10 @@ namespace UserInterface
     {
         public delegate void ModifiedPasswordEvent(List<Password> passwordList);
         public static event ModifiedPasswordEvent onModifyOrAddPassword;
+
+        public delegate void ModifiedSinglePasswordEvent(Password theModifiedPassword);
+        public static event ModifiedSinglePasswordEvent onModifySinglePassword;
+
         private User _currentUser;
         private Password _passwordToModify;
         private bool _modify;
@@ -54,6 +58,7 @@ namespace UserInterface
                 }
                 List<Password> passwordsList = _currentUser.UserPasswords.Passwords;
                 onModifyOrAddPassword?.Invoke(passwordsList);
+                onModifySinglePassword?.Invoke(newPassword);
                 Close();
             }
             catch (PasswordExceptions exception)
