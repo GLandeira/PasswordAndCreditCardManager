@@ -42,10 +42,16 @@ namespace DomainTests
         public void TestTextBoxTranslatorGetsStringsRight()
         {
             ITranslator translator = new TextBoxTranslator();
-            string testString = "abc asgasg" + Environment.NewLine + "123asasf" + Environment.NewLine + "asfdasf asgf"
-                                + Environment.NewLine + Environment.NewLine + "asfasflll";
+            string string1 = "johnas";
+            string string2 = "p$$5asA@";
+            string string3 = "af  aasf  Kak";
+            string testString = string1 + Environment.NewLine + string3 + Environment.NewLine + string2;
 
-            Assert.AreEqual(4, translator.Translate(testString).Length);
+            string[] result = translator.Translate(testString);
+
+            Assert.AreEqual(string1, result[0]);
+            Assert.AreEqual(string2, result[2]);
+            Assert.AreEqual(string3, result[1]);
         }
     }
 }
