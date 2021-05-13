@@ -12,6 +12,7 @@ namespace DomainTests
     {
         private UserPassword _userPasswordTest;
         private User _userSharedTo;
+        private UserManager _userManager;
         private Password _testPassword1;
         private Password _testPassword2;
         private Password _testPassword3;
@@ -28,9 +29,9 @@ namespace DomainTests
         [TestInitialize]
         public void TestInitialize()
         {
-            
-            _userPasswordTest = new UserPassword();
-            _userSharedTo = new User
+            _userManager = new UserManager();
+            _userPasswordTest = new UserPassword(_userManager);
+            _userSharedTo = new User(_userManager)
             {
                 Name = "userPrueba",
                 MainPassword = "contraseñaPrueba"

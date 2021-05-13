@@ -7,6 +7,7 @@ namespace DomainTests
     [TestClass]
     public class UserDataBreachesTests
     {
+        private UserManager _userManager;
         private User _testUser;
         private UserDataBreaches _userDataBreaches;
 
@@ -34,7 +35,8 @@ namespace DomainTests
         [TestInitialize]
         public void TestInitialize()
         {
-            _testUser = new User();
+            _userManager = new UserManager();
+            _testUser = new User(_userManager);
             _userDataBreaches = new UserDataBreaches(_testUser);
 
             _breach1 = "1111 1111 1111 1111";
