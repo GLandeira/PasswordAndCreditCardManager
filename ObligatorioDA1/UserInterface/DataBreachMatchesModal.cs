@@ -26,13 +26,18 @@ namespace UserInterface
         private const int BUTTON_X = 422;
 
         private const string BUTTON_MODIFY_TEXT = "Modify";
+        private const string NO_MORE_BREACHED_PASSWORDS = "There are no more breached passwords.";
 
+        private Password _auxPasswordForModificationChecks;
         private DataBreaches _theDataBreaches;
+        private User _currentUser;
 
-        public DataBreachMatchesModal(DataBreaches dataBreaches)
+        public DataBreachMatchesModal(User loggedUser, DataBreaches dataBreaches)
         {
             InitializeComponent();
             _theDataBreaches = dataBreaches;
+            _currentUser = loggedUser;
+            AddOrModifyPasswordModal.onModifySinglePassword += OnPasswordModified;
         }
 
         private void DataBreachMatchesModal_Load(object sender, EventArgs e)
@@ -45,8 +50,24 @@ namespace UserInterface
             GenerateBreachedCreditCardVisuals(breachedCreditCards);
         }
 
+        private void OnPasswordModified(Password modifiedPassword)
+        {
+            List<Password> breachedPasswords = _theDataBreaches.PasswordBreaches;
+            breachedPasswords.RemoveAll(pass => pass.PasswordString == _auxPasswordForModificationChecks.PasswordString);
+            if (modifiedPassword.PasswordString != _auxPasswordForModificationChecks.PasswordString)
+            {
+                StopBreachedChecksIfNoMoreBreaches(breachedPasswords);
+            }
+            else
+            {
+                breachedPasswords.Add(modifiedPassword);
+            }
+            GenerateBreachedPasswordVisuals(breachedPasswords);
+        }
+
         private void GenerateBreachedPasswordVisuals(List<Password> passwords)
         {
+            fwlytBreachedPassword.Controls.Clear();
             for (int i = 0; i < passwords.Count; i++)
             {
                 Password currentPassword = passwords[i];
@@ -57,6 +78,7 @@ namespace UserInterface
 
         private void GenerateBreachedCreditCardVisuals(List<CreditCard> creditCards)
         {
+            fwlytBreachedCreditCards.Controls.Clear();
             for (int i = 0; i < creditCards.Count; i++)
             {
                 CreditCard currentCreditCard = creditCards[i];
@@ -74,9 +96,11 @@ namespace UserInterface
             pnlParentPanel.Controls.Add(lblPassword);
 
             Button btnModifyPassword = CreateButtonWithSettings(BUTTON_MODIFY_TEXT, new Point(BUTTON_X, BUTTON_Y));
+
             // EventHandler takes a function of object and EventArgs parameters.
             // By providing a wrapper I can call any function that takes any parameter
-            btnModifyPassword.Click += new EventHandler((obj, eventArgs) => ModifyButtonsOnClick(password));
+            EventHandler onClickEvent = new EventHandler((obj, eventArgs) => ModifyButtonsOnClick(password));
+            btnModifyPassword.Click += onClickEvent;
             pnlParentPanel.Controls.Add(btnModifyPassword);
         }
 
@@ -120,7 +144,34 @@ namespace UserInterface
 
         private void ModifyButtonsOnClick(Password thePassword)
         {
-            //TODO Add PasswordModify call
+            _auxPasswordForModificationChecks = thePassword;
+            Form modifyPassword = new AddOrModifyPasswordModal(_currentUser, thePassword);
+            modifyPassword.ShowDialog();
+        }
+
+        private void StopBreachedChecksIfNoMoreBreaches(List<Password> breachedPasswords)
+        {
+            if(breachedPasswords.Count <= 0)
+            {
+                MessageBox.Show(NO_MORE_BREACHED_PASSWORDS, "Success",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                CloseIfNoCreditCardBreaches();
+            }
+        }
+
+        private void CloseIfNoCreditCardBreaches()
+        {
+            if (_theDataBreaches.CreditCardsBreaches.Count <= 0)
+            {
+                Close();
+            }
+        }
+
+        protected override void OnHandleDestroyed(EventArgs e)
+        {
+            base.OnHandleDestroyed(e);
+            AddOrModifyPasswordModal.onModifySinglePassword -= OnPasswordModified;
         }
     }
 }

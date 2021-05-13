@@ -24,8 +24,7 @@ namespace UserInterface
             _currentUser = _userManager.LoggedUser;
 
             InitializeComponent();
-            btnDeleteCreditCard.Enabled = false;
-            btnModifyCreditCard.Enabled = false;
+            ButtonDeleteModifyEnabler(false);
 
             NewOrModifyCreditCardModal.onNewOrModifyCreditCard += CreditCardLoad;
         }
@@ -37,21 +36,14 @@ namespace UserInterface
 
         private void CreditCardLoad()
         {
-            BindingSource bs = new BindingSource();
-            List<CreditCard> creditCards = _currentUser.UserCreditCards.CreditCards;
-            bs.DataSource = creditCards;
-            grdvwCreditCard.DataSource = bs;
+            BindingSource creditCardsDataSource = new BindingSource();
+            List<CreditCard> creditCards = _currentUser.UserCreditCards.CreditCards.
+                                                    OrderBy(p => p.Category.Name.ToUpper()).ToList();
+            creditCardsDataSource.DataSource = creditCards;
 
-            if (_selectedCreditCard != null)
-            {
-                btnDeleteCreditCard.Enabled = true;
-                btnModifyCreditCard.Enabled = true;
-            }
-            else
-            {
-                btnDeleteCreditCard.Enabled = false;
-                btnModifyCreditCard.Enabled = false;
-            }
+            grdvwCreditCard.DataSource = creditCardsDataSource;
+
+            ButtonDeleteModifyEnabler(creditCardsDataSource.Count != 0);
         }
 
         private void btnNewCreditCard_Click(object sender, EventArgs e)
@@ -64,7 +56,8 @@ namespace UserInterface
         {
             try
             {
-                DialogResult dialogResultDeleteCreditCard = MessageBox.Show("Are you sure you want to delete " + _selectedCreditCard.Name + " Credit Card?", "Confirmation",
+                DialogResult dialogResultDeleteCreditCard = MessageBox.Show("Are you sure you want to delete " +
+                                                             _selectedCreditCard.Name + " Credit Card?", "Confirmation",
                                                                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (dialogResultDeleteCreditCard == DialogResult.Yes)
                 {
@@ -124,6 +117,20 @@ namespace UserInterface
             }
             catch (Exception)
             {
+            }
+        }
+
+        private void ButtonDeleteModifyEnabler(bool enable)
+        {
+            if (enable)
+            {
+                btnDeleteCreditCard.Enabled = true;
+                btnModifyCreditCard.Enabled = true;
+            }
+            else
+            {
+                btnDeleteCreditCard.Enabled = false;
+                btnModifyCreditCard.Enabled = false;
             }
         }
     }

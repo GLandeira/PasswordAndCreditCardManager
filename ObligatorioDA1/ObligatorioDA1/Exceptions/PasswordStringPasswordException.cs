@@ -2,7 +2,7 @@
 
 namespace Domain.Exceptions
 {
-    public class PasswordStringPasswordException : Exception
+    public class PasswordStringPasswordException : PasswordExceptions
     {
         public PasswordStringPasswordException()
         {
@@ -16,7 +16,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "Password needs to be between 5 and 25 characters";
 
         public override string ToString()
         {

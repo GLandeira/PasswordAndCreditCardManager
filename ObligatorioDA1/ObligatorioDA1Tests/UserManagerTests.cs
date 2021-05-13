@@ -19,7 +19,7 @@ namespace DomainTests
 
             _userNameInDomain = "User In Domain";
             _userPasswordInDomain = "Password for User In Domain";
-            User presentUser = new User(_userNameInDomain, _userPasswordInDomain);
+            User presentUser = new User(_userNameInDomain, _userPasswordInDomain, _mockDomain);
             _mockDomain.Users.Add(presentUser);
         }
 
@@ -27,7 +27,7 @@ namespace DomainTests
         public void TestAddingAUserActuallyAddsIt()
         {
             string newName = "UserTest";
-            User newUser = new User(newName, "pass1");
+            User newUser = new User(newName, "pass1", _mockDomain);
 
             _mockDomain.AddUser(newUser);
 
@@ -37,7 +37,7 @@ namespace DomainTests
         [TestMethod]
         public void TestAddingAUserThatsAlreadyThereThrowsException()
         {
-            User newUser2 = new User(_userNameInDomain, "pass2");
+            User newUser2 = new User(_userNameInDomain, "pass2", _mockDomain);
             Assert.ThrowsException<UserAlreadyExistsException>(() => _mockDomain.AddUser(newUser2));
         }
 
@@ -45,7 +45,7 @@ namespace DomainTests
         public void TestModifyingUserMainPasswordActuallyModifiesIt()
         {
             string newPassword = "fjk187Abs2";
-            User modifiedUser = new User(_userNameInDomain, newPassword);
+            User modifiedUser = new User(_userNameInDomain, newPassword, _mockDomain);
             _mockDomain.ModifyPassword(modifiedUser);
 
             Assert.AreEqual(newPassword, _mockDomain.Users.First(us => us.Name == _userNameInDomain).MainPassword);
@@ -56,7 +56,7 @@ namespace DomainTests
         {
             string userNameNotPresent = "Johny";
             string newPassword = "akshndjplk232";
-            User modifiedUser = new User(userNameNotPresent, newPassword);
+            User modifiedUser = new User(userNameNotPresent, newPassword, _mockDomain);
             Assert.ThrowsException<UserNotPresentException>(() => _mockDomain.ModifyPassword(modifiedUser));
         }
 
@@ -102,7 +102,7 @@ namespace DomainTests
         {
             string userName = "testName";
             string userPassword = "akakak23Aj/&";
-            User testUser = new User(userName, userPassword);
+            User testUser = new User(userName, userPassword, _mockDomain);
 
             _mockDomain.AddUser(testUser);
 

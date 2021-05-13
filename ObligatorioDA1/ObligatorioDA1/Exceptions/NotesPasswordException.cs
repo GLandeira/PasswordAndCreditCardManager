@@ -1,9 +1,11 @@
 ﻿using System;
+
 using System.Runtime.Serialization;
 
 namespace Domain.Exceptions
 {
-    public class NotesPasswordException : Exception
+
+    public class NotesPasswordException : PasswordExceptions
     {
         public NotesPasswordException()
         {
@@ -17,10 +19,13 @@ namespace Domain.Exceptions
         {
         }
 
-        protected NotesPasswordException(SerializationInfo info, StreamingContext context) : base(info, context)
+        public override string Message => "Notes can not extend from 250 characters";
+
+        public override string ToString()
         {
+            return base.ToString();
         }
 
-        public override string Message => base.Message;
     }
 }
+

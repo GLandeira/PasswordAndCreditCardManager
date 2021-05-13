@@ -20,7 +20,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "Couldnt assing security level";
 
         public override string ToString()
         {

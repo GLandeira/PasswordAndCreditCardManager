@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public class InvalidPasswordGenerationSettingsException : Exception
+    public class InvalidPasswordGenerationSettingsException : PasswordExceptions
     {
         public InvalidPasswordGenerationSettingsException()
         {
@@ -20,7 +20,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "Invalid password generation settings";
 
         public override string ToString()
         {

@@ -21,15 +21,15 @@ namespace UserInterface
             InitializeComponent();
             _userManager = new UserManager();
 
-            User mati = new User("matixitam", "1234abcd");
+            User mati = new User("matixitam", "1234abcd", _userManager);
             mati.AddCategory(new Category("Personal"));
             _userManager.AddUser(mati);
 
-            User gastao = new User("GLandeira", "bardo");
+            User gastao = new User("GLandeira", "bardo", _userManager);
             gastao.AddCategory(new Category("Personal"));
             _userManager.AddUser(gastao);
 
-            User sleepz = new User("sleepz", "milia");
+            User sleepz = new User("sleepz", "milia", _userManager);
             sleepz.AddCategory(new Category("Personal"));
             _userManager.AddUser(sleepz);
         }
@@ -53,7 +53,7 @@ namespace UserInterface
         private void btnPasswords_Click(object sender, EventArgs e)
         {
             pnlMain.Controls.Clear();
-            UserControl passwordController = new PasswordsController();
+            UserControl passwordController = new PasswordsController(_userManager);
             pnlMain.Controls.Add(passwordController);
         }
 
@@ -98,6 +98,13 @@ namespace UserInterface
             {
                 lblWelcome.Text = string.Format(WELCOME_TEXT_BASE, _userManager.LoggedUser.Name);
             }
+        }
+
+        private void btnSecurityReport_Click(object sender, EventArgs e)
+        {
+            pnlMain.Controls.Clear();
+            UserControl securityLevelController = new SecurityReportController(_userManager);
+            pnlMain.Controls.Add(securityLevelController);
         }
     }
 }

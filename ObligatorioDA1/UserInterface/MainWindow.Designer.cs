@@ -85,6 +85,7 @@ namespace UserInterface
             this.btnSecurityReport.TabIndex = 4;
             this.btnSecurityReport.Text = "Security Report";
             this.btnSecurityReport.UseVisualStyleBackColor = true;
+            this.btnSecurityReport.Click += new System.EventHandler(this.btnSecurityReport_Click);
             // 
             // btnDataBreaches
             // 

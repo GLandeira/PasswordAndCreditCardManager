@@ -2,7 +2,7 @@
 
 namespace Domain.Exceptions
 {
-    public class NameUserException : Exception
+    public class NameUserException : UserException
     {
         public NameUserException()
         {
@@ -16,7 +16,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "Name input is incorrect,  names are between 5 and 25 characters";
 
         public override string ToString()
         {

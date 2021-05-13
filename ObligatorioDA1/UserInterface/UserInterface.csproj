@@ -50,6 +50,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,6 +62,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddOrModifyPasswordModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddOrModifyPasswordModal.Designer.cs">
+      <DependentUpon>AddOrModifyPasswordModal.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddCategoryModal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +80,12 @@
     <Compile Include="CategoryController.Designer.cs">
       <DependentUpon>CategoryController.cs</DependentUpon>
     </Compile>
+    <Compile Include="CheckSecurityPasswordsModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckSecurityPasswordsModal.Designer.cs">
+      <DependentUpon>CheckSecurityPasswordsModal.cs</DependentUpon>
+    </Compile>
     <Compile Include="CreditCardController.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -84,7 +97,7 @@
     </Compile>
     <Compile Include="CreditCardMoreInfoModal.Designer.cs">
       <DependentUpon>CreditCardMoreInfoModal.cs</DependentUpon>
-		</Compile>
+    </Compile>
     <Compile Include="ChangePasswordModal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,12 +134,24 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="PasswordGeneratorModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PasswordGeneratorModal.Designer.cs">
+      <DependentUpon>PasswordGeneratorModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordMoreInfoModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PasswordMoreInfoModal.Designer.cs">
+      <DependentUpon>PasswordMoreInfoModal.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewOrModifyCreditCardModal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NewOrModifyCreditCardModal.Designer.cs">
       <DependentUpon>NewOrModifyCreditCardModal.cs</DependentUpon>
-		</Compile>
+    </Compile>
     <Compile Include="ModifyCategoryModal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,18 +166,48 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecurityReportController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SecurityReportController.Designer.cs">
+      <DependentUpon>SecurityReportController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SecurityReportGraphModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SecurityReportGraphModal.Designer.cs">
+      <DependentUpon>SecurityReportGraphModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SharePasswordModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharePasswordModal.Designer.cs">
+      <DependentUpon>SharePasswordModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UnsharePasswordModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UnsharePasswordModal.Designer.cs">
+      <DependentUpon>UnsharePasswordModal.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AddOrModifyPasswordModal.resx">
+      <DependentUpon>AddOrModifyPasswordModal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddCategoryModal.resx">
       <DependentUpon>AddCategoryModal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CategoryController.resx">
       <DependentUpon>CategoryController.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CheckSecurityPasswordsModal.resx">
+      <DependentUpon>CheckSecurityPasswordsModal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CreditCardController.resx">
       <DependentUpon>CreditCardController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreditCardMoreInfoModal.resx">
       <DependentUpon>CreditCardMoreInfoModal.cs</DependentUpon>
-		</EmbeddedResource>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChangePasswordModal.resx">
       <DependentUpon>ChangePasswordModal.cs</DependentUpon>
     </EmbeddedResource>
@@ -171,9 +226,15 @@
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PasswordGeneratorModal.resx">
+      <DependentUpon>PasswordGeneratorModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PasswordMoreInfoModal.resx">
+      <DependentUpon>PasswordMoreInfoModal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewOrModifyCreditCardModal.resx">
       <DependentUpon>NewOrModifyCreditCardModal.cs</DependentUpon>
-		</EmbeddedResource>
+    </EmbeddedResource>
     <EmbeddedResource Include="ModifyCategoryModal.resx">
       <DependentUpon>ModifyCategoryModal.cs</DependentUpon>
     </EmbeddedResource>
@@ -189,6 +250,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SecurityReportController.resx">
+      <DependentUpon>SecurityReportController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SecurityReportGraphModal.resx">
+      <DependentUpon>SecurityReportGraphModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharePasswordModal.resx">
+      <DependentUpon>SharePasswordModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UnsharePasswordModal.resx">
+      <DependentUpon>UnsharePasswordModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\DataSources\Domain.Category.datasource" />
+    <None Include="Properties\DataSources\Domain.Password.datasource" />
     <None Include="Properties\DataSources\Domain.Category.datasource" />
     <None Include="Properties\DataSources\Domain.CreditCard.datasource" />
     <None Include="Properties\DataSources\Domain.User.datasource" />
