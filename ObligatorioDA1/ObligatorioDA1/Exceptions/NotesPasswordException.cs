@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace Domain.Exceptions
 {
 
-    public class NotesPasswordException : Exception
+    public class NotesPasswordException : PasswordExceptions
     {
         public NotesPasswordException()
         {
