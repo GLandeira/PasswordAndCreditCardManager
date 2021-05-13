@@ -20,7 +20,7 @@ namespace Domain.Exceptions
         {
         }
 
-        public override string Message => base.Message;
+        public override string Message => "This user already exists";
 
         public override string ToString()
         {
