@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
+using Domain.Exceptions;
 
 namespace UserInterface
 {
@@ -43,11 +44,18 @@ namespace UserInterface
 
         private void btnUnshare_Click(object sender, EventArgs e)
         {
-            User userPasswordUnsharedWith = (User) cmbBxUsers.SelectedItem;
-            _currentUser.UserPasswords.StopSharingPassword(userPasswordUnsharedWith, _unsharedPassword);
-            List<Password> sharedWithList = _currentUser.UserPasswords.GetPasswordsImSharing();
-            onSharePassword?.Invoke(sharedWithList);
-            this.Close();
+            try
+            {
+                User userPasswordUnsharedWith = (User)cmbBxUsers.SelectedItem;
+                _currentUser.UserPasswords.StopSharingPassword(userPasswordUnsharedWith, _unsharedPassword);
+                List<Password> sharedWithList = _currentUser.UserPasswords.GetPasswordsImSharing();
+                onSharePassword?.Invoke(sharedWithList);
+                this.Close();
+            }catch(PasswordExceptions exception)
+            {
+                MessageBox.Show(exception.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
 
