@@ -12,14 +12,6 @@ namespace Domain.Exceptions
         {
         }
 
-        public CouldntAssignSecurityLevelException(string message) : base(message)
-        {
-        }
-
-        public CouldntAssignSecurityLevelException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
         public override string Message => "Couldnt assing security level";
 
         public override string ToString()

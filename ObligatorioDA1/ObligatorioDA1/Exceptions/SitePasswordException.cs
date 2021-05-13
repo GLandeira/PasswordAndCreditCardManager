@@ -4,17 +4,8 @@ namespace Domain.Exceptions
 {
 
     public class SitePasswordException : PasswordExceptions
-
     {
         public SitePasswordException()
-        {
-        }
-
-        public SitePasswordException(string message) : base(message)
-        {
-        }
-
-        public SitePasswordException(string message, Exception innerException) : base(message, innerException)
         {
         }
 
