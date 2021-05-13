@@ -35,7 +35,7 @@ namespace UserInterface
 
             if(password == passwordConfirm)
             {
-                TryToAddUser(password, username);
+                TryToAddUser(username, password);
             }
             else
             {
