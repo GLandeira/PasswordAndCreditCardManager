@@ -114,12 +114,15 @@ namespace UserInterface
 
         private void OnPasswordModified(Password modifiedPassword)
         {
-            if (PasswordSecurityFlagger.GetSecurityLevel(modifiedPassword.PasswordString) != _securityLevelChecking)
+            List<Password> breachedPasswords = _passwords;
+            breachedPasswords.RemoveAll(pass => pass.PasswordString == _auxPasswordForModificationChecks.PasswordString);
+
+            if (PasswordSecurityFlagger.GetSecurityLevel(modifiedPassword.PasswordString) == _securityLevelChecking)
             {
-                List<Password> breachedPasswords = _passwords;
-                breachedPasswords.RemoveAll(pass => pass.PasswordString == _auxPasswordForModificationChecks.PasswordString);
-                GeneratePasswordVisuals(breachedPasswords);
+                breachedPasswords.Add(modifiedPassword);
             }
+
+            GeneratePasswordVisuals(breachedPasswords);
         }
 
         protected override void OnHandleDestroyed(EventArgs e)

@@ -81,6 +81,7 @@ namespace UserInterface
             pnlParentPanel.Controls.Add(lblPassword);
 
             Button btnModifyPassword = CreateButtonWithSettings(BUTTON_MODIFY_TEXT, new Point(BUTTON_X, BUTTON_Y));
+
             // EventHandler takes a function of object and EventArgs parameters.
             // By providing a wrapper I can call any function that takes any parameter
             EventHandler onClickEvent = new EventHandler((obj, eventArgs) => ModifyButtonsOnClick(password));
