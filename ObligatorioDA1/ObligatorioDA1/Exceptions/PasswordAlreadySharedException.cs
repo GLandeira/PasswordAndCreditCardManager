@@ -9,15 +9,6 @@ namespace Domain.Exceptions
         {
         }
 
-        public PasswordAlreadySharedException(string message) : base(message)
-        {
-        }
-
-        public PasswordAlreadySharedException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-
         public override string Message => "This password is already shared with that user";
     }
 }

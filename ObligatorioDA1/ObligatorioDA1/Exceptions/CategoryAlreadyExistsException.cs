@@ -12,14 +12,6 @@ namespace Domain.Exceptions
         {
         }
 
-        public CategoryAlreadyExistsException(string message) : base(message)
-        {
-        }
-
-        public CategoryAlreadyExistsException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
         public override string Message => "That Category already exists!";
 
         public override string ToString()

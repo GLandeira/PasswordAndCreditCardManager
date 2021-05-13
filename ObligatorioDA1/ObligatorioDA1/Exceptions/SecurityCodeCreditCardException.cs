@@ -8,14 +8,6 @@ namespace Domain.Exceptions
         {
         }
 
-        public SecurityCodeCreditCardException(string message) : base(message)
-        {
-        }
-
-        public SecurityCodeCreditCardException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
         public override string Message => "CVV input is incorrect, Credit Card CVV are between 3 and 4 digits long";
 
         public override string ToString()
