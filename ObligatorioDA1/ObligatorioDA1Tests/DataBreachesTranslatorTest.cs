@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Domain;
+using Domain.DataBreachesTranslator;
 
 namespace DomainTests
 {
@@ -25,7 +25,7 @@ namespace DomainTests
             ITranslator translator = new TextBoxTranslator();
             string testString = "abc" + Environment.NewLine + "123";
 
-            Assert.AreEqual(2, testString.Translate(testString));
+            Assert.AreEqual(2, translator.Translate(testString).Length);
         }
     }
 }
