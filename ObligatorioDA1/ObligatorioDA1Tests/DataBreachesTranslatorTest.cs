@@ -20,11 +20,12 @@ namespace DomainTests
         }
 
         [TestMethod]
-        public void TestMethod1()
+        public void TestTextBoxTranslatorGeneratesCorrectAmountOfStrings()
         {
-            //
-            // TODO: Add test logic here
-            //
+            ITranslator translator = new TextBoxTranslator();
+            string testString = "abc" + Environment.NewLine + "123";
+
+            Assert.AreEqual(2, testString.Translate(testString));
         }
     }
 }
