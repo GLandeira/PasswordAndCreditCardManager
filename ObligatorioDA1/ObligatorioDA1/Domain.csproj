@@ -79,8 +79,6 @@
     <Compile Include="Exceptions\MainPasswordUserException.cs" />
     <Compile Include="Exceptions\NameCategoryException.cs" />
     <Compile Include="Exceptions\NameCreditCardException.cs" />
-    <Compile Include="Exceptions\SitePasswordException.cs" />
-    <Compile Include="Exceptions\NameUserException.cs" />
     <Compile Include="Exceptions\NameUserException.cs" />
     <Compile Include="Exceptions\NotesCreditCardException.cs" />
     <Compile Include="Exceptions\NumberCreditCardException.cs" />
