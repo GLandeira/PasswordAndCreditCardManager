@@ -50,6 +50,21 @@ namespace UserInterface
             GenerateBreachedCreditCardVisuals(breachedCreditCards);
         }
 
+        private void OnPasswordModified(Password modifiedPassword)
+        {
+            List<Password> breachedPasswords = _theDataBreaches.PasswordBreaches;
+            breachedPasswords.RemoveAll(pass => pass.PasswordString == _auxPasswordForModificationChecks.PasswordString);
+            if (modifiedPassword.PasswordString != _auxPasswordForModificationChecks.PasswordString)
+            {
+                StopBreachedChecksIfNoMoreBreaches(breachedPasswords);
+            }
+            else
+            {
+                breachedPasswords.Add(modifiedPassword);
+            }
+            GenerateBreachedPasswordVisuals(breachedPasswords);
+        }
+
         private void GenerateBreachedPasswordVisuals(List<Password> passwords)
         {
             fwlytBreachedPassword.Controls.Clear();
@@ -132,21 +147,6 @@ namespace UserInterface
             _auxPasswordForModificationChecks = thePassword;
             Form modifyPassword = new AddOrModifyPasswordModal(_currentUser, thePassword);
             modifyPassword.ShowDialog();
-        }
-
-        private void OnPasswordModified(Password modifiedPassword)
-        {
-            List<Password> breachedPasswords = _theDataBreaches.PasswordBreaches;
-            breachedPasswords.RemoveAll(pass => pass.PasswordString == _auxPasswordForModificationChecks.PasswordString);
-            if (modifiedPassword.PasswordString != _auxPasswordForModificationChecks.PasswordString)
-            {
-                StopBreachedChecksIfNoMoreBreaches(breachedPasswords);
-            }
-            else
-            {
-                breachedPasswords.Add(modifiedPassword);
-            }
-            GenerateBreachedPasswordVisuals(breachedPasswords);
         }
 
         private void StopBreachedChecksIfNoMoreBreaches(List<Password> breachedPasswords)
