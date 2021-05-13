@@ -29,13 +29,13 @@ namespace UserInterface
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chrtSecurityReport = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnOK = new System.Windows.Forms.Button();
             this.lblSecurityReport = new System.Windows.Forms.Label();
@@ -44,10 +44,10 @@ namespace UserInterface
             // 
             // chrtSecurityReport
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chrtSecurityReport.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chrtSecurityReport.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.chrtSecurityReport.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chrtSecurityReport.Legends.Add(legend1);
             this.chrtSecurityReport.Location = new System.Drawing.Point(47, 68);
             this.chrtSecurityReport.Name = "chrtSecurityReport";
             this.chrtSecurityReport.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
@@ -57,26 +57,26 @@ namespace UserInterface
         System.Drawing.Color.Yellow,
         System.Drawing.Color.LightGreen,
         System.Drawing.Color.DarkGreen};
-            series11.ChartArea = "ChartArea1";
-            series11.Legend = "Legend1";
-            series11.Name = "Red";
-            series12.ChartArea = "ChartArea1";
-            series12.Legend = "Legend1";
-            series12.Name = "Orange";
-            series13.ChartArea = "ChartArea1";
-            series13.Legend = "Legend1";
-            series13.Name = "Yellow";
-            series14.ChartArea = "ChartArea1";
-            series14.Legend = "Legend1";
-            series14.Name = "Light Green";
-            series15.ChartArea = "ChartArea1";
-            series15.Legend = "Legend1";
-            series15.Name = "Dark Green";
-            this.chrtSecurityReport.Series.Add(series11);
-            this.chrtSecurityReport.Series.Add(series12);
-            this.chrtSecurityReport.Series.Add(series13);
-            this.chrtSecurityReport.Series.Add(series14);
-            this.chrtSecurityReport.Series.Add(series15);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Red";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Orange";
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Yellow";
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Light Green";
+            series5.ChartArea = "ChartArea1";
+            series5.Legend = "Legend1";
+            series5.Name = "Dark Green";
+            this.chrtSecurityReport.Series.Add(series1);
+            this.chrtSecurityReport.Series.Add(series2);
+            this.chrtSecurityReport.Series.Add(series3);
+            this.chrtSecurityReport.Series.Add(series4);
+            this.chrtSecurityReport.Series.Add(series5);
             this.chrtSecurityReport.Size = new System.Drawing.Size(698, 318);
             this.chrtSecurityReport.TabIndex = 0;
             this.chrtSecurityReport.Text = "chart1";
