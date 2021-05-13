@@ -2,7 +2,7 @@
 
 namespace Domain.Exceptions
 {
-    public class PasswordNotFoundException : UserException
+    public class PasswordNotFoundException : PasswordExceptions
     {
         public PasswordNotFoundException()
         {
