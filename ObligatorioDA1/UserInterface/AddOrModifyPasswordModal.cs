@@ -69,6 +69,14 @@ namespace UserInterface
             List<Category> bs = new List<Category>(_currentUser.Categories);
             bs.Remove(User.SHARED_WITH_ME_CATEGORY);
             cmbBxCategory.DataSource = bs;
+            if (bs.Count == 0)
+            {
+                btnAdd.Enabled = false;
+            }
+            else
+            {
+                btnAdd.Enabled = true;
+            }
             
             
             if (!(_passwordToModify == null))
