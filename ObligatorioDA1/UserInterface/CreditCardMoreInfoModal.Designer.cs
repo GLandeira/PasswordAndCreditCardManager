@@ -231,6 +231,7 @@ namespace UserInterface
             this.MinimumSize = new System.Drawing.Size(309, 452);
             this.Name = "CreditCardMoreInfoModal";
             this.ShowIcon = false;
+            this.Text = "More information";
             this.ResumeLayout(false);
             this.PerformLayout();
 

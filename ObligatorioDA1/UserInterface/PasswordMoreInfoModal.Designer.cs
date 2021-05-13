@@ -230,7 +230,7 @@ namespace UserInterface
             this.MinimumSize = new System.Drawing.Size(309, 452);
             this.Name = "PasswordMoreInfoModal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PasswordMoreInfoModal";
+            this.Text = "More information";
             this.ResumeLayout(false);
             this.PerformLayout();
 

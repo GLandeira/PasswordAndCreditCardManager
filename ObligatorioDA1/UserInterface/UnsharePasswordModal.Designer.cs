@@ -96,7 +96,7 @@ namespace UserInterface
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(447, 271);
             this.Name = "UnsharePasswordModal";
-            this.Text = "UnsharePasswordModal";
+            this.Text = "Stop sharing your password";
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

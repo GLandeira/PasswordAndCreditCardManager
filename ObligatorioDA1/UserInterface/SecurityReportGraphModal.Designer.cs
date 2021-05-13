@@ -116,7 +116,7 @@ namespace UserInterface
             this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "SecurityReportGraphModal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SecurityReportGraphModal";
+            this.Text = "Security level Chart";
             this.Load += new System.EventHandler(this.SecurityReportGraphModal_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chrtSecurityReport)).EndInit();
             this.ResumeLayout(false);

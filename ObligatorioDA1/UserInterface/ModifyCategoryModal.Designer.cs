@@ -85,7 +85,7 @@ namespace UserInterface
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(350, 200);
             this.Name = "ModifyCategoryModal";
-            this.Text = "ModifyCategoryModal";
+            this.Text = "Modify a Category";
             this.ResumeLayout(false);
             this.PerformLayout();
 
