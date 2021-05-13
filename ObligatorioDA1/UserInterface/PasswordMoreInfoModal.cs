@@ -20,12 +20,12 @@ namespace UserInterface
             InitializeComponent();
             _timeLeft = 30;
             timerPasswordMoreInfo.Start();
-            lblCategoryFill.Text = password.Category.ToString();
-            lblNotesFill.Text = password.Notes;
-            lblSiteFill.Text = password.Site;
-            lblPasswordFill.Text = password.PasswordString;
-            lblSecurityLevelFill.Text = password.SecurityLevel.ToString();
-            lblUsernameFill.Text = password.Username;
+            txtbxPasswordCategory.Text = password.Category.ToString();
+            txtbxPasswordNotes.Text = password.Notes;
+            txtbxPasswordSite.Text = password.Site;
+            txtbxPasswordString.Text = password.PasswordString;
+            txtbxPasswordSecurityLevel.Text = password.SecurityLevel.ToString();
+            txtbxPasswordUsername.Text = password.Username;
             Label userLabel;
             foreach (string username in password.UsersSharedWith)
             {
@@ -45,7 +45,7 @@ namespace UserInterface
 
         private void timerPasswordMoreInfo_Tick(object sender, EventArgs e)
         {
-            txtBxTimeLeft.Text = _timeLeft.ToString();
+            txtbxTimeLeft.Text = _timeLeft.ToString();
             _timeLeft--;
             if(_timeLeft <= 0)
             {
