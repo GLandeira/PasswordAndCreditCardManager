@@ -164,7 +164,7 @@ namespace UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(641, 450);
             this.Controls.Add(this.cmbBxCategory);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtBxNotes);
@@ -177,7 +177,12 @@ namespace UserInterface
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.lblSite);
             this.Controls.Add(this.lblCategory);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(657, 489);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(657, 489);
             this.Name = "AddOrModifyPasswordModal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AddOrModifyPasswordModal";
             this.Load += new System.EventHandler(this.AddOrModifyPasswordModal_Load);
             ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).EndInit();

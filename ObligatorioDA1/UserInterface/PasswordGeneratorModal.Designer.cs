@@ -146,7 +146,12 @@ namespace UserInterface
             this.Controls.Add(this.chkBxMinus);
             this.Controls.Add(this.txtBxLength);
             this.Controls.Add(this.lblLength);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(399, 474);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(399, 474);
             this.Name = "PasswordGeneratorModal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PasswordGeneratorModal";
             this.ResumeLayout(false);
             this.PerformLayout();

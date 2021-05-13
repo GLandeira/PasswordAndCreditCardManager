@@ -100,7 +100,7 @@ namespace UserInterface
             // lblLogOut
             // 
             this.lblLogOut.AutoSize = true;
-            this.lblLogOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLogOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLogOut.ForeColor = System.Drawing.SystemColors.Highlight;
             this.lblLogOut.Location = new System.Drawing.Point(12, 87);
             this.lblLogOut.Name = "lblLogOut";
@@ -112,7 +112,7 @@ namespace UserInterface
             // lblChangePassword
             // 
             this.lblChangePassword.AutoSize = true;
-            this.lblChangePassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChangePassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblChangePassword.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblChangePassword.Location = new System.Drawing.Point(12, 58);
             this.lblChangePassword.Name = "lblChangePassword";

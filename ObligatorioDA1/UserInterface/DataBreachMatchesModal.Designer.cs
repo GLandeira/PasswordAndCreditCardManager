@@ -86,6 +86,10 @@ namespace UserInterface
             this.Controls.Add(this.fwlytBreachedPassword);
             this.Controls.Add(this.lblBreachedCreditCards);
             this.Controls.Add(this.lblBreachedPasswords);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(555, 500);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(555, 500);
             this.Name = "DataBreachMatchesModal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Results";

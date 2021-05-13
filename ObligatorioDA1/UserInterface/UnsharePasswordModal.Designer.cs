@@ -47,7 +47,6 @@ namespace UserInterface
             this.lblShareyourPassword.Size = new System.Drawing.Size(243, 24);
             this.lblShareyourPassword.TabIndex = 2;
             this.lblShareyourPassword.Text = "Stop sharing your password";
-
             // 
             // btnUnshare
             // 
@@ -92,6 +91,10 @@ namespace UserInterface
             this.Controls.Add(this.lblUnshareWith);
             this.Controls.Add(this.cmbBxUsers);
             this.Controls.Add(this.lblShareyourPassword);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(447, 271);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(447, 271);
             this.Name = "UnsharePasswordModal";
             this.Text = "UnsharePasswordModal";
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();

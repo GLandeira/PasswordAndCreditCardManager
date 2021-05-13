@@ -81,8 +81,11 @@ namespace UserInterface
             this.Controls.Add(this.txtbxCategoryName);
             this.Controls.Add(this.lblCategoryName);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(350, 200);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(350, 200);
             this.Name = "AddCategoryModal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add Category";
             this.ResumeLayout(false);
             this.PerformLayout();

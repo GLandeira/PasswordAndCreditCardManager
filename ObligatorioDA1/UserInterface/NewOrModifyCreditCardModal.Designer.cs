@@ -216,7 +216,12 @@ namespace UserInterface
             this.Controls.Add(this.lblCreditCardCategory);
             this.Controls.Add(this.txtbxCreditCardNumber);
             this.Controls.Add(this.txtbxCreditCardName);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(378, 459);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(378, 459);
             this.Name = "NewOrModifyCreditCardModal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.NewOrModifyCreditCardModal_Load);
             ((System.ComponentModel.ISupportInitialize)(this.creditCardBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).EndInit();

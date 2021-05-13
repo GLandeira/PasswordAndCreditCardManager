@@ -224,7 +224,12 @@ namespace UserInterface
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.lblSite);
             this.Controls.Add(this.lblCategory);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(309, 452);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(309, 452);
             this.Name = "PasswordMoreInfoModal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PasswordMoreInfoModal";
             this.ResumeLayout(false);
             this.PerformLayout();
