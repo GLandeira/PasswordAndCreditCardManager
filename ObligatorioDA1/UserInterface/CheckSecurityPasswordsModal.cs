@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
+using Domain.PasswordSecurityFlagger;
 
 namespace UserInterface
 {
@@ -26,12 +27,17 @@ namespace UserInterface
 
         private const string BUTTON_MODIFY_TEXT = "Modify";
 
+        private Password _auxPasswordForModificationChecks;
         private List<Password> _passwords;
-
-        public CheckSecurityPasswordsModal(List<Password> passwords)
+        private User _currentUser;
+        private SecurityLevelPasswords _securityLevelChecking;
+        public CheckSecurityPasswordsModal(User loggedUser, List<Password> passwords, SecurityLevelPasswords securityLevelChecking)
         {
             InitializeComponent();
             _passwords = passwords;
+            _currentUser = loggedUser;
+            _securityLevelChecking = securityLevelChecking;
+            AddOrModifyPasswordModal.onModifySinglePassword += OnPasswordModified;
         }
 
         private void CheckSecurityPasswordsModal_Load(object sender, EventArgs e)
@@ -44,8 +50,22 @@ namespace UserInterface
             Close();
         }
 
+        private void OnPasswordModified(Password modifiedPassword)
+        {
+            List<Password> breachedPasswords = _passwords;
+            breachedPasswords.RemoveAll(pass => pass.PasswordString == _auxPasswordForModificationChecks.PasswordString);
+
+            if (PasswordSecurityFlagger.GetSecurityLevel(modifiedPassword.PasswordString) == _securityLevelChecking)
+            {
+                breachedPasswords.Add(modifiedPassword);
+            }
+
+            GeneratePasswordVisuals(breachedPasswords);
+        }
+
         private void GeneratePasswordVisuals(List<Password> passwords)
         {
+            fwlytPasswords.Controls.Clear();
             for (int i = 0; i < passwords.Count; i++)
             {
                 Password currentPassword = passwords[i];
@@ -63,9 +83,11 @@ namespace UserInterface
             pnlParentPanel.Controls.Add(lblPassword);
 
             Button btnModifyPassword = CreateButtonWithSettings(BUTTON_MODIFY_TEXT, new Point(BUTTON_X, BUTTON_Y));
+
             // EventHandler takes a function of object and EventArgs parameters.
             // By providing a wrapper I can call any function that takes any parameter
-            btnModifyPassword.Click += new EventHandler((obj, eventArgs) => ModifyButtonsOnClick(password));
+            EventHandler clickEvent = new EventHandler((obj, eventArgs) => ModifyButtonsOnClick(password));
+            btnModifyPassword.Click += clickEvent;
             pnlParentPanel.Controls.Add(btnModifyPassword);
         }
 
@@ -100,7 +122,15 @@ namespace UserInterface
 
         private void ModifyButtonsOnClick(Password thePassword)
         {
-            //TODO Add PasswordModify call
+            _auxPasswordForModificationChecks = thePassword;
+            Form modifyPassword = new AddOrModifyPasswordModal(_currentUser, thePassword);
+            modifyPassword.ShowDialog();
+        }
+
+        protected override void OnHandleDestroyed(EventArgs e)
+        {
+            base.OnHandleDestroyed(e);
+            AddOrModifyPasswordModal.onModifySinglePassword -= OnPasswordModified;
         }
     }
 }

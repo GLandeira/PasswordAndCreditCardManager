@@ -12,12 +12,14 @@ namespace DomainTests
         private Password _passwordTest;
         private User _userTest;
         private Category _categoryTest;
+        private UserManager _userManager;
 
         [TestInitialize]
         public void TestInitialize()
         {
             //User part
-            _userTest = new User
+            _userManager = new UserManager();
+            _userTest = new User(_userManager)
             {
                 Name = "admin",
                 MainPassword = "1234"

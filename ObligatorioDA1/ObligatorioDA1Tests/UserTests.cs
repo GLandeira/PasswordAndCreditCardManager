@@ -8,11 +8,12 @@ namespace DomainTests
     public class UserTests
     {
         private User _testUser;
-
+        private UserManager _userManager;
         [TestInitialize]
         public void TestInitialize()
         {
-            _testUser = new User();
+            _userManager = new UserManager();
+            _testUser = new User(_userManager);
         }
 
         [TestMethod]
@@ -137,8 +138,8 @@ namespace DomainTests
         public void TestGoodEqualsCase()
         {
             string name = "Pablo";
-            User userOne = new User(name, "pass1");
-            User userTwo = new User(name, "pass2");
+            User userOne = new User(name, "pass1", _userManager);
+            User userTwo = new User(name, "pass2", _userManager);
 
             Assert.AreEqual(userOne, userTwo);
         }
@@ -148,8 +149,8 @@ namespace DomainTests
         {
             string name1 = "Johnny";
             string name2 = "Alice";
-            User userOne = new User(name1, "pass1");
-            User userTwo = new User(name2, "pass2");
+            User userOne = new User(name1, "pass1", _userManager);
+            User userTwo = new User(name2, "pass2", _userManager);
 
             Assert.AreNotEqual(userOne, userTwo);
         }

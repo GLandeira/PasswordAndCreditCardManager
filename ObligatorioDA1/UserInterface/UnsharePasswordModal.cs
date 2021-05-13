@@ -31,6 +31,14 @@ namespace UserInterface
                 _usersSharedList.Add(userManager.GetUser(username));
             }
             cmbBxUsers.DataSource = _usersSharedList;
+            if (_usersSharedList.Count == 0)
+            {
+                btnUnshare.Enabled = false;
+            }
+            else
+            {
+                btnUnshare.Enabled = true;
+            }
         }
 
         private void btnUnshare_Click(object sender, EventArgs e)

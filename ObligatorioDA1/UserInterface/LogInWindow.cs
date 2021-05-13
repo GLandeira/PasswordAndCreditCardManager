@@ -71,7 +71,7 @@ namespace UserInterface
 
         private void TryToAddUser(string username, string password)
         {
-            User newUser = new User(username, password);
+            User newUser = new User(username, password, _userManager);
 
             try
             {
