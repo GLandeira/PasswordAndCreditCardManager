@@ -16,11 +16,13 @@ namespace UserInterface
         private UserManager _userManager;
         private User _currentUser;
         private Password _lastPasswordSelected;
+
         public PasswordsController(UserManager userManager)
         {
             InitializeComponent();
             _userManager = userManager;
             _currentUser = _userManager.LoggedUser;
+            ButtonsEnabler(false);
             AddOrModifyPasswordModal.onModifyOrAddPassword += LoadDataGridPasswords;
             UnsharePasswordModal.onSharePassword += LoadDataGridPasswords;
         }
@@ -29,7 +31,7 @@ namespace UserInterface
         {
             List<Password> passwordList = _currentUser.UserPasswords.Passwords;
             LoadDataGridPasswords(passwordList);
-            grdvwPasswordsTable.ClearSelection();
+
         }
 
         private void BtnNewPassword_Click(object sender, EventArgs e)
@@ -51,14 +53,19 @@ namespace UserInterface
             _lastPasswordSelected = selectedPassword;
             if(_lastPasswordSelected.Category == User.SHARED_WITH_ME_CATEGORY)
             {
-                BtnModifyPassword.Enabled = false;
-                BtnDeletePassword.Enabled = false;
+                ButtonsEnabler(false);
             }
             else
             {
-                BtnModifyPassword.Enabled = true;
-                BtnDeletePassword.Enabled = true;
+                ButtonsEnabler(true);
             }
+        }
+
+        private void ButtonsEnabler(bool enabled)
+        {
+            BtnModifyPassword.Enabled = enabled;
+            BtnDeletePassword.Enabled = enabled;
+            BtnSharePassword.Enabled = enabled;
         }
 
         private void LoadDataGridPasswords(List<Password> passwordList)
@@ -67,6 +74,14 @@ namespace UserInterface
             BindingSource bs = new BindingSource();
             List<Password> sortedPasswordList = passwordList.OrderBy(p => p.Category.Name.ToUpper()).ToList();
             bs.DataSource = sortedPasswordList;
+            if (sortedPasswordList.Count == 0)
+            {
+               ButtonsEnabler(false);
+            }
+            else
+            {
+               ButtonsEnabler(true);
+            }
             grdvwPasswordsTable.DataSource = bs;
 
 
@@ -111,6 +126,7 @@ namespace UserInterface
                 LoadDataGridPasswords(sharedPasswordsList);
                 btnShowUnshowSharedPasswords.Text = "Show all passwords";
                 btnUnshare.Visible =  true;
+
             }
             else
             {

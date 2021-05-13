@@ -11,10 +11,11 @@ namespace Domain
     public class UserPassword
     {
         public List<Password> Passwords { get; private set; }
-
-        public UserPassword()
+        private UserManager _userManager;
+        public UserPassword(UserManager userManager)
         {
             this.Passwords = new List<Password>();
+            _userManager = userManager;
         }
 
         public void AddPassword(Password password)
@@ -27,6 +28,10 @@ namespace Domain
 
         public void RemovePassword(Password password)
         {
+            if(password.Category != User.SHARED_WITH_ME_CATEGORY)
+            {
+                StopSharingPasswordWhenDeleted(password);
+            }
             this.Passwords.Remove(password);
         }
 
@@ -64,8 +69,15 @@ namespace Domain
 
             modifiedPassword.LastModification = DateTime.Now;
             modifiedPassword.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(modifiedPassword.PasswordString);
-            this.Passwords.Remove(oldPassword);
+            List<string> usersSharedWith = new List<string>(oldPassword.UsersSharedWith);
+            this.RemovePassword(oldPassword);
             this.Passwords.Add(modifiedPassword);
+            foreach(string username in usersSharedWith)
+            {
+                User userSharedTo = _userManager.GetUser(username);
+                this.SharePassword(userSharedTo, modifiedPassword);
+            }
+           
         }
 
         public void SharePassword(User sharee, Password sharedPassword)
@@ -83,7 +95,10 @@ namespace Domain
         public void StopSharingPassword(User sharee, Password sharedPassword)
         {
             RemoveUserFromPasswordUsersSharedWith(sharee.Name, sharedPassword);
-            sharee.UserPasswords.RemovePassword(sharedPassword);
+            //creates password clone with Shared_with_me_category equal to the password in sharee instead of passing original password. 
+            Password sharedPasswordSharedClone =(Password) sharedPassword.Clone();
+            sharedPasswordSharedClone.Category = User.SHARED_WITH_ME_CATEGORY;
+            sharee.UserPasswords.RemovePassword(sharedPasswordSharedClone);
         }
 
         private void CheckIfShareeHasSharedPassword(User sharee, Password sharedPassword)
@@ -102,8 +117,9 @@ namespace Domain
 
         private void RemoveUserFromPasswordUsersSharedWith(string shareeName, Password sharedPassword)
         {
-            Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
-            sharerPasswordInMemory.UsersSharedWith.Remove(shareeName);
+            //Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
+            //sharerPasswordInMemory.UsersSharedWith.Remove(shareeName);
+            sharedPassword.UsersSharedWith.Remove(shareeName);
         }
 
         public List<Password> GetPasswordsWithSecurityLevel(SecurityLevelPasswords securityLevel)
@@ -137,13 +153,23 @@ namespace Domain
             List<Password> sharedPasswords = new List<Password>();
             foreach(Password currentPassword in Passwords)
             {
-                if (currentPassword.UsersSharedWith.Count() > 0)
+                if (currentPassword.UsersSharedWith.Count() > 0 && currentPassword.Category != User.SHARED_WITH_ME_CATEGORY)
                 {
                     sharedPasswords.Add(currentPassword);
                 }
             }
 
             return sharedPasswords;
+        }
+
+        private void StopSharingPasswordWhenDeleted(Password password)
+        {
+            List<string> usersSharedWith = new List<string>(password.UsersSharedWith);
+            foreach (string username in usersSharedWith)
+            {
+                User sharedUser = _userManager.GetUser(username);
+                this.StopSharingPassword(sharedUser, password);
+            }
         }
     }
 }

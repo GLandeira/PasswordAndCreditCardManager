@@ -29,9 +29,9 @@ namespace DomainTests
 
             _testUserSharer = SetupSharer();
 
-            _testUserShareeOne = new User(_shareeNameOne, "password");
-            _testUserShareeTwo = new User(_shareeNameOneTwo, "password");
-            _testUserShareeThree = new User(_shareeNameOneThree, "password");
+            _testUserShareeOne = new User(_shareeNameOne, "password", _testDomain);
+            _testUserShareeTwo = new User(_shareeNameOneTwo, "password", _testDomain);
+            _testUserShareeThree = new User(_shareeNameOneThree, "password", _testDomain);
 
             _testDomain.AddUser(_testUserSharer);
             _testDomain.AddUser(_testUserShareeOne);
@@ -41,7 +41,7 @@ namespace DomainTests
 
         private User SetupSharer()
         {
-            User sharer = new User(_sharerName, "password");
+            User sharer = new User(_sharerName, "password", _testDomain);
 
             _testCategory = new Category("TestCategory");
             _sharedPassword = new Password
@@ -183,7 +183,7 @@ namespace DomainTests
 
             UserPassword shareeUserPasswords = _testUserShareeOne.UserPasswords;
 
-            Assert.AreEqual(modifiedPassword, shareeUserPasswords.GetPassword(modifiedPassword.Site, modifiedPassword.Username));
+            Assert.AreEqual(modifiedPassword.PasswordString, shareeUserPasswords.GetPassword(modifiedPassword.Site, modifiedPassword.Username).PasswordString);
         }
 
         [TestMethod]
