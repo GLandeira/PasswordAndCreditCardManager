@@ -12,13 +12,6 @@ namespace DomainTests
     [TestClass]
     public class DataBreachesTranslatorTest
     {
-        public DataBreachesTranslatorTest()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
-
         [TestMethod]
         public void TestTextBoxTranslatorGeneratesCorrectAmountOfStrings()
         {
@@ -52,6 +45,26 @@ namespace DomainTests
             Assert.AreEqual(string1, result[0]);
             Assert.AreEqual(string2, result[2]);
             Assert.AreEqual(string3, result[1]);
+        }
+
+        [TestMethod]
+        public void TestTextBoxTranslatorGetsStringsRightComplicated()
+        {
+            ITranslator translator = new TextBoxTranslator();
+            string string1 = "johnas";
+            string string2 = "p$$5asA@" + Environment.NewLine;
+            string string3 = "af #%%#%f";
+            string string4 = "24241124";
+            string testString = string2 + Environment.NewLine + string4 + Environment.NewLine + string1 + Environment.NewLine + string3
+                                + Environment.NewLine + string3 + string4;
+
+            string[] result = translator.Translate(testString);
+
+            Assert.AreEqual(string1, result[2]);
+            Assert.AreEqual(string2.Substring(0, string2.Length - 2), result[0]);
+            Assert.AreEqual(string3, result[3]);
+            Assert.AreEqual(string4, result[1]);
+            Assert.AreEqual(string3 + string4, result[4]);
         }
     }
 }
