@@ -6,17 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public class CouldntAssignSecurityLevelException : UserException
+    public class CouldntAssignSecurityLevelException : PasswordExceptions
     {
         public CouldntAssignSecurityLevelException()
-        {
-        }
-
-        public CouldntAssignSecurityLevelException(string message) : base(message)
-        {
-        }
-
-        public CouldntAssignSecurityLevelException(string message, Exception innerException) : base(message, innerException)
         {
         }
 

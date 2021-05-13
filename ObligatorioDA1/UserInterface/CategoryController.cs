@@ -48,8 +48,6 @@ namespace UserInterface
         {
             Category selectedRowCategory = (Category)grdvwCategoryTable.Rows[e.RowIndex].DataBoundItem;
 
-            lblDebug.Text = selectedRowCategory.Name;
-
             _selectedCategory = selectedRowCategory;
         }
 
@@ -70,6 +68,10 @@ namespace UserInterface
             if (categoryList.Count == 0)
             {
                 btnModifyCategory.Enabled = false;
+            }
+            else
+            {
+                btnModifyCategory.Enabled = true;
             }
         }
 

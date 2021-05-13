@@ -11,14 +11,6 @@ namespace Domain.Exceptions
         {
         }
 
-        public NotesPasswordException(string message) : base(message)
-        {
-        }
-
-        public NotesPasswordException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
         public override string Message => "Notes can not extend from 250 characters";
 
         public override string ToString()

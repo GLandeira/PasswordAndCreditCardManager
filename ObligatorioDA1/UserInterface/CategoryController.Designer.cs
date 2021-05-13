@@ -37,7 +37,6 @@ namespace UserInterface
             this.categoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnNewCategory = new System.Windows.Forms.Button();
             this.btnModifyCategory = new System.Windows.Forms.Button();
-            this.lblDebug = new System.Windows.Forms.Label();
             this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.grdvwCategoryTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).BeginInit();
@@ -111,15 +110,6 @@ namespace UserInterface
             this.btnModifyCategory.UseVisualStyleBackColor = true;
             this.btnModifyCategory.Click += new System.EventHandler(this.btnModifyCategory_Click);
             // 
-            // lblDebug
-            // 
-            this.lblDebug.AutoSize = true;
-            this.lblDebug.Location = new System.Drawing.Point(454, 46);
-            this.lblDebug.Name = "lblDebug";
-            this.lblDebug.Size = new System.Drawing.Size(68, 13);
-            this.lblDebug.TabIndex = 7;
-            this.lblDebug.Text = "Debug Label";
-            // 
             // userBindingSource
             // 
             this.userBindingSource.DataSource = typeof(Domain.User);
@@ -128,7 +118,6 @@ namespace UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.btnModifyCategory);
             this.Controls.Add(this.btnNewCategory);
             this.Controls.Add(this.grdvwCategoryTable);
@@ -152,6 +141,5 @@ namespace UserInterface
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btnNewCategory;
         private System.Windows.Forms.Button btnModifyCategory;
-        private System.Windows.Forms.Label lblDebug;
     }
 }

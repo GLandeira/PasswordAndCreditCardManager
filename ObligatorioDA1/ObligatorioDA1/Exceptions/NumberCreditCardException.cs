@@ -8,14 +8,6 @@ namespace Domain.Exceptions
         {
         }
 
-        public NumberCreditCardException(string message) : base(message)
-        {
-        }
-
-        public NumberCreditCardException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
         public override string Message => "Number input is incorrect, Credit Card numbers are 16 digits long";
 
         public override string ToString()

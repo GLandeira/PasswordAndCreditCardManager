@@ -42,6 +42,7 @@ namespace UserInterface
 
         private void CheckSecurityPasswordsModal_Load(object sender, EventArgs e)
         {
+            this.Text = _securityLevelChecking.ToString().ToLower() + " level passwords";
             GeneratePasswordVisuals(_passwords);
         }
 

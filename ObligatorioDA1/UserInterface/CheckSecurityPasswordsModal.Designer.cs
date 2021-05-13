@@ -73,9 +73,12 @@ namespace UserInterface
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.fwlytPasswords);
             this.Controls.Add(this.lblPasswords);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(555, 438);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(555, 438);
             this.Name = "CheckSecurityPasswordsModal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CheckSecurityPasswordsModal";
             this.Load += new System.EventHandler(this.CheckSecurityPasswordsModal_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

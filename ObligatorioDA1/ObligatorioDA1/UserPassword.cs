@@ -21,7 +21,7 @@ namespace Domain
         public void AddPassword(Password password)
         {
             Verifier.VerifyPassword(password);
-            password.LastModification = DateTime.Now;
+            password.LastModification = DateTime.Today;
             password.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(password.PasswordString);
             this.Passwords.Add(password);
         }
@@ -61,7 +61,7 @@ namespace Domain
 
         public void ModifyPassword(Password modifiedPassword, Password oldPassword)
         {
-            Verifier.VerifyPassword(oldPassword);
+            Verifier.VerifyPassword(modifiedPassword);
             if (this.Passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(modifiedPassword)))
             {
                 throw new AlreadyExistingPasswordException();
@@ -117,8 +117,6 @@ namespace Domain
 
         private void RemoveUserFromPasswordUsersSharedWith(string shareeName, Password sharedPassword)
         {
-            //Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
-            //sharerPasswordInMemory.UsersSharedWith.Remove(shareeName);
             sharedPassword.UsersSharedWith.Remove(shareeName);
         }
 

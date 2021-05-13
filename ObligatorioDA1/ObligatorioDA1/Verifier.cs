@@ -108,7 +108,7 @@ namespace Domain
         private static void VerifyCreditCardNumber(CreditCard creditCardTested)
         {
             if (creditCardTested.Number.Length != CHARACTERS_CREDITCARD_NUMBER 
-                                        || !creditCardTested.Number.All(itIsNumber))
+                                        || !creditCardTested.Number.All(ItIsNumber))
             {
                 throw new NumberCreditCardException();
             }
@@ -118,7 +118,7 @@ namespace Domain
         {
             if (creditCardTested.SecurityCode.Length < MINIMUM_CHARACTERS_CREDITCARD_SECURITYCODE
                             || creditCardTested.SecurityCode.Length > MAXIMUM_CHARACTERS_CREDITCARD_SECURITYCODE
-                                        || !creditCardTested.SecurityCode.All(itIsNumber))
+                                        || !creditCardTested.SecurityCode.All(ItIsNumber))
             {
                 throw new SecurityCodeCreditCardException();
             }
@@ -175,7 +175,7 @@ namespace Domain
             }
         }
 
-        private static bool itIsNumber(char numberSubString)
+        private static bool ItIsNumber(char numberSubString)
         {
             return (numberSubString >= '0' && numberSubString <= '9');
         }

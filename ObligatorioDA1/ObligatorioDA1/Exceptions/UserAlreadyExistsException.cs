@@ -12,14 +12,6 @@ namespace Domain.Exceptions
         {
         }
 
-        public UserAlreadyExistsException(string message) : base(message)
-        {
-        }
-
-        public UserAlreadyExistsException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
         public override string Message => "This user already exists";
 
         public override string ToString()

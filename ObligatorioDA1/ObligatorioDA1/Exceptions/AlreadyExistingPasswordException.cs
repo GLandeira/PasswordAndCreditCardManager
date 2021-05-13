@@ -11,15 +11,6 @@ namespace Domain.Exceptions
         public AlreadyExistingPasswordException()
         {
         }
-
-        public AlreadyExistingPasswordException(string message) : base(message)
-        {
-        }
-
-        public AlreadyExistingPasswordException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
         public override string Message => "The password already exists";
 
         public override string ToString()

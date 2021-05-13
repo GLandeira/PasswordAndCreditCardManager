@@ -8,14 +8,6 @@ namespace Domain.Exceptions
         {
         }
 
-        public CreditCardRepeatedException(string message) : base(message)
-        {
-        }
-
-        public CreditCardRepeatedException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
         public override string Message => "This credit card number already exists in the database";
 
         public override string ToString()

@@ -86,13 +86,18 @@ namespace UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(431, 232);
+            this.ClientSize = new System.Drawing.Size(389, 197);
             this.Controls.Add(this.btnShare);
             this.Controls.Add(this.lblShareWith);
             this.Controls.Add(this.lblShareyourPassword);
             this.Controls.Add(this.cmbBxUsers);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(405, 236);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(405, 236);
             this.Name = "SharePasswordModal";
-            this.Text = "SharePasswordModal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Share your Password";
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

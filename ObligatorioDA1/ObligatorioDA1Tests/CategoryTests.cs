@@ -26,5 +26,16 @@ namespace DomainTests
 
             Assert.AreNotEqual(categoryOne, categoryTwo);
         }
+
+        [TestMethod]
+        public void TestEqualsCaseWithDifferentCasings()
+        {
+            string name1 = "Matias";
+            string name2 = "mATIAS";
+            Category categoryOne = new Category(name1);
+            Category categoryTwo = new Category(name2);
+
+            Assert.AreEqual(categoryOne, categoryTwo);
+        }
     }
 }

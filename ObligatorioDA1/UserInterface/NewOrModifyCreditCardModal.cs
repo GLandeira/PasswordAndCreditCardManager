@@ -82,7 +82,15 @@ namespace UserInterface
 
         private void NewOrModifyCreditCardModal_Load(object sender, EventArgs e)
         {
-            List<Category> categoryList = _currentUser.Categories;
+            if (!_isModification)
+            {
+                this.Text = "Add a new CreditCard";
+            }
+            else
+            {
+                this.Text = "Modify selected CreditCard";
+            }
+            List<Category> categoryList = new List<Category>(_currentUser.Categories);
             categoryList.Remove(User.SHARED_WITH_ME_CATEGORY);
             
 

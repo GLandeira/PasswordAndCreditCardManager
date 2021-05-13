@@ -12,14 +12,6 @@ namespace Domain.Exceptions
         {
         }
 
-        public CategoryNotFoundException(string message) : base(message)
-        {
-        }
-
-        public CategoryNotFoundException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
         public override string Message => "That Category doesn't exist!";
 
         public override string ToString()

@@ -71,6 +71,14 @@ namespace UserInterface
 
         private void AddOrModifyPasswordModal_Load(object sender, EventArgs e)
         {
+            if (!_modify)
+            {
+                this.Text = "Add a new Password";
+            }
+            else
+            {
+                this.Text = "Modify selected Password";
+            }
             List<Category> bs = new List<Category>(_currentUser.Categories);
             bs.Remove(User.SHARED_WITH_ME_CATEGORY);
             cmbBxCategory.DataSource = bs;
