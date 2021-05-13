@@ -27,5 +27,25 @@ namespace DomainTests
 
             Assert.AreEqual(2, translator.Translate(testString).Length);
         }
+
+        [TestMethod]
+        public void TestTextBoxTranslatorGeneratesCorrectAmountOfStringsComplicated()
+        {
+            ITranslator translator = new TextBoxTranslator();
+            string testString = "abc asgasg" + Environment.NewLine + "123asasf" + Environment.NewLine + "asfdasf asgf"
+                                + Environment.NewLine + Environment.NewLine + "asfasflll";
+
+            Assert.AreEqual(4, translator.Translate(testString).Length);
+        }
+
+        [TestMethod]
+        public void TestTextBoxTranslatorGetsStringsRight()
+        {
+            ITranslator translator = new TextBoxTranslator();
+            string testString = "abc asgasg" + Environment.NewLine + "123asasf" + Environment.NewLine + "asfdasf asgf"
+                                + Environment.NewLine + Environment.NewLine + "asfasflll";
+
+            Assert.AreEqual(4, translator.Translate(testString).Length);
+        }
     }
 }
