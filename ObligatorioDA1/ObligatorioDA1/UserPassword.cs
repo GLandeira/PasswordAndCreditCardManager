@@ -117,8 +117,6 @@ namespace Domain
 
         private void RemoveUserFromPasswordUsersSharedWith(string shareeName, Password sharedPassword)
         {
-            //Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
-            //sharerPasswordInMemory.UsersSharedWith.Remove(shareeName);
             sharedPassword.UsersSharedWith.Remove(shareeName);
         }
 
