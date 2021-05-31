@@ -52,11 +52,11 @@ namespace Domain
         public List<Password> GetPasswordsByPasswordString(String passwordStringToLook)
         {
 
-            if (!Passwords.Exists(passwordInList => passwordInList.PasswordString.Equals(passwordStringToLook)))
+            if (!Passwords.Exists(passwordInList => passwordInList.PasswordStringEquals(passwordStringToLook)))
             {
                 throw new PasswordNotFoundException();
             }
-            return Passwords.FindAll(passwordInList => passwordInList.PasswordString.Equals(passwordStringToLook));
+            return Passwords.FindAll(passwordInList => passwordInList.PasswordStringEquals(passwordStringToLook));
         }
 
         public void ModifyPassword(Password modifiedPassword, Password oldPassword)
