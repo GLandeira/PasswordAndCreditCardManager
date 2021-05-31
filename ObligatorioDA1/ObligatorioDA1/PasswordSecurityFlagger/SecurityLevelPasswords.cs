@@ -8,6 +8,10 @@ namespace Domain.PasswordSecurityFlagger
 {
     public enum SecurityLevelPasswords
     {
-        RED, ORANGE, YELLOW, LIGHT_GREEN, DARK_GREEN
+        RED, 
+        ORANGE, 
+        YELLOW, 
+        LIGHT_GREEN, 
+        DARK_GREEN
     }
 }
