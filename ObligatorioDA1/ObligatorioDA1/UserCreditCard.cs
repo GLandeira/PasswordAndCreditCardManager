@@ -21,22 +21,16 @@ namespace Domain
             CreditCards.Add(creditCard);
         }
 
-        public void RemoveCreditCard(CreditCard creditCard)
+        public void RemoveCreditCard(CreditCard creditCardToRemove)
         {
-            bool wasRemoved = CreditCards.Remove(creditCard);
+            CheckIfCreditCardExists(creditCardToRemove);
 
-            if (!wasRemoved)
-            {
-                throw new CreditCardNotFoundException();
-            }
+            CreditCards.Remove(creditCardToRemove);
         }
 
         public void ModifyCreditCard(CreditCard creditCardToRemove, CreditCard creditCardToAdd)
         {
-            if (!CreditCards.Exists(creditCardInList => creditCardInList.Equals(creditCardToRemove))) 
-            {
-                throw new CreditCardNotFoundException();
-            }
+            CheckIfCreditCardExists(creditCardToRemove);
 
             Verifier.VerifyCreditCard(creditCardToAdd);
 
@@ -64,6 +58,14 @@ namespace Domain
             if (CreditCards.Exists(creditCardInList => creditCardInList.Equals(creditCard)))
             {
                 throw new CreditCardRepeatedException();
+            }
+        }
+
+        private void CheckIfCreditCardExists(CreditCard creditCard)
+        {
+            if (!CreditCards.Exists(creditCardInList => creditCardInList.Equals(creditCard)))
+            {
+                throw new CreditCardNotFoundException();
             }
         }
     }
