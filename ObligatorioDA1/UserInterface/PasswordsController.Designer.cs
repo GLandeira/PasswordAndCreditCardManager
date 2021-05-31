@@ -30,7 +30,7 @@ namespace UserInterface
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.grdvwPasswordsTable = new System.Windows.Forms.DataGridView();
             this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -135,8 +135,8 @@ namespace UserInterface
             // PasswordString
             // 
             this.PasswordString.DataPropertyName = "PasswordString";
-            dataGridViewCellStyle1.NullValue = null;
-            this.PasswordString.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.NullValue = null;
+            this.PasswordString.DefaultCellStyle = dataGridViewCellStyle2;
             this.PasswordString.HeaderText = "PasswordString";
             this.PasswordString.Name = "PasswordString";
             this.PasswordString.ReadOnly = true;
@@ -202,11 +202,11 @@ namespace UserInterface
             // 
             // btnUnshare
             // 
-            this.btnUnshare.Location = new System.Drawing.Point(763, 543);
+            this.btnUnshare.Location = new System.Drawing.Point(649, 582);
             this.btnUnshare.Name = "btnUnshare";
-            this.btnUnshare.Size = new System.Drawing.Size(92, 19);
+            this.btnUnshare.Size = new System.Drawing.Size(158, 46);
             this.btnUnshare.TabIndex = 7;
-            this.btnUnshare.Text = "unshare";
+            this.btnUnshare.Text = "Unshare";
             this.btnUnshare.UseVisualStyleBackColor = true;
             this.btnUnshare.Visible = false;
             this.btnUnshare.Click += new System.EventHandler(this.btnUnshare_Click);
