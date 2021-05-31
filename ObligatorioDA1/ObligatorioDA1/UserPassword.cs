@@ -22,7 +22,7 @@ namespace Domain
         {
             bool foundEqual = Passwords.Any(ListIteratingPassword => ListIteratingPassword.Equals(password));
 
-            ValidatePassword(password, foundEqual);
+            VerifyPassword(password, foundEqual);
 
             password.LastModification = DateTime.Today;
             password.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(password.PasswordString);
@@ -65,7 +65,7 @@ namespace Domain
         public void ModifyPassword(Password modifiedPassword, Password oldPassword)
         {
             bool foundAbsolutelyEqual = Passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(modifiedPassword));
-            ValidatePassword(modifiedPassword, foundAbsolutelyEqual);
+            VerifyPassword(modifiedPassword, foundAbsolutelyEqual);
 
             modifiedPassword.LastModification = DateTime.Now;
             modifiedPassword.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(modifiedPassword.PasswordString);
@@ -159,7 +159,7 @@ namespace Domain
             }
         }
 
-        private void ValidatePassword(Password password, bool equalityCondition)
+        private void VerifyPassword(Password password, bool equalityCondition)
         {
             Verifier.VerifyPassword(password);
 

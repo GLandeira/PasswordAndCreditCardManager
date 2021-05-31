@@ -11,7 +11,7 @@ namespace Domain
 
         public UserCreditCard()
         {
-            this.CreditCards = new List<CreditCard>();
+            CreditCards = new List<CreditCard>();
         }
 
         public void AddCreditCard(CreditCard creditCard)
@@ -23,26 +23,30 @@ namespace Domain
 
         public void RemoveCreditCard(CreditCard creditCard)
         {
-            if (!CreditCards.Remove(creditCard))
+            bool wasRemoved = CreditCards.Remove(creditCard);
+
+            if (!wasRemoved)
             {
-                throw new CreditCardListIsEmptyException();
+                throw new CreditCardNotFoundException();
             }
         }
 
         public void ModifyCreditCard(CreditCard creditCardToRemove, CreditCard creditCardToAdd)
         {
-            if (!CreditCards.Any()) {
-                throw new CreditCardListIsEmptyException();
+            if (!CreditCards.Exists(creditCardInList => creditCardInList.Equals(creditCardToRemove))) 
+            {
+                throw new CreditCardNotFoundException();
             }
-            else {
-                Verifier.VerifyCreditCard(creditCardToAdd);
-                if (!creditCardToRemove.Equals(creditCardToAdd))
-                {
-                    IsAlreadyInTheList(creditCardToAdd);
-                }
-                RemoveCreditCard(creditCardToRemove);
-                AddCreditCard(creditCardToAdd);
+
+            Verifier.VerifyCreditCard(creditCardToAdd);
+
+            if (!creditCardToRemove.Equals(creditCardToAdd))
+            {
+                IsAlreadyInTheList(creditCardToAdd);
             }
+
+            RemoveCreditCard(creditCardToRemove);
+            AddCreditCard(creditCardToAdd);
         }
 
         public CreditCard GetCreditCard(String creditCardNumberToLook)
@@ -51,6 +55,7 @@ namespace Domain
             {
                 throw new CreditCardNotFoundException();
             }
+
             return CreditCards.Find(creditCardInList => creditCardInList.Number.Equals(creditCardNumberToLook));
         }
 
