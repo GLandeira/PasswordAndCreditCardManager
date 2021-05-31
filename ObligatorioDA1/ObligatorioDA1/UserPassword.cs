@@ -14,25 +14,28 @@ namespace Domain
         private UserManager _userManager;
         public UserPassword(UserManager userManager)
         {
-            this.Passwords = new List<Password>();
+            Passwords = new List<Password>();
             _userManager = userManager;
         }
 
         public void AddPassword(Password password)
         {
-            Verifier.VerifyPassword(password);
+            bool foundEqual = Passwords.Any(ListIteratingPassword => ListIteratingPassword.Equals(password));
+
+            ValidatePassword(password, foundEqual);
+
             password.LastModification = DateTime.Today;
             password.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(password.PasswordString);
-            this.Passwords.Add(password);
+            Passwords.Add(password);
         }
 
         public void RemovePassword(Password password)
         {
-            if(password.Category != User.SHARED_WITH_ME_CATEGORY)
+            if(!password.Category.Equals(User.SHARED_WITH_ME_CATEGORY))
             {
                 StopSharingPasswordWhenDeleted(password);
             }
-            this.Passwords.Remove(password);
+            Passwords.Remove(password);
         }
 
         public Password GetPassword(string siteName, string siteUserName)
@@ -51,33 +54,28 @@ namespace Domain
 
         public List<Password> GetPasswordsByPasswordString(String passwordStringToLook)
         {
-
             if (!Passwords.Exists(passwordInList => passwordInList.PasswordStringEquals(passwordStringToLook)))
             {
                 throw new PasswordNotFoundException();
             }
+
             return Passwords.FindAll(passwordInList => passwordInList.PasswordStringEquals(passwordStringToLook));
         }
 
         public void ModifyPassword(Password modifiedPassword, Password oldPassword)
         {
-            Verifier.VerifyPassword(modifiedPassword);
-            if (this.Passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(modifiedPassword)))
-            {
-                throw new AlreadyExistingPasswordException();
-            }
+            bool foundAbsolutelyEqual = Passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(modifiedPassword));
+            ValidatePassword(modifiedPassword, foundAbsolutelyEqual);
 
             modifiedPassword.LastModification = DateTime.Now;
             modifiedPassword.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(modifiedPassword.PasswordString);
+
             List<string> usersSharedWith = new List<string>(oldPassword.UsersSharedWith);
-            this.RemovePassword(oldPassword);
-            this.Passwords.Add(modifiedPassword);
-            foreach(string username in usersSharedWith)
-            {
-                User userSharedTo = _userManager.GetUser(username);
-                this.SharePassword(userSharedTo, modifiedPassword);
-            }
-           
+
+            RemovePassword(oldPassword);
+            Passwords.Add(modifiedPassword);
+
+            ReshareModifiedPassword(usersSharedWith, modifiedPassword);
         }
 
         public void SharePassword(User sharee, Password sharedPassword)
@@ -95,29 +93,11 @@ namespace Domain
         public void StopSharingPassword(User sharee, Password sharedPassword)
         {
             RemoveUserFromPasswordUsersSharedWith(sharee.Name, sharedPassword);
-            //creates password clone with Shared_with_me_category equal to the password in sharee instead of passing original password. 
-            Password sharedPasswordSharedClone =(Password) sharedPassword.Clone();
+
+            Password sharedPasswordSharedClone = (Password)sharedPassword.Clone();
             sharedPasswordSharedClone.Category = User.SHARED_WITH_ME_CATEGORY;
+
             sharee.UserPasswords.RemovePassword(sharedPasswordSharedClone);
-        }
-
-        private void CheckIfShareeHasSharedPassword(User sharee, Password sharedPassword)
-        {
-            if (sharee.UserPasswords.Passwords.Any(pass => pass.Equals(sharedPassword)))
-            {
-                throw new PasswordAlreadySharedException();
-            }
-        }
-
-        private void AddUserToPasswordUsersSharedWith(string shareeName, Password sharedPassword)
-        {
-            Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
-            sharerPasswordInMemory.UsersSharedWith.Add(shareeName);
-        }
-
-        private void RemoveUserFromPasswordUsersSharedWith(string shareeName, Password sharedPassword)
-        {
-            sharedPassword.UsersSharedWith.Remove(shareeName);
         }
 
         public List<Password> GetPasswordsWithSecurityLevel(SecurityLevelPasswords securityLevel)
@@ -166,8 +146,46 @@ namespace Domain
             foreach (string username in usersSharedWith)
             {
                 User sharedUser = _userManager.GetUser(username);
-                this.StopSharingPassword(sharedUser, password);
+                StopSharingPassword(sharedUser, password);
             }
+        }
+
+        private void ReshareModifiedPassword(List<string> usersSharedWith, Password modifiedPassword)
+        {
+            foreach (string username in usersSharedWith)
+            {
+                User userSharedTo = _userManager.GetUser(username);
+                SharePassword(userSharedTo, modifiedPassword);
+            }
+        }
+
+        private void ValidatePassword(Password password, bool equalityCondition)
+        {
+            Verifier.VerifyPassword(password);
+
+            if (equalityCondition)
+            {
+                throw new AlreadyExistingPasswordException();
+            }
+        }
+
+        private void CheckIfShareeHasSharedPassword(User sharee, Password sharedPassword)
+        {
+            if (sharee.UserPasswords.Passwords.Any(pass => pass.Equals(sharedPassword)))
+            {
+                throw new PasswordAlreadySharedException();
+            }
+        }
+
+        private void AddUserToPasswordUsersSharedWith(string shareeName, Password sharedPassword)
+        {
+            Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
+            sharerPasswordInMemory.UsersSharedWith.Add(shareeName);
+        }
+
+        private void RemoveUserFromPasswordUsersSharedWith(string shareeName, Password sharedPassword)
+        {
+            sharedPassword.UsersSharedWith.Remove(shareeName);
         }
     }
 }
