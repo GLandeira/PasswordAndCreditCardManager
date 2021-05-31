@@ -30,7 +30,7 @@ namespace UserInterface
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.grdvwPasswordsTable = new System.Windows.Forms.DataGridView();
             this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -135,8 +135,8 @@ namespace UserInterface
             // PasswordString
             // 
             this.PasswordString.DataPropertyName = "PasswordString";
-            dataGridViewCellStyle2.NullValue = null;
-            this.PasswordString.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.NullValue = null;
+            this.PasswordString.DefaultCellStyle = dataGridViewCellStyle3;
             this.PasswordString.HeaderText = "PasswordString";
             this.PasswordString.Name = "PasswordString";
             this.PasswordString.ReadOnly = true;

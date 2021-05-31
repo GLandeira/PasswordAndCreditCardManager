@@ -61,13 +61,17 @@ namespace UserInterface
 
         private void grdvwPasswordsTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            Form passwordMoreInfoModal = new PasswordMoreInfoModal(_lastPasswordSelected);
-            passwordMoreInfoModal.ShowDialog();
+            if(_lastPasswordSelected != null)
+            {
+                Form passwordMoreInfoModal = new PasswordMoreInfoModal(_lastPasswordSelected);
+                passwordMoreInfoModal.ShowDialog();
+            }
         }
 
         private void btnShowUnshowSharedPasswords_Click(object sender, EventArgs e)
         {
             DisableAddButtonIfNoCategoriesAdded(_currentUser.Categories);
+            _lastPasswordSelected = null;
 
             if (!btnUnshare.Visible)
             {
