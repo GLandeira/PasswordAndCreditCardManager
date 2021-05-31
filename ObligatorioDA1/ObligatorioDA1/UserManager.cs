@@ -12,7 +12,6 @@ namespace Domain
         public User LoggedUser { get; set; }
         public List<User> Users { get; private set; }
 
-
         public UserManager()
         {
             Users = new List<User>();
@@ -21,6 +20,7 @@ namespace Domain
         public void AddUser(User newUser)
         {
             Verifier.VerifyUser(newUser);
+
             if (Users.Contains(newUser))
             {
                 throw new UserAlreadyExistsException();
@@ -42,29 +42,22 @@ namespace Domain
         public void ModifyPassword(User userWithNewPassword)
         {
             Verifier.VerifyUser(userWithNewPassword);
-            try
-            {
-                Users.First(us => us.Name == userWithNewPassword.Name).MainPassword = userWithNewPassword.MainPassword;
-            }
-            catch (InvalidOperationException isEmptyOrNotPresent)
+
+            if (!Users.Exists(userInList => userInList.Equals(userWithNewPassword)))
             {
                 throw new UserNotPresentException();
             }
-            catch (ArgumentNullException isNull)
-            {
-                throw new UserNotPresentException();
-            }
+
+            Users.First(us => us.Name == userWithNewPassword.Name).MainPassword = userWithNewPassword.MainPassword;
         }
 
         public bool LogIn(string userNameToLogInWith, string userPasswordToLogInWith)
         {
-            bool userExists = Users.Any
-                (us => us.Name == userNameToLogInWith &&
-                       us.MainPassword == userPasswordToLogInWith);
+            User userToLogInWith = GetUser(userNameToLogInWith);
 
-            if (userExists)
+            if (userToLogInWith.MainPassword == userPasswordToLogInWith)
             {
-                LoggedUser = GetUser(userNameToLogInWith);
+                LoggedUser = userToLogInWith;
                 return true;
             }
 
