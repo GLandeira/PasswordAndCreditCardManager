@@ -29,9 +29,9 @@ namespace UserInterface
         private void btnVerify_Click(object sender, EventArgs e)
         {
             ITranslator textBoxTranslator = new TextBoxTranslator();
-            string[] fields = textBoxTranslator.Translate(txtbxDataBreaches.Text);
+            string field = txtbxDataBreaches.Text;
 
-            DataBreaches dataBreaches = _currentUser.UserDataBreaches.CheckDataBreaches(fields);
+            DataBreaches dataBreaches = _currentUser.UserDataBreaches.CheckDataBreaches(field, textBoxTranslator);
 
             if(dataBreaches.CreditCardsBreaches.Count == 0 && dataBreaches.PasswordBreaches.Count == 0)
             {

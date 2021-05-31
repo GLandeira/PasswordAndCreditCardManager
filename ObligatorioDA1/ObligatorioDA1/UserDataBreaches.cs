@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Exceptions;
+using Domain.DataBreachesTranslator;
 
 namespace Domain
 {
@@ -16,24 +17,26 @@ namespace Domain
             _theUser = theUser;
         }
 
-        public DataBreaches CheckDataBreaches(String [] inputBreaches)
+        public DataBreaches CheckDataBreaches(string inputBreaches, ITranslator translator)
         {
+            string[] translatedBreaches = translator.Translate(inputBreaches);
+
             DataBreaches breach = new DataBreaches()
             {
                 CreditCardsBreaches = new List<CreditCard>(),
                 PasswordBreaches = new List<Password>(),
             };
 
-            for (int i = 0; i != inputBreaches.Length; i++)
+            for (int i = 0; i != translatedBreaches.Length; i++)
             {
-                if (IsCreditCard(inputBreaches[i]))
+                if (IsCreditCard(translatedBreaches[i]))
                 {
-                    inputBreaches[i] = CreditCardFormatTransformer(inputBreaches[i]);
-                    CheckDataBreachesCreditCard(inputBreaches[i], breach);
+                    translatedBreaches[i] = CreditCardFormatTransformer(translatedBreaches[i]);
+                    CheckDataBreachesCreditCard(translatedBreaches[i], breach);
                 }
                 else
                 {
-                    CheckDataBreachesPassword(inputBreaches[i], breach);
+                    CheckDataBreachesPassword(translatedBreaches[i], breach);
                 }
             }
             return breach;
