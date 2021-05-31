@@ -53,7 +53,7 @@ namespace UserInterface
         private void OnPasswordModified(Password modifiedPassword)
         {
             List<Password> breachedPasswords = _theDataBreaches.PasswordBreaches;
-            breachedPasswords.RemoveAll(pass => pass.PasswordString == _auxPasswordForModificationChecks.PasswordString);
+            breachedPasswords.RemoveAll(pass => pass.Equals(_auxPasswordForModificationChecks));
             if (modifiedPassword.PasswordString != _auxPasswordForModificationChecks.PasswordString)
             {
                 StopBreachedChecksIfNoMoreBreaches(breachedPasswords);
