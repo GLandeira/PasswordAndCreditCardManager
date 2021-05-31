@@ -95,13 +95,16 @@ namespace UserInterface
             Label lblPassword = CreateLabelWithSettings(new Size(LABEL_SIZE_X, LABEL_SIZE_Y), new Point(LABEL_X, LABEL_Y), password.ToString());
             pnlParentPanel.Controls.Add(lblPassword);
 
-            Button btnModifyPassword = CreateButtonWithSettings(BUTTON_MODIFY_TEXT, new Point(BUTTON_X, BUTTON_Y));
+            if (!password.Category.Equals(User.SHARED_WITH_ME_CATEGORY))
+            {
+                Button btnModifyPassword = CreateButtonWithSettings(BUTTON_MODIFY_TEXT, new Point(BUTTON_X, BUTTON_Y));
 
-            // EventHandler takes a function of object and EventArgs parameters.
-            // By providing a wrapper I can call any function that takes any parameter
-            EventHandler onClickEvent = new EventHandler((obj, eventArgs) => ModifyButtonsOnClick(password));
-            btnModifyPassword.Click += onClickEvent;
-            pnlParentPanel.Controls.Add(btnModifyPassword);
+                // EventHandler takes a function of object and EventArgs parameters.
+                // By providing a wrapper I can call any function that takes any parameter
+                EventHandler onClickEvent = new EventHandler((obj, eventArgs) => ModifyButtonsOnClick(password));
+                btnModifyPassword.Click += onClickEvent;
+                pnlParentPanel.Controls.Add(btnModifyPassword);
+            }
         }
 
         private void CreateCreditCardListComponent(CreditCard creditCard)
