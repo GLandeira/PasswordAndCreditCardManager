@@ -53,15 +53,22 @@ namespace Domain
 
         public bool LogIn(string userNameToLogInWith, string userPasswordToLogInWith)
         {
-            User userToLogInWith = GetUser(userNameToLogInWith);
-
-            if (userToLogInWith.MainPassword == userPasswordToLogInWith)
+            try
             {
-                LoggedUser = userToLogInWith;
-                return true;
-            }
+                User userToLogInWith = GetUser(userNameToLogInWith);
 
-            return false;
+                if (userToLogInWith.MainPassword == userPasswordToLogInWith)
+                {
+                    LoggedUser = userToLogInWith;
+                    return true;
+                }
+
+                return false;
+            }
+            catch (UserNotPresentException e)
+            {
+                return false;
+            }
         }
     }
 }

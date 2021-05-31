@@ -71,7 +71,7 @@ namespace DomainTests
         {
             string falseUsername = "Johny";
 
-            Assert.ThrowsException<UserNotPresentException>(() => _mockDomain.LogIn(falseUsername, _userPasswordInDomain));
+            Assert.IsFalse(_mockDomain.LogIn(falseUsername, _userPasswordInDomain));
         }
 
         [TestMethod]
@@ -88,7 +88,7 @@ namespace DomainTests
             string falseUsername = "Johny";
             string falsePassword = "akakak23Aj/&";
 
-            Assert.ThrowsException<UserNotPresentException>(() => _mockDomain.LogIn(falseUsername, falsePassword));
+            Assert.IsFalse(_mockDomain.LogIn(falseUsername, falsePassword));
         }
 
         [TestMethod]
