@@ -10,6 +10,11 @@ namespace Domain
 {
     public class UserDataBreaches
     {
+        private const int CREDIT_CARD_MAX_LENGTH_WITH_SPACES = 19;
+        private const int FIRST_CREDIT_CARD_SPACE_POSITION = 4;
+        private const int SECOND_CREDIT_CARD_SPACE_POSITION = 9;
+        private const int THIRD_CREDIT_CARD_SPACE_POSITION = 14;
+
         private User _theUser;
 
         public UserDataBreaches(User theUser)
@@ -29,20 +34,26 @@ namespace Domain
 
             for (int i = 0; i != translatedBreaches.Length; i++)
             {
-                if (IsCreditCard(translatedBreaches[i]))
-                {
-                    translatedBreaches[i] = CreditCardFormatTransformer(translatedBreaches[i]);
-                    CheckDataBreachesCreditCard(translatedBreaches[i], breach);
-                }
-                else
-                {
-                    CheckDataBreachesPassword(translatedBreaches[i], breach);
-                }
+                BuildDataBreachStructure(translatedBreaches[i], breach);
             }
+
             return breach;
         }
 
-        private void CheckDataBreachesCreditCard(String inputBreach, DataBreaches breach)
+        private void BuildDataBreachStructure(string aBreach, DataBreaches breach)
+        {
+            if (IsCreditCard(aBreach))
+            {
+                aBreach = CreditCardFormatTransformer(aBreach);
+                CheckDataBreachesCreditCard(aBreach, breach);
+            }
+            else
+            {
+                CheckDataBreachesPassword(aBreach, breach);
+            }
+        }
+
+        private void CheckDataBreachesCreditCard(string inputBreach, DataBreaches breach)
         {
             try
             {
@@ -55,14 +66,16 @@ namespace Domain
             }
             catch (CreditCardNotFoundException ex)
             {
+
             }
         }
 
-        private void CheckDataBreachesPassword(String inputBreach, DataBreaches breach)
+        private void CheckDataBreachesPassword(string inputBreach, DataBreaches breach)
         {
             try
             {
                 List<Password> passwordBreached = _theUser.UserPasswords.GetPasswordsByPasswordString(inputBreach);
+
                 foreach(Password password in passwordBreached)
                 {
                     if(!breach.PasswordBreaches.Any(pass => pass.Equals(password)))
@@ -73,14 +86,14 @@ namespace Domain
             }
             catch (PasswordNotFoundException ex)
             {
+
             }
         }
 
-        //input dataBreaches CreditCards = "XXXX XXXX XXXX XXXX"
-        private bool IsCreditCard(String inputBreach)
+        private bool IsCreditCard(string inputBreach)
         {
             bool isCreditCard = false;
-            if (inputBreach.Length == 19 &&
+            if (inputBreach.Length == CREDIT_CARD_MAX_LENGTH_WITH_SPACES &&
                                     FollowsCreditCardPattern(inputBreach))
             {
                 isCreditCard = true;
@@ -88,26 +101,36 @@ namespace Domain
             return isCreditCard;
         }
 
-        private bool FollowsCreditCardPattern(String inputBreach)
+        private bool FollowsCreditCardPattern(string inputBreach)
         {
             bool followsPattern = true;
-            for(int i=0; i != 19 && followsPattern != false; i++)
+
+            for(int i = 0; i != CREDIT_CARD_MAX_LENGTH_WITH_SPACES && followsPattern; i++)
             {
-                if ((inputBreach[i] < '0' || inputBreach[i] > '9'))
+                bool isDigitCharacter = inputBreach[i] < '0' || inputBreach[i] > '9';
+
+                if (isDigitCharacter)
                 {
-                    if (!(i == 4 || i == 9 || i == 14) && !(inputBreach[i] == (' ')))
+                    bool atSpacePosition = i == FIRST_CREDIT_CARD_SPACE_POSITION || 
+                                           i == SECOND_CREDIT_CARD_SPACE_POSITION || 
+                                           i == THIRD_CREDIT_CARD_SPACE_POSITION;
+
+                    bool isSpaceCharacter = inputBreach[i] == (' ');
+
+                    if (!atSpacePosition && !isSpaceCharacter)
                     {
                         followsPattern = false;
                     }
                 }
             }
+
             return followsPattern;
         }
 
         private string CreditCardFormatTransformer(string inputCreditCard)
         {
-            string outputCreditCard = inputCreditCard.Substring(0,4) + inputCreditCard.Substring(5, 4) +
-                                      inputCreditCard.Substring(10, 4) + inputCreditCard.Substring(15, 4);
+            string outputCreditCard = inputCreditCard.Substring(0, 4) + inputCreditCard.Substring(FIRST_CREDIT_CARD_SPACE_POSITION + 1, 4) +
+                                      inputCreditCard.Substring(SECOND_CREDIT_CARD_SPACE_POSITION + 1, 4) + inputCreditCard.Substring(THIRD_CREDIT_CARD_SPACE_POSITION + 1, 4);
             return outputCreditCard;
         }
     }
