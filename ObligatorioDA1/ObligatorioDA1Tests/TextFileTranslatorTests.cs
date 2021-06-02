@@ -34,5 +34,20 @@ namespace DomainTests
 
             Assert.AreEqual(4, _translator.Translate(_test).Length);
         }
+
+        [TestMethod]
+        public void TestFileBoxTranslatorGetsStringsRight()
+        {
+            string string1 = "johnas";
+            string string2 = "p$$5asA@";
+            string string3 = "af  aasf  Kak";
+            string testString = string1 + "\t" + string3 + "\t" + string2;
+
+            string[] result = _translator.Translate(testString);
+
+            Assert.AreEqual(string1, result[0]);
+            Assert.AreEqual(string2, result[2]);
+            Assert.AreEqual(string3, result[1]);
+        }
     }
 }
