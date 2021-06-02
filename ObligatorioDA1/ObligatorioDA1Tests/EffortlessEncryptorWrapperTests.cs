@@ -54,5 +54,13 @@ namespace DomainTests
             string encrypted = _effortlessEncryptor.Encrypt(_string1);
             Assert.AreEqual(_string1, _effortlessEncryptor.Decrypt(encrypted));
         }
+
+        [TestMethod]
+        public void TestTwoEncryptedPasswordsArentTheSame1()
+        {
+            string encrypted1 = _effortlessEncryptor.Encrypt(_string1);
+            string encrypted2 = _effortlessEncryptor.Encrypt(_string2);
+            Assert.AreNotEqual(encrypted1, encrypted2);
+        }
     }
 }
