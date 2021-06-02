@@ -20,7 +20,7 @@ namespace DomainTests
         }
 
         [TestMethod]
-        public void TestTextBoxTranslatorGeneratesCorrectAmountOfStrings()
+        public void TestTextFileTranslatorGeneratesCorrectAmountOfStrings()
         {
             _test = "abc\t123";
 
@@ -28,7 +28,7 @@ namespace DomainTests
         }
 
         [TestMethod]
-        public void TestTextBoxTranslatorGeneratesCorrectAmountOfStringsComplicated()
+        public void TestTextFileTranslatorGeneratesCorrectAmountOfStringsComplicated()
         {
             _test = "abc asgasg\t123asasf\tasfdasf asgf\t\t\tasfasflll";
 
