@@ -41,7 +41,7 @@ namespace DomainTests
             string string1 = "johnas";
             string string2 = "p$$5asA@";
             string string3 = "af  aasf  Kak";
-            string testString = string1 + "\t" + string3 + "\t" + string2;
+            string testString = string1 + "\t" + "\t" + string3 + "\t" + string2;
 
             string[] result = _translator.Translate(testString);
 
