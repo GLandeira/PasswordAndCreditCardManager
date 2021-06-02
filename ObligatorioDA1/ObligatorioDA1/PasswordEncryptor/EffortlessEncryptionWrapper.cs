@@ -11,12 +11,12 @@ namespace Domain.PasswordEncryptor
     {
         public string Encrypt(string password)
         {
-            throw new NotImplementedException();
+            return password;
         }
 
         public string Decrypt(string encryptedPassword)
         {
-            throw new NotImplementedException();
+            return encryptedPassword;
         }
     }
 }
