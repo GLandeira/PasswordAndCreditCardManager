@@ -67,6 +67,8 @@
     <Compile Include="Exceptions\CategoryAlreadyExistsException.cs" />
     <Compile Include="Exceptions\SitePasswordException.cs" />
     <Compile Include="Exceptions\ValidDueCreditCardException.cs" />
+    <Compile Include="PasswordEncryptor\EffortlessEncryptionWrapper.cs" />
+    <Compile Include="PasswordEncryptor\IEncryptor.cs" />
     <Compile Include="PasswordSecurityFlagger\ColorClassifier.cs" />
     <Compile Include="PasswordSecurityFlagger\DarkGreenClassifier.cs" />
     <Compile Include="Exceptions\PasswordAlreadySharedException.cs" />

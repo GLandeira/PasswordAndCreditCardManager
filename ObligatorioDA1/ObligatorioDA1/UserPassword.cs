@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Exceptions;
 using Domain.PasswordSecurityFlagger;
-using Effortless.Net.Encryption;
 
 namespace Domain
 {
