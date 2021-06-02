@@ -22,9 +22,17 @@ namespace DomainTests
         [TestMethod]
         public void TestTextBoxTranslatorGeneratesCorrectAmountOfStrings()
         {
-            string _test = "abc/t123"; //‘\t
+            _test = "abc\t123";
 
             Assert.AreEqual(2, _translator.Translate(_test).Length);
+        }
+
+        [TestMethod]
+        public void TestTextBoxTranslatorGeneratesCorrectAmountOfStringsComplicated()
+        {
+            _test = "abc asgasg\t123asasf\tasfdasf asgf\t\t\tasfasflll";
+
+            Assert.AreEqual(4, _translator.Translate(_test).Length);
         }
     }
 }
