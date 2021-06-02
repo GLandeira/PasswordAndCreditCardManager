@@ -6,11 +6,9 @@ using Domain.DataBreachesTranslator;
 
 namespace DomainTests
 {
-    /// <summary>
-    /// Summary description for DataBreachesTranslatorTest
-    /// </summary>
+
     [TestClass]
-    public class DataBreachesTranslatorTest
+    public class TextBoxTranslatorTests
     {
         [TestMethod]
         public void TestTextBoxTranslatorGeneratesCorrectAmountOfStrings()
