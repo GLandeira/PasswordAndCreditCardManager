@@ -18,7 +18,8 @@ namespace Domain
             {
                 return false;
             }
-            return this.Number == ((CreditCard)obj).Number;
+
+            return Number == ((CreditCard)obj).Number;
         }
 
         public override string ToString()

@@ -105,8 +105,11 @@ namespace UserInterface
 
         private void grdvwCreditCard_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            Form moreCreditCardInfo = new CreditCardMoreInfoModal(_selectedCreditCard);
-            moreCreditCardInfo.ShowDialog();
+            if(_selectedCreditCard != null)
+            {
+                Form moreCreditCardInfo = new CreditCardMoreInfoModal(_selectedCreditCard);
+                moreCreditCardInfo.ShowDialog();
+            }
         }
 
         private void grdvwCreditCard_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

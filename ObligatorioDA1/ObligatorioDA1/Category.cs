@@ -17,9 +17,13 @@ namespace Domain
 
         public override bool Equals(object obj)
         {
-            if (obj == DBNull.Value) return false;
+            if (obj == DBNull.Value) 
+            {
+                return false;
+            }
+
             Category otherCategory = (Category)obj;
-            return this.Name.ToLower() == otherCategory.Name.ToLower();
+            return Name.ToLower() == otherCategory.Name.ToLower();
         }
 
         public object Clone()
@@ -30,7 +34,7 @@ namespace Domain
 
         public override string ToString()
         {
-            return this.Name;
+            return Name;
         }
     }
 }

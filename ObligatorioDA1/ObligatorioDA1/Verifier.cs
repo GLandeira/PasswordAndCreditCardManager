@@ -2,48 +2,26 @@
 using System;
 using Domain.Exceptions;
 
-//Creditcard
-//     Largo máximo de los campos:
-//- Name: Mínimo 3 caracteres y máximo 25 
-//- type: se selecciona de las disponibles en el sistema -> lista
-//- number: 16 caracteres, todos numeros
-//- security code: 3 numeros
-//- Categoría: Se selecciona de las disponibles en el sistema -> lista
-//- Notas: Sin mínimo y máximo 250 caracteres
-
-//password
-//   Largo máximo de los campos:
-//- Usuario: Mínimo 5 caracteres y máximo 25
-//- Contraseña: Mínimo 5 caracteres y máximo 25
-//- Sitio: Mínimo 3 caracteres y máximo 25
-//- Notas: Sin mínimo y máximo 250 caracteres
-//- Categoría: Se selecciona de las disponibles en el sistema -> lista
-
 namespace Domain
 {
     public class Verifier
     {
-        //Users Variables
         private const int MAXIMUM_CHARACTERS_USER_NAMExMAINPASSWORD = 25;
         private const int MINIMUM_CHARACTERS_USER_NAMExMAINPASSWORD = 5;
 
-        //Credit Variables
         private const int MAXIMUM_CHARACTERS_CREDITCARD_NAME = 25;
         private const int MINIMUM_CHARACTERS_CREDITCARD_NAME = 3;
         private const int CHARACTERS_CREDITCARD_NUMBER = 16;
         private const int MAXIMUM_CHARACTERS_CREDITCARD_SECURITYCODE = 4;
         private const int MINIMUM_CHARACTERS_CREDITCARD_SECURITYCODE = 3;
 
-        //Password Variables
         private const int MAXIMUM_CHARACTERS_PASSWORD_USERxPASSWORDxSITE = 25;
         private const int MINIMUM_CHARACTERS_PASSWORD_USERxPASSWORD = 5;
         private const int MINIMUM_CHARACTERS_PASSWORD_SITE = 3;
 
-        //Category Variables
         private const int MAXIMUM_CHARACTERS_CATEGORY_NAME = 15;
         private const int MINIMUM_CHARACTERS_CATEGORY_NAME = 3;
 
-        //Variables in common
         private const int CHARACTERS_NOTES = 250;
 
         public static void VerifyUser(User userTested)
@@ -177,10 +155,7 @@ namespace Domain
 
         private static bool ItIsNumber(char numberSubString)
         {
-            return (numberSubString >= '0' && numberSubString <= '9');
+            return numberSubString >= '0' && numberSubString <= '9';
         }
-
-
-
     }
 }

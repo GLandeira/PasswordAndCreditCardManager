@@ -27,12 +27,17 @@ namespace Domain
                 return false;
             }
 
-            bool areAbsolutelyEqual = this.Site == password.Site &&
-                                      this.PasswordString == password.PasswordString &&
-                                      this.Username == password.Username &&
-                                      this.Notes == password.Notes &&
-                                      this.Category.Equals(password.Category);
+            bool areAbsolutelyEqual = Site == password.Site &&
+                                      PasswordString == password.PasswordString &&
+                                      Username == password.Username &&
+                                      Notes == password.Notes &&
+                                      Category.Equals(password.Category);
             return areAbsolutelyEqual;
+        }
+
+        public bool PasswordStringEquals(string otherPasswordString)
+        {
+            return otherPasswordString == PasswordString;
         }
 
         public override bool Equals(object obj)
@@ -41,21 +46,22 @@ namespace Domain
             {
                 return false;
             }
-            bool areEqual = (this.Site == ((Password)obj).Site && this.Username == ((Password)obj).Username);
+
+            bool areEqual = (Site == ((Password)obj).Site && Username == ((Password)obj).Username);
             return areEqual;
         }
 
         public object Clone()
         {
             Password clone = new Password();
-            clone.Category = this.Category;
-            clone.Notes = this.Notes;
-            clone.PasswordString = this.PasswordString;
-            clone.UsersSharedWith = this.UsersSharedWith;
-            clone.Username = this.Username;
-            clone.Site = this.Site;
-            clone.SecurityLevel = this.SecurityLevel;
-            clone.LastModification = this.LastModification;
+            clone.Category = Category;
+            clone.Notes = Notes;
+            clone.PasswordString = PasswordString;
+            clone.UsersSharedWith = UsersSharedWith;
+            clone.Username = Username;
+            clone.Site = Site;
+            clone.SecurityLevel = SecurityLevel;
+            clone.LastModification = LastModification;
 
             return clone;
         }

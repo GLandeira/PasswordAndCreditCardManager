@@ -11,7 +11,7 @@ namespace Domain
 
         public UserCreditCard()
         {
-            this.CreditCards = new List<CreditCard>();
+            CreditCards = new List<CreditCard>();
         }
 
         public void AddCreditCard(CreditCard creditCard)
@@ -21,28 +21,26 @@ namespace Domain
             CreditCards.Add(creditCard);
         }
 
-        public void RemoveCreditCard(CreditCard creditCard)
+        public void RemoveCreditCard(CreditCard creditCardToRemove)
         {
-            if (!CreditCards.Remove(creditCard))
-            {
-                throw new CreditCardListIsEmptyException();
-            }
+            CheckIfCreditCardExists(creditCardToRemove);
+
+            CreditCards.Remove(creditCardToRemove);
         }
 
         public void ModifyCreditCard(CreditCard creditCardToRemove, CreditCard creditCardToAdd)
         {
-            if (!CreditCards.Any()) {
-                throw new CreditCardListIsEmptyException();
+            CheckIfCreditCardExists(creditCardToRemove);
+
+            Verifier.VerifyCreditCard(creditCardToAdd);
+
+            if (!creditCardToRemove.Equals(creditCardToAdd))
+            {
+                IsAlreadyInTheList(creditCardToAdd);
             }
-            else {
-                Verifier.VerifyCreditCard(creditCardToAdd);
-                if (!creditCardToRemove.Equals(creditCardToAdd))
-                {
-                    IsAlreadyInTheList(creditCardToAdd);
-                }
-                RemoveCreditCard(creditCardToRemove);
-                AddCreditCard(creditCardToAdd);
-            }
+
+            RemoveCreditCard(creditCardToRemove);
+            AddCreditCard(creditCardToAdd);
         }
 
         public CreditCard GetCreditCard(String creditCardNumberToLook)
@@ -51,6 +49,7 @@ namespace Domain
             {
                 throw new CreditCardNotFoundException();
             }
+
             return CreditCards.Find(creditCardInList => creditCardInList.Number.Equals(creditCardNumberToLook));
         }
 
@@ -59,6 +58,14 @@ namespace Domain
             if (CreditCards.Exists(creditCardInList => creditCardInList.Equals(creditCard)))
             {
                 throw new CreditCardRepeatedException();
+            }
+        }
+
+        private void CheckIfCreditCardExists(CreditCard creditCard)
+        {
+            if (!CreditCards.Exists(creditCardInList => creditCardInList.Equals(creditCard)))
+            {
+                throw new CreditCardNotFoundException();
             }
         }
     }

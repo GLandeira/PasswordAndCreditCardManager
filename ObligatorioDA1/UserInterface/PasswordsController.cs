@@ -25,7 +25,7 @@ namespace UserInterface
             InitializeComponent();
             _userManager = userManager;
             _currentUser = _userManager.LoggedUser;
-            ButtonsEnabler(false);
+            EnableButtonsIfNoPasswords(false);
             AddOrModifyPasswordModal.onModifyOrAddPassword += LoadDataGridPasswords;
             UnsharePasswordModal.onSharePassword += LoadDataGridPasswords;
         }
@@ -44,36 +44,12 @@ namespace UserInterface
             _lastPasswordSelected = selectedPassword;
             if(_lastPasswordSelected.Category == User.SHARED_WITH_ME_CATEGORY)
             {
-                ButtonsEnabler(false);
+                EnableButtonsIfNoPasswords(false);
             }
             else
             {
-                ButtonsEnabler(true);
+                EnableButtonsIfNoPasswords(true);
             }
-        }
-
-        private void ButtonsEnabler(bool enabled)
-        {
-            btnModifyPassword.Enabled = enabled;
-            btnDeletePassword.Enabled = enabled;
-            btnSharePassword.Enabled = enabled;
-        }
-
-        private void LoadDataGridPasswords(List<Password> passwordList)
-        {
-            grdvwPasswordsTable.DataSource = null;
-            BindingSource bs = new BindingSource();
-            List<Password> sortedPasswordList = passwordList.OrderBy(p => p.Category.Name.ToUpper()).ToList();
-            bs.DataSource = sortedPasswordList;
-            if (sortedPasswordList.Count == 0)
-            {
-               ButtonsEnabler(false);
-            }
-            else
-            {
-               ButtonsEnabler(true);
-            }
-            grdvwPasswordsTable.DataSource = bs;
         }
 
         protected override void OnHandleDestroyed(EventArgs e)
@@ -85,27 +61,31 @@ namespace UserInterface
 
         private void grdvwPasswordsTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            Form passwordMoreInfoModal = new PasswordMoreInfoModal(_lastPasswordSelected);
-            passwordMoreInfoModal.ShowDialog();
+            if(_lastPasswordSelected != null)
+            {
+                Form passwordMoreInfoModal = new PasswordMoreInfoModal(_lastPasswordSelected);
+                passwordMoreInfoModal.ShowDialog();
+            }
         }
 
         private void btnShowUnshowSharedPasswords_Click(object sender, EventArgs e)
         {
             DisableAddButtonIfNoCategoriesAdded(_currentUser.Categories);
+            _lastPasswordSelected = null;
 
             if (!btnUnshare.Visible)
             {
                 List<Password> sharedPasswordsList = _currentUser.UserPasswords.GetPasswordsImSharing();
                 LoadDataGridPasswords(sharedPasswordsList);
-                btnShowUnshowSharedPasswords.Text = "Show all passwords";
-                btnUnshare.Visible =  true;
+
+                SetSharePasswordsEnvironment(true, "Show all passwords");
             }
             else
             {
                 List<Password> passwordsList = _currentUser.UserPasswords.Passwords;
                 LoadDataGridPasswords(passwordsList);
-                btnShowUnshowSharedPasswords.Text = "Show shared passwords";
-                btnUnshare.Visible = false;
+
+                SetSharePasswordsEnvironment(false, "Show shared passwords");
             }
         }
 
@@ -144,15 +124,52 @@ namespace UserInterface
             addOrModifyPasswordModal.ShowDialog();
         }
 
+        private void LoadDataGridPasswords(List<Password> passwordList)
+        {
+            grdvwPasswordsTable.DataSource = null;
+            BindingSource bs = new BindingSource();
+            List<Password> sortedPasswordList = passwordList.OrderBy(p => p.Category.Name.ToUpper()).ToList();
+            bs.DataSource = sortedPasswordList;
+
+            if (sortedPasswordList.Count == 0)
+            {
+                EnableButtonsIfNoPasswords(false);
+            }
+            else
+            {
+                
+                EnableButtonsIfNoPasswords(true);
+            }
+
+            grdvwPasswordsTable.DataSource = bs;
+        }
+
         private void DisableAddButtonIfNoCategoriesAdded(List<Category> categories)
         {
-            if (categories.Count - 1 <= 0) // Taking into account the reserved Shared With Me
+            int categoryCountWithoutSharedWithme = categories.Count - 1;
+            if (categoryCountWithoutSharedWithme <= 0)
             {
                 btnNewPassword.Enabled = false;
 
                 MessageBox.Show(NO_CATEGORIES, "Attention",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void EnableButtonsIfNoPasswords(bool enabled)
+        {
+            btnModifyPassword.Enabled = enabled;
+            btnDeletePassword.Enabled = enabled;
+            btnSharePassword.Enabled = enabled;
+            btnUnshare.Enabled = enabled;
+        }
+
+        private void SetSharePasswordsEnvironment(bool visibility, string text)
+        {
+            btnUnshare.Visible = visibility;
+            btnSharePassword.Visible = !visibility;
+            btnNewPassword.Enabled = !visibility;
+            btnShowUnshowSharedPasswords.Text = text;
         }
     }
 }

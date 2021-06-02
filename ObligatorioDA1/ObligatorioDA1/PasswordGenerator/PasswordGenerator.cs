@@ -13,7 +13,7 @@ namespace Domain.PasswordGenerator
 
         public static string GeneratePassword(PasswordGenerationSettings generationSettings)
         {
-            CheckIfInvalidPassword(generationSettings);
+            CheckIfInvalidPasswordSettings(generationSettings);
 
             bool[] conditionsList = CondenseConditionsToArray(generationSettings);
 
@@ -99,16 +99,16 @@ namespace Domain.PasswordGenerator
             }
         }
 
-        private static void CheckIfInvalidPassword(PasswordGenerationSettings generationSettings)
+        private static void CheckIfInvalidPasswordSettings(PasswordGenerationSettings generationSettings)
         {
             int passwordLength = generationSettings.length;
             bool hasMayus = generationSettings.hasMayus;
             bool hasMinus = generationSettings.hasMinus;
             bool hasDigits = generationSettings.hasDigits;
             bool hasSymbols = generationSettings.hasSymbols;
-            bool todasLasCondicionesSonFalse = !hasSymbols && !hasMinus && !hasMayus && !hasDigits;
+            bool allConditionsAreFalse = !hasSymbols && !hasMinus && !hasMayus && !hasDigits;
 
-            if (passwordLength <= 0 || passwordLength > MAX_PASSWORD_LENGTH || (todasLasCondicionesSonFalse))
+            if (passwordLength <= 0 || passwordLength > MAX_PASSWORD_LENGTH || allConditionsAreFalse)
             {
                 throw new InvalidPasswordGenerationSettingsException();
             }
