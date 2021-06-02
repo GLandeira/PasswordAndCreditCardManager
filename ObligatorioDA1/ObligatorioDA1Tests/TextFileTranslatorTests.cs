@@ -10,10 +10,21 @@ namespace DomainTests
     [TestClass]
     public class TextFileTranslatorTests
     {
+        private ITranslator _translator;
+        private string _test;
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            _translator = new TextFileTranslator();
+        }
+
         [TestMethod]
         public void TestTextBoxTranslatorGeneratesCorrectAmountOfStrings()
         {
-            Assert.AreEqual(false, true);
+            string _test = "abc/t123"; //‘\t
+
+            Assert.AreEqual(2, _translator.Translate(_test).Length);
         }
     }
 }
