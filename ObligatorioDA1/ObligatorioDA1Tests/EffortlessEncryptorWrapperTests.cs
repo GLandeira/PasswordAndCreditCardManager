@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using Domain.PasswordEncryptor;
 
 namespace DomainTests
 {
@@ -12,7 +12,7 @@ namespace DomainTests
     [TestClass]
     public class EffortlessEncryptorWrapperTests
     {
-        
+        private IEncryptor _effortlessEncryptor;
         private string _string1;
         private string _string2;
         private string _string3;
@@ -20,6 +20,7 @@ namespace DomainTests
         [TestInitialize()]
         public void MyTestInitialize()
         {
+            _effortlessEncryptor = new EffortlessEncryptionWrapper();
             _string1 = "papas";
             _string2 = "mayonesa123";
             _string3 = "%Sa2@4loPlaAws124324_";
@@ -50,9 +51,8 @@ namespace DomainTests
         [TestMethod]
         public void TestEncrypt1()
         {
-            //
-            // TODO: Add test logic here
-            //
+            string encrypted = _effortlessEncryptor.Encrypt(_string1);
+            Assert.AreEqual(_string1, _effortlessEncryptor.Decrypt(encrypted));
         }
     }
 }

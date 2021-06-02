@@ -7,7 +7,7 @@ using Effortless.Net.Encryption;
 
 namespace Domain.PasswordEncryptor
 {
-    class EffortlessEncryptionWrapper : IEncryptor
+    public class EffortlessEncryptionWrapper : IEncryptor
     {
         public string Encrypt(string password)
         {

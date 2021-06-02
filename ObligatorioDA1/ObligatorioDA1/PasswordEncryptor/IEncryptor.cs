@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.PasswordEncryptor
 {
-    interface IEncryptor
+    public interface IEncryptor
     {
         string Encrypt(string password);
         string Decrypt(string encryptedPassword);
