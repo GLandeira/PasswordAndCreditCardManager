@@ -10,8 +10,10 @@ namespace Domain.DataBreachesTranslator
     {
         public string[] Translate(string entry)
         {
-            string[] translation = { "a", "a" };
-            return translation;
+            string[] separator = new string[] { "\t" };
+            string[] fields = entry.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+            return fields;
         }
     }
 }
