@@ -10,7 +10,8 @@ namespace Domain.DataBreachesTranslator
     {
         public string[] Translate(string entry)
         {
-            throw new NotImplementedException();
+            string[] translation = { "a", "a" };
+            return translation;
         }
     }
 }
