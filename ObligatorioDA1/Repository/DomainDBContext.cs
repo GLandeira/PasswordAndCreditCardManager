@@ -18,7 +18,7 @@ namespace Repository
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CreditCard>().HasKey(c => c.Number);
+            modelBuilder.Configurations.Add(new CreditCardTypeConfiguration());
         }
     }
 }
