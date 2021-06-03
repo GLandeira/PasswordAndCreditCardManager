@@ -10,7 +10,8 @@ namespace Repository
 {
     public class DomainDBContext : DbContext
     {
-        public DbSet<CreditCard> CreditCards { get; set;}
+        public DbSet<CreditCard> CreditCards { get; set; }
+        public DbSet<Category> Categories { get; set; }
         
         public DomainDBContext() : base("name=DomainDBContext")
         {

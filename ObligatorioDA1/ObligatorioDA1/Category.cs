@@ -8,6 +8,7 @@ namespace Domain
 {
     public class Category : ICloneable
     {
+        public int CategoryID { get; set; }
         public string Name { get; set; }
 
         public Category(string name)

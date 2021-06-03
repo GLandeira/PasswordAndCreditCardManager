@@ -8,9 +8,9 @@ using Domain;
 
 namespace Repository
 {
-    public class CreditCardTypeConfiguration : EntityTypeConfiguration<CreditCard>
+    public class CategoryTypeConfiguration : EntityTypeConfiguration<Category>
     {
-        public CreditCardTypeConfiguration()
+        public CategoryTypeConfiguration()
         {
             
         }
