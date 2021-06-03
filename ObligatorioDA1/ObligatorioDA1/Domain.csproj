@@ -55,6 +55,7 @@
     <Compile Include="CardTypes.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="DataBreaches.cs" />
+    <Compile Include="DataBreachesTranslator\TextFileTranslator.cs" />
     <Compile Include="DataBreachesTranslator\ITranslator.cs" />
     <Compile Include="DataBreachesTranslator\TextBoxTranslator.cs" />
     <Compile Include="Exceptions\PasswordExceptions.cs" />
