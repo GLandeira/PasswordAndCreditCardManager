@@ -48,6 +48,7 @@ namespace Domain
             }
 
             Categories.Add(aCategory);
+            AddCategoryToDatabase(aCategory);
         }
 
         public Category GetACategory(string category)
@@ -98,6 +99,11 @@ namespace Domain
         {
             User theUser = (User)obj;
             return theUser.Name == this.Name;
+        }
+
+        private void AddCategoryToDatabase(Category aCategory)
+        {
+            
         }
     }
 }
