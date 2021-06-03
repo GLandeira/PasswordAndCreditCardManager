@@ -51,10 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryDataAccess.cs" />
+    <Compile Include="CategoryTypeConfiguration.cs" />
     <Compile Include="CreditCardDataAccess.cs" />
     <Compile Include="CreditCardTypeConfiguration.cs" />
     <Compile Include="DomainDBContext.cs" />
-    <Compile Include="IDataAccess.cs" />
     <Compile Include="Migrations\202106031814074_testMigration.cs" />
     <Compile Include="Migrations\202106031814074_testMigration.designer.cs">
       <DependentUpon>202106031814074_testMigration.cs</DependentUpon>
