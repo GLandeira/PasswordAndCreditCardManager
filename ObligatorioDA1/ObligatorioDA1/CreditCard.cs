@@ -5,6 +5,7 @@ namespace Domain
 {
     public class CreditCard
     {
+        public int CreditCardID { get; set; }
         public string Name { get; set; }
         public CardTypes Type { get; set; }
         public string Number { get; set; }
