@@ -9,6 +9,7 @@ namespace Domain
 {
     public class User
     {
+        public int UserID { get; set; }
         public string Name { get; set; }
         public string MainPassword { get; set; }
         public UserPassword UserPasswords { get; private set; }
