@@ -20,7 +20,7 @@ namespace UserInterface
         public MainWindow()
         {
             InitializeComponent();
-            _userManager = new UserManager();
+            _userManager = new UserManager(new UserDataAccess());
         }
 
         private void MainWindow_Load(object sender, EventArgs e)

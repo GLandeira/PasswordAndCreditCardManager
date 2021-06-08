@@ -10,12 +10,14 @@ namespace Domain
 {
     public class UserDataBreaches
     {
+
         private const int CREDIT_CARD_MAX_LENGTH_WITH_SPACES = 19;
         private const int FIRST_CREDIT_CARD_SPACE_POSITION = 4;
         private const int SECOND_CREDIT_CARD_SPACE_POSITION = 9;
         private const int THIRD_CREDIT_CARD_SPACE_POSITION = 14;
 
         private User _theUser;
+        public int UserDataBreachesID { get; set; }
 
         public UserDataBreaches(User theUser)
         {

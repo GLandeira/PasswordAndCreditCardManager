@@ -14,8 +14,9 @@ namespace Domain
 
         public IDataAccess<User> UserDataAccess { get; private set; }
 
-        public UserManager()
+        public UserManager(IDataAccess<User> dataAccess)
         {
+            UserDataAccess = dataAccess;
             Users = UserDataAccess.GetAll().ToList();
         }
 

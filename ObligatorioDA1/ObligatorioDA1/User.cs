@@ -19,6 +19,10 @@ namespace Domain
         public const string SHARED_PASSWORD_CATEGORY_NAME = "Shared With Me";
         public static Category SHARED_WITH_ME_CATEGORY = new Category(SHARED_PASSWORD_CATEGORY_NAME);
 
+        public User()
+        {
+        }
+
         public User(UserManager userManager)
         {
             Categories = new List<Category>();
