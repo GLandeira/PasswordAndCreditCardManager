@@ -9,12 +9,14 @@ namespace Repository
 {
     public class CreditCardDataAccess : IDataAccess<CreditCard>
     {
-        public void Add(CreditCard entity)
+        public int Add(CreditCard entity)
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                context.CreditCards.Add(entity);
+                CreditCard creditCardAdded = context.CreditCards.Add(entity);
                 context.SaveChanges();
+
+                return creditCardAdded.CreditCardID;
             }
         }
 

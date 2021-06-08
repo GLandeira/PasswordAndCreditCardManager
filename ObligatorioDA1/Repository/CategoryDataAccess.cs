@@ -9,12 +9,14 @@ namespace Repository
 {
     public class CategoriesDataAccess : IDataAccess<Category>
     {
-        public void Add(Category entity)
+        public int Add(Category entity)
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                context.Categories.Add(entity);
+                Category addedCategory = context.Categories.Add(entity);
                 context.SaveChanges();
+
+                return addedCategory.CategoryID;
             }
         }
 

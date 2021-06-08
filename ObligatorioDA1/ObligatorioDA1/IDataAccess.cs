@@ -8,7 +8,7 @@ namespace Domain
 {
     public interface IDataAccess<T>
     {
-        void Add(T entity);
+        int Add(T entity);
         void Modify(T entity);
         T Get(int id);
         IEnumerable<T> GetAll();

@@ -10,11 +10,13 @@ namespace Domain
     public class UserManager
     {
         public User LoggedUser { get; set; }
-        public List<User> Users { get; private set; }
+        public List<User> Users { get; set; }
+
+        public IDataAccess<User> UserDataAccess { get; private set; }
 
         public UserManager()
         {
-            Users = new List<User>();
+            Users = UserDataAccess.GetAll().ToList();
         }
 
         public void AddUser(User newUser)
@@ -26,6 +28,9 @@ namespace Domain
                 throw new UserAlreadyExistsException();
             }
 
+            int dbID = UserDataAccess.Add(newUser);
+
+            newUser.UserID = dbID;
             Users.Add(newUser);
         }
 
@@ -49,6 +54,8 @@ namespace Domain
             }
 
             Users.First(us => us.Name == userWithNewPassword.Name).MainPassword = userWithNewPassword.MainPassword;
+
+            UserDataAccess.Modify(userWithNewPassword);
         }
 
         public bool LogIn(string userNameToLogInWith, string userPasswordToLogInWith)

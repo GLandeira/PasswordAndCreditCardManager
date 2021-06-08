@@ -9,12 +9,13 @@ namespace Repository
 {
     public class UserDataAccess : IDataAccess<User>
     {
-        public void Add(User entity)
+        public int Add(User entity)
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                context.Users.Add(entity);
+                User addedUser = context.Users.Add(entity);
                 context.SaveChanges();
+                return addedUser.UserID;
             }
         }
 
