@@ -6,6 +6,7 @@ namespace Domain
 {
     public class Password : ICloneable
     {
+        public int PasswordID { get; set; }
         public string PasswordString { get; set; }
         public string Site { get; set; }
         public string Username { get; set; }

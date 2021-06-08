@@ -68,6 +68,10 @@
     <Compile Include="Migrations\202106032024121_FixTestCategoriesAdded.designer.cs">
       <DependentUpon>202106032024121_FixTestCategoriesAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106082053036_TestAddUser.cs" />
+    <Compile Include="Migrations\202106082053036_TestAddUser.designer.cs">
+      <DependentUpon>202106082053036_TestAddUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDataAccess.cs" />
@@ -93,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106032024121_FixTestCategoriesAdded.resx">
       <DependentUpon>202106032024121_FixTestCategoriesAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106082053036_TestAddUser.resx">
+      <DependentUpon>202106082053036_TestAddUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

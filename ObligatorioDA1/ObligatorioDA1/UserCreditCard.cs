@@ -7,6 +7,7 @@ namespace Domain
 {
     public class UserCreditCard
     {
+        public int UserCreditCardID { get; set; }
         public List<CreditCard> CreditCards { get; private set; }
 
         public UserCreditCard()
