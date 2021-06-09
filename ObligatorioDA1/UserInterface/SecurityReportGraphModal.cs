@@ -14,14 +14,12 @@ namespace UserInterface
 {
     public partial class SecurityReportGraphModal : Form
     {
-        private UserManager _userManager;
         private User _currentUser;
         private UserPassword _currentUserPassword;
 
-        public SecurityReportGraphModal(UserManager userManager)
+        public SecurityReportGraphModal()
         {
-            _userManager = userManager;
-            _currentUser = _userManager.LoggedUser;
+            _currentUser = UserManager.Instance.LoggedUser;
             _currentUserPassword = _currentUser.UserPasswords;
             InitializeComponent();
         }
@@ -31,7 +29,7 @@ namespace UserInterface
             chrtSecurityReport.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
             chrtSecurityReport.ChartAreas[0].AxisY.MajorGrid.LineWidth = 0;
 
-            foreach (Category category in _currentUser.Categories)
+            foreach (Category category in _currentUser.UserCategories.Categories)
             {
                 GenerateGraphSectionForCategory(category);
             }

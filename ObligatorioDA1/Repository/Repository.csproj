@@ -80,6 +80,10 @@
     <Compile Include="Migrations\202106082218249_TestAddUserWithUserDataBreaches.designer.cs">
       <DependentUpon>202106082218249_TestAddUserWithUserDataBreaches.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106091822085_AddUserCategory.cs" />
+    <Compile Include="Migrations\202106091822085_AddUserCategory.designer.cs">
+      <DependentUpon>202106091822085_AddUserCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDataAccess.cs" />
@@ -114,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106082218249_TestAddUserWithUserDataBreaches.resx">
       <DependentUpon>202106082218249_TestAddUserWithUserDataBreaches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106091822085_AddUserCategory.resx">
+      <DependentUpon>202106091822085_AddUserCategory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

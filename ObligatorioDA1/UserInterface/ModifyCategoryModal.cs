@@ -20,10 +20,10 @@ namespace UserInterface
         private User _currentUser;
         private Category _categoryToModify;
 
-        public ModifyCategoryModal(User loggedUser, Category categoryToModify)
+        public ModifyCategoryModal(Category categoryToModify)
         {
             InitializeComponent();
-            _currentUser = loggedUser;
+            _currentUser = UserManager.Instance.LoggedUser;
             _categoryToModify = categoryToModify;
             txtbxNewCategoryName.Text = categoryToModify.Name;
         }
@@ -39,7 +39,7 @@ namespace UserInterface
             try
             {
                 Category newCategory = new Category(categoryName);
-                _currentUser.ModifyCategory(_categoryToModify, newCategory);
+                _currentUser.UserCategories.ModifyCategory(_categoryToModify, newCategory);
                 onModifyCategory?.Invoke();
                 Close();
             }

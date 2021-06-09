@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 using Domain;
 
 namespace Repository
@@ -13,6 +14,7 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
+
                 User addedUser = context.Users.Add(entity);
                 context.SaveChanges();
                 return addedUser.UserID;
@@ -41,7 +43,10 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                IEnumerable<User> allUsers = context.Users.ToList();
+
+
+                IEnumerable<User>  allUsers = context.Users.ToList();
+                //Include(u => u.UserCreditCards).Include(u => u.UserPasswords).Include(u => u.UserCategories).Include(u => u.UserDataBreaches).
                 return allUsers;
             }
         }

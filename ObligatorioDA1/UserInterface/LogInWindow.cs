@@ -18,13 +18,11 @@ namespace UserInterface
         private const string USER_CREATED_SUCCESS = "User {0} created successfully!";
         private const string PASSWORD_MODIFY_FAILURE = "Password and confirmation do not match.";
 
-        private UserManager _userManager;
         private bool _loggedIn;
 
-        public LogInWindow(UserManager userManager)
+        public LogInWindow()
         {
             InitializeComponent();
-            _userManager = userManager;
         }
 
         private void btnSignUp_Click(object sender, EventArgs e)
@@ -49,7 +47,7 @@ namespace UserInterface
             string username = txtbxLogInUsername.Text;
             string password = txtbxLogInPassword.Text;
 
-            if (_userManager.LogIn(username, password))
+            if (UserManager.Instance.LogIn(username, password))
             {
                 _loggedIn = true;
                 Close();
@@ -71,11 +69,11 @@ namespace UserInterface
 
         private void TryToAddUser(string username, string password)
         {
-            User newUser = new User(username, password, _userManager);
+            User newUser = new User(username, password);
 
             try
             {
-                _userManager.AddUser(newUser);
+                UserManager.Instance.AddUser(newUser);
                 txtbxSignUpUsername.Text = "";
                 txtbxSignUpPassword.Text = "";
                 txtbxConfirmPassword.Text = "";

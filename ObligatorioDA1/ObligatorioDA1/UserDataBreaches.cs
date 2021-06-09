@@ -19,6 +19,10 @@ namespace Domain
         private User _theUser;
         public int UserDataBreachesID { get; set; }
 
+        public UserDataBreaches()
+        {
+
+        }
         public UserDataBreaches(User theUser)
         {
             _theUser = theUser;

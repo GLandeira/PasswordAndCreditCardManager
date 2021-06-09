@@ -14,16 +14,15 @@ namespace UserInterface
 {
     public partial class SharePasswordModal : Form
     {
-        private UserManager _currentUserManager;
         private User _currentUser;
         private Password _sharedPassword;
-        public SharePasswordModal(UserManager userManager, Password password)
+        public SharePasswordModal(Password password)
         {
             InitializeComponent();
-            _currentUserManager = userManager;
+
             _sharedPassword = password;
-            _currentUser = _currentUserManager.LoggedUser;
-            List<User> bs = new List<User>(_currentUserManager.Users);
+            _currentUser = UserManager.Instance.LoggedUser;
+            List<User> bs = new List<User>(UserManager.Instance.Users);
             bs.Remove(_currentUser);
             cmbBxUsers.DataSource = bs;
             if (bs.Count == 0)
@@ -41,7 +40,6 @@ namespace UserInterface
         {
             try
             {
-                User _currentUser = _currentUserManager.LoggedUser;
                 User _userSharedWith = (User)cmbBxUsers.SelectedItem;
                 _currentUser.UserPasswords.SharePassword(_userSharedWith, _sharedPassword);
                 this.Close();

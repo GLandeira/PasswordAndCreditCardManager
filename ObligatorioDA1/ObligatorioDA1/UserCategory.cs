@@ -9,6 +9,7 @@ namespace Domain
 {
     public class UserCategory
     {
+        public int UserCategoryID { get; set; }
         public List<Category> Categories { get; set; }
         public const string SHARED_PASSWORD_CATEGORY_NAME = "Shared With Me";
         public static Category SHARED_WITH_ME_CATEGORY = new Category(SHARED_PASSWORD_CATEGORY_NAME);

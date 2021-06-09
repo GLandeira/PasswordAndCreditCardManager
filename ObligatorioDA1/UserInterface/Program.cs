@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Domain;
+using Repository;
 
 namespace UserInterface
 {
@@ -14,6 +16,7 @@ namespace UserInterface
         [STAThread]
         static void Main()
         {
+            new UserManager(new UserDataAccess());
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());

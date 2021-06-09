@@ -32,11 +32,11 @@ namespace UserInterface
         private DataBreaches _theDataBreaches;
         private User _currentUser;
 
-        public DataBreachMatchesModal(User loggedUser, DataBreaches dataBreaches)
+        public DataBreachMatchesModal( DataBreaches dataBreaches)
         {
             InitializeComponent();
             _theDataBreaches = dataBreaches;
-            _currentUser = loggedUser;
+            _currentUser = UserManager.Instance.LoggedUser;
             AddOrModifyPasswordModal.onModifySinglePassword += OnPasswordModified;
         }
 
@@ -95,7 +95,7 @@ namespace UserInterface
             Label lblPassword = CreateLabelWithSettings(new Size(LABEL_SIZE_X, LABEL_SIZE_Y), new Point(LABEL_X, LABEL_Y), password.ToString());
             pnlParentPanel.Controls.Add(lblPassword);
 
-            if (!password.Category.Equals(User.SHARED_WITH_ME_CATEGORY))
+            if (!password.Category.Equals(UserCategory.SHARED_WITH_ME_CATEGORY))
             {
                 Button btnModifyPassword = CreateButtonWithSettings(BUTTON_MODIFY_TEXT, new Point(BUTTON_X, BUTTON_Y));
 
@@ -148,7 +148,7 @@ namespace UserInterface
         private void ModifyButtonsOnClick(Password thePassword)
         {
             _auxPasswordForModificationChecks = thePassword;
-            Form modifyPassword = new AddOrModifyPasswordModal(_currentUser, thePassword);
+            Form modifyPassword = new AddOrModifyPasswordModal(thePassword);
             modifyPassword.ShowDialog();
         }
 

@@ -12,11 +12,10 @@ namespace Domain
     {
         public int UserPasswordID { get; set; }
         public List<Password> Passwords { get; private set; }
-        private UserManager _userManager;
-        public UserPassword(UserManager userManager)
+
+        public UserPassword()
         {
             Passwords = new List<Password>();
-            _userManager = userManager;
         }
 
         public void AddPassword(Password password)
@@ -146,7 +145,7 @@ namespace Domain
             List<string> usersSharedWith = new List<string>(password.UsersSharedWith);
             foreach (string username in usersSharedWith)
             {
-                User sharedUser = _userManager.GetUser(username);
+                User sharedUser = UserManager.Instance.GetUser(username);
                 StopSharingPassword(sharedUser, password);
             }
         }
@@ -155,7 +154,7 @@ namespace Domain
         {
             foreach (string username in usersSharedWith)
             {
-                User userSharedTo = _userManager.GetUser(username);
+                User userSharedTo = UserManager.Instance.GetUser(username);
                 SharePassword(userSharedTo, modifiedPassword);
             }
         }

@@ -15,6 +15,7 @@ namespace Repository
         public DbSet<Password> Passwords { get; set; }
         public DbSet<UserPassword> UserPasswords { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<UserCategory> UserCategories { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserDataBreaches> UserDataBreaches { get; set; }
 
@@ -37,6 +38,10 @@ namespace Repository
 
             modelBuilder.Entity<User>()
                 .HasRequired(u => u.UserDataBreaches)
+                .WithRequiredPrincipal();
+
+            modelBuilder.Entity<User>()
+                .HasRequired(u => u.UserCategories)
                 .WithRequiredPrincipal();
         }
     }

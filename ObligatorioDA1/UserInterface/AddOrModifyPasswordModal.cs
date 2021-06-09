@@ -23,11 +23,11 @@ namespace UserInterface
         private User _currentUser;
         private Password _passwordToModify;
         private bool _modify;
-        public AddOrModifyPasswordModal(User loggedUser, Password passwordToModify)
+        public AddOrModifyPasswordModal(Password passwordToModify)
         {
             InitializeComponent();
             PasswordGeneratorModal.onPasswordGeneration += UpdatePasswordTextBox;
-            _currentUser = loggedUser;
+            _currentUser = UserManager.Instance.LoggedUser;
             _passwordToModify = passwordToModify;
             _modify = (!(passwordToModify == null)); 
 
@@ -79,8 +79,8 @@ namespace UserInterface
             {
                 this.Text = "Modify selected Password";
             }
-            List<Category> bs = new List<Category>(_currentUser.Categories);
-            bs.Remove(User.SHARED_WITH_ME_CATEGORY);
+            List<Category> bs = new List<Category>(_currentUser.UserCategories.Categories);
+            bs.Remove(UserCategory.SHARED_WITH_ME_CATEGORY);
             cmbBxCategory.DataSource = bs;
             if (bs.Count == 0)
             {

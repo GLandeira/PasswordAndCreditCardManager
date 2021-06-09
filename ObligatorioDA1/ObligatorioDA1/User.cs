@@ -17,24 +17,32 @@ namespace Domain
         public UserDataBreaches UserDataBreaches { get; private set; }
         public UserCategory UserCategories { get; private set; }
 
+
         public User()
         {
-        }
-
-        public User(UserManager userManager)
-        {
-            UserPasswords = new UserPassword(userManager);
+            UserPasswords = new UserPassword();
             UserCreditCards = new UserCreditCard();
             UserDataBreaches = new UserDataBreaches(this);
             UserCategories = new UserCategory();
         }
 
-        public User(int userId, string name, string mainPassword, UserManager userManager)
+        public User(string name, string mainPassword)
         {
-            UserID = userId;
-            UserPasswords = new UserPassword(userManager);
+            UserPasswords = new UserPassword();
             UserCreditCards = new UserCreditCard();
             UserDataBreaches = new UserDataBreaches(this);
+            UserCategories = new UserCategory();
+            Name = name;
+            MainPassword = mainPassword;
+        }
+
+        public User(int userId, string name, string mainPassword)
+        {
+            UserID = userId;
+            UserPasswords = new UserPassword();
+            UserCreditCards = new UserCreditCard();
+            UserDataBreaches = new UserDataBreaches(this);
+            UserCategories = new UserCategory();
             Name = name;
             MainPassword = mainPassword;
         }

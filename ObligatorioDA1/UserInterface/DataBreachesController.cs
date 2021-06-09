@@ -18,15 +18,13 @@ namespace UserInterface
     {
         private const string NO_BREACHED_PASSWORDS = "No breaches found.";
 
-        private UserManager _userManager;
         private User _currentUser;
         private OpenFileDialog _fileDialog;
 
-        public DataBreachesController(UserManager userManager)
+        public DataBreachesController()
         {
             InitializeComponent();
-            _userManager = userManager;
-            _currentUser = _userManager.LoggedUser;
+            _currentUser = UserManager.Instance.LoggedUser;
 
             _fileDialog = new OpenFileDialog()
             {
@@ -80,7 +78,7 @@ namespace UserInterface
                 return;
             }
 
-            Form matchesDataBreaches = new DataBreachMatchesModal(_currentUser, dataBreaches);
+            Form matchesDataBreaches = new DataBreachMatchesModal(dataBreaches);
             matchesDataBreaches.ShowDialog();
         }
     }

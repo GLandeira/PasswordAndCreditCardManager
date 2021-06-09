@@ -19,10 +19,10 @@ namespace UserInterface
 
         private User _currentUser;
 
-        public AddCategoryModal(User loggedUser)
+        public AddCategoryModal()
         {
             InitializeComponent();
-            _currentUser = loggedUser;
+            _currentUser = UserManager.Instance.LoggedUser;
         }
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -31,7 +31,7 @@ namespace UserInterface
             try
             {
                 Category newCategory = new Category(categoryName);
-                _currentUser.AddCategory(newCategory);
+                _currentUser.UserCategories.AddCategory(newCategory);
                 onAddedCategory?.Invoke();
                 Close();
             }
