@@ -32,7 +32,7 @@ namespace Domain
 
         public void RemovePassword(Password password)
         {
-            if(!password.Category.Equals(User.SHARED_WITH_ME_CATEGORY))
+            if(!password.Category.Equals(UserCategory.SHARED_WITH_ME_CATEGORY))
             {
                 StopSharingPasswordWhenDeleted(password);
             }
@@ -86,7 +86,7 @@ namespace Domain
             AddUserToPasswordUsersSharedWith(sharee.Name, sharedPassword);
 
             Password sharedClone = (Password)sharedPassword.Clone();
-            sharedClone.Category = User.SHARED_WITH_ME_CATEGORY;
+            sharedClone.Category = UserCategory.SHARED_WITH_ME_CATEGORY;
 
             sharee.UserPasswords.AddPassword(sharedClone);
         }
@@ -96,7 +96,7 @@ namespace Domain
             RemoveUserFromPasswordUsersSharedWith(sharee.Name, sharedPassword);
 
             Password sharedPasswordSharedClone = (Password)sharedPassword.Clone();
-            sharedPasswordSharedClone.Category = User.SHARED_WITH_ME_CATEGORY;
+            sharedPasswordSharedClone.Category = UserCategory.SHARED_WITH_ME_CATEGORY;
 
             sharee.UserPasswords.RemovePassword(sharedPasswordSharedClone);
         }
@@ -132,7 +132,7 @@ namespace Domain
             List<Password> sharedPasswords = new List<Password>();
             foreach(Password currentPassword in Passwords)
             {
-                if (currentPassword.UsersSharedWith.Count() > 0 && currentPassword.Category != User.SHARED_WITH_ME_CATEGORY)
+                if (currentPassword.UsersSharedWith.Count() > 0 && currentPassword.Category != UserCategory.SHARED_WITH_ME_CATEGORY)
                 {
                     sharedPasswords.Add(currentPassword);
                 }
