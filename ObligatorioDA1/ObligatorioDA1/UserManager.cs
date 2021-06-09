@@ -9,6 +9,15 @@ namespace Domain
 {
     public class UserManager
     {
+        private static UserManager _instance;
+        public static UserManager Instance 
+        { 
+            get 
+            {
+                return _instance;
+            } 
+        }
+
         public User LoggedUser { get; set; }
         public List<User> Users { get; set; }
 
@@ -16,6 +25,7 @@ namespace Domain
 
         public UserManager(IDataAccess<User> dataAccess)
         {
+            _instance = this;
             UserDataAccess = dataAccess;
             Users = UserDataAccess.GetAll().ToList();
         }
