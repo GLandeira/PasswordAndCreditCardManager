@@ -50,7 +50,7 @@ namespace UserInterface
 
         private void TryToModifyPassword(string password)
         {
-            User newUser = new User(_currentUser.Name, password, _userManager);
+            User newUser = new User(_currentUser.UserID, _currentUser.Name, password, _userManager);
 
             try
             {

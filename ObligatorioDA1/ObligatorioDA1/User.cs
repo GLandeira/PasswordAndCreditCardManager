@@ -32,8 +32,9 @@ namespace Domain
             Categories.Add(SHARED_WITH_ME_CATEGORY);
         }
 
-        public User(string name, string mainPassword, UserManager userManager)
+        public User(int userId, string name, string mainPassword, UserManager userManager)
         {
+            UserID = userId;
             Categories = new List<Category>();
             UserPasswords = new UserPassword(userManager);
             UserCreditCards = new UserCreditCard();
