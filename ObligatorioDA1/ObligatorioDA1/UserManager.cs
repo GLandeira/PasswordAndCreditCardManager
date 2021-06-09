@@ -25,7 +25,8 @@ namespace Domain
 
         public UserManager(IDataAccess<User> dataAccess)
         {
-            _instance = this;
+            CheckSingleInstanceOfSingleton();
+
             UserDataAccess = dataAccess;
             Users = UserDataAccess.GetAll().ToList();
         }
@@ -86,6 +87,18 @@ namespace Domain
             catch (UserNotPresentException e)
             {
                 return false;
+            }
+        }
+
+        private void CheckSingleInstanceOfSingleton()
+        {
+            if (_instance == null)
+            {
+                _instance = this;
+            }
+            else
+            {
+                throw new SingletonUniqueConditionException();
             }
         }
     }
