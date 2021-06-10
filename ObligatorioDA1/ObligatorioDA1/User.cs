@@ -9,7 +9,22 @@ namespace Domain
 {
     public class User
     {
-        public int UserID { get; set; }
+        private int _userID;
+        public int UserID 
+        {
+            get
+            {
+                return _userID;
+            }
+            set
+            {
+                UserPasswords.UserPasswordID = value;
+                UserCategories.UserCategoryID = value;
+                UserCreditCards.UserCreditCardID = value;
+                UserDataBreaches.UserDataBreachesID = value;
+                _userID = value;
+            }
+        }
         public string Name { get; set; }
         public string MainPassword { get; set; }
         public UserPassword UserPasswords { get; set; }
@@ -38,11 +53,11 @@ namespace Domain
 
         public User(int userId, string name, string mainPassword)
         {
-            UserID = userId;
             UserPasswords = new UserPassword();
             UserCreditCards = new UserCreditCard();
             UserDataBreaches = new UserDataBreaches(this);
             UserCategories = new UserCategory();
+            UserID = userId;
             Name = name;
             MainPassword = mainPassword;
         }
