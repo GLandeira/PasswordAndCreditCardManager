@@ -33,5 +33,14 @@ namespace RepositoryTests
 
             Assert.AreEqual(1, _categoryDataAccess.GetAll().ToList().Count);
         }
+
+        [TestMethod]
+        public void AddTwoCategoriesTest()
+        {
+            _categoryDataAccess.Add(_testCategory1);
+            _categoryDataAccess.Add(_testCategory2);
+
+            Assert.AreEqual(2, _categoryDataAccess.GetAll().ToList().Count);
+        }
     }
 }
