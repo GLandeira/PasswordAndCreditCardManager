@@ -48,7 +48,16 @@ namespace RepositoryTests
         {
             int id = _categoryDataAccess.Add(_testCategory1);
 
-            Assert.AreEqual(_testCategory1, _categoryDataAccess.Get(id));
+            Assert.AreEqual(_testCategory1.CategoryID, _categoryDataAccess.Get(id).CategoryID);
+        }
+
+        [TestMethod]
+        public void GetCategoriesNotEqualTest()
+        {
+            int id1 = _categoryDataAccess.Add(_testCategory1);
+            int id2 = _categoryDataAccess.Add(_testCategory2);
+
+            Assert.AreNotEqual(id1, _categoryDataAccess.Get(id2).CategoryID);
         }
     }
 }
