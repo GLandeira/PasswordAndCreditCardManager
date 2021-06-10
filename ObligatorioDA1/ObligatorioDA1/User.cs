@@ -12,10 +12,10 @@ namespace Domain
         public int UserID { get; set; }
         public string Name { get; set; }
         public string MainPassword { get; set; }
-        public UserPassword UserPasswords { get; private set; }
-        public UserCreditCard UserCreditCards { get; private set; }
-        public UserDataBreaches UserDataBreaches { get; private set; }
-        public UserCategory UserCategories { get; private set; }
+        public UserPassword UserPasswords { get; set; }
+        public UserCreditCard UserCreditCards { get; set; }
+        public UserDataBreaches UserDataBreaches { get; set; }
+        public UserCategory UserCategories { get; set; }
 
 
         public User()
