@@ -10,6 +10,7 @@ namespace Domain
 {
     public class UserPassword
     {
+        public User User { get; set; }
         public int UserPasswordID { get; set; }
         public List<Password> Passwords { get; private set; }
 

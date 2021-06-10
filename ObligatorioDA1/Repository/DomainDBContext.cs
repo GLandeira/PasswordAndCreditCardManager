@@ -30,19 +30,19 @@ namespace Repository
             modelBuilder.Entity<User>().HasKey(u => u.UserID);
             modelBuilder.Entity<User>()
                 .HasRequired(u => u.UserCreditCards)
-                .WithRequiredPrincipal();
+                .WithMany();
 
             modelBuilder.Entity<User>()
                 .HasRequired(u => u.UserPasswords)
-                .WithRequiredPrincipal();
+                .WithMany();
 
             modelBuilder.Entity<User>()
                 .HasRequired(u => u.UserDataBreaches)
-                .WithRequiredPrincipal();
+                .WithMany();
 
             modelBuilder.Entity<User>()
                 .HasRequired(u => u.UserCategories)
-                .WithRequiredPrincipal();
+                .WithMany();
         }
     }
 }

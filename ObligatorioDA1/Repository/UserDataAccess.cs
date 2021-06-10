@@ -43,9 +43,7 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-
-
-                IEnumerable<User>  allUsers = context.Users.ToList();
+                IEnumerable<User> allUsers = context.Users.Include(u => u.UserCreditCards).Include(u => u.UserPasswords).Include(u => u.UserCategories).Include(u => u.UserDataBreaches).ToList();
                 //Include(u => u.UserCreditCards).Include(u => u.UserPasswords).Include(u => u.UserCategories).Include(u => u.UserDataBreaches).
                 return allUsers;
             }
@@ -59,7 +57,6 @@ namespace Repository
                 //context.UserPasswords.Attach(entity.UserPasswords);
                 //context.UserDataBreaches.Attach(entity.UserDataBreaches);
                 //context.UserCategories.Attach(entity.UserCategories);
-                context.Users.Attach(entity);
                 // Ver si esta bien
                 var valueInDB = context.Users.FirstOrDefault(user => user.UserID == entity.UserID);
                 valueInDB.Name = entity.Name;

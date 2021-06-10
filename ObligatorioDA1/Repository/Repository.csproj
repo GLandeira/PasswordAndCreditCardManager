@@ -56,33 +56,9 @@
     <Compile Include="CreditCardDataAccess.cs" />
     <Compile Include="CreditCardTypeConfiguration.cs" />
     <Compile Include="DomainDBContext.cs" />
-    <Compile Include="Migrations\202106031814074_testMigration.cs" />
-    <Compile Include="Migrations\202106031814074_testMigration.designer.cs">
-      <DependentUpon>202106031814074_testMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202106032016301_TestCategoriesAdded.cs" />
-    <Compile Include="Migrations\202106032016301_TestCategoriesAdded.designer.cs">
-      <DependentUpon>202106032016301_TestCategoriesAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202106032024121_FixTestCategoriesAdded.cs" />
-    <Compile Include="Migrations\202106032024121_FixTestCategoriesAdded.designer.cs">
-      <DependentUpon>202106032024121_FixTestCategoriesAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202106082053036_TestAddUser.cs" />
-    <Compile Include="Migrations\202106082053036_TestAddUser.designer.cs">
-      <DependentUpon>202106082053036_TestAddUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202106082211451_prueba.cs" />
-    <Compile Include="Migrations\202106082211451_prueba.designer.cs">
-      <DependentUpon>202106082211451_prueba.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202106082218249_TestAddUserWithUserDataBreaches.cs" />
-    <Compile Include="Migrations\202106082218249_TestAddUserWithUserDataBreaches.designer.cs">
-      <DependentUpon>202106082218249_TestAddUserWithUserDataBreaches.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202106091822085_AddUserCategory.cs" />
-    <Compile Include="Migrations\202106091822085_AddUserCategory.designer.cs">
-      <DependentUpon>202106091822085_AddUserCategory.cs</DependentUpon>
+    <Compile Include="Migrations\202106100121138_Initial.cs" />
+    <Compile Include="Migrations\202106100121138_Initial.designer.cs">
+      <DependentUpon>202106100121138_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,28 +75,9 @@
       <Name>Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202106031814074_testMigration.resx">
-      <DependentUpon>202106031814074_testMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202106032016301_TestCategoriesAdded.resx">
-      <DependentUpon>202106032016301_TestCategoriesAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202106032024121_FixTestCategoriesAdded.resx">
-      <DependentUpon>202106032024121_FixTestCategoriesAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202106082053036_TestAddUser.resx">
-      <DependentUpon>202106082053036_TestAddUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202106082211451_prueba.resx">
-      <DependentUpon>202106082211451_prueba.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202106082218249_TestAddUserWithUserDataBreaches.resx">
-      <DependentUpon>202106082218249_TestAddUserWithUserDataBreaches.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202106091822085_AddUserCategory.resx">
-      <DependentUpon>202106091822085_AddUserCategory.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202106100121138_Initial.resx">
+      <DependentUpon>202106100121138_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

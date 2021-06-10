@@ -16,7 +16,16 @@ namespace UserInterface
         [STAThread]
         static void Main()
         {
+            //UserDataAccess uda = new UserDataAccess();
+
+            //User a = uda.Get(1);
+
             new UserManager(new UserDataAccess());
+
+            //User b = UserManager.Instance.GetUser("Sleepz");
+            //User c = new User();
+
+            //return;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());
