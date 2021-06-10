@@ -24,11 +24,6 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                entity.UserCategories.UserCategoryID = entity.UserID;
-                entity.UserCreditCards.UserCreditCardID = entity.UserID;
-                entity.UserDataBreaches.UserDataBreachesID = entity.UserID;
-                entity.UserPasswords.UserPasswordID = entity.UserID;
-
                 context.Entry(entity).State = EntityState.Deleted;
 
                 //var valueInDB = context.Users.FirstOrDefault(user => user.UserID == entity.UserID);
@@ -62,11 +57,6 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                entity.UserCategories.UserCategoryID = entity.UserID;
-                entity.UserCreditCards.UserCreditCardID = entity.UserID;
-                entity.UserDataBreaches.UserDataBreachesID = entity.UserID;
-                entity.UserPasswords.UserPasswordID = entity.UserID;
-
                 context.Entry(entity).State = EntityState.Modified;
                 var valueInDB = context.Users.FirstOrDefault(user => user.UserID == entity.UserID);
                 valueInDB.Name = entity.Name;
