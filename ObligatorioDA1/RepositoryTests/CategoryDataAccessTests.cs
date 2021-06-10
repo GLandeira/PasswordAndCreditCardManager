@@ -59,5 +59,15 @@ namespace RepositoryTests
 
             Assert.AreNotEqual(id1, _categoryDataAccess.Get(id2).CategoryID);
         }
+
+        [TestMethod]
+        public void DeleteCategoryTest()
+        {
+            int id = _categoryDataAccess.Add(_testCategory1);
+
+            _categoryDataAccess.Delete(_testCategory1);
+
+            Assert.IsFalse(_categoryDataAccess.GetAll().Any(c => c.CategoryID == id));
+        }
     }
 }
