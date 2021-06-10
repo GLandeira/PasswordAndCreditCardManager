@@ -11,6 +11,7 @@ namespace RepositoryTests
     {
         private UserDataAccess _userDataAccess;
         private User _userTest1;
+        private User _userTest2;
 
         [TestInitialize]
         public void TestInitialize()
@@ -23,6 +24,11 @@ namespace RepositoryTests
                 Name = "Juan",
                 MainPassword = "123456"
             };
+            _userTest2 = new User
+            {
+                Name = "Ignacio",
+                MainPassword = "papasF"
+            };
         }
 
         [TestMethod]
@@ -30,8 +36,16 @@ namespace RepositoryTests
         {
             _userDataAccess.Add(_userTest1);
 
-
             Assert.AreEqual(_userDataAccess.GetAll().ToList().Count, 1);
+        }
+
+        [TestMethod]
+        public void AddTwoUsersToTheDataBase()
+        {
+            _userDataAccess.Add(_userTest1);
+            _userDataAccess.Add(_userTest2);
+
+            Assert.AreEqual(_userDataAccess.GetAll().ToList().Count, 2);
         }
     }
 }
