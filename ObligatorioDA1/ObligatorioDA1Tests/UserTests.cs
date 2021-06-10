@@ -12,20 +12,20 @@ namespace DomainTests
         [TestInitialize]
         public void TestInitialize()
         {
-            _userManager = new UserManager();
-            _testUser = new User(_userManager);
+            _userManager = UserManager.Instance;
+            _testUser = new User();
         }
 
         [TestMethod]
         public void TestAddingOneCategoryMaintainsLength()
         {
-            int originalLength = _testUser.Categories.Count;
+            int originalLength = _testUser.UserCategories.Categories.Count;
             string nameToTest = "School";
             Category aCategory = new Category(nameToTest);
             
-            _testUser.AddCategory(aCategory);
+            _testUser.UserCategories.AddCategory(aCategory);
 
-            Assert.AreEqual(originalLength + 1, _testUser.Categories.Count);
+            Assert.AreEqual(originalLength + 1, _testUser.UserCategories.Categories.Count);
         }
 
         [TestMethod]
@@ -34,9 +34,9 @@ namespace DomainTests
             string nameToTest = "Work";
             Category aCategory = new Category(nameToTest);
 
-            _testUser.AddCategory(aCategory);
+            _testUser.UserCategories.AddCategory(aCategory);
 
-            Assert.AreNotEqual(null, _testUser.GetACategory(nameToTest));
+            Assert.AreNotEqual(null, _testUser.UserCategories.GetACategory(nameToTest));
         }
 
         [TestMethod]
@@ -45,9 +45,9 @@ namespace DomainTests
             string nameToTest = "Work";
             Category aCategory = new Category(nameToTest);
 
-            _testUser.AddCategory(aCategory);
+            _testUser.UserCategories.AddCategory(aCategory);
 
-            Assert.AreEqual(nameToTest, _testUser.GetACategory(nameToTest).Name);
+            Assert.AreEqual(nameToTest, _testUser.UserCategories.GetACategory(nameToTest).Name);
         }
 
         [TestMethod]
@@ -57,9 +57,9 @@ namespace DomainTests
             string nameToTest2 = "Work";
             Category aCategory = new Category(nameToTest2);
 
-            _testUser.AddCategory(aCategory);
+            _testUser.UserCategories.AddCategory(aCategory);
 
-            Assert.ThrowsException<CategoryNotFoundException>(() => _testUser.GetACategory(nameToTest1));
+            Assert.ThrowsException<CategoryNotFoundException>(() => _testUser.UserCategories.GetACategory(nameToTest1));
         }
 
         [TestMethod]
@@ -68,9 +68,9 @@ namespace DomainTests
             string nameToTest = "Work";
             Category aCategory = new Category(nameToTest);
 
-            _testUser.Categories = null;
+            _testUser.UserCategories.Categories = null;
 
-            Assert.ThrowsException<CategoryNotFoundException>(() => _testUser.GetACategory(nameToTest));
+            Assert.ThrowsException<CategoryNotFoundException>(() => _testUser.UserCategories.GetACategory(nameToTest));
         }
 
         [TestMethod]
@@ -80,12 +80,12 @@ namespace DomainTests
             string testName = "Modifiable";
             Category categoryToModify = new Category(testName);
 
-            _testUser.AddCategory(categoryToModify);
+            _testUser.UserCategories.AddCategory(categoryToModify);
 
             Category newCategory = new Category("University");
-            _testUser.ModifyCategory(categoryToModify, newCategory);
+            _testUser.UserCategories.ModifyCategory(categoryToModify, newCategory);
 
-            Assert.AreEqual(newCategory, _testUser.GetACategory(newCategory.Name));
+            Assert.AreEqual(newCategory, _testUser.UserCategories.GetACategory(newCategory.Name));
         }
 
         [TestMethod]
@@ -95,19 +95,19 @@ namespace DomainTests
             Category categoryToModify = new Category(testName);
             Category newCategory = new Category("University");
 
-            Assert.ThrowsException<CategoryNotFoundException>(() =>_testUser.ModifyCategory(categoryToModify, newCategory));
+            Assert.ThrowsException<CategoryNotFoundException>(() =>_testUser.UserCategories.ModifyCategory(categoryToModify, newCategory));
         }
 
         [TestMethod]
         public void TestModifyCategoryOnEmptyListThrowsException()
         {
-            _testUser.Categories = null;
+            _testUser.UserCategories.Categories = null;
             
             string testName = "Modifiable";
             Category categoryToModify = new Category(testName);
             Category newCategory = new Category("University");
 
-            Assert.ThrowsException<CategoryNotFoundException>(() => _testUser.ModifyCategory(categoryToModify, newCategory));
+            Assert.ThrowsException<CategoryNotFoundException>(() => _testUser.UserCategories.ModifyCategory(categoryToModify, newCategory));
         }
 
         [TestMethod]
@@ -116,10 +116,10 @@ namespace DomainTests
             string testName = "Modifiable";
             Category categoryToModify = new Category(testName);
 
-            _testUser.AddCategory(categoryToModify);
+            _testUser.UserCategories.AddCategory(categoryToModify);
             Category newCategory = new Category("Un");
 
-            Assert.ThrowsException<NameCategoryException>(() => _testUser.ModifyCategory(categoryToModify, newCategory));
+            Assert.ThrowsException<NameCategoryException>(() => _testUser.UserCategories.ModifyCategory(categoryToModify, newCategory));
         }
 
         [TestMethod]
@@ -128,18 +128,18 @@ namespace DomainTests
             string testName = "Modifiable";
             Category categoryToModify = new Category(testName);
 
-            _testUser.AddCategory(categoryToModify);
+            _testUser.UserCategories.AddCategory(categoryToModify);
             Category newCategory = new Category("University and others");
 
-            Assert.ThrowsException<NameCategoryException>(() => _testUser.ModifyCategory(categoryToModify, newCategory));
+            Assert.ThrowsException<NameCategoryException>(() => _testUser.UserCategories.ModifyCategory(categoryToModify, newCategory));
         }
 
         [TestMethod]
         public void TestGoodEqualsCase()
         {
             string name = "Pablo";
-            User userOne = new User(name, "pass1", _userManager);
-            User userTwo = new User(name, "pass2", _userManager);
+            User userOne = new User(name, "pass1");
+            User userTwo = new User(name, "pass2");
 
             Assert.AreEqual(userOne, userTwo);
         }
@@ -149,8 +149,8 @@ namespace DomainTests
         {
             string name1 = "Johnny";
             string name2 = "Alice";
-            User userOne = new User(name1, "pass1", _userManager);
-            User userTwo = new User(name2, "pass2", _userManager);
+            User userOne = new User(name1, "pass1");
+            User userTwo = new User(name2, "pass2");
 
             Assert.AreNotEqual(userOne, userTwo);
         }
@@ -163,9 +163,9 @@ namespace DomainTests
             Category category1 = new Category(categoryString1);
             Category category2 = new Category(categoryString2);
 
-            _testUser.AddCategory(category1);
+            _testUser.UserCategories.AddCategory(category1);
 
-            Assert.ThrowsException<CategoryAlreadyExistsException>(() => _testUser.AddCategory(category2));
+            Assert.ThrowsException<CategoryAlreadyExistsException>(() => _testUser.UserCategories.AddCategory(category2));
         }
 
         [TestMethod]
@@ -176,9 +176,9 @@ namespace DomainTests
             Category category1 = new Category(categoryString1);
             Category category2 = new Category(categoryString2);
 
-            _testUser.AddCategory(category1);
+            _testUser.UserCategories.AddCategory(category1);
 
-            Assert.ThrowsException<CategoryAlreadyExistsException>(() => _testUser.AddCategory(category2));
+            Assert.ThrowsException<CategoryAlreadyExistsException>(() => _testUser.UserCategories.AddCategory(category2));
         }
     }
 }

@@ -36,8 +36,8 @@ namespace DomainTests
         [TestInitialize]
         public void TestInitialize()
         {
-            _userManager = new UserManager();
-            _testUser = new User(_userManager);
+            _userManager = UserManager.Instance;
+            _testUser = new User();
             _userDataBreaches = new UserDataBreaches(_testUser);
 
             _breach1 = "1111 1111 1111 1111";
