@@ -23,6 +23,12 @@ namespace Domain
 
         public IDataAccess<User> UserDataAccess { get; private set; }
 
+        public UserManager()
+        {
+            CheckSingleInstanceOfSingleton();
+            Users = new List<User>();
+        }
+
         public UserManager(IDataAccess<User> dataAccess)
         {
             CheckSingleInstanceOfSingleton();
@@ -39,10 +45,13 @@ namespace Domain
             {
                 throw new UserAlreadyExistsException();
             }
+            if (UserDataAccess != null)
+            {
+                int dbID = UserDataAccess.Add(newUser);
 
-            int dbID = UserDataAccess.Add(newUser);
-
-            newUser.UserID = dbID;
+                newUser.UserID = dbID;
+            }
+            
             Users.Add(newUser);
         }
 
@@ -66,8 +75,11 @@ namespace Domain
             }
 
             Users.First(us => us.Name == userWithNewPassword.Name).MainPassword = userWithNewPassword.MainPassword;
-
-            UserDataAccess.Modify(userWithNewPassword);
+            if (UserDataAccess != null)
+            {
+                UserDataAccess.Modify(userWithNewPassword);
+            }
+                
         }
 
         public bool LogIn(string userNameToLogInWith, string userPasswordToLogInWith)

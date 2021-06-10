@@ -29,9 +29,9 @@ namespace DomainTests
         [TestInitialize]
         public void TestInitialize()
         {
-            _userManager = new UserManager();
-            _userPasswordTest = new UserPassword(_userManager);
-            _userSharedTo = new User(_userManager)
+            _userManager = UserManager.Instance;
+            _userPasswordTest = new UserPassword();
+            _userSharedTo = new User()
             {
                 Name = "userPrueba",
                 MainPassword = "contraseñaPrueba"
