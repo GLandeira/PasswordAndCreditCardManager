@@ -80,5 +80,16 @@ namespace RepositoryTests
 
             Assert.IsTrue(_categoryDataAccess.GetAll().Any(c => c.CategoryID == id));
         }
+        [TestMethod]
+        public void ModifyCategoryTest()
+        {
+            int id = _categoryDataAccess.Add(_testCategory1);
+
+            string nombreNuevo = "Trabajo";
+            _testCategory1.Name = nombreNuevo;
+            _categoryDataAccess.Modify(_testCategory1);
+
+            Assert.AreEqual(nombreNuevo, _categoryDataAccess.Get(id).Name);
+        }
     }
 }
