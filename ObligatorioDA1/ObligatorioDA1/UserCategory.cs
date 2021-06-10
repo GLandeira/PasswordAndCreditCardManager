@@ -60,7 +60,7 @@ namespace Domain
                 Category a = Categories.First(cat => cat.Equals(categoryToModify));
                 Categories.Remove(a);
                 Categories.Add(newCategory);
-
+                RepositoryFacade.Instance.UserCategoryDataAccess.Modify(this);
             }
             catch (InvalidOperationException isEmptyOrNotPresent)
             {

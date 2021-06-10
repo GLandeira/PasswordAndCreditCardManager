@@ -51,9 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategoryDataAccess.cs" />
     <Compile Include="CategoryTypeConfiguration.cs" />
-    <Compile Include="CreditCardDataAccess.cs" />
     <Compile Include="CreditCardTypeConfiguration.cs" />
     <Compile Include="DomainDBContext.cs" />
     <Compile Include="Migrations\202106101911295_Initial.cs" />

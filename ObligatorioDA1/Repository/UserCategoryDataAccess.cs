@@ -31,7 +31,11 @@ namespace Repository
 
         public IEnumerable<UserCategory> GetAll()
         {
-            throw new NotImplementedException();
+            using (DomainDBContext context = new DomainDBContext())
+            {
+                IEnumerable<UserCategory> allUserCategories = context.UserCategories.Include(uc => uc.Categories).ToList();
+                return allUserCategories;
+            }
         }
 
         public void Modify(UserCategory entity)
