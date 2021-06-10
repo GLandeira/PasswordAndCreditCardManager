@@ -16,16 +16,13 @@ namespace UserInterface
         [STAThread]
         static void Main()
         {
-            //UserDataAccess uda = new UserDataAccess();
+            DataAccessDTO dataAccessInterfaces = new DataAccessDTO();
+            dataAccessInterfaces.UserCategoryDataAccess = new UserCategoryDataAccess();
+            dataAccessInterfaces.UserDataAccess = new UserDataAccess();
+            new RepositoryFacade(dataAccessInterfaces);
 
-            //User a = uda.Get(1);
+            new UserManager();
 
-            new UserManager(new UserDataAccess());
-
-            //User b = UserManager.Instance.GetUser("Sleepz");
-            //User c = new User();
-
-            //return;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());

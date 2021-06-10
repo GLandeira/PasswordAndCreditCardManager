@@ -16,8 +16,8 @@ namespace Domain
 
         public UserCategory()
         {
-            Categories = new List<Category>();
-            Categories.Add(SHARED_WITH_ME_CATEGORY);
+            //Categories = new List<Category>();
+            //Categories.Add(SHARED_WITH_ME_CATEGORY);
         }
 
         public void AddCategory(Category aCategory)
@@ -30,6 +30,7 @@ namespace Domain
             }
 
             Categories.Add(aCategory);
+            RepositoryFacade.Instance.UserCategoryDataAccess.Modify(this);
         }
 
         public Category GetACategory(string category)
