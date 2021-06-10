@@ -64,101 +64,71 @@
                 c => new
                     {
                         UserCategoryID = c.Int(nullable: false, identity: true),
-                        User_UserID = c.Int(),
                     })
-                .PrimaryKey(t => t.UserCategoryID)
-                .ForeignKey("dbo.Users", t => t.User_UserID)
-                .Index(t => t.User_UserID);
-            
-            CreateTable(
-                "dbo.Users",
-                c => new
-                    {
-                        UserID = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        MainPassword = c.String(),
-                        UserCategories_UserCategoryID = c.Int(nullable: false),
-                        UserCreditCards_UserCreditCardID = c.Int(nullable: false),
-                        UserDataBreaches_UserDataBreachesID = c.Int(nullable: false),
-                        UserPasswords_UserPasswordID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.UserID)
-                .ForeignKey("dbo.UserCategories", t => t.UserCategories_UserCategoryID, cascadeDelete: true)
-                .ForeignKey("dbo.UserCreditCards", t => t.UserCreditCards_UserCreditCardID, cascadeDelete: true)
-                .ForeignKey("dbo.UserDataBreaches", t => t.UserDataBreaches_UserDataBreachesID, cascadeDelete: true)
-                .ForeignKey("dbo.UserPasswords", t => t.UserPasswords_UserPasswordID, cascadeDelete: true)
-                .Index(t => t.UserCategories_UserCategoryID)
-                .Index(t => t.UserCreditCards_UserCreditCardID)
-                .Index(t => t.UserDataBreaches_UserDataBreachesID)
-                .Index(t => t.UserPasswords_UserPasswordID);
+                .PrimaryKey(t => t.UserCategoryID);
             
             CreateTable(
                 "dbo.UserCreditCards",
                 c => new
                     {
                         UserCreditCardID = c.Int(nullable: false, identity: true),
-                        User_UserID = c.Int(),
                     })
-                .PrimaryKey(t => t.UserCreditCardID)
-                .ForeignKey("dbo.Users", t => t.User_UserID)
-                .Index(t => t.User_UserID);
+                .PrimaryKey(t => t.UserCreditCardID);
             
             CreateTable(
                 "dbo.UserDataBreaches",
                 c => new
                     {
                         UserDataBreachesID = c.Int(nullable: false, identity: true),
-                        User_UserID = c.Int(),
                     })
-                .PrimaryKey(t => t.UserDataBreachesID)
-                .ForeignKey("dbo.Users", t => t.User_UserID)
-                .Index(t => t.User_UserID);
+                .PrimaryKey(t => t.UserDataBreachesID);
             
             CreateTable(
                 "dbo.UserPasswords",
                 c => new
                     {
                         UserPasswordID = c.Int(nullable: false, identity: true),
-                        User_UserID = c.Int(),
                     })
-                .PrimaryKey(t => t.UserPasswordID)
-                .ForeignKey("dbo.Users", t => t.User_UserID)
-                .Index(t => t.User_UserID);
+                .PrimaryKey(t => t.UserPasswordID);
+            
+            CreateTable(
+                "dbo.Users",
+                c => new
+                    {
+                        UserID = c.Int(nullable: false),
+                        Name = c.String(),
+                        MainPassword = c.String(),
+                    })
+                .PrimaryKey(t => t.UserID)
+                .ForeignKey("dbo.UserCategories", t => t.UserID, cascadeDelete: true)
+                .ForeignKey("dbo.UserCreditCards", t => t.UserID, cascadeDelete: true)
+                .ForeignKey("dbo.UserDataBreaches", t => t.UserID, cascadeDelete: true)
+                .ForeignKey("dbo.UserPasswords", t => t.UserID, cascadeDelete: true)
+                .Index(t => t.UserID);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.UserCategories", "User_UserID", "dbo.Users");
-            DropForeignKey("dbo.Users", "UserPasswords_UserPasswordID", "dbo.UserPasswords");
-            DropForeignKey("dbo.UserPasswords", "User_UserID", "dbo.Users");
+            DropForeignKey("dbo.Users", "UserID", "dbo.UserPasswords");
+            DropForeignKey("dbo.Users", "UserID", "dbo.UserDataBreaches");
+            DropForeignKey("dbo.Users", "UserID", "dbo.UserCreditCards");
+            DropForeignKey("dbo.Users", "UserID", "dbo.UserCategories");
             DropForeignKey("dbo.Passwords", "UserPassword_UserPasswordID", "dbo.UserPasswords");
-            DropForeignKey("dbo.Users", "UserDataBreaches_UserDataBreachesID", "dbo.UserDataBreaches");
-            DropForeignKey("dbo.UserDataBreaches", "User_UserID", "dbo.Users");
-            DropForeignKey("dbo.Users", "UserCreditCards_UserCreditCardID", "dbo.UserCreditCards");
-            DropForeignKey("dbo.UserCreditCards", "User_UserID", "dbo.Users");
             DropForeignKey("dbo.CreditCards", "UserCreditCard_UserCreditCardID", "dbo.UserCreditCards");
-            DropForeignKey("dbo.Users", "UserCategories_UserCategoryID", "dbo.UserCategories");
             DropForeignKey("dbo.Categories", "UserCategory_UserCategoryID", "dbo.UserCategories");
             DropForeignKey("dbo.Passwords", "Category_CategoryID", "dbo.Categories");
             DropForeignKey("dbo.CreditCards", "Category_CategoryID", "dbo.Categories");
-            DropIndex("dbo.UserPasswords", new[] { "User_UserID" });
-            DropIndex("dbo.UserDataBreaches", new[] { "User_UserID" });
-            DropIndex("dbo.UserCreditCards", new[] { "User_UserID" });
-            DropIndex("dbo.Users", new[] { "UserPasswords_UserPasswordID" });
-            DropIndex("dbo.Users", new[] { "UserDataBreaches_UserDataBreachesID" });
-            DropIndex("dbo.Users", new[] { "UserCreditCards_UserCreditCardID" });
-            DropIndex("dbo.Users", new[] { "UserCategories_UserCategoryID" });
-            DropIndex("dbo.UserCategories", new[] { "User_UserID" });
+            DropIndex("dbo.Users", new[] { "UserID" });
             DropIndex("dbo.Passwords", new[] { "UserPassword_UserPasswordID" });
             DropIndex("dbo.Passwords", new[] { "Category_CategoryID" });
             DropIndex("dbo.CreditCards", new[] { "UserCreditCard_UserCreditCardID" });
             DropIndex("dbo.CreditCards", new[] { "Category_CategoryID" });
             DropIndex("dbo.Categories", new[] { "UserCategory_UserCategoryID" });
+            DropTable("dbo.Users");
             DropTable("dbo.UserPasswords");
             DropTable("dbo.UserDataBreaches");
             DropTable("dbo.UserCreditCards");
-            DropTable("dbo.Users");
             DropTable("dbo.UserCategories");
             DropTable("dbo.Passwords");
             DropTable("dbo.CreditCards");

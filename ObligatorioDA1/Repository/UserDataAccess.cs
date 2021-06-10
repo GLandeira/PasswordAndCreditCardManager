@@ -14,7 +14,6 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-
                 User addedUser = context.Users.Add(entity);
                 context.SaveChanges();
                 return addedUser.UserID;
@@ -25,7 +24,16 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                context.Users.Remove(entity);
+                entity.UserCategories.UserCategoryID = entity.UserID;
+                entity.UserCreditCards.UserCreditCardID = entity.UserID;
+                entity.UserDataBreaches.UserDataBreachesID = entity.UserID;
+                entity.UserPasswords.UserPasswordID = entity.UserID;
+
+                context.Entry(entity).State = EntityState.Deleted;
+
+                //var valueInDB = context.Users.FirstOrDefault(user => user.UserID == entity.UserID);
+                //context.Users.Remove(valueInDB);
+
                 context.SaveChanges();
             }
         }
@@ -43,7 +51,8 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                IEnumerable<User> allUsers = context.Users.Include(u => u.UserCreditCards).Include(u => u.UserPasswords).Include(u => u.UserCategories).Include(u => u.UserDataBreaches).ToList();
+
+                IEnumerable<User> allUsers = context.Users.ToList();
 
                 return allUsers;
             }
@@ -53,30 +62,25 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                //context.UserCreditCards.Attach(entity.UserCreditCards);
-                //context.UserPasswords.Attach(entity.UserPasswords);
-                //context.UserDataBreaches.Attach(entity.UserDataBreaches);
-                //context.UserCategories.Attach(entity.UserCategories);
+                entity.UserCategories.UserCategoryID = entity.UserID;
+                entity.UserCreditCards.UserCreditCardID = entity.UserID;
+                entity.UserDataBreaches.UserDataBreachesID = entity.UserID;
+                entity.UserPasswords.UserPasswordID = entity.UserID;
 
                 context.Entry(entity).State = EntityState.Modified;
-                // Ver si esta bien
                 var valueInDB = context.Users.FirstOrDefault(user => user.UserID == entity.UserID);
                 valueInDB.Name = entity.Name;
                 valueInDB.MainPassword = entity.MainPassword;
 
-
-
-                //context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
             }
         }
 
         public void Clear()
         {
-            using (DomainDBContext context = new DomainDBContext())
+            foreach (var record in GetAll())
             {
-                context.Users.RemoveRange(context.Users);
-                context.SaveChanges();
+                Delete(record);
             }
         }
     }
