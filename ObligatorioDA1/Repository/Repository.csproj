@@ -60,6 +60,10 @@
     <Compile Include="Migrations\202106100121138_Initial.designer.cs">
       <DependentUpon>202106100121138_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106101258460_RemoveUserFromUserRelationships.cs" />
+    <Compile Include="Migrations\202106101258460_RemoveUserFromUserRelationships.designer.cs">
+      <DependentUpon>202106101258460_RemoveUserFromUserRelationships.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDataAccess.cs" />
@@ -78,6 +82,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202106100121138_Initial.resx">
       <DependentUpon>202106100121138_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106101258460_RemoveUserFromUserRelationships.resx">
+      <DependentUpon>202106101258460_RemoveUserFromUserRelationships.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
