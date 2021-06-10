@@ -10,7 +10,7 @@ namespace RepositoryTests
     [TestClass]
     public class CategoryDataAccessTests
     {
-        private IDataAccess<Category> _categoryDataAccess;
+        private CategoryDataAccess _categoryDataAccess;
 
         private Category _testCategory1;
         private Category _testCategory2;
