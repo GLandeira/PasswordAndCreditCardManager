@@ -70,5 +70,14 @@ namespace Repository
                 context.SaveChanges();
             }
         }
+
+        public void Clear()
+        {
+            using (DomainDBContext context = new DomainDBContext())
+            {
+                context.Users.RemoveRange(context.Users);
+                context.SaveChanges();
+            }
+        }
     }
 }

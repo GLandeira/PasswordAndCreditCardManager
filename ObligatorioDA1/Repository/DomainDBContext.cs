@@ -30,19 +30,23 @@ namespace Repository
             modelBuilder.Entity<User>().HasKey(u => u.UserID);
             modelBuilder.Entity<User>()
                 .HasRequired(u => u.UserCreditCards)
-                .WithMany();
+                .WithMany()
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<User>()
                 .HasRequired(u => u.UserPasswords)
-                .WithMany();
+                .WithMany()
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<User>()
                 .HasRequired(u => u.UserDataBreaches)
-                .WithMany();
+                .WithMany()
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<User>()
                 .HasRequired(u => u.UserCategories)
-                .WithMany();
+                .WithMany()
+                .WillCascadeOnDelete(true);
         }
     }
 }
