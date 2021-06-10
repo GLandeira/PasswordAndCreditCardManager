@@ -42,5 +42,13 @@ namespace RepositoryTests
 
             Assert.AreEqual(2, _categoryDataAccess.GetAll().ToList().Count);
         }
+
+        [TestMethod]
+        public void GetCategoriesTest()
+        {
+            int id = _categoryDataAccess.Add(_testCategory1);
+
+            Assert.AreEqual(_testCategory1, _categoryDataAccess.Get(id));
+        }
     }
 }
