@@ -95,5 +95,19 @@ namespace RepositoryTests
 
             Assert.AreEqual(newPassword, _userDataAccess.Get(id1).MainPassword);
         }
+
+        [TestMethod]
+        public void ModifyUserOnDataBaseDoesntModifyMine()
+        {
+            int id1 = _userDataAccess.Add(_userTest1);
+            int id2 = _userDataAccess.Add(_userTest2);
+
+            string newPassword = "myNewPassword";
+            _userTest1.MainPassword = newPassword;
+
+            _userDataAccess.Modify(_userTest1);
+
+            Assert.AreNotEqual(newPassword, _userDataAccess.Get(id2).MainPassword);
+        }
     }
 }
