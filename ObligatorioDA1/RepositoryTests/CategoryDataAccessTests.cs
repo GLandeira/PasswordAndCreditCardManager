@@ -22,27 +22,27 @@ namespace RepositoryTests
             _categoryDataAccess = new CategoryDataAccess();
             _userDataAccess = new UserDataAccess();
 
-            int id = _userDataAccess.Add(new User("Juan", "123456"));
-            _testUser = _userDataAccess.Get(id);
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-            _categoryDataAccess.Clear();
-            _userDataAccess.Clear();
-        }
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            _categoryDataAccess.Clear();
+            _testUser = new User("Juan", "123456");
+            int id = _userDataAccess.Add(_testUser);
+            _testUser.UserID = id;
 
             _testCategory1 = new Category("Escuela");
             _testCategory1.UserCategory = _testUser.UserCategories;
 
             _testCategory2 = new Category("Universidade");
             _testCategory2.UserCategory = _testUser.UserCategories;
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            //_categoryDataAccess.Clear();
+            _userDataAccess.Clear();
+        }
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
         }
 
         [TestMethod]

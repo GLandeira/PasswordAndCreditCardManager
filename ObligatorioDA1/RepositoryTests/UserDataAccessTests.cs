@@ -13,14 +13,19 @@ namespace RepositoryTests
         private User _userTest1;
         private User _userTest2;
 
-        [TestInitialize]
-        public void TestInitialize()
+        public UserDataAccessTests()
         {
             _userDataAccess = new UserDataAccess();
-            _userDataAccess.Clear();
+
 
             _userTest1 = new User("Juan", "123456");
             _userTest2 = new User("Ignacio", "papasF");
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            _userDataAccess.Clear();
         }
 
         [TestMethod]

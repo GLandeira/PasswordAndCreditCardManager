@@ -12,7 +12,23 @@ namespace Repository
     {
         public UserTypeConfiguration()
         {
+            this.HasKey(u => u.UserID);
 
+            this.HasRequired(u => u.UserCreditCards)
+                .WithRequiredPrincipal()
+                .WillCascadeOnDelete(true);
+
+            this.HasRequired(u => u.UserPasswords)
+                .WithRequiredPrincipal()
+                .WillCascadeOnDelete(true);
+
+            this.HasRequired(u => u.UserDataBreaches)
+                .WithRequiredPrincipal()
+                .WillCascadeOnDelete(true);
+
+            this.HasRequired(u => u.UserCategories)
+                .WithRequiredPrincipal()
+                .WillCascadeOnDelete(true);
         }
     }
 }

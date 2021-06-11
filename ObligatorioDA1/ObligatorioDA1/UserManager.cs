@@ -43,7 +43,7 @@ namespace Domain
             {
                 int dbID = _userDataAccess.Add(newUser);
 
-                newUser.UserID = dbID;
+                newUser.InitializeUser(dbID);
             }
             
             Users.Add(newUser);
