@@ -9,6 +9,6 @@ namespace Domain
     public struct DataAccessDTO
     {
         public IDataAccess<User> UserDataAccess;
-        public IDataAccess<UserCategory> UserCategoryDataAccess;
+        public IDataAccess<Category> CategoryDataAccess;
     }
 }

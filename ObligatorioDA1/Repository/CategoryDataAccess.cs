@@ -13,6 +13,7 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
+                context.UserCategories.Attach(entity.UserCategory);
                 Category addedCategory = context.Categories.Add(entity);
                 context.SaveChanges();
 

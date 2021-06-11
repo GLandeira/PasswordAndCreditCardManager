@@ -57,7 +57,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategoryUserDataAccessTests.cs" />
+    <Compile Include="CategoryDataAccessTests.cs" />
     <Compile Include="UserDataAccessTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

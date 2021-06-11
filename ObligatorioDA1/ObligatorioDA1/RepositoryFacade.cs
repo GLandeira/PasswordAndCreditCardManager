@@ -25,10 +25,10 @@ namespace Domain
             }
 
             UserDataAccess = dataAccess.UserDataAccess;
-            UserCategoryDataAccess = dataAccess.UserCategoryDataAccess;
+            CategoryDataAccess = dataAccess.CategoryDataAccess;
         }
 
         public IDataAccess<User> UserDataAccess { get; set; }
-        public IDataAccess<UserCategory> UserCategoryDataAccess { get; set; }
+        public IDataAccess<Category> CategoryDataAccess { get; set; }
     }
 }

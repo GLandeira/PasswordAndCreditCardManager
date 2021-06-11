@@ -29,8 +29,9 @@ namespace Domain
                 throw new CategoryAlreadyExistsException();
             }
 
+            aCategory.UserCategory = this;
             Categories.Add(aCategory);
-            RepositoryFacade.Instance.UserCategoryDataAccess.Modify(this);
+            RepositoryFacade.Instance.CategoryDataAccess.Add(aCategory);
         }
 
         public Category GetACategory(string category)
@@ -60,7 +61,7 @@ namespace Domain
                 Category a = Categories.First(cat => cat.Equals(categoryToModify));
                 Categories.Remove(a);
                 Categories.Add(newCategory);
-                RepositoryFacade.Instance.UserCategoryDataAccess.Modify(this);
+                RepositoryFacade.Instance.CategoryDataAccess.Modify(newCategory);
             }
             catch (InvalidOperationException isEmptyOrNotPresent)
             {

@@ -17,7 +17,7 @@ namespace UserInterface
         static void Main()
         {
             DataAccessDTO dataAccessInterfaces = new DataAccessDTO();
-            dataAccessInterfaces.UserCategoryDataAccess = new UserCategoryDataAccess();
+            dataAccessInterfaces.CategoryDataAccess = new CategoryDataAccess();
             dataAccessInterfaces.UserDataAccess = new UserDataAccess();
             new RepositoryFacade(dataAccessInterfaces);
 
