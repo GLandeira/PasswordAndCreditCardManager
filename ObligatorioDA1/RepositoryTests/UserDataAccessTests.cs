@@ -71,5 +71,16 @@ namespace RepositoryTests
 
             Assert.IsFalse(_userDataAccess.GetAll().Any(p => p.UserID == id1));
         }
+
+        [TestMethod]
+        public void DeleteAnotherUserFromDataBaseDoesntDeleteMine()
+        {
+            int id1 = _userDataAccess.Add(_userTest1);
+            int id2 = _userDataAccess.Add(_userTest2);
+
+            _userDataAccess.Delete(_userTest2);
+
+            Assert.IsTrue(_userDataAccess.GetAll().Any(p => p.UserID == id1));
+        }
     }
 }
