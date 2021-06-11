@@ -3,6 +3,7 @@ using Repository;
 using Domain;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace RepositoryTests
 {
@@ -12,14 +13,15 @@ namespace RepositoryTests
         private UserDataAccess _userDataAccess;
         private User _userTest1;
         private User _userTest2;
+        private User _userTest3;
 
         public UserDataAccessTests()
         {
             _userDataAccess = new UserDataAccess();
 
-
             _userTest1 = new User("Juan", "123456");
             _userTest2 = new User("Ignacio", "papasF");
+            _userTest3 = new User("Federico", "PapasFritas");
         }
 
         [TestCleanup]
@@ -108,6 +110,18 @@ namespace RepositoryTests
             _userDataAccess.Modify(_userTest1);
 
             Assert.AreNotEqual(newPassword, _userDataAccess.Get(id2).MainPassword);
+        }
+
+        [TestMethod]
+        public void GetAllBringsAllFromDatabase()
+        {
+            _userDataAccess.Add(_userTest1);
+            _userDataAccess.Add(_userTest2);
+            _userDataAccess.Add(_userTest3);
+
+            List<User> allUsers = _userDataAccess.GetAll().ToList();
+
+            Assert.IsTrue(allUsers.Contains(_userTest1) && allUsers.Contains(_userTest2) && allUsers.Contains(_userTest3));
         }
     }
 }
