@@ -7,13 +7,13 @@ namespace Repository.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class CategoryDomainChange : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CategoryDomainChange));
         
         string IMigrationMetadata.Id
         {
-            get { return "202106101911295_Initial"; }
+            get { return "202106111512398_CategoryDomainChange"; }
         }
         
         string IMigrationMetadata.Source

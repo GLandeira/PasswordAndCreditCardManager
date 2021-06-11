@@ -18,10 +18,6 @@ namespace Domain
             }
             set
             {
-                UserPasswords.UserPasswordID = value;
-                UserCategories.UserCategoryID = value;
-                UserCreditCards.UserCreditCardID = value;
-                UserDataBreaches.UserDataBreachesID = value;
                 _userID = value;
             }
         }
@@ -35,10 +31,6 @@ namespace Domain
 
         public User()
         {
-            UserPasswords = new UserPassword();
-            UserCreditCards = new UserCreditCard();
-            UserDataBreaches = new UserDataBreaches(this);
-            UserCategories = new UserCategory();
         }
 
         public User(string name, string mainPassword)

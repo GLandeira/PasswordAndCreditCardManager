@@ -16,8 +16,8 @@ namespace Domain
 
         public UserCategory()
         {
-            Categories = new List<Category>();
-            Categories.Add(SHARED_WITH_ME_CATEGORY);
+            //Categories = new List<Category>();
+            //Categories.Add(SHARED_WITH_ME_CATEGORY);
         }
 
         public void AddCategory(Category aCategory)
@@ -29,7 +29,9 @@ namespace Domain
                 throw new CategoryAlreadyExistsException();
             }
 
+            aCategory.UserCategory = this;
             Categories.Add(aCategory);
+            RepositoryFacade.Instance.CategoryDataAccess.Add(aCategory);
         }
 
         public Category GetACategory(string category)
@@ -59,7 +61,7 @@ namespace Domain
                 Category a = Categories.First(cat => cat.Equals(categoryToModify));
                 Categories.Remove(a);
                 Categories.Add(newCategory);
-
+                RepositoryFacade.Instance.CategoryDataAccess.Modify(newCategory);
             }
             catch (InvalidOperationException isEmptyOrNotPresent)
             {

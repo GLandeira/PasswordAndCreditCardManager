@@ -56,9 +56,13 @@
     <Compile Include="CreditCardDataAccess.cs" />
     <Compile Include="CreditCardTypeConfiguration.cs" />
     <Compile Include="DomainDBContext.cs" />
-    <Compile Include="Migrations\202106101911295_Initial.cs" />
-    <Compile Include="Migrations\202106101911295_Initial.designer.cs">
-      <DependentUpon>202106101911295_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202106111351506_Initial.cs" />
+    <Compile Include="Migrations\202106111351506_Initial.designer.cs">
+      <DependentUpon>202106111351506_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106111512398_CategoryDomainChange.cs" />
+    <Compile Include="Migrations\202106111512398_CategoryDomainChange.designer.cs">
+      <DependentUpon>202106111512398_CategoryDomainChange.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,8 +80,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202106101911295_Initial.resx">
-      <DependentUpon>202106101911295_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202106111351506_Initial.resx">
+      <DependentUpon>202106111351506_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106111512398_CategoryDomainChange.resx">
+      <DependentUpon>202106111512398_CategoryDomainChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

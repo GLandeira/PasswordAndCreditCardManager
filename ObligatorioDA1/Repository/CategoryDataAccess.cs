@@ -7,12 +7,13 @@ using Domain;
 
 namespace Repository
 {
-    public class CategoriesDataAccess : IDataAccess<Category>
+    public class CategoryDataAccess : IDataAccess<Category>
     {
         public int Add(Category entity)
         {
             using (DomainDBContext context = new DomainDBContext())
             {
+                context.UserCategories.Attach(entity.UserCategory);
                 Category addedCategory = context.Categories.Add(entity);
                 context.SaveChanges();
 
@@ -24,7 +25,8 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                context.Categories.Remove(entity);
+                var categoryFound = context.Categories.FirstOrDefault(c => c.CategoryID == entity.CategoryID);
+                context.Categories.Remove(categoryFound);
                 context.SaveChanges();
             }
         }
@@ -57,6 +59,14 @@ namespace Repository
 
                 //context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
+            }
+        }
+
+        public void Clear()
+        {
+            foreach (var record in GetAll())
+            {
+                Delete(record);
             }
         }
     }

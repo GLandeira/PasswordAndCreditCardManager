@@ -49,11 +49,11 @@ namespace UserInterface
 
         private void TryToModifyPassword(string password)
         {
-            User newUser = new User(_currentUser.UserID, _currentUser.Name, password);
+            _currentUser.MainPassword = password;
 
             try
             {
-                UserManager.Instance.ModifyPassword(newUser);
+                UserManager.Instance.ModifyPassword(_currentUser);
                 MessageBox.Show(PASSWORD_MODIFY_SUCCESS, "Success",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();

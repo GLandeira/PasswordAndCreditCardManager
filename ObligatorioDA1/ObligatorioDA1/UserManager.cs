@@ -21,20 +21,14 @@ namespace Domain
         public User LoggedUser { get; set; }
         public List<User> Users { get; set; }
 
-        public IDataAccess<User> UserDataAccess { get; private set; }
+        private IDataAccess<User> _userDataAccess;
 
         public UserManager()
         {
             CheckSingleInstanceOfSingleton();
-            Users = new List<User>();
-        }
 
-        public UserManager(IDataAccess<User> dataAccess)
-        {
-            CheckSingleInstanceOfSingleton();
-
-            UserDataAccess = dataAccess;
-            Users = UserDataAccess.GetAll().ToList();
+            _userDataAccess = RepositoryFacade.Instance.UserDataAccess;
+            Users = _userDataAccess.GetAll().ToList();
         }
 
         public void AddUser(User newUser)
@@ -45,9 +39,9 @@ namespace Domain
             {
                 throw new UserAlreadyExistsException();
             }
-            if (UserDataAccess != null)
+            if (_userDataAccess != null)
             {
-                int dbID = UserDataAccess.Add(newUser);
+                int dbID = _userDataAccess.Add(newUser);
 
                 newUser.UserID = dbID;
             }
@@ -62,7 +56,9 @@ namespace Domain
                 throw new UserNotPresentException();
             }
 
-            return Users.First(user => user.Name == username);
+            int userFoundID = Users.First(user => user.Name == username).UserID;
+
+            return RepositoryFacade.Instance.UserDataAccess.Get(userFoundID);
         }
 
         public void ModifyPassword(User userWithNewPassword)
@@ -74,10 +70,11 @@ namespace Domain
                 throw new UserNotPresentException();
             }
 
+            // Esto deberia de entrar un password, es pasar el que encontro y chau
             Users.First(us => us.Name == userWithNewPassword.Name).MainPassword = userWithNewPassword.MainPassword;
-            if (UserDataAccess != null)
+            if (_userDataAccess != null)
             {
-                UserDataAccess.Modify(userWithNewPassword);
+                _userDataAccess.Modify(userWithNewPassword);
             }
                 
         }
