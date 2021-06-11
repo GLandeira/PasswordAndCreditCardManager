@@ -24,10 +24,11 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                context.Entry(entity).State = EntityState.Deleted;
+                //context.Entry(entity).State = EntityState.Deleted;
+                context.UserCategories.Attach(entity.UserCategories);
 
-                //var valueInDB = context.Users.FirstOrDefault(user => user.UserID == entity.UserID);
-                //context.Users.Remove(valueInDB);
+                var valueindb = context.Users.FirstOrDefault(user => user.UserID == entity.UserID);
+                context.Users.Remove(valueindb);
 
                 context.SaveChanges();
             }
@@ -72,9 +73,11 @@ namespace Repository
 
         public void Clear()
         {
-            foreach (var record in GetAll())
+            using (DomainDBContext context = new DomainDBContext())
             {
-                Delete(record);
+                context.Users.RemoveRange(context.Users);
+
+                context.SaveChanges();
             }
         }
     }

@@ -19,16 +19,8 @@ namespace RepositoryTests
             _userDataAccess = new UserDataAccess();
             _userDataAccess.Clear();
 
-            _userTest1 = new User
-            {
-                Name = "Juan",
-                MainPassword = "123456"
-            };
-            _userTest2 = new User
-            {
-                Name = "Ignacio",
-                MainPassword = "papasF"
-            };
+            _userTest1 = new User("Juan", "123456");
+            _userTest2 = new User("Ignacio", "papasF");
         }
 
         [TestMethod]
