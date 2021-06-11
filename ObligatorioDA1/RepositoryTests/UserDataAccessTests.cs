@@ -61,5 +61,15 @@ namespace RepositoryTests
 
             Assert.AreNotEqual(id2, _userDataAccess.Get(id1).UserID);
         }
+
+        [TestMethod]
+        public void DeleteUserFromDataBase()
+        {
+            int id1 = _userDataAccess.Add(_userTest1);
+
+            _userDataAccess.Delete(_userTest1);
+
+            Assert.IsFalse(_userDataAccess.GetAll().Any(p => p.UserID == id1));
+        }
     }
 }
