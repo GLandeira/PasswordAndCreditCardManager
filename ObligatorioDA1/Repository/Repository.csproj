@@ -53,6 +53,10 @@
   <ItemGroup>
     <Compile Include="CategoryDataAccess.cs" />
     <Compile Include="CategoryTypeConfiguration.cs" />
+    <Compile Include="Migrations\202106111919196_PasswordCompleteCascade.cs" />
+    <Compile Include="Migrations\202106111919196_PasswordCompleteCascade.designer.cs">
+      <DependentUpon>202106111919196_PasswordCompleteCascade.cs</DependentUpon>
+    </Compile>
     <Compile Include="PasswordDataAccess.cs" />
     <Compile Include="CreditCardDataAccess.cs" />
     <Compile Include="CreditCardTypeConfiguration.cs" />
@@ -96,6 +100,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106111656058_CategoryDeleteCascade.resx">
       <DependentUpon>202106111656058_CategoryDeleteCascade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106111919196_PasswordCompleteCascade.resx">
+      <DependentUpon>202106111919196_PasswordCompleteCascade.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
