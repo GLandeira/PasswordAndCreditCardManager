@@ -82,5 +82,18 @@ namespace RepositoryTests
 
             Assert.IsTrue(_userDataAccess.GetAll().Any(p => p.UserID == id1));
         }
+
+        [TestMethod]
+        public void ModifyUserOnDataBase()
+        {
+            int id1 = _userDataAccess.Add(_userTest1);
+
+            string newPassword = "myNewPassword";
+            _userTest1.MainPassword = newPassword;
+
+            _userDataAccess.Modify(_userTest1);
+
+            Assert.AreEqual(newPassword, _userDataAccess.Get(id1).MainPassword);
+        }
     }
 }
