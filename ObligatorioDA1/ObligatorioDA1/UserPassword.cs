@@ -26,16 +26,18 @@ namespace Domain
 
             password.LastModification = DateTime.Today;
             password.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(password.PasswordString);
-            Passwords.Add(password);
+
+            AddPasswordToListAndDB(password);
         }
 
-        public void RemovePassword(Password password)
+        public void RemovePassword(Password password) 
         {
             if(!password.Category.Equals(UserCategory.SHARED_WITH_ME_CATEGORY))
             {
                 StopSharingPasswordWhenDeleted(password);
             }
             Passwords.Remove(password);
+            RepositoryFacade.Instance.PasswordDataAccess.Delete(password);
         }
 
         public Password GetPassword(string siteName, string siteUserName)
@@ -74,6 +76,7 @@ namespace Domain
 
             RemovePassword(oldPassword);
             Passwords.Add(modifiedPassword);
+            RepositoryFacade.Instance.PasswordDataAccess.Modify(modifiedPassword);
 
             ReshareModifiedPassword(usersSharedWith, modifiedPassword);
         }
@@ -186,6 +189,13 @@ namespace Domain
         private void RemoveUserFromPasswordUsersSharedWith(string shareeName, Password sharedPassword)
         {
             sharedPassword.UsersSharedWith.Remove(shareeName);
+        }
+
+        private void AddPasswordToListAndDB(Password passwordToAdd)
+        {
+            passwordToAdd.UserPassword = this;
+            Passwords.Add(passwordToAdd);
+            RepositoryFacade.Instance.PasswordDataAccess.Add(passwordToAdd);
         }
     }
 }
