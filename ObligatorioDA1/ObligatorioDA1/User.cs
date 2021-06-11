@@ -54,6 +54,12 @@ namespace Domain
             MainPassword = mainPassword;
         }
 
+        public void InitializeUser(int dbID)
+        {
+            UserID = dbID;
+            UserCategories.AddSharedWithMeCategoryToDB();
+        }
+
         public override string ToString()
         {
             return Name;

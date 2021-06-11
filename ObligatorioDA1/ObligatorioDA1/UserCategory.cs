@@ -12,12 +12,11 @@ namespace Domain
         public int UserCategoryID { get; set; }
         public List<Category> Categories { get; set; }
         public const string SHARED_PASSWORD_CATEGORY_NAME = "Shared With Me";
-        public static Category SHARED_WITH_ME_CATEGORY = new Category(0, SHARED_PASSWORD_CATEGORY_NAME);
+        public static Category SHARED_WITH_ME_CATEGORY = new Category(SHARED_PASSWORD_CATEGORY_NAME);
 
         public UserCategory()
         {
-            //Categories = new List<Category>();
-            //Categories.Add(SHARED_WITH_ME_CATEGORY);
+            
         }
 
         public void AddCategory(Category aCategory)
@@ -29,9 +28,7 @@ namespace Domain
                 throw new CategoryAlreadyExistsException();
             }
 
-            aCategory.UserCategory = this;
-            Categories.Add(aCategory);
-            RepositoryFacade.Instance.CategoryDataAccess.Add(aCategory);
+            AddCategoryToListAndDB(aCategory);
         }
 
         public Category GetACategory(string category)
@@ -50,6 +47,12 @@ namespace Domain
             {
                 throw new CategoryNotFoundException();
             }
+        }
+
+        public void AddSharedWithMeCategoryToDB()
+        {
+            Categories = new List<Category>();
+            AddCategoryToListAndDB(SHARED_WITH_ME_CATEGORY);
         }
 
         public void ModifyCategory(Category categoryToModify, Category newCategory)
@@ -71,6 +74,13 @@ namespace Domain
             {
                 throw new CategoryNotFoundException();
             }
+        }
+
+        private void AddCategoryToListAndDB(Category categoryToAdd)
+        {
+            categoryToAdd.UserCategory = this;
+            Categories.Add(categoryToAdd);
+            RepositoryFacade.Instance.CategoryDataAccess.Add(categoryToAdd);
         }
     }
 }

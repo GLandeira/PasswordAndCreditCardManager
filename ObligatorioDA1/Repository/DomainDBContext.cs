@@ -26,31 +26,8 @@ namespace Repository
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new CreditCardTypeConfiguration());
-
-            modelBuilder.Entity<User>().HasKey(u => u.UserID);
-            modelBuilder.Entity<User>()
-                .HasRequired(u => u.UserCreditCards)
-                .WithRequiredPrincipal()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<User>()
-                .HasRequired(u => u.UserPasswords)
-                .WithRequiredPrincipal()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<User>()
-                .HasRequired(u => u.UserDataBreaches)
-                .WithRequiredPrincipal()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<User>()
-                .HasRequired(u => u.UserCategories)
-                .WithRequiredPrincipal()
-                .WillCascadeOnDelete(true);
-
-            //modelBuilder.Entity<UserCreditCard>()
-            //    .HasRequired(u => u.User)
-            //    .HasForeignKey();
+            modelBuilder.Configurations.Add(new UserTypeConfiguration());
+            modelBuilder.Configurations.Add(new UserCategoryTypeConfiguration());
         }
     }
 }
