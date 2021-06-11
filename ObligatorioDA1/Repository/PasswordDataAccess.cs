@@ -14,6 +14,8 @@ namespace Repository
             using (DomainDBContext context = new DomainDBContext())
             {
                 context.UserPasswords.Attach(entity.UserPassword);
+                context.Categories.Attach(entity.Category);
+
                 Password addedPassword = context.Passwords.Add(entity);
                 context.SaveChanges();
 
