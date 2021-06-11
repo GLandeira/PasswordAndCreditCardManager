@@ -28,6 +28,7 @@ namespace Repository
             modelBuilder.Configurations.Add(new CreditCardTypeConfiguration());
             modelBuilder.Configurations.Add(new UserTypeConfiguration());
             modelBuilder.Configurations.Add(new UserCategoryTypeConfiguration());
+            modelBuilder.Configurations.Add(new UserPasswordTypeConfiguration());
         }
     }
 }
