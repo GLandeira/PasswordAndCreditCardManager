@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Category : ICloneable
+    public class Category
     {
         public int CategoryID { get; set; }
         public string Name { get; set; }
@@ -16,6 +16,11 @@ namespace Domain
         }
         public Category(string name)
         {
+            Name = name;
+        }
+        public Category(int categoryId, string name)
+        {
+            CategoryID = categoryId;
             Name = name;
         }
 
@@ -28,12 +33,6 @@ namespace Domain
 
             Category otherCategory = (Category)obj;
             return Name.ToLower() == otherCategory.Name.ToLower();
-        }
-
-        public object Clone()
-        {
-            Category clone = new Category(this.Name);
-            return clone;
         }
 
         public override string ToString()

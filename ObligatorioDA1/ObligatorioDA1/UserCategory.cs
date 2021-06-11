@@ -12,7 +12,7 @@ namespace Domain
         public int UserCategoryID { get; set; }
         public List<Category> Categories { get; set; }
         public const string SHARED_PASSWORD_CATEGORY_NAME = "Shared With Me";
-        public static Category SHARED_WITH_ME_CATEGORY = new Category(SHARED_PASSWORD_CATEGORY_NAME);
+        public static Category SHARED_WITH_ME_CATEGORY = new Category(0, SHARED_PASSWORD_CATEGORY_NAME);
 
         public UserCategory()
         {
@@ -58,8 +58,8 @@ namespace Domain
 
             try
             {
-                Category a = Categories.First(cat => cat.Equals(categoryToModify));
-                Categories.Remove(a);
+                Category foundCategory = Categories.First(cat => cat.Equals(categoryToModify));
+                Categories.Remove(foundCategory);
                 Categories.Add(newCategory);
                 RepositoryFacade.Instance.CategoryDataAccess.Modify(newCategory);
             }

@@ -38,7 +38,7 @@ namespace UserInterface
             string categoryName = txtbxNewCategoryName.Text;
             try
             {
-                Category newCategory = new Category(categoryName);
+                Category newCategory = new Category(_categoryToModify.CategoryID, categoryName);
                 _currentUser.UserCategories.ModifyCategory(_categoryToModify, newCategory);
                 onModifyCategory?.Invoke();
                 Close();
