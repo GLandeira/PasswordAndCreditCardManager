@@ -18,6 +18,7 @@ namespace UserInterface
         {
             DataAccessDTO dataAccessInterfaces = new DataAccessDTO();
             dataAccessInterfaces.CategoryDataAccess = new CategoryDataAccess();
+            dataAccessInterfaces.PasswordDataAccess = new PasswordDataAccess();
             dataAccessInterfaces.UserDataAccess = new UserDataAccess();
             new RepositoryFacade(dataAccessInterfaces);
 

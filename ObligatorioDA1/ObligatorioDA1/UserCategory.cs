@@ -16,7 +16,6 @@ namespace Domain
 
         public UserCategory()
         {
-            
         }
 
         public void AddCategory(Category aCategory)

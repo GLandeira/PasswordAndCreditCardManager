@@ -44,8 +44,8 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                IEnumerable<Password> allCategories = context.Passwords.ToList();
-                return allCategories;
+                IEnumerable<Password> allPasswords = context.Passwords.ToList();
+                return allPasswords;
             }
         }
 
@@ -53,6 +53,8 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
+                context.Categories.Attach(entity.Category);
+
                 var valueInDB = context.Passwords.FirstOrDefault(password => password.PasswordID == entity.PasswordID);
                 valueInDB.Category = entity.Category;
                 valueInDB.PasswordString = entity.PasswordString;

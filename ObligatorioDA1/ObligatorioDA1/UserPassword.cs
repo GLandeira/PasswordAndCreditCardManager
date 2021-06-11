@@ -11,7 +11,7 @@ namespace Domain
     public class UserPassword
     {
         public int UserPasswordID { get; set; }
-        public List<Password> Passwords { get; private set; }
+        public List<Password> Passwords { get; set; }
 
         public UserPassword()
         {
@@ -74,7 +74,7 @@ namespace Domain
 
             List<string> usersSharedWith = new List<string>(oldPassword.UsersSharedWith);
 
-            RemovePassword(oldPassword);
+            Passwords.Remove(oldPassword);
             Passwords.Add(modifiedPassword);
             RepositoryFacade.Instance.PasswordDataAccess.Modify(modifiedPassword);
 
