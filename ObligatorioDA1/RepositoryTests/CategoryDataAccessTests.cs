@@ -21,9 +21,6 @@ namespace RepositoryTests
         {
             _categoryDataAccess = new CategoryDataAccess();
             _userDataAccess = new UserDataAccess();
-
-            int id = _userDataAccess.Add(new User("Juan", "123456"));
-            _testUser = _userDataAccess.Get(id);
         }
 
         [TestCleanup]
@@ -36,7 +33,8 @@ namespace RepositoryTests
         [TestInitialize]
         public void TestInitialize()
         {
-            _categoryDataAccess.Clear();
+            int id = _userDataAccess.Add(new User("Juan", "123456"));
+            _testUser = _userDataAccess.Get(id);
 
             _testCategory1 = new Category("Escuela");
             _testCategory1.UserCategory = _testUser.UserCategories;
