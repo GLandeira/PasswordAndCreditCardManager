@@ -52,5 +52,14 @@ namespace RepositoryTests
 
             Assert.AreEqual(id, _userDataAccess.Get(id).UserID);
         }
+
+        [TestMethod]
+        public void GetUserFromDataBaseIsNotOtherUser()
+        {
+            int id1 = _userDataAccess.Add(_userTest1);
+            int id2 = _userDataAccess.Add(_userTest2);
+
+            Assert.AreNotEqual(id2, _userDataAccess.Get(id1).UserID);
+        }
     }
 }
