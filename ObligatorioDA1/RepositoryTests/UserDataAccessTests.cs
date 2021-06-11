@@ -45,6 +45,12 @@ namespace RepositoryTests
             Assert.AreEqual(_userDataAccess.GetAll().ToList().Count, 2);
         }
 
+        [TestMethod]
+        public void GetUserFromDataBase()
+        {
+            int id = _userDataAccess.Add(_userTest1);
 
+            Assert.AreEqual(id, _userDataAccess.Get(id).UserID);
+        }
     }
 }
