@@ -10,5 +10,6 @@ namespace Domain
     {
         public IDataAccess<User> UserDataAccess;
         public IDataAccess<Category> CategoryDataAccess;
+        public IDataAccess<Password> PasswordDataAccess;
     }
 }

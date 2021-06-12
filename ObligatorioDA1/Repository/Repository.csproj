@@ -53,6 +53,11 @@
   <ItemGroup>
     <Compile Include="CategoryDataAccess.cs" />
     <Compile Include="CategoryTypeConfiguration.cs" />
+    <Compile Include="Migrations\202106111919196_PasswordCompleteCascade.cs" />
+    <Compile Include="Migrations\202106111919196_PasswordCompleteCascade.designer.cs">
+      <DependentUpon>202106111919196_PasswordCompleteCascade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordDataAccess.cs" />
     <Compile Include="CreditCardDataAccess.cs" />
     <Compile Include="CreditCardTypeConfiguration.cs" />
     <Compile Include="DataBreachesDataAccess.cs" />
@@ -87,6 +92,8 @@
       <DependentUpon>202106122017458_DataBreachHistoryIgnoreChecker2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="PasswordTypeConfiguration.cs" />
+    <Compile Include="UserPasswordTypeConfiguration.cs" />
     <Compile Include="PasswordHistoryTypeConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserCategoryTypeConfiguration.cs" />
@@ -114,6 +121,8 @@
     <EmbeddedResource Include="Migrations\202106111656058_CategoryDeleteCascade.resx">
       <DependentUpon>202106111656058_CategoryDeleteCascade.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106111919196_PasswordCompleteCascade.resx">
+      <DependentUpon>202106111919196_PasswordCompleteCascade.cs</DependentUpon>
     <EmbeddedResource Include="Migrations\202106122001543_DataBreachHistory.resx">
       <DependentUpon>202106122001543_DataBreachHistory.cs</DependentUpon>
     </EmbeddedResource>

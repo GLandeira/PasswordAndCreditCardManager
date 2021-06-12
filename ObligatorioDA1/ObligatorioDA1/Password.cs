@@ -15,6 +15,7 @@ namespace Domain
         public Category Category { get; set; }
         public string Notes { get; set; }
         public List<string> UsersSharedWith { get; private set; }
+        public UserPassword UserPassword { get; set; }
 
         public Password()
         {
