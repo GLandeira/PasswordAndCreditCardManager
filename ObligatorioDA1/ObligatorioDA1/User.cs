@@ -25,7 +25,7 @@ namespace Domain
         public string MainPassword { get; set; }
         public UserPassword UserPasswords { get; set; }
         public UserCreditCard UserCreditCards { get; set; }
-        public DataBreachesChecker UserDataBreaches { get; set; }
+        public UserDataBreaches UserDataBreaches { get; set; }
         public UserCategory UserCategories { get; set; }
 
 
@@ -37,7 +37,7 @@ namespace Domain
         {
             UserPasswords = new UserPassword();
             UserCreditCards = new UserCreditCard();
-            UserDataBreaches = new DataBreachesChecker(this);
+            UserDataBreaches = new UserDataBreaches(this);
             UserCategories = new UserCategory();
             Name = name;
             MainPassword = mainPassword;
@@ -47,7 +47,7 @@ namespace Domain
         {
             UserPasswords = new UserPassword();
             UserCreditCards = new UserCreditCard();
-            UserDataBreaches = new DataBreachesChecker(this);
+            UserDataBreaches = new UserDataBreaches(this);
             UserCategories = new UserCategory();
             UserID = userId;
             Name = name;

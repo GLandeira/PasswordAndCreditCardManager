@@ -20,11 +20,14 @@ namespace UserInterface
 
         private User _currentUser;
         private OpenFileDialog _fileDialog;
+        private DataBreachMediator _dataBreachMediator;
 
         public DataBreachesController()
         {
             InitializeComponent();
             _currentUser = UserManager.Instance.LoggedUser;
+
+            _dataBreachMediator = new DataBreachMediator(this, _currentUser.UserDataBreaches);
 
             _fileDialog = new OpenFileDialog()
             {
@@ -52,9 +55,7 @@ namespace UserInterface
             ITranslator textBoxTranslator = new TextBoxTranslator();
             string field = txtbxDataBreaches.Text;
 
-            DataBreach dataBreaches = CheckDataBreaches(field, textBoxTranslator);
-
-            DataBreachModalOpening(dataBreaches);
+            _dataBreachMediator.CheckAndRegisterDataBreach(field, textBoxTranslator);
         }
 
         private void btnImportTextFile_Click(object sender, EventArgs e)
@@ -65,10 +66,8 @@ namespace UserInterface
                 {
                     StreamReader importFile = new StreamReader(_fileDialog.FileName);
                     ITranslator textFileTranslator = new TextFileTranslator();
-
-                    DataBreach dataBreaches = CheckDataBreaches(importFile.ReadToEnd(), textFileTranslator);
-
-                    DataBreachModalOpening(dataBreaches);
+                    
+                    _dataBreachMediator.CheckAndRegisterDataBreach(importFile.ReadToEnd(), textFileTranslator);
                 }
                 catch (SecurityException a)
                 {
@@ -78,7 +77,7 @@ namespace UserInterface
 
         private DataBreach CheckDataBreaches(string breachesText, ITranslator translator)
         {
-            DataBreach dataBreaches = _currentUser.UserDataBreaches.CheckDataBreaches(breachesText, translator);
+            DataBreach dataBreaches = _currentUser.UserDataBreaches.DataBreachesChecker.CheckDataBreaches(breachesText, translator);
             return dataBreaches;
         }
 

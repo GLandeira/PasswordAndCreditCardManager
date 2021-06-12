@@ -14,6 +14,13 @@ namespace UserInterface
         public UserDataBreaches UserDataBreaches { get; set; }
         public DataBreachesController DataBreachesUIController { get; set; }
 
+        public DataBreachMediator(DataBreachesController uiController, UserDataBreaches userDataBreaches)
+        {
+            DataBreachesUIController = uiController;
+            UserDataBreaches = userDataBreaches;
+            DataBreachChecker = UserDataBreaches.DataBreachesChecker;
+        }
+
         public void CheckAndRegisterDataBreach(string entry, ITranslator translator)
         {
             DataBreach theDataBreach = DataBreachChecker.CheckDataBreaches(entry, translator);

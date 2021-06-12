@@ -10,6 +10,17 @@ namespace Domain
     {
         public int UserDataBreachesID { get; set; }
         public List<DataBreach> DataBreaches { get; set; }
+        public DataBreachesChecker DataBreachesChecker { get; set; }
+
+        public UserDataBreaches()
+        {
+
+        }
+
+        public UserDataBreaches(User user)
+        {
+            DataBreachesChecker = new DataBreachesChecker(user);
+        }
 
         public void AddDataBreach(DataBreach dataBreach)
         {
