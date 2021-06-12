@@ -38,7 +38,6 @@ namespace Domain
             searcherDataBreach.Date = fecha;
 
             return DataBreaches.FirstOrDefault(db => db.Equals(searcherDataBreach));
-            //DataBreaches.
         }
     }
 }

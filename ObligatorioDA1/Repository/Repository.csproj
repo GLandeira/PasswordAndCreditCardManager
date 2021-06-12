@@ -55,6 +55,7 @@
     <Compile Include="CategoryTypeConfiguration.cs" />
     <Compile Include="CreditCardDataAccess.cs" />
     <Compile Include="CreditCardTypeConfiguration.cs" />
+    <Compile Include="DataBreachesDataAccess.cs" />
     <Compile Include="DataBreachTypeConfiguration.cs" />
     <Compile Include="DomainDBContext.cs" />
     <Compile Include="Migrations\202106111351506_Initial.cs" />
