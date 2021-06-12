@@ -83,9 +83,18 @@ namespace RepositoryTests
         {
 
             _passwordDataAccess.Add(_testPassword1);
-            _passwordDataAccess.Add(_testPassword1);
+            _passwordDataAccess.Add(_testPassword2);
 
             Assert.AreEqual(2, _passwordDataAccess.GetAll().ToList().Count);
+        }
+
+        [TestMethod]
+        public void GetPasswordsTest()
+        {
+            int id = _passwordDataAccess.Add(_testPassword1);
+            _passwordDataAccess.Add(_testPassword2);
+
+            Assert.AreEqual(_testPassword1.PasswordID, _passwordDataAccess.Get(id).PasswordID);
         }
     }
 }
