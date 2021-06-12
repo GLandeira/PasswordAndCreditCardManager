@@ -26,8 +26,14 @@ namespace Domain
         {
             // Verificaciones? Algo? Se identifica por fecha y hora.
             // Si el databreach es en la misma hora, hay que fijarse si hay contras/creditcards nuevas
-                // Si hay se agregan al databreach original.
-                // Si no hay, no se hace nada
+            // Si hay se agregan al databreach original.
+            // Si no hay, no se hace nada
+            bool alreadyThere = DataBreaches.Any(db => db.Equals(dataBreach));
+
+            if (alreadyThere)
+            {
+                return;
+            }
 
             DataBreaches.Add(dataBreach);
         }

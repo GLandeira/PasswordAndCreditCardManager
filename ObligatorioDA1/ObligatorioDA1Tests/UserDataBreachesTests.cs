@@ -2,6 +2,7 @@
 using System;
 using Domain;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DomainTests
 {
@@ -85,9 +86,9 @@ namespace DomainTests
             _dataBreach1.Date = DateTime.Today;
 
             List<PasswordHistory> fakePasswordHistories2 = new List<PasswordHistory>();
-            fakePasswordHistories1.Add(_password4);
-            fakePasswordHistories1.Add(_password5);
-            fakePasswordHistories1.Add(_password6);
+            fakePasswordHistories2.Add(_password4);
+            fakePasswordHistories2.Add(_password5);
+            fakePasswordHistories2.Add(_password6);
 
             List<CreditCard> fakeCreditCards2 = new List<CreditCard>();
             fakeCreditCards2.Add(_creditCard2);
@@ -99,13 +100,13 @@ namespace DomainTests
             _dataBreach2.Date = DateTime.Today.AddHours(3);
 
             List<PasswordHistory> fakePasswordHistories3 = new List<PasswordHistory>();
-            fakePasswordHistories1.Add(_password1);
-            fakePasswordHistories1.Add(_password3);
-            fakePasswordHistories1.Add(_password5);
+            fakePasswordHistories3.Add(_password1);
+            fakePasswordHistories3.Add(_password3);
+            fakePasswordHistories3.Add(_password5);
 
             List<CreditCard> fakeCreditCards3 = new List<CreditCard>();
-            fakeCreditCards2.Add(_creditCard4);
-            fakeCreditCards2.Add(_creditCard6);
+            fakeCreditCards3.Add(_creditCard4);
+            fakeCreditCards3.Add(_creditCard6);
 
             _dataBreach3 = new DataBreach();
             _dataBreach3.PasswordBreaches = fakePasswordHistories3;
@@ -113,13 +114,13 @@ namespace DomainTests
             _dataBreach3.Date = DateTime.Today;
 
             List<PasswordHistory> fakePasswordHistories4 = new List<PasswordHistory>();
-            fakePasswordHistories1.Add(_password1);
-            fakePasswordHistories1.Add(_password3);
-            fakePasswordHistories1.Add(_password5);
+            fakePasswordHistories4.Add(_password1);
+            fakePasswordHistories4.Add(_password3);
+            fakePasswordHistories4.Add(_password5);
 
             List<CreditCard> fakeCreditCards4 = new List<CreditCard>();
-            fakeCreditCards2.Add(_creditCard4);
-            fakeCreditCards2.Add(_creditCard6);
+            fakeCreditCards4.Add(_creditCard4);
+            fakeCreditCards4.Add(_creditCard6);
 
             _dataBreach4 = new DataBreach();
             _dataBreach4.PasswordBreaches = fakePasswordHistories4;
@@ -158,6 +159,17 @@ namespace DomainTests
             _userDataBreachesTest.AddDataBreach(_dataBreach3);
 
             Assert.AreEqual(1, _userDataBreachesTest.DataBreaches.Count);
+        }
+
+        [TestMethod]
+        public void AddTwoDataBreachesInSameHourAddsTheNewPasswordsTest()
+        {
+            _userDataBreachesTest.AddDataBreach(_dataBreach1);
+            _userDataBreachesTest.AddDataBreach(_dataBreach3);
+
+            DataBreach dataBreachInMemory = _userDataBreachesTest.DataBreaches.FirstOrDefault(db => db.Equals(_dataBreach1));
+
+            Assert.AreEqual(4, dataBreachInMemory.PasswordBreaches.Count);
         }
 
         [TestMethod]
