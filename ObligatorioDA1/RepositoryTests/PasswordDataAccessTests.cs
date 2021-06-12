@@ -169,7 +169,90 @@ namespace RepositoryTests
             Assert.AreEqual(_testPassword1.UsersSharedWith, _passwordDataAccess.Get(id).UsersSharedWith);
         }
 
+        [TestMethod]
+        public void ModifyAPasswordCheckPrimitives()
+        {
+            int id = _passwordDataAccess.Add(_testPassword1);
+            Password _testPassword = new Password
+            {
+                PasswordID = id,
+                PasswordString = "passwordChanged",
+                Site = "siteChanged.com",
+                Username = "UsernameChanged",
+                LastModification = DateTime.Today,
+                Notes = "NoteChanged"
+            };
+            _testPassword.Category = _testCategory1;
 
+            _passwordDataAccess.Modify(_testPassword);
+
+            Assert.AreEqual(_testPassword.PasswordID, _passwordDataAccess.Get(id).PasswordID);
+            Assert.AreEqual(_testPassword.PasswordString, _passwordDataAccess.Get(id).PasswordString);
+            Assert.AreEqual(_testPassword.Site, _passwordDataAccess.Get(id).Site);
+            Assert.AreEqual(_testPassword.Username, _passwordDataAccess.Get(id).Username);
+            Assert.AreEqual(_testPassword.LastModification, _passwordDataAccess.Get(id).LastModification);
+            Assert.AreEqual(_testPassword.Notes, _passwordDataAccess.Get(id).Notes);
+        }
+
+        [TestMethod]
+        public void ModifyAPasswordPasswordStringCheckSecurityLevel()
+        {
+            int id = _passwordDataAccess.Add(_testPassword1);
+            Password _testPassword = new Password
+            {
+                PasswordID = id,
+                PasswordString = "12345",
+                Site = "www.ort.edu.uy",
+                Username = "Matias Gonzalez",
+                LastModification = DateTime.Today,
+                Notes = "cuenta universidad"
+            };
+            _testPassword.Category = _testCategory1;
+
+            _passwordDataAccess.Modify(_testPassword);
+
+            Assert.AreEqual(_testPassword.SecurityLevel, _passwordDataAccess.Get(id).SecurityLevel);
+        }
+
+        [TestMethod]
+        public void ModifyAPasswordCheckCategory()
+        {
+            int id = _passwordDataAccess.Add(_testPassword1);
+            Password _testPassword = new Password
+            {
+                PasswordID = id,
+                PasswordString = "111@#sasddawdq111",
+                Site = "www.ort.edu.uy",
+                Username = "Matias Gonzalez",
+                LastModification = DateTime.Today,
+                Notes = "cuenta universidad"
+            };
+            _testPassword.Category = _testCategory2;
+
+            _passwordDataAccess.Modify(_testPassword);
+
+            Assert.AreEqual(_testPassword.Category, _passwordDataAccess.Get(id).Category);
+        }
+
+        [TestMethod]
+        public void ModifyAPasswordCheckUsersSharedWith()
+        {
+            int id = _passwordDataAccess.Add(_testPassword1);
+            Password _testPassword = new Password
+            {
+                PasswordID = id,
+                PasswordString = "111@#sasddawdq111",
+                Site = "www.ort.edu.uy",
+                Username = "Matias Gonzalez",
+                LastModification = DateTime.Today,
+                Notes = "cuenta universidad"
+            };
+            _testPassword.Category = _testCategory1;
+
+            _passwordDataAccess.Modify(_testPassword);
+
+            Assert.AreEqual(_testPassword.UsersSharedWith, _passwordDataAccess.Get(id).UsersSharedWith);
+        }
     }
 }
 
