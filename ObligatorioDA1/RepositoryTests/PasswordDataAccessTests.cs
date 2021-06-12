@@ -39,7 +39,7 @@ namespace RepositoryTests
 
             _testPassword1 = new Password
             {
-                PasswordString = "111111",
+                PasswordString = "111@#sasddawdq111",
                 Site = "www.ort.edu.uy",
                 Username = "Matias Gonzalez",
                 LastModification = DateTime.Today,
@@ -89,15 +89,6 @@ namespace RepositoryTests
         }
 
         [TestMethod]
-        public void GetPasswordTest()
-        {
-            int id = _passwordDataAccess.Add(_testPassword1);
-            _passwordDataAccess.Add(_testPassword2);
-
-            Assert.AreEqual(_testPassword1.PasswordID, _passwordDataAccess.Get(id).PasswordID);
-        }
-
-        [TestMethod]
         public void DeleteAPasswordTest()
         {
             int id = _passwordDataAccess.Add(_testPassword1);
@@ -116,20 +107,55 @@ namespace RepositoryTests
             _passwordDataAccess.Delete(_testPassword1);
             _passwordDataAccess.Delete(_testPassword2);
 
-            Assert.AreEqual(0,_passwordDataAccess.GetAll().Count());
+            Assert.AreEqual(0, _passwordDataAccess.GetAll().Count());
         }
 
         [TestMethod]
-        public void DeleteAPasswordsTest()
+        public void GetPasswordTest()
         {
-            _passwordDataAccess.Add(_testPassword1);
+            int id = _passwordDataAccess.Add(_testPassword1);
             _passwordDataAccess.Add(_testPassword2);
 
-            _passwordDataAccess.Delete(_testPassword1);
-            _passwordDataAccess.Delete(_testPassword2);
-
-            Assert.AreEqual(0, _passwordDataAccess.GetAll().Count());
+            Assert.AreEqual(_testPassword1.PasswordID, _passwordDataAccess.Get(id).PasswordID);
         }
+
+        [TestMethod]
+        public void GetPasswordTestCheckPrimitiveValues()
+        {
+            int id = _passwordDataAccess.Add(_testPassword1);
+
+            Assert.AreEqual(_testPassword1.PasswordID, _passwordDataAccess.Get(id).PasswordID);
+            Assert.AreEqual(_testPassword1.PasswordString, _passwordDataAccess.Get(id).PasswordString);
+            Assert.AreEqual(_testPassword1.Site, _passwordDataAccess.Get(id).Site);
+            Assert.AreEqual(_testPassword1.Username, _passwordDataAccess.Get(id).Username);
+            Assert.AreEqual(_testPassword1.LastModification, _passwordDataAccess.Get(id).LastModification);
+            Assert.AreEqual(_testPassword1.Notes, _passwordDataAccess.Get(id).Notes);
+        }
+
+        [TestMethod]
+        public void GetPasswordTestCheckSecurityLevelValue()
+        {
+            int id = _passwordDataAccess.Add(_testPassword1);
+
+            Assert.AreEqual(_testPassword1.SecurityLevel, _passwordDataAccess.Get(id).SecurityLevel);
+        }
+
+        [TestMethod]
+        public void GetPasswordTestCheckCategoryValue()
+        {
+            int id = _passwordDataAccess.Add(_testPassword1);
+
+            Assert.AreEqual(_testPassword1.Category, _passwordDataAccess.Get(id).Category);
+        }
+
+        [TestMethod]
+        public void GetPasswordTestCheckUsersSharedWithValue()
+        {
+            int id = _passwordDataAccess.Add(_testPassword1);
+
+            Assert.AreEqual(_testPassword1.UsersSharedWith, _passwordDataAccess.Get(id).UsersSharedWith);
+        }
+
     }
 }
 
