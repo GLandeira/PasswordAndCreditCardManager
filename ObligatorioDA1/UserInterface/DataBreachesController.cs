@@ -74,13 +74,5 @@ namespace UserInterface
                 }
             }
         }
-
-        private DataBreach CheckDataBreaches(string breachesText, ITranslator translator)
-        {
-            DataBreach dataBreaches = _currentUser.UserDataBreaches.DataBreachesChecker.CheckDataBreaches(breachesText, translator);
-            return dataBreaches;
-        }
-
-        
     }
 }

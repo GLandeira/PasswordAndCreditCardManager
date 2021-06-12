@@ -18,5 +18,18 @@ namespace Domain
         {
 
         }
+
+        public override bool Equals(object obj)
+        {
+            DataBreach incomingDataBreach = (DataBreach)obj;
+            DateTime incomingDate = incomingDataBreach.Date;
+            bool areEqual = incomingDate.Year == Date.Year
+                         && incomingDate.Month == Date.Month
+                         && incomingDate.Day == Date.Day
+                         && incomingDate.Hour == Date.Hour;
+                               
+
+            return areEqual;
+        }
     }
 }
