@@ -36,6 +36,8 @@ namespace Domain
 
                 AddPasswordsNotPresentInDataBreach(dataBreach, dataBreachInMemory);
 
+                AddCreditCardsNotPresentInDataBreach(dataBreach, dataBreachInMemory);
+
                 return;
             }
 
@@ -58,6 +60,18 @@ namespace Domain
                 if (passwordNotPresent)
                 {
                     dataBreachInMemory.PasswordBreaches.Add(passwordHistory);
+                }
+            }
+        }
+
+        private void AddCreditCardsNotPresentInDataBreach(DataBreach entryDataBreach, DataBreach dataBreachInMemory)
+        {
+            foreach (CreditCard creditCard in entryDataBreach.CreditCardBreaches)
+            {
+                bool creditCardNotPresent = !dataBreachInMemory.CreditCardBreaches.Any(ccb => ccb.Equals(creditCard));
+                if (creditCardNotPresent)
+                {
+                    dataBreachInMemory.CreditCardBreaches.Add(creditCard);
                 }
             }
         }

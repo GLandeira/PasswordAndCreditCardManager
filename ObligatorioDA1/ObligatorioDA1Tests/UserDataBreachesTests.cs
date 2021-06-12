@@ -173,6 +173,17 @@ namespace DomainTests
         }
 
         [TestMethod]
+        public void AddTwoDataBreachesInSameHourAddsTheNewCreditCardsTest()
+        {
+            _userDataBreachesTest.AddDataBreach(_dataBreach1);
+            _userDataBreachesTest.AddDataBreach(_dataBreach3);
+
+            DataBreach dataBreachInMemory = _userDataBreachesTest.DataBreaches.FirstOrDefault(db => db.Equals(_dataBreach1));
+
+            Assert.AreEqual(3, dataBreachInMemory.CreditCardBreaches.Count);
+        }
+
+        [TestMethod]
         public void GetDataBreachTest()
         {
             _userDataBreachesTest.AddDataBreach(_dataBreach1);
