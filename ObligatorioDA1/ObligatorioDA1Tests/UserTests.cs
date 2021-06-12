@@ -13,9 +13,9 @@ namespace DomainTests
         public void TestInitialize()
         {
             _userManager = UserManager.Instance;
-            _testUser = new User();
+            _testUser = new User("UserName", "SomePassword");
         }
-
+        
         [TestMethod]
         public void TestAddingOneCategoryMaintainsLength()
         {
@@ -82,7 +82,7 @@ namespace DomainTests
 
             _testUser.UserCategories.AddCategory(categoryToModify);
 
-            Category newCategory = new Category("University");
+            Category newCategory = new Category(categoryToModify.CategoryID, "University");
             _testUser.UserCategories.ModifyCategory(categoryToModify, newCategory);
 
             Assert.AreEqual(newCategory, _testUser.UserCategories.GetACategory(newCategory.Name));

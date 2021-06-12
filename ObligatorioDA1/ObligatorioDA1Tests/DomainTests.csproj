@@ -49,8 +49,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MockCategoryDataAccess.cs" />
     <Compile Include="CategoryTests.cs" />
     <Compile Include="ColorClassifierTests.cs" />
+    <Compile Include="DataAccessMock.cs" />
+    <Compile Include="MockUserDataAccess.cs" />
     <Compile Include="TextFileTranslatorTests.cs" />
     <Compile Include="TextBoxTranslatorTests.cs" />
     <Compile Include="PasswordSecurityFlaggerTests.cs" />
