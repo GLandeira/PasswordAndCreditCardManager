@@ -25,7 +25,7 @@ namespace Domain
             return Number == ((CreditCard)obj).Number;
         }
 
-        public bool absoluteEquals(CreditCard creditcard)
+        public bool AbsoluteEquals(CreditCard creditcard)
         {
             bool equalName = this.Name == creditcard.Name;
             bool equalType = this.Type == creditcard.Type;

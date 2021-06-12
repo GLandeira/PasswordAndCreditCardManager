@@ -99,7 +99,7 @@ namespace RepositoryTests
         public void GetCreditCardsTest()
         {
             int id = _creditcardDataAccess.Add(_testCreditCard1);
-            Assert.IsTrue(_testCreditCard1.absoluteEquals(_creditcardDataAccess.Get(id)));
+            Assert.IsTrue(_testCreditCard1.AbsoluteEquals(_creditcardDataAccess.Get(id)));
         }
 
         [TestMethod]
@@ -108,7 +108,7 @@ namespace RepositoryTests
             int id1 = _creditcardDataAccess.Add(_testCreditCard1);
             int id2 = _creditcardDataAccess.Add(_testCreditCard2);
 
-            Assert.IsFalse(id1, _creditcardDataAccess.Get(id2).CreditCardID);
+            Assert.IsFalse(_creditcardDataAccess.Get(id2).AbsoluteEquals(_testCreditCard1));
         }
 
         [TestMethod]

@@ -57,6 +57,10 @@
     <Compile Include="Migrations\202106111919196_PasswordCompleteCascade.designer.cs">
       <DependentUpon>202106111919196_PasswordCompleteCascade.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106122305277_MergeMigration.cs" />
+    <Compile Include="Migrations\202106122305277_MergeMigration.designer.cs">
+      <DependentUpon>202106122305277_MergeMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="PasswordDataAccess.cs" />
     <Compile Include="CreditCardDataAccess.cs" />
     <Compile Include="CreditCardTypeConfiguration.cs" />
@@ -78,6 +82,7 @@
     <Compile Include="Migrations\202106112338208_CreditCardDomainChange.cs" />
     <Compile Include="Migrations\202106112338208_CreditCardDomainChange.designer.cs">
       <DependentUpon>202106112338208_CreditCardDomainChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\202106122001543_DataBreachHistory.cs" />
     <Compile Include="Migrations\202106122001543_DataBreachHistory.designer.cs">
       <DependentUpon>202106122001543_DataBreachHistory.cs</DependentUpon>
@@ -127,8 +132,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106112338208_CreditCardDomainChange.resx">
       <DependentUpon>202106112338208_CreditCardDomainChange.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106111919196_PasswordCompleteCascade.resx">
       <DependentUpon>202106111919196_PasswordCompleteCascade.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106122001543_DataBreachHistory.resx">
       <DependentUpon>202106122001543_DataBreachHistory.cs</DependentUpon>
     </EmbeddedResource>
@@ -140,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106122017458_DataBreachHistoryIgnoreChecker2.resx">
       <DependentUpon>202106122017458_DataBreachHistoryIgnoreChecker2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106122305277_MergeMigration.resx">
+      <DependentUpon>202106122305277_MergeMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
