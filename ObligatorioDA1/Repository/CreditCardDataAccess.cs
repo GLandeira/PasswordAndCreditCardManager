@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain;
+using System.Data.Entity;
 
 namespace Repository
 {
@@ -13,10 +14,13 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                CreditCard creditCardAdded = context.CreditCards.Add(entity);
+                context.UserCreditCards.Attach(entity.UserCreditCard);
+                context.Categories.Attach(entity.Category);
+                CreditCard addedCreditCard = context.CreditCards.Add(entity);
                 context.SaveChanges();
 
-                return creditCardAdded.CreditCardID;
+                return addedCreditCard.CreditCardID;
+               
             }
         }
 
@@ -24,8 +28,11 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                context.CreditCards.Remove(entity);
+                var creditcardFound = context.CreditCards.FirstOrDefault(c => c.CreditCardID == entity.CreditCardID);
+                context.CreditCards.Remove(creditcardFound);
                 context.SaveChanges();
+
+
             }
         }
 
@@ -33,8 +40,8 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                CreditCard creditCardFound = context.CreditCards.FirstOrDefault(creditCard => creditCard.CreditCardID == id);
-                return creditCardFound;
+                CreditCard CreditcardFound = context.CreditCards.FirstOrDefault(Creditcards => Creditcards.CreditCardID == id);
+                return CreditcardFound;
             }
         }
 
@@ -42,6 +49,7 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
+
                 IEnumerable<CreditCard> allCreditCards = context.CreditCards.ToList();
                 return allCreditCards;
             }
@@ -52,6 +60,8 @@ namespace Repository
             using (DomainDBContext context = new DomainDBContext())
             {
                 // Ver si esta bien
+                context.Entry(entity).State = EntityState.Modified;
+
                 var valueInDB = context.CreditCards.FirstOrDefault(creditCard => creditCard.CreditCardID == entity.CreditCardID);
                 valueInDB.Category = entity.Category;
                 valueInDB.Name = entity.Name;
@@ -61,7 +71,7 @@ namespace Repository
                 valueInDB.Type = entity.Type;
                 valueInDB.ValidDue = entity.ValidDue;
 
-                //context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+                
                 context.SaveChanges();
             }
         }

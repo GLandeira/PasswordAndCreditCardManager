@@ -68,9 +68,14 @@
     <Compile Include="Migrations\202106111656058_CategoryDeleteCascade.designer.cs">
       <DependentUpon>202106111656058_CategoryDeleteCascade.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106112338208_CreditCardDomainChange.cs" />
+    <Compile Include="Migrations\202106112338208_CreditCardDomainChange.designer.cs">
+      <DependentUpon>202106112338208_CreditCardDomainChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserCategoryTypeConfiguration.cs" />
+    <Compile Include="UserCreditCardTypeConfiguration.cs" />
     <Compile Include="UserDataAccess.cs" />
     <Compile Include="UserTypeConfiguration.cs" />
   </ItemGroup>
@@ -93,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106111656058_CategoryDeleteCascade.resx">
       <DependentUpon>202106111656058_CategoryDeleteCascade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106112338208_CreditCardDomainChange.resx">
+      <DependentUpon>202106112338208_CreditCardDomainChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

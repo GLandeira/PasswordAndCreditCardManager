@@ -19,6 +19,7 @@ namespace UserInterface
             DataAccessDTO dataAccessInterfaces = new DataAccessDTO();
             dataAccessInterfaces.CategoryDataAccess = new CategoryDataAccess();
             dataAccessInterfaces.UserDataAccess = new UserDataAccess();
+            dataAccessInterfaces.CreditCardDataAccess = new CreditCardDataAccess();
             new RepositoryFacade(dataAccessInterfaces);
 
             new UserManager();

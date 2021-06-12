@@ -26,6 +26,7 @@ namespace Repository
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new CreditCardTypeConfiguration());
+            modelBuilder.Configurations.Add(new UserCreditCardTypeConfiguration());
             modelBuilder.Configurations.Add(new UserTypeConfiguration());
             modelBuilder.Configurations.Add(new UserCategoryTypeConfiguration());
         }

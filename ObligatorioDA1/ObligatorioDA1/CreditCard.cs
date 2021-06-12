@@ -13,6 +13,7 @@ namespace Domain
         public DateTime ValidDue { get; set; }
         public Category Category { get; set; }
         public string Notes { get; set; }
+        public UserCreditCard UserCreditCard { get; set; }
 
         public override bool Equals(object obj)
         {
