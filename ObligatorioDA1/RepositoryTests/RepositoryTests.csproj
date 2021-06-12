@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryDataAccessTests.cs" />
+    <Compile Include="CreditCardDataAccessTests.cs" />
     <Compile Include="PasswordDataAccessTests.cs" />
     <Compile Include="DataBreachesDataAccessTests.cs" />
     <Compile Include="UserDataAccessTests.cs" />

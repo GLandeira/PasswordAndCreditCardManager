@@ -67,6 +67,7 @@ namespace UserInterface
                 }
                 else
                 {
+                    newCreditCard.CreditCardID = _CreditCardToModify.CreditCardID;
                     _currentUser.UserCreditCards.ModifyCreditCard(_CreditCardToModify, newCreditCard);
                 }
                 
