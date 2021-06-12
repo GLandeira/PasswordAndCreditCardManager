@@ -16,7 +16,9 @@ namespace RepositoryTests
         private PasswordDataAccess _passwordDataAccess;
         private CategoryDataAccess _categoryDataAccess;
 
-        private User _testUser;
+        private User _testUserMain;
+        private User _testUser1;
+        private User _testUser2;
         private Password _testPassword1;
         private Password _testPassword2;
         private Category _testCategory1;
@@ -28,14 +30,22 @@ namespace RepositoryTests
             _categoryDataAccess = new CategoryDataAccess();
             _userDataAccess = new UserDataAccess();
 
-            _testUser = new User("Juan", "123456");
-            int id = _userDataAccess.Add(_testUser);
-            _testUser.UserID = id;
+            _testUserMain = new User("Gaston", "123456");
+            int id = _userDataAccess.Add(_testUserMain);
+            _testUserMain.UserID = id;
+
+            _testUser1 = new User("Matias", "BambU");
+            int id1 = _userDataAccess.Add(_testUser1);
+            _testUser1.UserID = id1;
+
+            _testUser2 = new User("Inaki", "milis");
+            int id2 = _userDataAccess.Add(_testUser2);
+            _testUser2.UserID = id2;
 
             _testCategory1 = new Category("Escuela");
-            _testCategory1.UserCategory = _testUser.UserCategories;
+            _testCategory1.UserCategory = _testUserMain.UserCategories;
             _testCategory2 = new Category("Universidade");
-            _testCategory2.UserCategory = _testUser.UserCategories;
+            _testCategory2.UserCategory = _testUserMain.UserCategories;
 
             _testPassword1 = new Password
             {
@@ -45,7 +55,7 @@ namespace RepositoryTests
                 LastModification = DateTime.Today,
                 Notes = "cuenta universidad"
             };
-            _testPassword1.UserPassword = _testUser.UserPasswords;
+            _testPassword1.UserPassword = _testUserMain.UserPasswords;
             _testPassword2 = new Password
             {
                 PasswordString = "111111",
@@ -54,13 +64,16 @@ namespace RepositoryTests
                 LastModification = DateTime.Today,
                 Notes = "cuenta streaming 2"
             };
-            _testPassword2.UserPassword = _testUser.UserPasswords;
+            _testPassword2.UserPassword = _testUserMain.UserPasswords;
 
             _categoryDataAccess.Add(_testCategory1);
             _categoryDataAccess.Add(_testCategory2);
 
             _testPassword1.Category = _testCategory1;
             _testPassword2.Category = _testCategory2;
+
+            //_testPassword1.UsersSharedWith.Add(_testUser1);
+            //_testPassword1.UsersSharedWith.Add(_testUser2);
         }
 
         [TestCleanup]
@@ -155,6 +168,7 @@ namespace RepositoryTests
 
             Assert.AreEqual(_testPassword1.UsersSharedWith, _passwordDataAccess.Get(id).UsersSharedWith);
         }
+
 
     }
 }
