@@ -89,12 +89,46 @@ namespace RepositoryTests
         }
 
         [TestMethod]
-        public void GetPasswordsTest()
+        public void GetPasswordTest()
         {
             int id = _passwordDataAccess.Add(_testPassword1);
             _passwordDataAccess.Add(_testPassword2);
 
             Assert.AreEqual(_testPassword1.PasswordID, _passwordDataAccess.Get(id).PasswordID);
+        }
+
+        [TestMethod]
+        public void DeleteAPasswordTest()
+        {
+            int id = _passwordDataAccess.Add(_testPassword1);
+
+            _passwordDataAccess.Delete(_testPassword1);
+
+            Assert.IsFalse(_passwordDataAccess.GetAll().Any(c => c.PasswordID == id));
+        }
+
+        [TestMethod]
+        public void DeleteAllPasswordsTest()
+        {
+            _passwordDataAccess.Add(_testPassword1);
+            _passwordDataAccess.Add(_testPassword2);
+
+            _passwordDataAccess.Delete(_testPassword1);
+            _passwordDataAccess.Delete(_testPassword2);
+
+            Assert.AreEqual(0,_passwordDataAccess.GetAll().Count());
+        }
+
+        [TestMethod]
+        public void DeleteAPasswordsTest()
+        {
+            _passwordDataAccess.Add(_testPassword1);
+            _passwordDataAccess.Add(_testPassword2);
+
+            _passwordDataAccess.Delete(_testPassword1);
+            _passwordDataAccess.Delete(_testPassword2);
+
+            Assert.AreEqual(0, _passwordDataAccess.GetAll().Count());
         }
     }
 }
