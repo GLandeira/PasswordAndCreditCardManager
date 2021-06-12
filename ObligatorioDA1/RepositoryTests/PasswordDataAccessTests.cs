@@ -120,7 +120,7 @@ namespace RepositoryTests
         }
 
         [TestMethod]
-        public void GetPasswordTestCheckPrimitiveValues()
+        public void GetPasswordTestCheckPrimitiveValuesAndID()
         {
             int id = _passwordDataAccess.Add(_testPassword1);
 

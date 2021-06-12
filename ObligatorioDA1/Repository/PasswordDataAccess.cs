@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain;
+using System.Data.Entity;
 
 namespace Repository
 {
@@ -37,7 +38,10 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                Password PasswordFound = context.Passwords.FirstOrDefault(password => password.PasswordID == id);
+                Password PasswordFound = context.Passwords
+                                                    .Include(u => u.UserPassword)
+                                                    .Include(c => c.Category).FirstOrDefault(password => password.PasswordID == id);
+
                 return PasswordFound;
             }
         }
