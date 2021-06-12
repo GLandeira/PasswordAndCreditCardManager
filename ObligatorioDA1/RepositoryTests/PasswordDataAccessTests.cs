@@ -137,12 +137,7 @@ namespace RepositoryTests
         {
             int id = _passwordDataAccess.Add(_testPassword1);
 
-            Assert.AreEqual(_testPassword1.PasswordID, _passwordDataAccess.Get(id).PasswordID);
-            Assert.AreEqual(_testPassword1.PasswordString, _passwordDataAccess.Get(id).PasswordString);
-            Assert.AreEqual(_testPassword1.Site, _passwordDataAccess.Get(id).Site);
-            Assert.AreEqual(_testPassword1.Username, _passwordDataAccess.Get(id).Username);
-            Assert.AreEqual(_testPassword1.LastModification, _passwordDataAccess.Get(id).LastModification);
-            Assert.AreEqual(_testPassword1.Notes, _passwordDataAccess.Get(id).Notes);
+            Assert.IsTrue(_testPassword1.AbsoluteEquals(_passwordDataAccess.Get(id)));
         }
 
         [TestMethod]
@@ -186,12 +181,7 @@ namespace RepositoryTests
 
             _passwordDataAccess.Modify(_testPassword);
 
-            Assert.AreEqual(_testPassword.PasswordID, _passwordDataAccess.Get(id).PasswordID);
-            Assert.AreEqual(_testPassword.PasswordString, _passwordDataAccess.Get(id).PasswordString);
-            Assert.AreEqual(_testPassword.Site, _passwordDataAccess.Get(id).Site);
-            Assert.AreEqual(_testPassword.Username, _passwordDataAccess.Get(id).Username);
-            Assert.AreEqual(_testPassword.LastModification, _passwordDataAccess.Get(id).LastModification);
-            Assert.AreEqual(_testPassword.Notes, _passwordDataAccess.Get(id).Notes);
+            Assert.IsTrue(_testPassword.AbsoluteEquals(_passwordDataAccess.Get(id)));
         }
 
         [TestMethod]
