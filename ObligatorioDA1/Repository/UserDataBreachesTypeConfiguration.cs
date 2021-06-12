@@ -12,9 +12,13 @@ namespace Repository
     {
         public UserDataBreachesTypeConfiguration()
         {
+            this.HasKey(ud => ud.UserDataBreachesID);
+
             this.HasMany(d => d.DataBreaches)
                 .WithRequired(db => db.UserDataBreaches)
                 .WillCascadeOnDelete(true);
+
+            this.Ignore(d => d.DataBreachesChecker);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Domain
     {
         public int UserDataBreachesID { get; set; }
         public List<DataBreach> DataBreaches { get; set; }
-        public DataBreachesChecker DataBreachesChecker { get; set; }
+        public DataBreachesChecker DataBreachesChecker;
 
         public UserDataBreaches()
         {
@@ -32,9 +32,13 @@ namespace Domain
             DataBreaches.Add(dataBreach);
         }
 
-        public void GetDataBreach()
+        public DataBreach GetDataBreach(DateTime fecha)
         {
+            DataBreach searcherDataBreach = new DataBreach();
+            searcherDataBreach.Date = fecha;
 
+            return DataBreaches.FirstOrDefault(db => db.Equals(searcherDataBreach));
+            //DataBreaches.
         }
     }
 }

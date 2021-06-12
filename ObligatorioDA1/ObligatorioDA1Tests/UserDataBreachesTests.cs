@@ -29,6 +29,13 @@ namespace DomainTests
             _dataBreach1 = new DataBreach();
             _dataBreach1.PasswordBreaches = fakePasswordHistories1;
             _dataBreach1.CreditCardBreaches = fakeCreditCards1;
+            _dataBreach1.Date = DateTime.Today;
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            _userDataBreachesTest.DataBreaches.Clear();
         }
 
         [TestMethod]
@@ -37,6 +44,14 @@ namespace DomainTests
             _userDataBreachesTest.AddDataBreach(_dataBreach1);
 
             Assert.AreEqual(1, _userDataBreachesTest.DataBreaches.Count);
+        }
+
+        [TestMethod]
+        public void GetDataBreachTest()
+        {
+            _userDataBreachesTest.AddDataBreach(_dataBreach1);
+
+            Assert.AreEqual(_dataBreach1, _userDataBreachesTest.GetDataBreach(_dataBreach1.Date));
         }
     }
 }
