@@ -31,11 +31,7 @@ namespace DomainTests
         {
             _userManager = UserManager.Instance;
             _userPasswordTest = new UserPassword();
-            _userSharedTo = new User()
-            {
-                Name = "userPrueba",
-                MainPassword = "contraseñaPrueba"
-            };
+            _userSharedTo = new User("userPrueba", "contraseñaPrueba");
             _trabajo = new Category("Trabajo");
             _testPassword1 = new Password
             {

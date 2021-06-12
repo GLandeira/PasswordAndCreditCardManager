@@ -25,7 +25,10 @@ namespace Domain
 
         public UserManager()
         {
-            CheckSingleInstanceOfSingleton();
+            if (_instance == null)
+            {
+                _instance = this;
+            }
 
             _userDataAccess = RepositoryFacade.Instance.UserDataAccess;
             Users = _userDataAccess.GetAll().ToList();
@@ -39,13 +42,9 @@ namespace Domain
             {
                 throw new UserAlreadyExistsException();
             }
-            if (_userDataAccess != null)
-            {
-                int dbID = _userDataAccess.Add(newUser);
 
-                newUser.InitializeUser(dbID);
-            }
-            
+            int dbID = _userDataAccess.Add(newUser);
+            newUser.InitializeUser(dbID);
             Users.Add(newUser);
         }
 
@@ -57,7 +56,7 @@ namespace Domain
             }
 
             int userFoundID = Users.First(user => user.Name == username).UserID;
-
+            
             return RepositoryFacade.Instance.UserDataAccess.Get(userFoundID);
         }
 
@@ -72,11 +71,7 @@ namespace Domain
 
             // Esto deberia de entrar un password, es pasar el que encontro y chau
             Users.First(us => us.Name == userWithNewPassword.Name).MainPassword = userWithNewPassword.MainPassword;
-            if (_userDataAccess != null)
-            {
-                _userDataAccess.Modify(userWithNewPassword);
-            }
-                
+            _userDataAccess.Modify(userWithNewPassword);
         }
 
         public bool LogIn(string userNameToLogInWith, string userPasswordToLogInWith)
@@ -104,10 +99,6 @@ namespace Domain
             if (_instance == null)
             {
                 _instance = this;
-            }
-            else
-            {
-                throw new SingletonUniqueConditionException();
             }
         }
     }

@@ -18,6 +18,8 @@ namespace Repository
         public DbSet<UserCategory> UserCategories { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserDataBreaches> UserDataBreaches { get; set; }
+        public DbSet<DataBreach> DataBreaches { get; set; }
+        public DbSet<PasswordHistory> PasswordHistory { get; set; }
 
         public DomainDBContext() : base("name=DomainDBContext")
         {
@@ -29,6 +31,9 @@ namespace Repository
             modelBuilder.Configurations.Add(new UserCreditCardTypeConfiguration());
             modelBuilder.Configurations.Add(new UserTypeConfiguration());
             modelBuilder.Configurations.Add(new UserCategoryTypeConfiguration());
+            modelBuilder.Configurations.Add(new UserPasswordTypeConfiguration());
+            modelBuilder.Configurations.Add(new DataBreachTypeConfiguration());
+            modelBuilder.Configurations.Add(new PasswordHistoryTypeConfiguration());
         }
     }
 }

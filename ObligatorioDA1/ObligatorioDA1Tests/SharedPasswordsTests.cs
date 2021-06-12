@@ -121,7 +121,7 @@ namespace DomainTests
         [TestMethod]
         public void SharedPasswordHasRightCategoryOnSharerTest()
         {
-            Category oldCategory = (Category)_sharedPassword.Category.Clone();
+            Category oldCategory = (Category)_sharedPassword.Category;
 
             _testUserSharer.UserPasswords.SharePassword(_testUserShareeOne, _sharedPassword);
 

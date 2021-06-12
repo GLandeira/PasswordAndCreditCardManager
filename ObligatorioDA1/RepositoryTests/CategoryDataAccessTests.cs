@@ -4,6 +4,7 @@ using Domain;
 using Repository;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace RepositoryTests
 {
@@ -13,24 +14,33 @@ namespace RepositoryTests
         private UserDataAccess _userDataAccess;
         private CategoryDataAccess _categoryDataAccess;
 
-        private User _testUser;
+        private User _testUser1;
+        private User _testUser2;
         private Category _testCategory1;
         private Category _testCategory2;
+        private Category _testCategory3;
 
         public CategoryDataAccessTests()
         {
             _categoryDataAccess = new CategoryDataAccess();
             _userDataAccess = new UserDataAccess();
 
-            _testUser = new User("Juan", "123456");
-            int id = _userDataAccess.Add(_testUser);
-            _testUser.UserID = id;
+            _testUser1 = new User("Juan", "123456");
+            int id1 = _userDataAccess.Add(_testUser1);
+            _testUser1.UserID = id1;
+
+            _testUser2 = new User("Fran", "1a2b3c");
+            int id2 = _userDataAccess.Add(_testUser2);
+            _testUser2.UserID = id2;
 
             _testCategory1 = new Category("Escuela");
-            _testCategory1.UserCategory = _testUser.UserCategories;
+            _testCategory1.UserCategory = _testUser1.UserCategories;
 
             _testCategory2 = new Category("Universidade");
-            _testCategory2.UserCategory = _testUser.UserCategories;
+            _testCategory2.UserCategory = _testUser1.UserCategories;
+
+            _testCategory3 = new Category("College");
+            _testCategory3.UserCategory = _testUser2.UserCategories;
         }
 
         [TestCleanup]
@@ -109,6 +119,18 @@ namespace RepositoryTests
             _categoryDataAccess.Modify(_testCategory1);
 
             Assert.AreEqual(nombreNuevo, _categoryDataAccess.Get(id).Name);
+        }
+
+        [TestMethod]
+        public void GetAllBringsAllFromDatabase()
+        {
+            _categoryDataAccess.Add(_testCategory1);
+            _categoryDataAccess.Add(_testCategory2);
+            _categoryDataAccess.Add(_testCategory3);
+
+            List<Category> allCategories = _categoryDataAccess.GetAll().ToList();
+
+            Assert.IsTrue(allCategories.Contains(_testCategory1) && allCategories.Contains(_testCategory2) && allCategories.Contains(_testCategory3));
         }
     }
 }

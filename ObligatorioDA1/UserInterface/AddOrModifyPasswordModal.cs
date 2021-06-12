@@ -51,6 +51,7 @@ namespace UserInterface
             {
                 if (_modify)
                 {
+                    newPassword.PasswordID = _passwordToModify.PasswordID;
                     _currentUser.UserPasswords.ModifyPassword(newPassword, _passwordToModify);
                 }
                 else

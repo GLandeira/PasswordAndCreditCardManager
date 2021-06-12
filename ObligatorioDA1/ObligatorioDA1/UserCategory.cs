@@ -16,7 +16,7 @@ namespace Domain
 
         public UserCategory()
         {
-            
+            Categories = new List<Category>();
         }
 
         public void AddCategory(Category aCategory)
