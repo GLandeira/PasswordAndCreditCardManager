@@ -65,6 +65,19 @@ namespace RepositoryTests
         }
 
         [TestMethod]
+        public void GetUserFromDataBaseGetsUserWithServices()
+        {
+            int id1 = _userDataAccess.Add(_userTest1);
+            User gotUser = _userDataAccess.Get(id1);
+            bool idsMakeSense = gotUser.UserCategories.UserCategoryID == id1
+                             && gotUser.UserCreditCards.UserCreditCardID == id1
+                             && gotUser.UserDataBreaches.UserDataBreachesID == id1
+                             && gotUser.UserPasswords.UserPasswordID == id1;
+
+            Assert.IsTrue(idsMakeSense);
+        }
+
+        [TestMethod]
         public void DeleteUserFromDataBase()
         {
             int id1 = _userDataAccess.Add(_userTest1);
