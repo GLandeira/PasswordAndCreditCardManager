@@ -29,10 +29,10 @@ namespace UserInterface
         private const string NO_MORE_BREACHED_PASSWORDS = "There are no more breached passwords.";
 
         private Password _auxPasswordForModificationChecks;
-        private DataBreaches _theDataBreaches;
+        private DataBreach _theDataBreaches;
         private User _currentUser;
 
-        public DataBreachMatchesModal( DataBreaches dataBreaches)
+        public DataBreachMatchesModal(DataBreach dataBreaches)
         {
             InitializeComponent();
             _theDataBreaches = dataBreaches;
@@ -42,8 +42,8 @@ namespace UserInterface
 
         private void DataBreachMatchesModal_Load(object sender, EventArgs e)
         {
-            List<Password> breachedPasswords = _theDataBreaches.PasswordBreaches;
-            List<CreditCard> breachedCreditCards = _theDataBreaches.CreditCardsBreaches;
+            List<PasswordHistory> breachedPasswords = _theDataBreaches.PasswordBreaches;
+            List<CreditCard> breachedCreditCards = _theDataBreaches.CreditCardBreaches;
 
             GenerateBreachedPasswordVisuals(breachedPasswords);
 
@@ -52,25 +52,26 @@ namespace UserInterface
 
         private void OnPasswordModified(Password modifiedPassword)
         {
-            List<Password> breachedPasswords = _theDataBreaches.PasswordBreaches;
-            breachedPasswords.RemoveAll(pass => pass.Equals(_auxPasswordForModificationChecks));
+            List<PasswordHistory> breachedPasswords = _theDataBreaches.PasswordBreaches;
+            PasswordHistory originalBreach = breachedPasswords.FirstOrDefault(pass => pass.Password.Equals(_auxPasswordForModificationChecks));
+            breachedPasswords.RemoveAll(pass => pass.Password.Equals(_auxPasswordForModificationChecks));
             if (modifiedPassword.PasswordString != _auxPasswordForModificationChecks.PasswordString)
             {
                 StopBreachedChecksIfNoMoreBreaches(breachedPasswords);
             }
             else
             {
-                breachedPasswords.Add(modifiedPassword);
+                breachedPasswords.Add(originalBreach);
             }
             GenerateBreachedPasswordVisuals(breachedPasswords);
         }
 
-        private void GenerateBreachedPasswordVisuals(List<Password> passwords)
+        private void GenerateBreachedPasswordVisuals(List<PasswordHistory> passwords)
         {
             fwlytBreachedPassword.Controls.Clear();
             for (int i = 0; i < passwords.Count; i++)
             {
-                Password currentPassword = passwords[i];
+                Password currentPassword = passwords[i].Password;
 
                 CreatePasswordListComponent(currentPassword);
             }
@@ -152,7 +153,7 @@ namespace UserInterface
             modifyPassword.ShowDialog();
         }
 
-        private void StopBreachedChecksIfNoMoreBreaches(List<Password> breachedPasswords)
+        private void StopBreachedChecksIfNoMoreBreaches(List<PasswordHistory> breachedPasswords)
         {
             if(breachedPasswords.Count <= 0)
             {
@@ -165,7 +166,7 @@ namespace UserInterface
 
         private void CloseIfNoCreditCardBreaches()
         {
-            if (_theDataBreaches.CreditCardsBreaches.Count <= 0)
+            if (_theDataBreaches.CreditCardBreaches.Count <= 0)
             {
                 Close();
             }

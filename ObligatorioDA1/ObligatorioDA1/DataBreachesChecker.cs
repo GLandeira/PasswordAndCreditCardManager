@@ -16,8 +16,7 @@ namespace Domain
         private const int THIRD_CREDIT_CARD_SPACE_POSITION = 14;
 
         private User _theUser;
-        public int UserDataBreachesID { get; set; }
-
+        
         public DataBreachesChecker()
         {
 
@@ -27,14 +26,14 @@ namespace Domain
             _theUser = theUser;
         }
 
-        public DataBreaches CheckDataBreaches(string inputBreaches, ITranslator translator)
+        public DataBreach CheckDataBreaches(string inputBreaches, ITranslator translator)
         {
             string[] translatedBreaches = translator.Translate(inputBreaches);
 
-            DataBreaches breach = new DataBreaches()
+            DataBreach breach = new DataBreach()
             {
-                CreditCardsBreaches = new List<CreditCard>(),
-                PasswordBreaches = new List<Password>(),
+                CreditCardBreaches = new List<CreditCard>(),
+                PasswordBreaches = new List<PasswordHistory>(),
             };
 
             for (int i = 0; i != translatedBreaches.Length; i++)
@@ -45,7 +44,7 @@ namespace Domain
             return breach;
         }
 
-        private void BuildDataBreachStructure(string aBreach, DataBreaches breach)
+        private void BuildDataBreachStructure(string aBreach, DataBreach breach)
         {
             if (IsCreditCard(aBreach))
             {
@@ -58,15 +57,15 @@ namespace Domain
             }
         }
 
-        private void CheckDataBreachesCreditCard(string inputBreach, DataBreaches breach)
+        private void CheckDataBreachesCreditCard(string inputBreach, DataBreach breach)
         {
             try
             {
                 CreditCard creditCardBreached = _theUser.UserCreditCards.GetCreditCard(inputBreach);
 
-                if (!breach.CreditCardsBreaches.Any(pass => pass.Equals(creditCardBreached)))
+                if (!breach.CreditCardBreaches.Any(pass => pass.Equals(creditCardBreached)))
                 {
-                    breach.CreditCardsBreaches.Add(creditCardBreached);
+                    breach.CreditCardBreaches.Add(creditCardBreached);
                 }
             }
             catch (CreditCardNotFoundException ex)
@@ -75,7 +74,7 @@ namespace Domain
             }
         }
 
-        private void CheckDataBreachesPassword(string inputBreach, DataBreaches breach)
+        private void CheckDataBreachesPassword(string inputBreach, DataBreach breach)
         {
             try
             {
@@ -83,9 +82,13 @@ namespace Domain
 
                 foreach(Password password in passwordBreached)
                 {
-                    if(!breach.PasswordBreaches.Any(pass => pass.Equals(password)))
+                    if(!breach.PasswordBreaches.Any(pass => pass.Password.Equals(password)))
                     {
-                        breach.PasswordBreaches.Add(password);
+                        PasswordHistory breachedPassword = new PasswordHistory();
+                        breachedPassword.Password = password;
+                        breachedPassword.DataBreachOrigin = breach;
+                        breachedPassword.BreachedPasswordString = password.PasswordString;
+                        breach.PasswordBreaches.Add(breachedPassword);
                     }
                 }
             }

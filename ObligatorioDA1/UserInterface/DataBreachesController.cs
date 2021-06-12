@@ -34,12 +34,25 @@ namespace UserInterface
             };
         }
 
+        public void DataBreachModalOpening(DataBreach dataBreaches)
+        {
+            if (dataBreaches.CreditCardBreaches.Count == 0 && dataBreaches.PasswordBreaches.Count == 0)
+            {
+                MessageBox.Show(NO_BREACHED_PASSWORDS, "Attention",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            Form matchesDataBreaches = new DataBreachMatchesModal(dataBreaches);
+            matchesDataBreaches.ShowDialog();
+        }
+
         private void btnVerify_Click(object sender, EventArgs e)
         {
             ITranslator textBoxTranslator = new TextBoxTranslator();
             string field = txtbxDataBreaches.Text;
 
-            DataBreaches dataBreaches = CheckDataBreaches(field, textBoxTranslator);
+            DataBreach dataBreaches = CheckDataBreaches(field, textBoxTranslator);
 
             DataBreachModalOpening(dataBreaches);
         }
@@ -53,7 +66,7 @@ namespace UserInterface
                     StreamReader importFile = new StreamReader(_fileDialog.FileName);
                     ITranslator textFileTranslator = new TextFileTranslator();
 
-                    DataBreaches dataBreaches = CheckDataBreaches(importFile.ReadToEnd(), textFileTranslator);
+                    DataBreach dataBreaches = CheckDataBreaches(importFile.ReadToEnd(), textFileTranslator);
 
                     DataBreachModalOpening(dataBreaches);
                 }
@@ -63,23 +76,12 @@ namespace UserInterface
             }
         }
 
-        private DataBreaches CheckDataBreaches(string breachesText, ITranslator translator)
+        private DataBreach CheckDataBreaches(string breachesText, ITranslator translator)
         {
-            DataBreaches dataBreaches = _currentUser.UserDataBreaches.CheckDataBreaches(breachesText, translator);
+            DataBreach dataBreaches = _currentUser.UserDataBreaches.CheckDataBreaches(breachesText, translator);
             return dataBreaches;
         }
 
-        private void DataBreachModalOpening(DataBreaches dataBreaches)
-        {
-            if (dataBreaches.CreditCardsBreaches.Count == 0 && dataBreaches.PasswordBreaches.Count == 0)
-            {
-                MessageBox.Show(NO_BREACHED_PASSWORDS, "Attention",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            Form matchesDataBreaches = new DataBreachMatchesModal(dataBreaches);
-            matchesDataBreaches.ShowDialog();
-        }
+        
     }
 }

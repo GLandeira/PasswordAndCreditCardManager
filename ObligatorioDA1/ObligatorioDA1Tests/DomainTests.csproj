@@ -58,10 +58,11 @@
     <Compile Include="TextBoxTranslatorTests.cs" />
     <Compile Include="PasswordSecurityFlaggerTests.cs" />
     <Compile Include="CharacterGeneratorTests.cs" />
+    <Compile Include="UserDataBreachesTests.cs" />
     <Compile Include="UserManagerTests.cs" />
     <Compile Include="PasswordGeneratorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserDataBreachesTests.cs" />
+    <Compile Include="DataBreachesCheckerTests.cs" />
     <Compile Include="SharedPasswordsTests.cs" />
     <Compile Include="VerifierTests.cs" />
     <Compile Include="UserPasswordTests.cs" />

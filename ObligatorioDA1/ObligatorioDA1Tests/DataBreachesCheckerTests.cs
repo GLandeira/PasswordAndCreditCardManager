@@ -6,7 +6,7 @@ using Domain.DataBreachesTranslator;
 namespace DomainTests
 {
     [TestClass]
-    public class UserDataBreachesTests
+    public class DataBreachesCheckerTests
     {
         private UserManager _userManager;
         private User _testUser;
@@ -31,7 +31,7 @@ namespace DomainTests
         private Password _password2;
         private Password _password3;
 
-        private DataBreaches _dataBreachTest;
+        private DataBreach _dataBreachTest;
 
         [TestInitialize]
         public void TestInitialize()
@@ -105,7 +105,7 @@ namespace DomainTests
             _userCreditCardTest.AddCreditCard(_creditCard1);
             _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
 
-            Assert.AreEqual(true, _dataBreachTest.CreditCardsBreaches.Exists(creditCardInList => creditCardInList.Equals(_creditCard1)));
+            Assert.AreEqual(true, _dataBreachTest.CreditCardBreaches.Exists(creditCardInList => creditCardInList.Equals(_creditCard1)));
         }
 
         [TestMethod]
@@ -115,7 +115,7 @@ namespace DomainTests
             _userPasswordTest.AddPassword(_password1);
             _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
 
-            Assert.AreEqual(true, _dataBreachTest.PasswordBreaches.Exists(passwordInList => passwordInList.PasswordString.Equals(_password1.PasswordString)));
+            Assert.AreEqual(true, _dataBreachTest.PasswordBreaches.Exists(passwordInList => passwordInList.BreachedPasswordString.Equals(_password1.PasswordString)));
         }
 
         [TestMethod]
@@ -127,7 +127,7 @@ namespace DomainTests
             _userCreditCardTest.AddCreditCard(_creditCard3);
             _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
 
-            Assert.AreEqual(0, _dataBreachTest.CreditCardsBreaches.Count);
+            Assert.AreEqual(0, _dataBreachTest.CreditCardBreaches.Count);
         }
 
         [TestMethod]
@@ -154,7 +154,7 @@ namespace DomainTests
             _userPasswordTest.AddPassword(_password3);
             _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
 
-            int _listQuantity = _dataBreachTest.PasswordBreaches.Count + _dataBreachTest.CreditCardsBreaches.Count;
+            int _listQuantity = _dataBreachTest.PasswordBreaches.Count + _dataBreachTest.CreditCardBreaches.Count;
             Assert.AreEqual(4, _listQuantity);
         }
 
@@ -171,7 +171,7 @@ namespace DomainTests
             _userPasswordTest.AddPassword(_password3);
             _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
 
-            int _listQuantity = _dataBreachTest.PasswordBreaches.Count + _dataBreachTest.CreditCardsBreaches.Count;
+            int _listQuantity = _dataBreachTest.PasswordBreaches.Count + _dataBreachTest.CreditCardBreaches.Count;
             Assert.AreEqual(4, _listQuantity);
         }
 
@@ -193,7 +193,7 @@ namespace DomainTests
             _userCreditCardTest.AddCreditCard(_creditCard1);
             _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
 
-            int _listQuantity = _dataBreachTest.CreditCardsBreaches.Count;
+            int _listQuantity = _dataBreachTest.CreditCardBreaches.Count;
             Assert.AreEqual(1, _listQuantity);
         }
 
@@ -211,7 +211,7 @@ namespace DomainTests
             _userCreditCardTest.AddCreditCard(_creditCard1);
             _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
 
-            int _listQuantity = _dataBreachTest.CreditCardsBreaches.Count + _dataBreachTest.PasswordBreaches.Count;
+            int _listQuantity = _dataBreachTest.CreditCardBreaches.Count + _dataBreachTest.PasswordBreaches.Count;
             Assert.AreEqual(3, _listQuantity);
         }
     }
