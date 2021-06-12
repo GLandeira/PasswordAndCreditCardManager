@@ -32,6 +32,17 @@ namespace Domain
 
             if (alreadyThere)
             {
+                DataBreach dataBreachInMemory = DataBreaches.FirstOrDefault(db => db.Equals(dataBreach));
+
+                foreach (PasswordHistory passwordHistory in dataBreach.PasswordBreaches)
+                {
+                    bool passwordNotPresent = !dataBreachInMemory.PasswordBreaches.Any(pb => pb.Equals(passwordHistory));
+                    if (passwordNotPresent)
+                    {
+                        dataBreachInMemory.PasswordBreaches.Add(passwordHistory);
+                    }
+                }
+
                 return;
             }
 
