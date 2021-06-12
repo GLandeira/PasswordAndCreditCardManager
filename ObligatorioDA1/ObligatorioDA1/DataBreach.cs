@@ -13,10 +13,16 @@ namespace Domain
         public DateTime Date { get; set; }
         public List<CreditCard> CreditCardBreaches { get; set;}
         public List<PasswordHistory> PasswordBreaches { get; set; }
+        public UserDataBreaches UserDataBreaches { get; set; }
 
         public DataBreach()
         {
 
+        }
+
+        public DataBreach(UserDataBreaches userDataBreaches)
+        {
+            UserDataBreaches = userDataBreaches;
         }
 
         public override bool Equals(object obj)
