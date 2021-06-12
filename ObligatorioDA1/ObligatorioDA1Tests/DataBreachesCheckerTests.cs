@@ -10,7 +10,7 @@ namespace DomainTests
     {
         private UserManager _userManager;
         private User _testUser;
-        private UserDataBreaches _userDataBreaches;
+        private DataBreachesChecker _userDataBreaches;
 
         private string _breach1;
         private string _breach2;
@@ -38,7 +38,7 @@ namespace DomainTests
         {
             _userManager = UserManager.Instance;
             _testUser = new User("Alberto", "32323");
-            _userDataBreaches = new UserDataBreaches(_testUser);
+            _userDataBreaches = new DataBreachesChecker(_testUser);
 
             _breach1 = "1111 1111 1111 1111";
             _breach2 = "micontra";
