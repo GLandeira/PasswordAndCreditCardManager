@@ -56,7 +56,7 @@
     <Compile Include="CardTypes.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="DataAccessDTO.cs" />
-    <Compile Include="DataBreaches.cs" />
+    <Compile Include="DataBreach.cs" />
     <Compile Include="DataBreachesTranslator\TextFileTranslator.cs" />
     <Compile Include="DataBreachesTranslator\ITranslator.cs" />
     <Compile Include="DataBreachesTranslator\TextBoxTranslator.cs" />
@@ -69,6 +69,7 @@
     <Compile Include="Exceptions\SitePasswordException.cs" />
     <Compile Include="Exceptions\ValidDueCreditCardException.cs" />
     <Compile Include="IDataAccess.cs" />
+    <Compile Include="PasswordHistory.cs" />
     <Compile Include="PasswordSecurityFlagger\ColorClassifier.cs" />
     <Compile Include="PasswordSecurityFlagger\DarkGreenClassifier.cs" />
     <Compile Include="Exceptions\PasswordAlreadySharedException.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="CreditCard.cs" />
     <Compile Include="RepositoryFacade.cs" />
     <Compile Include="UserCategory.cs" />
+    <Compile Include="UserDataBreaches.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="Exceptions\CreditCardNotFoundException.cs" />
     <Compile Include="Exceptions\CouldntAssignSecurityLevelException.cs" />
@@ -114,7 +116,7 @@
     <Compile Include="UserCreditCard.cs" />
     <Compile Include="Exceptions\UserException.cs" />
     <Compile Include="Exceptions\UserNotPresentException.cs" />
-    <Compile Include="UserDataBreaches.cs" />
+    <Compile Include="DataBreachesChecker.cs" />
     <Compile Include="UserPassword.cs" />
     <Compile Include="Verifier.cs" />
     <Compile Include="PasswordSecurityFlagger\YellowClassifier.cs" />

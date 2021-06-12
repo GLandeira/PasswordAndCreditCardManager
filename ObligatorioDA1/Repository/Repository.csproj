@@ -60,6 +60,8 @@
     <Compile Include="PasswordDataAccess.cs" />
     <Compile Include="CreditCardDataAccess.cs" />
     <Compile Include="CreditCardTypeConfiguration.cs" />
+    <Compile Include="DataBreachesDataAccess.cs" />
+    <Compile Include="DataBreachTypeConfiguration.cs" />
     <Compile Include="DomainDBContext.cs" />
     <Compile Include="Migrations\202106111351506_Initial.cs" />
     <Compile Include="Migrations\202106111351506_Initial.designer.cs">
@@ -73,12 +75,30 @@
     <Compile Include="Migrations\202106111656058_CategoryDeleteCascade.designer.cs">
       <DependentUpon>202106111656058_CategoryDeleteCascade.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106122001543_DataBreachHistory.cs" />
+    <Compile Include="Migrations\202106122001543_DataBreachHistory.designer.cs">
+      <DependentUpon>202106122001543_DataBreachHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106122010176_DataBreachHistoryIgnoreChecker.cs" />
+    <Compile Include="Migrations\202106122010176_DataBreachHistoryIgnoreChecker.designer.cs">
+      <DependentUpon>202106122010176_DataBreachHistoryIgnoreChecker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106122015485_DataBreachHistoryIgnoreChecker1.cs" />
+    <Compile Include="Migrations\202106122015485_DataBreachHistoryIgnoreChecker1.designer.cs">
+      <DependentUpon>202106122015485_DataBreachHistoryIgnoreChecker1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106122017458_DataBreachHistoryIgnoreChecker2.cs" />
+    <Compile Include="Migrations\202106122017458_DataBreachHistoryIgnoreChecker2.designer.cs">
+      <DependentUpon>202106122017458_DataBreachHistoryIgnoreChecker2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PasswordTypeConfiguration.cs" />
+    <Compile Include="UserPasswordTypeConfiguration.cs" />
+    <Compile Include="PasswordHistoryTypeConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserCategoryTypeConfiguration.cs" />
     <Compile Include="UserDataAccess.cs" />
-    <Compile Include="UserPasswordTypeConfiguration.cs" />
+    <Compile Include="UserDataBreachesTypeConfiguration.cs" />
     <Compile Include="UserTypeConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +123,17 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106111919196_PasswordCompleteCascade.resx">
       <DependentUpon>202106111919196_PasswordCompleteCascade.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202106122001543_DataBreachHistory.resx">
+      <DependentUpon>202106122001543_DataBreachHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106122010176_DataBreachHistoryIgnoreChecker.resx">
+      <DependentUpon>202106122010176_DataBreachHistoryIgnoreChecker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106122015485_DataBreachHistoryIgnoreChecker1.resx">
+      <DependentUpon>202106122015485_DataBreachHistoryIgnoreChecker1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106122017458_DataBreachHistoryIgnoreChecker2.resx">
+      <DependentUpon>202106122017458_DataBreachHistoryIgnoreChecker2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -16,7 +16,7 @@ namespace UserInterface
         [STAThread]
         static void Main()
         {
-            DataAccessDTO dataAccessInterfaces = new DataAccessDTO();
+          DataAccessDTO dataAccessInterfaces = new DataAccessDTO();
             dataAccessInterfaces.CategoryDataAccess = new CategoryDataAccess();
             dataAccessInterfaces.PasswordDataAccess = new PasswordDataAccess();
             dataAccessInterfaces.UserDataAccess = new UserDataAccess();

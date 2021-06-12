@@ -1,218 +1,194 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Domain;
-using Domain.DataBreachesTranslator;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DomainTests
 {
     [TestClass]
     public class UserDataBreachesTests
     {
-        private UserManager _userManager;
-        private User _testUser;
-        private UserDataBreaches _userDataBreaches;
+        private UserDataBreaches _userDataBreachesTest;
+        private DataBreach _dataBreach1;
+        private DataBreach _dataBreach2;
+        private DataBreach _dataBreach3;
+        private DataBreach _dataBreach4;
 
-        private string _breach1;
-        private string _breach2;
-        private string _breach3;
-        private string _breach4;
-        private string _breach5;
-        private string _breach6;
-        private string _breachTest;
-
-        private UserCreditCard _userCreditCardTest;
-        private UserPassword _userPasswordTest;
+        private PasswordHistory _password1;
+        private PasswordHistory _password2;
+        private PasswordHistory _password3;
+        private PasswordHistory _password4;
+        private PasswordHistory _password5;
+        private PasswordHistory _password6;
 
         private CreditCard _creditCard1;
         private CreditCard _creditCard2;
         private CreditCard _creditCard3;
-
-        private Password _password1;
-        private Password _password2;
-        private Password _password3;
-
-        private DataBreaches _dataBreachTest;
+        private CreditCard _creditCard4;
+        private CreditCard _creditCard5;
+        private CreditCard _creditCard6;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _userManager = UserManager.Instance;
-            _testUser = new User();
-            _userDataBreaches = new UserDataBreaches(_testUser);
+            _userDataBreachesTest = new UserDataBreaches();
 
-            _breach1 = "1111 1111 1111 1111";
-            _breach2 = "micontra";
-            _breach3 = "123456"; 
-            _breach4 = "2222 2222 2222 2222";
-            _breach5 = "3333 3333 3333 3333"; 
-            _breach6 = "prueba#contra";
+            _password1 = new PasswordHistory(1, "OldPassword");
+            _password2 = new PasswordHistory(2, "SecondOldPassword");
+            _password3 = new PasswordHistory(3, "SomeOldPassword");
+            _password4 = new PasswordHistory(4, "AnotherOtherPassword");
+            _password5 = new PasswordHistory(5, "MoreOldPasswords");
+            _password6 = new PasswordHistory(6, "OldestPassword");
 
-            _userCreditCardTest = _testUser.UserCreditCards;
-            _creditCard1 = new CreditCard
+            _creditCard1 = new CreditCard()
             {
-                Name = "Visa Gold",
-                Number = "1111111111111111",
-                SecurityCode = "122",
-                Notes = "im a note",
-                ValidDue = DateTime.Today
+                Number = "1234132112344321"
             };
-            _creditCard2 = new CreditCard
+
+            _creditCard2 = new CreditCard()
             {
-                Name = "Santander Rio",
-                Number = "2222222222222222",
-                SecurityCode = "123",
-                Notes = "",
-                ValidDue = DateTime.Today
-        };
-            _creditCard3 = new CreditCard
-            {
-                Name = "Master Platinum",
-                Number = "4444444444444444",
-                SecurityCode = "1234",
-                Notes = "No note",
-                ValidDue = DateTime.Today
-            };  
-            
-            _userPasswordTest = _testUser.UserPasswords;
-            _password1 = new Password
-            {
-                PasswordString = "micontra",
-                Site = "www.ort.edu.uy",
-                Username = "Gaston Landeira",
-                Notes = "im a note",
+                Number = "323445216344821"
             };
-            _password2 = new Password
+
+            _creditCard3 = new CreditCard()
             {
-                PasswordString = "whatsthis",
-                Site = "www.ort.edu.uy",
-                Username = "OwO123",
-                Notes = "",
+                Number = "4434632112134241"
             };
-            _password3 = new Password
+
+            _creditCard4 = new CreditCard()
             {
-                PasswordString = "prueba#contra",
-                Site = "www.twitch.tv/GLandeira",
-                Username = "GLandeira",
-                Notes = "No note",
+                Number = "3334439010001322"
             };
-            
+
+            _creditCard5 = new CreditCard()
+            {
+                Number = "0000402112005021"
+            };
+
+            _creditCard6 = new CreditCard()
+            {
+                Number = "1724452112344661"
+            };
+
+            List<PasswordHistory> fakePasswordHistories1 = new List<PasswordHistory>();
+            fakePasswordHistories1.Add(_password1);
+            fakePasswordHistories1.Add(_password2);
+            fakePasswordHistories1.Add(_password3);
+
+            List<CreditCard> fakeCreditCards1 = new List<CreditCard>();
+            fakeCreditCards1.Add(_creditCard1);
+            fakeCreditCards1.Add(_creditCard4);
+
+            _dataBreach1 = new DataBreach();
+            _dataBreach1.PasswordBreaches = fakePasswordHistories1;
+            _dataBreach1.CreditCardBreaches = fakeCreditCards1;
+            _dataBreach1.Date = DateTime.Today;
+
+            List<PasswordHistory> fakePasswordHistories2 = new List<PasswordHistory>();
+            fakePasswordHistories2.Add(_password4);
+            fakePasswordHistories2.Add(_password5);
+            fakePasswordHistories2.Add(_password6);
+
+            List<CreditCard> fakeCreditCards2 = new List<CreditCard>();
+            fakeCreditCards2.Add(_creditCard2);
+            fakeCreditCards2.Add(_creditCard3);
+
+            _dataBreach2 = new DataBreach();
+            _dataBreach2.PasswordBreaches = fakePasswordHistories2;
+            _dataBreach2.CreditCardBreaches = fakeCreditCards2;
+            _dataBreach2.Date = DateTime.Today.AddHours(3);
+
+            List<PasswordHistory> fakePasswordHistories3 = new List<PasswordHistory>();
+            fakePasswordHistories3.Add(_password1);
+            fakePasswordHistories3.Add(_password3);
+            fakePasswordHistories3.Add(_password5);
+
+            List<CreditCard> fakeCreditCards3 = new List<CreditCard>();
+            fakeCreditCards3.Add(_creditCard4);
+            fakeCreditCards3.Add(_creditCard6);
+
+            _dataBreach3 = new DataBreach();
+            _dataBreach3.PasswordBreaches = fakePasswordHistories3;
+            _dataBreach3.CreditCardBreaches = fakeCreditCards3;
+            _dataBreach3.Date = DateTime.Today;
+
+            List<PasswordHistory> fakePasswordHistories4 = new List<PasswordHistory>();
+            fakePasswordHistories4.Add(_password1);
+            fakePasswordHistories4.Add(_password3);
+            fakePasswordHistories4.Add(_password5);
+
+            List<CreditCard> fakeCreditCards4 = new List<CreditCard>();
+            fakeCreditCards4.Add(_creditCard4);
+            fakeCreditCards4.Add(_creditCard6);
+
+            _dataBreach4 = new DataBreach();
+            _dataBreach4.PasswordBreaches = fakePasswordHistories4;
+            _dataBreach4.CreditCardBreaches = fakeCreditCards4;
+            _dataBreach4.Date = DateTime.Today.AddDays(3);
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            _userDataBreachesTest.DataBreaches.Clear();
         }
 
         [TestMethod]
-        public void CheckOneDataBreachCreditCardThatIsInTheDomain()
+        public void AddDataBreachTest()
         {
-            _breachTest = _breach1;
-            _userCreditCardTest.AddCreditCard(_creditCard1);
-            _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
+            _userDataBreachesTest.AddDataBreach(_dataBreach1);
 
-            Assert.AreEqual(true, _dataBreachTest.CreditCardsBreaches.Exists(creditCardInList => creditCardInList.Equals(_creditCard1)));
+            Assert.AreEqual(1, _userDataBreachesTest.DataBreaches.Count);
         }
 
         [TestMethod]
-        public void CheckOneDataBreachPasswordThatIsInTheDomain()
+        public void AddManyDataBreachesTest()
         {
-            _breachTest = _breach2;
-            _userPasswordTest.AddPassword(_password1);
-            _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
+            _userDataBreachesTest.AddDataBreach(_dataBreach1);
+            _userDataBreachesTest.AddDataBreach(_dataBreach2);
+            _userDataBreachesTest.AddDataBreach(_dataBreach4);
 
-            Assert.AreEqual(true, _dataBreachTest.PasswordBreaches.Exists(passwordInList => passwordInList.PasswordString.Equals(_password1.PasswordString)));
+            Assert.AreEqual(3, _userDataBreachesTest.DataBreaches.Count);
         }
 
         [TestMethod]
-        public void CheckOneDataBreachCreditCardThatIsNotInTheDomain()
+        public void AddRepeatedDataBreachesOfSameDateDoesntAddThemTest()
         {
-            _breachTest = _breach5;
-            _userCreditCardTest.AddCreditCard(_creditCard1);
-            _userCreditCardTest.AddCreditCard(_creditCard2);
-            _userCreditCardTest.AddCreditCard(_creditCard3);
-            _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
+            _userDataBreachesTest.AddDataBreach(_dataBreach1);
+            _userDataBreachesTest.AddDataBreach(_dataBreach3);
 
-            Assert.AreEqual(0, _dataBreachTest.CreditCardsBreaches.Count);
+            Assert.AreEqual(1, _userDataBreachesTest.DataBreaches.Count);
         }
 
         [TestMethod]
-        public void CheckOneDataBreachPasswordThatIsNotInTheDomain()
+        public void AddTwoDataBreachesInSameHourAddsTheNewPasswordsTest()
         {
-            _breachTest = _breach3;
-            _userPasswordTest.AddPassword(_password1);
-            _userPasswordTest.AddPassword(_password2);
-            _userPasswordTest.AddPassword(_password3);
-            _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
+            _userDataBreachesTest.AddDataBreach(_dataBreach1);
+            _userDataBreachesTest.AddDataBreach(_dataBreach3);
 
-            Assert.AreEqual(0, _dataBreachTest.PasswordBreaches.Count);
+            DataBreach dataBreachInMemory = _userDataBreachesTest.DataBreaches.FirstOrDefault(db => db.Equals(_dataBreach1));
+
+            Assert.AreEqual(4, dataBreachInMemory.PasswordBreaches.Count);
         }
 
         [TestMethod]
-        public void CheckMultipleDataBreachesInTheDomain()
+        public void AddTwoDataBreachesInSameHourAddsTheNewCreditCardsTest()
         {
-            _breachTest = _breach1 + Environment.NewLine + _breach2 + Environment.NewLine + _breach4 + Environment.NewLine + _breach6;
-            _userCreditCardTest.AddCreditCard(_creditCard1);
-            _userCreditCardTest.AddCreditCard(_creditCard2);
-            _userCreditCardTest.AddCreditCard(_creditCard3);
-            _userPasswordTest.AddPassword(_password1);
-            _userPasswordTest.AddPassword(_password2);
-            _userPasswordTest.AddPassword(_password3);
-            _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
+            _userDataBreachesTest.AddDataBreach(_dataBreach1);
+            _userDataBreachesTest.AddDataBreach(_dataBreach3);
 
-            int _listQuantity = _dataBreachTest.PasswordBreaches.Count + _dataBreachTest.CreditCardsBreaches.Count;
-            Assert.AreEqual(4, _listQuantity);
+            DataBreach dataBreachInMemory = _userDataBreachesTest.DataBreaches.FirstOrDefault(db => db.Equals(_dataBreach1));
+
+            Assert.AreEqual(3, dataBreachInMemory.CreditCardBreaches.Count);
         }
 
         [TestMethod]
-        public void CheckMultipleDataBreachesThatAreOrNotInTheDomain()
+        public void GetDataBreachTest()
         {
-            _breachTest = _breach1 + Environment.NewLine + _breach2 + Environment.NewLine + _breach3 + 
-                          Environment.NewLine + _breach4 + Environment.NewLine + _breach5 + Environment.NewLine + _breach6;
-            _userCreditCardTest.AddCreditCard(_creditCard1);
-            _userCreditCardTest.AddCreditCard(_creditCard2);
-            _userCreditCardTest.AddCreditCard(_creditCard3);
-            _userPasswordTest.AddPassword(_password1);
-            _userPasswordTest.AddPassword(_password2);
-            _userPasswordTest.AddPassword(_password3);
-            _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
+            _userDataBreachesTest.AddDataBreach(_dataBreach1);
 
-            int _listQuantity = _dataBreachTest.PasswordBreaches.Count + _dataBreachTest.CreditCardsBreaches.Count;
-            Assert.AreEqual(4, _listQuantity);
-        }
-
-        [TestMethod]
-        public void CheckMultipleDataBreachesOfSamePasswordsDoesntShowRepeatedBreaches()
-        {
-            _breachTest = _breach2 + Environment.NewLine + _breach2 + Environment.NewLine + _breach2;
-            _userPasswordTest.AddPassword(_password1);
-            _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
-
-            int _listQuantity = _dataBreachTest.PasswordBreaches.Count;
-            Assert.AreEqual(1, _listQuantity);
-        }
-
-        [TestMethod]
-        public void CheckMultipleDataBreachesOfSameCreditCardsDoesntShowRepeatedBreaches()
-        {
-            _breachTest = _breach1 + Environment.NewLine + _breach1 + Environment.NewLine + _breach1;
-            _userCreditCardTest.AddCreditCard(_creditCard1);
-            _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
-
-            int _listQuantity = _dataBreachTest.CreditCardsBreaches.Count;
-            Assert.AreEqual(1, _listQuantity);
-        }
-
-        [TestMethod]
-        public void CheckMultipleDataBreachesOfSameCreditCardsAndPasswordsDoesntShowRepeatedBreaches()
-        {
-            _breachTest = _breach1 + Environment.NewLine + _breach1 + Environment.NewLine + _breach1 + Environment.NewLine + 
-                          _breach2 + Environment.NewLine + _breach2 + Environment.NewLine + _breach3 + Environment.NewLine +
-                          _breach3 + Environment.NewLine + _breach4 + Environment.NewLine + _breach4 + Environment.NewLine + 
-                          _breach4 + Environment.NewLine + _breach5 + Environment.NewLine + _breach5 + Environment.NewLine +
-                          _breach6 + Environment.NewLine + _breach6 + Environment.NewLine + _breach6 + Environment.NewLine + _breach6;
-            _userPasswordTest.AddPassword(_password1);
-            _userPasswordTest.AddPassword(_password2);
-            _userCreditCardTest.AddCreditCard(_creditCard2);
-            _userCreditCardTest.AddCreditCard(_creditCard1);
-            _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
-
-            int _listQuantity = _dataBreachTest.CreditCardsBreaches.Count + _dataBreachTest.PasswordBreaches.Count;
-            Assert.AreEqual(3, _listQuantity);
+            Assert.AreEqual(_dataBreach1, _userDataBreachesTest.GetDataBreach(_dataBreach1.Date));
         }
     }
 }
