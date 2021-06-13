@@ -22,10 +22,15 @@ namespace RepositoryTests
 
         private Password _testPassword1;
         private Password _testPassword2;
-        private Password _testPassword3;
+
+        private PasswordHistory _testPasswordHistory1;
+        private PasswordHistory _testPasswordHistory2;
 
         private CreditCard _testCreditCard1;
         private CreditCard _testCreditCard2;
+
+        private DataBreach _testDataBreach1;
+        private DataBreach _testDataBreach2;
 
         [TestInitialize]
         public void TestInitialize()
@@ -110,6 +115,17 @@ namespace RepositoryTests
             _testPassword2.Category = _testCategory2;
             int pid2 = _passwordDataAccess.Add(_testPassword2);
             _testPassword2.PasswordID = pid2;
+
+            _testPasswordHistory1 = new PasswordHistory()
+            {
+                Password = _testPassword1,
+                BreachedPasswordString = "0ldPassw0rd"
+            };
+            _testPasswordHistory2 = new PasswordHistory()
+            {
+                Password = _testPassword2,
+                BreachedPasswordString = "Another0ldPassword"
+            };
         }
 
         [TestCleanup]
