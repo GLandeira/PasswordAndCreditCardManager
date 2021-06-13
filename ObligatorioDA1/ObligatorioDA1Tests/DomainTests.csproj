@@ -54,6 +54,7 @@
     <Compile Include="ColorClassifierTests.cs" />
     <Compile Include="DataAccessMock.cs" />
     <Compile Include="MockCreditCardDataAccess.cs" />
+    <Compile Include="MockPasswordDataAccess.cs" />
     <Compile Include="MockUserDataAccess.cs" />
     <Compile Include="TextFileTranslatorTests.cs" />
     <Compile Include="TextBoxTranslatorTests.cs" />
