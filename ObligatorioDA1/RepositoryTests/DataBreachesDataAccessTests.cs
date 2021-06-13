@@ -174,5 +174,19 @@ namespace RepositoryTests
 
             Assert.AreEqual(3, _dataBreachesDataAccess.GetAll().ToList().Count);
         }
+
+        [TestMethod]
+        public void GetDataBreach()
+        {
+            DataBreach dataBreach1 = new DataBreach(_testUser.UserDataBreaches);
+            dataBreach1.Date = DateTime.Now;
+            dataBreach1.PasswordBreaches.Add(_testPasswordHistory1);
+
+            int id1 = _dataBreachesDataAccess.Add(dataBreach1);
+
+            DataBreach dataBreachInDB = _dataBreachesDataAccess.Get(id1);
+
+            Assert.AreEqual(dataBreachInDB, dataBreach1);
+        }
     }
 }
