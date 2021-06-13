@@ -217,5 +217,19 @@ namespace RepositoryTests
 
             Assert.IsTrue(dataBreachInDB.PasswordBreaches.Any(ph => ph.PasswordHistoryID == _testPasswordHistory1.PasswordHistoryID));
         }
+
+        [TestMethod]
+        public void GettingDataBreachGetsCreditCards()
+        {
+            DataBreach dataBreach1 = new DataBreach(_testUser.UserDataBreaches);
+            dataBreach1.CreditCardBreaches.Add(_testCreditCard1);
+            dataBreach1.CreditCardBreaches.Add(_testCreditCard2);
+
+            int id1 = _dataBreachesDataAccess.Add(dataBreach1);
+
+            DataBreach dataBreachInDB = _dataBreachesDataAccess.Get(id1);
+
+            Assert.AreEqual(2, dataBreachInDB.CreditCardBreaches.Count);
+        }
     }
 }
