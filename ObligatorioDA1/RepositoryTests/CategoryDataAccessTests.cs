@@ -41,6 +41,7 @@ namespace RepositoryTests
 
             _testCategory3 = new Category("College");
             _testCategory3.UserCategory = _testUser2.UserCategories;
+
         }
 
         [TestCleanup]
