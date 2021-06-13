@@ -13,6 +13,7 @@ namespace Domain
 
         public UserCreditCard()
         {
+            CreditCards = new List<CreditCard>();
         }
 
         public void AddCreditCard(CreditCard creditCard)
