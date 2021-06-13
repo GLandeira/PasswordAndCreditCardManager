@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain;
+using System.Data.Entity;
 
 namespace Repository
 {
@@ -43,7 +44,7 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                DataBreach dataBreachFound = context.DataBreaches.FirstOrDefault(DataBreach => DataBreach.DataBreachID == id);
+                DataBreach dataBreachFound = context.DataBreaches.Include(db => db.PasswordBreaches).FirstOrDefault(DataBreach => DataBreach.DataBreachID == id);
                 return dataBreachFound;
             }
         }
