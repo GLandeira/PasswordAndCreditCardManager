@@ -14,7 +14,6 @@ namespace Repository
         public DataBreachTypeConfiguration()
         {
             this.HasKey(d => d.DataBreachID);
-
             
         }
     }

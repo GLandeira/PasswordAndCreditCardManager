@@ -45,9 +45,10 @@ namespace Repository
             using (DomainDBContext context = new DomainDBContext())
             {
                 DataBreach dataBreachFound = context.DataBreaches
-                                                    .Include(db => db.PasswordBreaches)
-                                                    .Include(db => db.CreditCardBreaches)
+                                                    .Include(db => db.PasswordBreaches.Select(ph => ph.Password.Category))
+                                                    .Include(db => db.CreditCardBreaches.Select(c => c.Category))
                                                     .FirstOrDefault(DataBreach => DataBreach.DataBreachID == id);
+
                 return dataBreachFound;
             }
         }
@@ -63,7 +64,36 @@ namespace Repository
 
         public void Modify(DataBreach entity)
         {
-            throw new NotImplementedException();
+            using (DomainDBContext context = new DomainDBContext())
+            {
+                var valueInDB = context.DataBreaches.FirstOrDefault(dataBreach => dataBreach.DataBreachID == entity.DataBreachID);
+
+                foreach (CreditCard c in entity.CreditCardBreaches)
+                {
+                    context.CreditCards.Attach(c);
+                    context.Categories.Attach(c.Category);
+                }
+
+                foreach (PasswordHistory p in entity.PasswordBreaches)
+                {
+                    if (!valueInDB.PasswordBreaches.Any(pb => pb.PasswordHistoryID == p.PasswordHistoryID))
+                    {
+                        //context.Entry(p).State = EntityState.Added;
+                    }
+
+                    //context.PasswordHistory.Attach(p);
+                    //context.DataBreaches.Attach(p.DataBreachOrigin);
+                    context.Passwords.Attach(p.Password);
+                    context.Categories.Attach(p.Password.Category);
+                }
+
+                
+                valueInDB.CreditCardBreaches = entity.CreditCardBreaches;
+                valueInDB.PasswordBreaches = entity.PasswordBreaches;
+
+                context.Entry(entity).State = EntityState.Modified;
+                context.SaveChanges();
+            }
         }
     }
 }

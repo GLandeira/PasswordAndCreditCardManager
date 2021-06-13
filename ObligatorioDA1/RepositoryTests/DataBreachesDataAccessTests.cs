@@ -259,7 +259,48 @@ namespace RepositoryTests
             DataBreach dataBreachInDB = _dataBreachesDataAccess.Get(id1);
             Password passwordInDataBreachHistory = dataBreachInDB.PasswordBreaches.First(ph => _testPasswordHistory1.PasswordHistoryID == ph.PasswordHistoryID).Password;
 
-            Assert.AreEqual(passwordInDataBreachHistory, _testPassword1);
+            Assert.AreEqual(_testPassword1, passwordInDataBreachHistory);
+        }
+
+        [TestMethod]
+        public void GettingDataBreachGetsPasswordsWithOriginalPasswordAndCategory()
+        {
+            DataBreach dataBreach1 = new DataBreach(_testUser.UserDataBreaches);
+            dataBreach1.Date = DateTime.Now;
+            dataBreach1.PasswordBreaches.Add(_testPasswordHistory2);
+
+            int id1 = _dataBreachesDataAccess.Add(dataBreach1);
+
+            DataBreach dataBreachInDB = _dataBreachesDataAccess.Get(id1);
+            Password passwordInDataBreachHistory = dataBreachInDB.PasswordBreaches.First(ph => _testPasswordHistory2.PasswordHistoryID == ph.PasswordHistoryID).Password;
+            Category categoryInPasswordHistory = passwordInDataBreachHistory.Category;
+
+            Assert.AreEqual(_testCategory2, categoryInPasswordHistory);
+        }
+
+        [TestMethod]
+        public void ModifyCategoryAddsBreachedPasswords()
+        {
+            DataBreach dataBreach1 = new DataBreach(_testUser.UserDataBreaches);
+            dataBreach1.Date = DateTime.Now;
+            _testPasswordHistory1.DataBreachOrigin = dataBreach1;
+            dataBreach1.PasswordBreaches.Add(_testPasswordHistory1);
+            
+
+            int id1 = _dataBreachesDataAccess.Add(dataBreach1);
+
+            //DataBreach dataBreach2 = new DataBreach(_testUser.UserDataBreaches);
+            //dataBreach2.DataBreachID = id1;
+            //dataBreach2.Date = DateTime.Now;
+            //dataBreach2.PasswordBreaches.Add(_testPasswordHistory2);
+            _testPasswordHistory2.DataBreachOrigin = dataBreach1;
+            dataBreach1.PasswordBreaches.Add(_testPasswordHistory2);
+
+            _dataBreachesDataAccess.Modify(dataBreach1);
+
+            DataBreach dataBreachInDB = _dataBreachesDataAccess.Get(id1);
+
+            Assert.AreEqual(2, dataBreachInDB.PasswordBreaches.Count);
         }
     }
 }
