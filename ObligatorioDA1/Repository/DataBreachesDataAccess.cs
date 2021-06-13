@@ -41,7 +41,11 @@ namespace Repository
 
         public DataBreach Get(int id)
         {
-            throw new NotImplementedException();
+            using (DomainDBContext context = new DomainDBContext())
+            {
+                DataBreach dataBreachFound = context.DataBreaches.FirstOrDefault(DataBreach => DataBreach.DataBreachID == id);
+                return dataBreachFound;
+            }
         }
 
         public IEnumerable<DataBreach> GetAll()
