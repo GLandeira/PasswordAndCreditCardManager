@@ -2,24 +2,43 @@
 using System;
 using Domain;
 using Domain.Exceptions;
+using Repository;
 
 namespace DomainTests
 {
     [TestClass]
     public class UserCreditCardTests
     {
+        private UserManager _mockDomain;
+
+        private User _testUser;
         private UserCreditCard _userCreditCardTest;
+        private UserCategory _userCategory;
+        private Category _testCategory1;
+        private Category _testCategory2;
+
         private CreditCard _creditCard1;
         private CreditCard _creditCard2;
         private CreditCard _creditCard3;
 
+
+
         [TestInitialize]
         public void TestInitialize()
         {
-            _userCreditCardTest = new UserCreditCard();
+            _mockDomain = UserManager.Instance;
 
-            Category trabajo = new Category("Trabajo");
+            _testUser = new User("Juana", "123456");
+            _mockDomain.AddUser(_testUser);
+
+            _userCreditCardTest = _testUser.UserCreditCards;
+            _userCategory = _testUser.UserCategories;
+
+            _testCategory1 = new Category("Trabajo");
+            _testCategory1.UserCategory = _testUser.UserCategories;
+            _userCategory.AddCategory(_testCategory1);
             CardTypes visa = CardTypes.VISA;
+
             _creditCard1 = new CreditCard
             {
                 Name = "Visa Gold",
@@ -27,12 +46,16 @@ namespace DomainTests
                 Number = "1111111111111111",
                 SecurityCode = "1234",
                 ValidDue = DateTime.Today,
-                Category = trabajo,
+                Category = _testCategory1,
                 Notes = "super secreta, no compartir"
             };
+            _creditCard1.UserCreditCard = _testUser.UserCreditCards;
 
-            Category personal = new Category("Personal");
+            _testCategory2 = new Category("personal");
+            _testCategory2.UserCategory = _testUser.UserCategories;
+            _userCategory.AddCategory(_testCategory2);
             CardTypes master = CardTypes.MASTERCARD;
+
             _creditCard2 = new CreditCard
             {
                 Name = "Master",
@@ -40,9 +63,10 @@ namespace DomainTests
                 Number = "2222222222222222",
                 SecurityCode = "143",
                 ValidDue = DateTime.Today,
-                Category = personal,
+                Category = _testCategory2,
                 Notes = "para compartir"
             };
+            _creditCard2.UserCreditCard = _testUser.UserCreditCards;
 
             _creditCard3 = new CreditCard
             {
@@ -51,9 +75,16 @@ namespace DomainTests
                 Number = "3333333333333333",
                 SecurityCode = "123",
                 ValidDue = DateTime.Today,
-                Category = trabajo,
+                Category = _testCategory1,
                 Notes = ""
             };
+            _creditCard3.UserCreditCard = _testUser.UserCreditCards;
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            _mockDomain.Users.Clear();
         }
 
         [TestMethod]
@@ -129,16 +160,17 @@ namespace DomainTests
         {
             _userCreditCardTest.AddCreditCard(_creditCard1);
 
-            Category trabajo = new Category("Trabajo");
+
             CardTypes visa = CardTypes.VISA;
             CreditCard creditCardChangeTest = new CreditCard
             {
+                CreditCardID = _creditCard1.CreditCardID,
                 Name = "Visa Platinum",
                 Type = visa,
                 Number = "1111111111111112",
                 SecurityCode = "123",
                 ValidDue = DateTime.Today,
-                Category = trabajo,
+                Category = _testCategory1,
                 Notes = ""
             };
 
@@ -162,16 +194,16 @@ namespace DomainTests
             _userCreditCardTest.AddCreditCard(_creditCard2);
             _userCreditCardTest.AddCreditCard(_creditCard3);
 
-            Category trabajo = new Category("Trabajo");
             CardTypes visa = CardTypes.VISA;
             CreditCard creditCardChangeTest = new CreditCard
             {
+                CreditCardID = _creditCard1.CreditCardID,
                 Name = "Visa Platinum",
                 Type = visa,
                 Number = "4444444444444444",
                 SecurityCode = "123",
                 ValidDue = new DateTime(2022, 12, 31),
-                Category = trabajo,
+                Category = _testCategory1,
                 Notes = "La modifique a esta"
             };
 
@@ -192,16 +224,16 @@ namespace DomainTests
         public void ModifyACreditCardAddedToTheListLeavingSameNumber()
         {
             _userCreditCardTest.AddCreditCard(_creditCard1);
-            Category personal = new Category("Personal");
             CardTypes master = CardTypes.MASTERCARD;
             CreditCard creditCardChangeTest = new CreditCard
             {
+                CreditCardID = _creditCard1.CreditCardID,
                 Name = "Visa Platinum",
                 Type = master,
                 Number = "1111111111111111",
                 SecurityCode = "123",
                 ValidDue = new DateTime(2022, 12, 31),
-                Category = personal,
+                Category = _testCategory2,
                 Notes = "La modifique a esta"
             };
 
