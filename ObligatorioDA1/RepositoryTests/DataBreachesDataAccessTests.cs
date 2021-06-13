@@ -222,6 +222,7 @@ namespace RepositoryTests
         public void GettingDataBreachGetsCreditCards()
         {
             DataBreach dataBreach1 = new DataBreach(_testUser.UserDataBreaches);
+            dataBreach1.Date = DateTime.Now;
             dataBreach1.CreditCardBreaches.Add(_testCreditCard1);
             dataBreach1.CreditCardBreaches.Add(_testCreditCard2);
 

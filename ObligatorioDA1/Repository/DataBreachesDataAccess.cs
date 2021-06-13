@@ -44,7 +44,10 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                DataBreach dataBreachFound = context.DataBreaches.Include(db => db.PasswordBreaches).FirstOrDefault(DataBreach => DataBreach.DataBreachID == id);
+                DataBreach dataBreachFound = context.DataBreaches
+                                                    .Include(db => db.PasswordBreaches)
+                                                    .Include(db => db.CreditCardBreaches)
+                                                    .FirstOrDefault(DataBreach => DataBreach.DataBreachID == id);
                 return dataBreachFound;
             }
         }
