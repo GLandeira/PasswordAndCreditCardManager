@@ -148,7 +148,31 @@ namespace RepositoryTests
             _dataBreachesDataAccess.Add(dataBreach);
 
             Assert.AreEqual(1, _dataBreachesDataAccess.GetAll().ToList().Count);
-            Assert.IsFalse(false);
+        }
+
+        [TestMethod]
+        public void AddThreeDataBreaches()
+        {
+            DataBreach dataBreach1 = new DataBreach(_testUser.UserDataBreaches);
+            dataBreach1.Date = DateTime.Now;
+            dataBreach1.CreditCardBreaches.Add(_testCreditCard1);
+            dataBreach1.PasswordBreaches.Add(_testPasswordHistory1);
+
+            DataBreach dataBreach2 = new DataBreach(_testUser.UserDataBreaches);
+            dataBreach2.Date = DateTime.Now.AddHours(3);
+            dataBreach2.CreditCardBreaches.Add(_testCreditCard2);
+            dataBreach2.PasswordBreaches.Add(_testPasswordHistory2);
+
+            DataBreach dataBreach3 = new DataBreach(_testUser.UserDataBreaches);
+            dataBreach3.Date = DateTime.Now.AddDays(2);
+            dataBreach3.CreditCardBreaches.Add(_testCreditCard1);
+            dataBreach3.PasswordBreaches.Add(_testPasswordHistory2);
+
+            _dataBreachesDataAccess.Add(dataBreach1);
+            _dataBreachesDataAccess.Add(dataBreach2);
+            _dataBreachesDataAccess.Add(dataBreach3);
+
+            Assert.AreEqual(3, _dataBreachesDataAccess.GetAll().ToList().Count);
         }
     }
 }
