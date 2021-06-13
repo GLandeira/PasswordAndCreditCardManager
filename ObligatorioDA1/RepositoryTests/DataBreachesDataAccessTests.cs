@@ -141,11 +141,14 @@ namespace RepositoryTests
         public void AddDataBreach()
         {
             DataBreach dataBreach = new DataBreach(_testUser.UserDataBreaches);
+            dataBreach.Date = DateTime.Now;
             dataBreach.CreditCardBreaches.Add(_testCreditCard1);
+            dataBreach.PasswordBreaches.Add(_testPasswordHistory1);
 
             _dataBreachesDataAccess.Add(dataBreach);
 
             Assert.AreEqual(1, _dataBreachesDataAccess.GetAll().ToList().Count);
+            Assert.IsFalse(false);
         }
     }
 }

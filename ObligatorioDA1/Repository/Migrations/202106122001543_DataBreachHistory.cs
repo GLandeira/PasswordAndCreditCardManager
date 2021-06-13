@@ -16,7 +16,7 @@
                         UserDataBreaches_UserDataBreachesID = c.Int(),
                     })
                 .PrimaryKey(t => t.DataBreachID)
-                .ForeignKey("dbo.UserDataBreaches", t => t.UserDataBreaches_UserDataBreachesID)
+                .ForeignKey("dbo.UserDataBreaches", t => t.UserDataBreaches_UserDataBreachesID, cascadeDelete: true)
                 .Index(t => t.UserDataBreaches_UserDataBreachesID);
             
             CreateTable(
@@ -29,7 +29,7 @@
                         Password_PasswordID = c.Int(),
                     })
                 .PrimaryKey(t => t.PasswordHistoryID)
-                .ForeignKey("dbo.DataBreaches", t => t.DataBreachOrigin_DataBreachID)
+                .ForeignKey("dbo.DataBreaches", t => t.DataBreachOrigin_DataBreachID, cascadeDelete: true)
                 .ForeignKey("dbo.Passwords", t => t.Password_PasswordID)
                 .Index(t => t.DataBreachOrigin_DataBreachID)
                 .Index(t => t.Password_PasswordID);

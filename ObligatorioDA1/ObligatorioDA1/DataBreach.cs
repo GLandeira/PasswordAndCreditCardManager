@@ -17,12 +17,16 @@ namespace Domain
 
         public DataBreach()
         {
-
+            CreditCardBreaches = new List<CreditCard>();
+            PasswordBreaches = new List<PasswordHistory>();
         }
 
         public DataBreach(UserDataBreaches userDataBreaches)
         {
             UserDataBreaches = userDataBreaches;
+
+            CreditCardBreaches = new List<CreditCard>();
+            PasswordBreaches = new List<PasswordHistory>();
         }
 
         public override bool Equals(object obj)

@@ -11,7 +11,27 @@ namespace Repository
     {
         public int Add(DataBreach entity)
         {
-            throw new NotImplementedException();
+            using (DomainDBContext context = new DomainDBContext())
+            {
+                context.UserDataBreaches.Attach(entity.UserDataBreaches);
+
+                foreach(CreditCard c in entity.CreditCardBreaches)
+                {
+                    context.CreditCards.Attach(c);
+                    context.Categories.Attach(c.Category);
+                }
+
+                foreach (PasswordHistory p in entity.PasswordBreaches)
+                {
+                    context.Passwords.Attach(p.Password);
+                    context.Categories.Attach(p.Password.Category);
+                }
+
+                DataBreach addedDataBreach = context.DataBreaches.Add(entity);
+                context.SaveChanges();
+
+                return addedDataBreach.DataBreachID;
+            }
         }
 
         public void Delete(DataBreach entity)
@@ -26,7 +46,11 @@ namespace Repository
 
         public IEnumerable<DataBreach> GetAll()
         {
-            throw new NotImplementedException();
+            using (DomainDBContext context = new DomainDBContext())
+            {
+                IEnumerable<DataBreach> allDataBreaches = context.DataBreaches.ToList();
+                return allDataBreaches;
+            }
         }
 
         public void Modify(DataBreach entity)

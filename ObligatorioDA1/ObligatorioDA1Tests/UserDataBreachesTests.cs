@@ -83,7 +83,6 @@ namespace DomainTests
             _dataBreach1 = new DataBreach();
             _dataBreach1.PasswordBreaches = fakePasswordHistories1;
             _dataBreach1.CreditCardBreaches = fakeCreditCards1;
-            _dataBreach1.Date = DateTime.Today;
 
             List<PasswordHistory> fakePasswordHistories2 = new List<PasswordHistory>();
             fakePasswordHistories2.Add(_password4);
@@ -97,7 +96,6 @@ namespace DomainTests
             _dataBreach2 = new DataBreach();
             _dataBreach2.PasswordBreaches = fakePasswordHistories2;
             _dataBreach2.CreditCardBreaches = fakeCreditCards2;
-            _dataBreach2.Date = DateTime.Today.AddHours(3);
 
             List<PasswordHistory> fakePasswordHistories3 = new List<PasswordHistory>();
             fakePasswordHistories3.Add(_password1);
@@ -111,7 +109,7 @@ namespace DomainTests
             _dataBreach3 = new DataBreach();
             _dataBreach3.PasswordBreaches = fakePasswordHistories3;
             _dataBreach3.CreditCardBreaches = fakeCreditCards3;
-            _dataBreach3.Date = DateTime.Today;
+            _dataBreach3.Date = DateTime.Now;
 
             List<PasswordHistory> fakePasswordHistories4 = new List<PasswordHistory>();
             fakePasswordHistories4.Add(_password1);
@@ -125,7 +123,6 @@ namespace DomainTests
             _dataBreach4 = new DataBreach();
             _dataBreach4.PasswordBreaches = fakePasswordHistories4;
             _dataBreach4.CreditCardBreaches = fakeCreditCards4;
-            _dataBreach4.Date = DateTime.Today.AddDays(3);
         }
 
         [TestCleanup]
@@ -146,7 +143,9 @@ namespace DomainTests
         public void AddManyDataBreachesTest()
         {
             _userDataBreachesTest.AddDataBreach(_dataBreach1);
+            _dataBreach1.Date = DateTime.Now.AddHours(3);
             _userDataBreachesTest.AddDataBreach(_dataBreach2);
+            _dataBreach2.Date = DateTime.Now.AddHours(4);
             _userDataBreachesTest.AddDataBreach(_dataBreach4);
 
             Assert.AreEqual(3, _userDataBreachesTest.DataBreaches.Count);
