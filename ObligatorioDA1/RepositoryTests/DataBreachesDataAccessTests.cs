@@ -2,6 +2,7 @@
 using System;
 using Repository;
 using Domain;
+using System.Linq;
 
 namespace RepositoryTests
 {
@@ -31,6 +32,7 @@ namespace RepositoryTests
 
         private DataBreach _testDataBreach1;
         private DataBreach _testDataBreach2;
+        private DataBreach _testDataBreach3;
 
         [TestInitialize]
         public void TestInitialize()
@@ -39,6 +41,7 @@ namespace RepositoryTests
             _userDataAccess = new UserDataAccess();
             _passwordDataAccess = new PasswordDataAccess();
             _creditCardDataAccess = new CreditCardDataAccess();
+            _dataBreachesDataAccess = new DataBreachesDataAccess();
 
             _testUser = new User("Juan", "123456");
             int uid1 = _userDataAccess.Add(_testUser);
@@ -135,8 +138,14 @@ namespace RepositoryTests
         }
 
         [TestMethod]
-        public void TestMethod1()
+        public void AddDataBreach()
         {
+            DataBreach dataBreach = new DataBreach(_testUser.UserDataBreaches);
+            dataBreach.CreditCardBreaches.Add(_testCreditCard1);
+
+            _dataBreachesDataAccess.Add(dataBreach);
+
+            Assert.AreEqual(1, _dataBreachesDataAccess.GetAll().ToList().Count);
         }
     }
 }
