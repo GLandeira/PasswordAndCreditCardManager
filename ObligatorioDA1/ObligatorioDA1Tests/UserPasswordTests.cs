@@ -220,7 +220,7 @@ namespace DomainTests
                 }
             }
 
-            Assert.AreEqual(true, passwordWasModified);
+            Assert.IsTrue(passwordWasModified);
         }
         
         [TestMethod]
