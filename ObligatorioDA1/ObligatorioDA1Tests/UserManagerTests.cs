@@ -27,6 +27,8 @@ namespace DomainTests
             mockDataAccess.UserDataAccess = new MockUserDataAccess();
             mockDataAccess.CategoryDataAccess = new MockCategoryDataAccess();
             mockDataAccess.CreditCardDataAccess = new MockCreditCardDataAccess();
+            mockDataAccess.PasswordDataAccess = new MockPasswordDataAccess();
+            ////mockDataAccess.DataBreachesDataAccess = new MockDataBreachesDataAccess();
             new RepositoryFacade(mockDataAccess);
             new UserManager();
 
