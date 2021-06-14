@@ -26,9 +26,9 @@ namespace DomainTests
             DataAccessDTO mockDataAccess = new DataAccessDTO();
             mockDataAccess.UserDataAccess = new MockUserDataAccess();
             mockDataAccess.CategoryDataAccess = new MockCategoryDataAccess();
+            mockDataAccess.DataBreachDataAccess = new MockDataBreachesDataAccess();
             mockDataAccess.CreditCardDataAccess = new MockCreditCardDataAccess();
             mockDataAccess.PasswordDataAccess = new MockPasswordDataAccess();
-            ////mockDataAccess.DataBreachesDataAccess = new MockDataBreachesDataAccess();
             new RepositoryFacade(mockDataAccess);
             new UserManager();
 

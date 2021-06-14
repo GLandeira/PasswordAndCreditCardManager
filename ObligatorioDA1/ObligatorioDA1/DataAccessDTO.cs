@@ -12,5 +12,6 @@ namespace Domain
         public IDataAccess<Category> CategoryDataAccess;
         public IDataAccess<CreditCard> CreditCardDataAccess;
         public IDataAccess<Password> PasswordDataAccess;
+        public IDataAccess<DataBreach> DataBreachDataAccess;
     }
 }

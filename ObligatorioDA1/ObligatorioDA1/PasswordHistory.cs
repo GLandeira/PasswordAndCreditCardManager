@@ -19,5 +19,13 @@ namespace Domain
             PasswordHistoryID = id;
             BreachedPasswordString = oldPassword;
         }
+
+        public override bool Equals(object obj)
+        {
+            PasswordHistory entry = (PasswordHistory)obj;
+            bool areEqual = entry.Password.Equals(Password);
+
+            return areEqual;
+        }
     }
 }

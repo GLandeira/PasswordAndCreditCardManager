@@ -28,52 +28,81 @@ namespace Domain
             // Si el databreach es en la misma hora, hay que fijarse si hay contras/creditcards nuevas
             // Si hay se agregan al databreach original.
             // Si no hay, no se hace nada
+            dataBreach.Date = DateTime.Now;
+
             bool dataBreachOnSameDate = DataBreaches.Any(db => db.Equals(dataBreach));
 
             if (dataBreachOnSameDate)
             {
                 DataBreach dataBreachInMemory = DataBreaches.FirstOrDefault(db => db.Equals(dataBreach));
 
-                AddPasswordsNotPresentInDataBreach(dataBreach, dataBreachInMemory);
+                DataBreach newDataBreach = GenerateDataBreachWithNewBreaches(dataBreach, dataBreachInMemory);
 
-                AddCreditCardsNotPresentInDataBreach(dataBreach, dataBreachInMemory);
+                dataBreachInMemory.CreditCardBreaches.AddRange(newDataBreach.CreditCardBreaches);
+                dataBreachInMemory.PasswordBreaches.AddRange(newDataBreach.PasswordBreaches);
+
+                // Dejar pasar solamente las nuevas al Modify
+
+                RepositoryFacade.Instance.DataBreachDataAccess.Modify(newDataBreach);
 
                 return;
             }
 
             DataBreaches.Add(dataBreach);
+            RepositoryFacade.Instance.DataBreachDataAccess.Add(dataBreach);
         }
 
         public DataBreach GetDataBreach(DateTime fecha)
         {
             DataBreach searcherDataBreach = new DataBreach();
             searcherDataBreach.Date = fecha;
+            int id = DataBreaches.FirstOrDefault(db => db.Equals(searcherDataBreach)).DataBreachID;
 
-            return DataBreaches.FirstOrDefault(db => db.Equals(searcherDataBreach));
+            return RepositoryFacade.Instance.DataBreachDataAccess.Get(id);
         }
 
-        private void AddPasswordsNotPresentInDataBreach(DataBreach entryDataBreach, DataBreach dataBreachInMemory)
+        private DataBreach GenerateDataBreachWithNewBreaches(DataBreach entryBreach, DataBreach dataBreachInMemory)
         {
+            DataBreach newBreachesOnly = new DataBreach(this);
+            newBreachesOnly.DataBreachID = dataBreachInMemory.DataBreachID;
+            newBreachesOnly.Date = DateTime.Now;
+
+            newBreachesOnly.PasswordBreaches = GenerateListOfNewPasswordBreaches(entryBreach, dataBreachInMemory);
+            newBreachesOnly.CreditCardBreaches = GenerateListOfNewCreditCardBreaches(entryBreach, dataBreachInMemory);
+
+            return newBreachesOnly;
+        }
+
+        private List<PasswordHistory> GenerateListOfNewPasswordBreaches(DataBreach entryDataBreach, DataBreach dataBreachInMemory)
+        {
+            List<PasswordHistory> newPasswordHistories = new List<PasswordHistory>();
+
             foreach (PasswordHistory passwordHistory in entryDataBreach.PasswordBreaches)
             {
                 bool passwordNotPresent = !dataBreachInMemory.PasswordBreaches.Any(pb => pb.Equals(passwordHistory));
                 if (passwordNotPresent)
                 {
-                    dataBreachInMemory.PasswordBreaches.Add(passwordHistory);
+                    newPasswordHistories.Add(passwordHistory);
                 }
             }
-        }
 
-        private void AddCreditCardsNotPresentInDataBreach(DataBreach entryDataBreach, DataBreach dataBreachInMemory)
+            return newPasswordHistories;
+        }
+        
+        private List<CreditCard> GenerateListOfNewCreditCardBreaches(DataBreach entryDataBreach, DataBreach dataBreachInMemory)
         {
+            List<CreditCard> newCreditCards = new List<CreditCard>();
+
             foreach (CreditCard creditCard in entryDataBreach.CreditCardBreaches)
             {
                 bool creditCardNotPresent = !dataBreachInMemory.CreditCardBreaches.Any(ccb => ccb.Equals(creditCard));
                 if (creditCardNotPresent)
                 {
-                    dataBreachInMemory.CreditCardBreaches.Add(creditCard);
+                    newCreditCards.Add(creditCard);
                 }
             }
+
+            return newCreditCards;
         }
     }
 }

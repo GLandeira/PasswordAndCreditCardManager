@@ -21,6 +21,7 @@ namespace UserInterface
             dataAccessInterfaces.PasswordDataAccess = new PasswordDataAccess();
             dataAccessInterfaces.UserDataAccess = new UserDataAccess();
             dataAccessInterfaces.CreditCardDataAccess = new CreditCardDataAccess();
+            dataAccessInterfaces.DataBreachDataAccess = new DataBreachesDataAccess();
             new RepositoryFacade(dataAccessInterfaces);
 
             new UserManager();
