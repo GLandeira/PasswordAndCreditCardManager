@@ -40,7 +40,7 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                CreditCard CreditcardFound = context.CreditCards.Include(c => c.Category).FirstOrDefault(Creditcards => Creditcards.CreditCardID == id);
+                CreditCard CreditcardFound = context.CreditCards.Include(c => c.Category.UserCategory).Include(c => c.UserCreditCard).FirstOrDefault(Creditcards => Creditcards.CreditCardID == id);
                 return CreditcardFound;
             }
         }
@@ -59,7 +59,8 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                // Ver si esta bien
+
+                context.Categories.Attach(entity.Category);
                 context.Entry(entity).State = EntityState.Modified;
 
                 var valueInDB = context.CreditCards.FirstOrDefault(creditCard => creditCard.CreditCardID == entity.CreditCardID);

@@ -54,11 +54,14 @@
     <Compile Include="ColorClassifierTests.cs" />
     <Compile Include="DataAccessMock.cs" />
     <Compile Include="MockDataBreachesDataAccess.cs" />
+    <Compile Include="MockCreditCardDataAccess.cs" />
+    <Compile Include="MockPasswordDataAccess.cs" />
     <Compile Include="MockUserDataAccess.cs" />
     <Compile Include="TextFileTranslatorTests.cs" />
     <Compile Include="TextBoxTranslatorTests.cs" />
     <Compile Include="PasswordSecurityFlaggerTests.cs" />
     <Compile Include="CharacterGeneratorTests.cs" />
+    <Compile Include="UserCategoryTests.cs" />
     <Compile Include="UserDataBreachesTests.cs" />
     <Compile Include="UserManagerTests.cs" />
     <Compile Include="PasswordGeneratorTests.cs" />
