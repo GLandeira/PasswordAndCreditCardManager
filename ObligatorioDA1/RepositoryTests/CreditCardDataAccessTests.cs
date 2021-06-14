@@ -73,7 +73,7 @@ namespace RepositoryTests
         [TestCleanup]
         public void TestCleanup()
         {
-            //_categoryDataAccess.Clear();
+
             _userDataAccess.Clear();
         }
 
@@ -131,8 +131,7 @@ namespace RepositoryTests
             _testCreditCard1.Name = nombreNuevo;
             _testCreditCard1.SecurityCode = cvv;
             _creditcardDataAccess.Modify(_testCreditCard1);
-
-            Assert.AreEqual(nombreNuevo, _creditcardDataAccess.Get(id).Name);
+            Assert.IsTrue(_testCreditCard1.AbsoluteEquals(_creditcardDataAccess.Get(id)));
         }
 
 
