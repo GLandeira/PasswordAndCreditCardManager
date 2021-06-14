@@ -131,7 +131,6 @@ namespace RepositoryTests
             _testCreditCard1.Name = nombreNuevo;
             _testCreditCard1.SecurityCode = cvv;
             _creditcardDataAccess.Modify(_testCreditCard1);
-            CreditCard test = _creditcardDataAccess.Get(id);
             Assert.IsTrue(_testCreditCard1.AbsoluteEquals(_creditcardDataAccess.Get(id)));
         }
 
