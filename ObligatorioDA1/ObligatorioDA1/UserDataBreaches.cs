@@ -36,6 +36,7 @@ namespace Domain
             {
                 DataBreach dataBreachInMemory = DataBreaches.FirstOrDefault(db => db.Equals(dataBreach));
 
+                // Dejar pasar solamente las nuevas al Modify
                 AddPasswordsNotPresentInDataBreach(dataBreach, dataBreachInMemory);
 
                 AddCreditCardsNotPresentInDataBreach(dataBreach, dataBreachInMemory);

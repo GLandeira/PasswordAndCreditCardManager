@@ -15,12 +15,19 @@ namespace DomainTests
         private DataBreach _dataBreach3;
         private DataBreach _dataBreach4;
 
-        private PasswordHistory _password1;
-        private PasswordHistory _password2;
-        private PasswordHistory _password3;
-        private PasswordHistory _password4;
-        private PasswordHistory _password5;
-        private PasswordHistory _password6;
+        private Password _testPassword1;
+        private Password _testPassword2;
+        private Password _testPassword3;
+        private Password _testPassword4;
+        private Password _testPassword5;
+        private Password _testPassword6;
+
+        private PasswordHistory _passwordHistories1;
+        private PasswordHistory _passwordHistories2;
+        private PasswordHistory _passwordHistories3;
+        private PasswordHistory _passwordHistories4;
+        private PasswordHistory _passwordHistories5;
+        private PasswordHistory _passwordHistories6;
 
         private CreditCard _creditCard1;
         private CreditCard _creditCard2;
@@ -34,12 +41,85 @@ namespace DomainTests
         {
             _userDataBreachesTest = new UserDataBreaches();
 
-            _password1 = new PasswordHistory(1, "OldPassword");
-            _password2 = new PasswordHistory(2, "SecondOldPassword");
-            _password3 = new PasswordHistory(3, "SomeOldPassword");
-            _password4 = new PasswordHistory(4, "AnotherOtherPassword");
-            _password5 = new PasswordHistory(5, "MoreOldPasswords");
-            _password6 = new PasswordHistory(6, "OldestPassword");
+            _testPassword1 = new Password
+            {
+                PasswordString = "111@#sasddawdq111",
+                Site = "www.ort.edu.uy",
+                Username = "Matias Gonzalez",
+                LastModification = DateTime.Today,
+                Notes = "cuenta universidad"
+            };
+            _testPassword2 = new Password
+            {
+                PasswordString = "111@aasdas111",
+                Site = "www.papas.edu.uy",
+                Username = "Juan Alberto",
+                LastModification = DateTime.Today,
+                Notes = "cuenta papas"
+            };
+            _testPassword3 = new Password
+            {
+                PasswordString = "111@1231awdq111",
+                Site = "www.papas.edu.uy",
+                Username = "Juana",
+                LastModification = DateTime.Today,
+                Notes = "cuenta papas Juana"
+            };
+            _testPassword4 = new Password
+            {
+                PasswordString = "1gagahA111",
+                Site = "www.bolognesa.uy",
+                Username = "Juan Alberto",
+                LastModification = DateTime.Today,
+                Notes = "cuenta bolognesa"
+            };
+            _testPassword5 = new Password
+            {
+                PasswordString = "Faaadq111",
+                Site = "www.fiosa.edu.uy",
+                Username = "Alfredo",
+                LastModification = DateTime.Today,
+                Notes = "cuenta fiosa"
+            };
+            _testPassword6 = new Password
+            {
+                PasswordString = "111@fasfasdq111",
+                Site = "www.ebay.com",
+                Username = "Ariadne",
+                LastModification = DateTime.Today,
+                Notes = "Cuenta ebay aranias"
+            };
+
+            _passwordHistories1 = new PasswordHistory()
+            {
+                Password = _testPassword1,
+                BreachedPasswordString = "0ldPassw0rd"
+            };
+            _passwordHistories2 = new PasswordHistory()
+            {
+                Password = _testPassword2,
+                BreachedPasswordString = "SecondOldPassword"
+            };
+            _passwordHistories3 = new PasswordHistory()
+            {
+                Password = _testPassword3,
+                BreachedPasswordString = "SomeOldPassword"
+            };
+            _passwordHistories4 = new PasswordHistory()
+            {
+                Password = _testPassword4,
+                BreachedPasswordString = "AnotherOtherPassword"
+            };
+            _passwordHistories5 = new PasswordHistory()
+            {
+                Password = _testPassword5,
+                BreachedPasswordString = "MoreOldPasswords"
+            };
+            _passwordHistories6 = new PasswordHistory()
+            {
+                Password = _testPassword6,
+                BreachedPasswordString = "OldestPassword"
+            };
 
             _creditCard1 = new CreditCard()
             {
@@ -72,9 +152,9 @@ namespace DomainTests
             };
 
             List<PasswordHistory> fakePasswordHistories1 = new List<PasswordHistory>();
-            fakePasswordHistories1.Add(_password1);
-            fakePasswordHistories1.Add(_password2);
-            fakePasswordHistories1.Add(_password3);
+            fakePasswordHistories1.Add(_passwordHistories1);
+            fakePasswordHistories1.Add(_passwordHistories2);
+            fakePasswordHistories1.Add(_passwordHistories3);
 
             List<CreditCard> fakeCreditCards1 = new List<CreditCard>();
             fakeCreditCards1.Add(_creditCard1);
@@ -85,9 +165,9 @@ namespace DomainTests
             _dataBreach1.CreditCardBreaches = fakeCreditCards1;
 
             List<PasswordHistory> fakePasswordHistories2 = new List<PasswordHistory>();
-            fakePasswordHistories2.Add(_password4);
-            fakePasswordHistories2.Add(_password5);
-            fakePasswordHistories2.Add(_password6);
+            fakePasswordHistories2.Add(_passwordHistories4);
+            fakePasswordHistories2.Add(_passwordHistories5);
+            fakePasswordHistories2.Add(_passwordHistories6);
 
             List<CreditCard> fakeCreditCards2 = new List<CreditCard>();
             fakeCreditCards2.Add(_creditCard2);
@@ -98,9 +178,9 @@ namespace DomainTests
             _dataBreach2.CreditCardBreaches = fakeCreditCards2;
 
             List<PasswordHistory> fakePasswordHistories3 = new List<PasswordHistory>();
-            fakePasswordHistories3.Add(_password1);
-            fakePasswordHistories3.Add(_password3);
-            fakePasswordHistories3.Add(_password5);
+            fakePasswordHistories3.Add(_passwordHistories1);
+            fakePasswordHistories3.Add(_passwordHistories3);
+            fakePasswordHistories3.Add(_passwordHistories5);
 
             List<CreditCard> fakeCreditCards3 = new List<CreditCard>();
             fakeCreditCards3.Add(_creditCard4);
@@ -112,9 +192,9 @@ namespace DomainTests
             _dataBreach3.Date = DateTime.Now;
 
             List<PasswordHistory> fakePasswordHistories4 = new List<PasswordHistory>();
-            fakePasswordHistories4.Add(_password1);
-            fakePasswordHistories4.Add(_password3);
-            fakePasswordHistories4.Add(_password5);
+            fakePasswordHistories4.Add(_passwordHistories1);
+            fakePasswordHistories4.Add(_passwordHistories3);
+            fakePasswordHistories4.Add(_passwordHistories5);
 
             List<CreditCard> fakeCreditCards4 = new List<CreditCard>();
             fakeCreditCards4.Add(_creditCard4);

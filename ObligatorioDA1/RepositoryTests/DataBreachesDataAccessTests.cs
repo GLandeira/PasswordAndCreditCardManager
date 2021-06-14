@@ -283,24 +283,41 @@ namespace RepositoryTests
         {
             DataBreach dataBreach1 = new DataBreach(_testUser.UserDataBreaches);
             dataBreach1.Date = DateTime.Now;
-            _testPasswordHistory1.DataBreachOrigin = dataBreach1;
             dataBreach1.PasswordBreaches.Add(_testPasswordHistory1);
-            
 
             int id1 = _dataBreachesDataAccess.Add(dataBreach1);
 
-            //DataBreach dataBreach2 = new DataBreach(_testUser.UserDataBreaches);
-            //dataBreach2.DataBreachID = id1;
-            //dataBreach2.Date = DateTime.Now;
-            //dataBreach2.PasswordBreaches.Add(_testPasswordHistory2);
-            _testPasswordHistory2.DataBreachOrigin = dataBreach1;
-            dataBreach1.PasswordBreaches.Add(_testPasswordHistory2);
+            DataBreach dataBreach2 = new DataBreach(_testUser.UserDataBreaches);
+            dataBreach2.DataBreachID = id1;
+            dataBreach2.Date = DateTime.Now;
+            dataBreach2.PasswordBreaches.Add(_testPasswordHistory2);
 
-            _dataBreachesDataAccess.Modify(dataBreach1);
+            _dataBreachesDataAccess.Modify(dataBreach2);
 
             DataBreach dataBreachInDB = _dataBreachesDataAccess.Get(id1);
 
             Assert.AreEqual(2, dataBreachInDB.PasswordBreaches.Count);
+        }
+
+        [TestMethod]
+        public void ModifyCategoryAddsBreachedCreditCards()
+        {
+            DataBreach dataBreach1 = new DataBreach(_testUser.UserDataBreaches);
+            dataBreach1.Date = DateTime.Now;
+            dataBreach1.CreditCardBreaches.Add(_testCreditCard1);
+
+            int id1 = _dataBreachesDataAccess.Add(dataBreach1);
+
+            DataBreach dataBreach2 = new DataBreach(_testUser.UserDataBreaches);
+            dataBreach2.DataBreachID = id1;
+            dataBreach2.Date = DateTime.Now;
+            dataBreach2.CreditCardBreaches.Add(_testCreditCard2);
+
+            _dataBreachesDataAccess.Modify(dataBreach2);
+
+            DataBreach dataBreachInDB = _dataBreachesDataAccess.Get(id1);
+
+            Assert.AreEqual(2, dataBreachInDB.CreditCardBreaches.Count);
         }
     }
 }

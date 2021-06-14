@@ -74,24 +74,16 @@ namespace Repository
                     context.Categories.Attach(c.Category);
                 }
 
-                foreach (PasswordHistory p in entity.PasswordBreaches)
+                foreach(PasswordHistory p in entity.PasswordBreaches)
                 {
-                    if (!valueInDB.PasswordBreaches.Any(pb => pb.PasswordHistoryID == p.PasswordHistoryID))
-                    {
-                        //context.Entry(p).State = EntityState.Added;
-                    }
-
-                    //context.PasswordHistory.Attach(p);
-                    //context.DataBreaches.Attach(p.DataBreachOrigin);
                     context.Passwords.Attach(p.Password);
                     context.Categories.Attach(p.Password.Category);
                 }
-
                 
                 valueInDB.CreditCardBreaches = entity.CreditCardBreaches;
                 valueInDB.PasswordBreaches = entity.PasswordBreaches;
 
-                context.Entry(entity).State = EntityState.Modified;
+                //context.Entry(valueInDB).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }
