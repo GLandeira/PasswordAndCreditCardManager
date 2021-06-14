@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Core;
 
 namespace Repository
 {
@@ -15,8 +17,9 @@ namespace Repository
             using (DomainDBContext context = new DomainDBContext())
             {
                 context.UserDataBreaches.Attach(entity.UserDataBreaches);
+                
 
-                foreach(CreditCard c in entity.CreditCardBreaches)
+                foreach (CreditCard c in entity.CreditCardBreaches)
                 {
                     context.CreditCards.Attach(c);
                     context.UserCreditCards.Attach(c.UserCreditCard);
@@ -25,6 +28,7 @@ namespace Repository
 
                 foreach (PasswordHistory p in entity.PasswordBreaches)
                 {
+                    //context.DataBreaches.Attach(p.DataBreachOrigin);
                     context.Passwords.Attach(p.Password);
                     context.UserPasswords.Attach(p.Password.UserPassword);
                     context.Categories.Attach(p.Password.Category);
@@ -33,7 +37,7 @@ namespace Repository
 
                 DataBreach addedDataBreach = context.DataBreaches.Add(entity);
                 context.SaveChanges();
-
+                
                 return addedDataBreach.DataBreachID;
             }
         }
