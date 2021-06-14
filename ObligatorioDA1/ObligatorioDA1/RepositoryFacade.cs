@@ -28,12 +28,13 @@ namespace Domain
             CategoryDataAccess = dataAccess.CategoryDataAccess;
             CreditCardDataAccess = dataAccess.CreditCardDataAccess;
             PasswordDataAccess = dataAccess.PasswordDataAccess;
-
+            DataBreachDataAccess = dataAccess.DataBreachDataAccess;
         }
 
         public IDataAccess<User> UserDataAccess { get; set; }
         public IDataAccess<Category> CategoryDataAccess { get; set; }
         public IDataAccess<CreditCard> CreditCardDataAccess { get; set; }
         public IDataAccess<Password> PasswordDataAccess { get; set; }
+        public IDataAccess<DataBreach> DataBreachDataAccess { get; set; }
     }
 }

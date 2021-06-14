@@ -36,12 +36,14 @@ namespace Domain
             {
                 DataBreach dataBreachInMemory = DataBreaches.FirstOrDefault(db => db.Equals(dataBreach));
 
+                DataBreach newDataBreach = GenerateDataBreachWithNewBreaches(dataBreach, dataBreachInMemory);
+
+                dataBreachInMemory.CreditCardBreaches.AddRange(newDataBreach.CreditCardBreaches);
+                dataBreachInMemory.PasswordBreaches.AddRange(newDataBreach.PasswordBreaches);
+
                 // Dejar pasar solamente las nuevas al Modify
-                AddPasswordsNotPresentInDataBreach(dataBreach, dataBreachInMemory);
 
-                AddCreditCardsNotPresentInDataBreach(dataBreach, dataBreachInMemory);
-
-
+                //RepositoryFacade.Instance.DataBreachDataAccess.Modify(newDataBreach);
 
                 return;
             }
@@ -57,28 +59,48 @@ namespace Domain
             return DataBreaches.FirstOrDefault(db => db.Equals(searcherDataBreach));
         }
 
-        private void AddPasswordsNotPresentInDataBreach(DataBreach entryDataBreach, DataBreach dataBreachInMemory)
+        private DataBreach GenerateDataBreachWithNewBreaches(DataBreach entryBreach, DataBreach dataBreachInMemory)
         {
+            DataBreach newBreachesOnly = new DataBreach(this);
+            newBreachesOnly.DataBreachID = dataBreachInMemory.DataBreachID;
+            newBreachesOnly.Date = DateTime.Now;
+
+            newBreachesOnly.PasswordBreaches = GenerateListOfNewPasswordBreaches(entryBreach, dataBreachInMemory);
+            newBreachesOnly.CreditCardBreaches = GenerateListOfNewCreditCardBreaches(entryBreach, dataBreachInMemory);
+
+            return newBreachesOnly;
+        }
+
+        private List<PasswordHistory> GenerateListOfNewPasswordBreaches(DataBreach entryDataBreach, DataBreach dataBreachInMemory)
+        {
+            List<PasswordHistory> newPasswordHistories = new List<PasswordHistory>();
+
             foreach (PasswordHistory passwordHistory in entryDataBreach.PasswordBreaches)
             {
                 bool passwordNotPresent = !dataBreachInMemory.PasswordBreaches.Any(pb => pb.Equals(passwordHistory));
                 if (passwordNotPresent)
                 {
-                    dataBreachInMemory.PasswordBreaches.Add(passwordHistory);
+                    newPasswordHistories.Add(passwordHistory);
                 }
             }
+
+            return newPasswordHistories;
         }
 
-        private void AddCreditCardsNotPresentInDataBreach(DataBreach entryDataBreach, DataBreach dataBreachInMemory)
+        private List<CreditCard> GenerateListOfNewCreditCardBreaches(DataBreach entryDataBreach, DataBreach dataBreachInMemory)
         {
+            List<CreditCard> newCreditCards = new List<CreditCard>();
+
             foreach (CreditCard creditCard in entryDataBreach.CreditCardBreaches)
             {
                 bool creditCardNotPresent = !dataBreachInMemory.CreditCardBreaches.Any(ccb => ccb.Equals(creditCard));
                 if (creditCardNotPresent)
                 {
-                    dataBreachInMemory.CreditCardBreaches.Add(creditCard);
+                    newCreditCards.Add(creditCard);
                 }
             }
+
+            return newCreditCards;
         }
     }
 }
