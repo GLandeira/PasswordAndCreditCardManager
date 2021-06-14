@@ -53,6 +53,7 @@
     <Compile Include="CategoryTests.cs" />
     <Compile Include="ColorClassifierTests.cs" />
     <Compile Include="DataAccessMock.cs" />
+    <Compile Include="MockDataBreachesDataAccess.cs" />
     <Compile Include="MockUserDataAccess.cs" />
     <Compile Include="TextFileTranslatorTests.cs" />
     <Compile Include="TextBoxTranslatorTests.cs" />

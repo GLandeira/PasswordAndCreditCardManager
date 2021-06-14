@@ -43,20 +43,22 @@ namespace Domain
 
                 // Dejar pasar solamente las nuevas al Modify
 
-                //RepositoryFacade.Instance.DataBreachDataAccess.Modify(newDataBreach);
+                RepositoryFacade.Instance.DataBreachDataAccess.Modify(newDataBreach);
 
                 return;
             }
 
             DataBreaches.Add(dataBreach);
+            RepositoryFacade.Instance.DataBreachDataAccess.Add(dataBreach);
         }
 
         public DataBreach GetDataBreach(DateTime fecha)
         {
             DataBreach searcherDataBreach = new DataBreach();
             searcherDataBreach.Date = fecha;
+            int id = DataBreaches.FirstOrDefault(db => db.Equals(searcherDataBreach)).DataBreachID;
 
-            return DataBreaches.FirstOrDefault(db => db.Equals(searcherDataBreach));
+            return RepositoryFacade.Instance.DataBreachDataAccess.Get(id);
         }
 
         private DataBreach GenerateDataBreachWithNewBreaches(DataBreach entryBreach, DataBreach dataBreachInMemory)
@@ -86,7 +88,7 @@ namespace Domain
 
             return newPasswordHistories;
         }
-
+        
         private List<CreditCard> GenerateListOfNewCreditCardBreaches(DataBreach entryDataBreach, DataBreach dataBreachInMemory)
         {
             List<CreditCard> newCreditCards = new List<CreditCard>();
