@@ -26,9 +26,9 @@ namespace UserInterface
             _unsharedPassword = unsharedPassword;
             
             InitializeComponent();
-            foreach (string username in unsharedPassword.UsersSharedWith)
+            foreach (User user in unsharedPassword.UsersSharedWith)
             {
-                _usersSharedList.Add(UserManager.Instance.GetUser(username));
+                _usersSharedList.Add(user);
             }
             cmbBxUsers.DataSource = _usersSharedList;
             if (_usersSharedList.Count == 0)
