@@ -258,7 +258,7 @@ namespace DomainTests
 
             Password sharedPasswordSharer = sharerUserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
 
-            Assert.AreEqual(1, sharedPasswordSharer.UsersSharedWith.Count);
+            Assert.AreEqual(1, _sharedPassword.UsersSharedWith.Count);
         }
 
         [TestMethod]

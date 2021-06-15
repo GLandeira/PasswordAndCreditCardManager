@@ -93,7 +93,7 @@ namespace Domain
 
             Password sharedClone = (Password)sharedPassword.Clone();
             sharedClone.Category = sharee.UserCategories.GetACategory(UserCategory.SHARED_PASSWORD_CATEGORY_NAME);
-            sharedClone.UsersSharedWith.Clear();
+            sharedClone.UsersSharedWith = new List<User>();
 
             sharee.UserPasswords.AddPassword(sharedClone);
         }
@@ -155,7 +155,8 @@ namespace Domain
             List<User> usersSharedWith = new List<User>(password.UsersSharedWith);
             foreach (User user in usersSharedWith)
             {
-                StopSharingPassword(user, password);
+                User userInDb = RepositoryFacade.Instance.UserDataAccess.Get(user.UserID);
+                StopSharingPassword(userInDb, password);
             }
         }
 
@@ -163,7 +164,8 @@ namespace Domain
         {
             foreach (User user in usersSharedWith)
             {
-                SharePassword(user, modifiedPassword);
+                User userInDb = RepositoryFacade.Instance.UserDataAccess.Get(user.UserID);
+                SharePassword(userInDb, modifiedPassword);
             }
         }
 
