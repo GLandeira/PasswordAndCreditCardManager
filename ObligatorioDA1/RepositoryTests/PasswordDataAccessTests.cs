@@ -72,8 +72,8 @@ namespace RepositoryTests
             _testPassword1.Category = _testCategory1;
             _testPassword2.Category = _testCategory2;
 
-            //_testPassword1.UsersSharedWith.Add(_testUser1);
-            //_testPassword1.UsersSharedWith.Add(_testUser2);
+            _testPassword1.UsersSharedWith.Add(_testUser1);
+            _testPassword1.UsersSharedWith.Add(_testUser2);
         }
 
         [TestCleanup]
@@ -161,7 +161,12 @@ namespace RepositoryTests
         {
             int id = _passwordDataAccess.Add(_testPassword1);
 
-            Assert.AreEqual(_testPassword1.UsersSharedWith, _passwordDataAccess.Get(id).UsersSharedWith);
+            bool userSharedWithAreEqual = true;
+            foreach(User u in _testPassword1.UsersSharedWith)
+            {
+                userSharedWithAreEqual = userSharedWithAreEqual && _passwordDataAccess.Get(id).UsersSharedWith.Any(l => u.UserID == l.UserID);
+            }
+            Assert.IsTrue(userSharedWithAreEqual);
         }
 
         [TestMethod]
@@ -228,7 +233,7 @@ namespace RepositoryTests
         public void ModifyAPasswordCheckUsersSharedWith()
         {
             int id = _passwordDataAccess.Add(_testPassword1);
-            Password _testPassword = new Password
+            Password _testModifiedPassword = new Password
             {
                 PasswordID = id,
                 PasswordString = "111@#sasddawdq111",
@@ -237,11 +242,18 @@ namespace RepositoryTests
                 LastModification = DateTime.Today,
                 Notes = "cuenta universidad"
             };
-            _testPassword.Category = _testCategory1;
+            _testModifiedPassword.UsersSharedWith.Add(_testUser1);
+            _testModifiedPassword.Category = _testCategory1;
 
-            _passwordDataAccess.Modify(_testPassword);
 
-            Assert.AreEqual(_testPassword.UsersSharedWith, _passwordDataAccess.Get(id).UsersSharedWith);
+            _passwordDataAccess.Modify(_testModifiedPassword);
+
+            bool userSharedWithAreEqual = true;
+            foreach (User u in _testModifiedPassword.UsersSharedWith)
+            {
+                userSharedWithAreEqual = userSharedWithAreEqual && _passwordDataAccess.Get(id).UsersSharedWith.Any(l => u.UserID == l.UserID);
+            }
+            Assert.IsTrue(userSharedWithAreEqual);
         }
     }
 }
