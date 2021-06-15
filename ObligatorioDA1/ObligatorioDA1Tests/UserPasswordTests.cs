@@ -46,6 +46,7 @@ namespace DomainTests
             _mockUserPassword = _mockDomain.GetUser("TestUser").UserPasswords;
 
             _userSharedTo = new User("userPrueba", "contraseñaPrueba");
+            _mockDomain.AddUser(_userSharedTo);
             _trabajo = new Category("Trabajo");
             _testPassword1 = new Password
             {
