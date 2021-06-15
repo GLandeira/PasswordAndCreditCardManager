@@ -32,19 +32,19 @@ namespace UserInterface
             txtbxPasswordUsername.Text = password.Username;
             dtmPasswordLastModified.Value = password.LastModification;
             Label userLabel;
-            foreach (string username in password.UsersSharedWith)
+            foreach (User user in password.UsersSharedWith)
             {
-                userLabel = CreateSharedWithUserLabel(username);
+                userLabel = CreateSharedWithUserLabel(user);
                 fwlytSharedWith.Controls.Add(userLabel);
             }
         }
 
-        private Label CreateSharedWithUserLabel(string username)
+        private Label CreateSharedWithUserLabel(User user)
         {
             Label newUserLabel = new Label();
             newUserLabel.Height = 20;
             newUserLabel.Width = 118;
-            newUserLabel.Text = username;
+            newUserLabel.Text = user.Name;
             return newUserLabel;
         }
 

@@ -10,32 +10,43 @@ namespace DomainTests
     [TestClass]
     public class UserPasswordTests
     {
-        private UserPassword _userPasswordTest;
+        private Domain.UserManager _mockDomain;
+        private User _testUser;
+        private Domain.UserPassword _mockUserPassword;
+
         private User _userSharedTo;
-        private UserManager _userManager;
+
         private Password _testPassword1;
         private Password _testPassword2;
         private Password _testPassword3;
+
         private Password _testPasswordRed;
         private Password _testPasswordOrange;
         private Password _testPasswordYellow;
         private Password _testPasswordLightGreen;
         private Password _testPasswordDarkGreen;
+
         private Password _testPasswordSharedPassword1;
-        private Password _testPasswordSharedPassword2;
+
         private Category _trabajo;
         private Category _personal;
 
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            _mockDomain.Users.Clear();
+        }
+        
         [TestInitialize]
         public void TestInitialize()
         {
-            _userManager = new UserManager();
-            _userPasswordTest = new UserPassword(_userManager);
-            _userSharedTo = new User(_userManager)
-            {
-                Name = "userPrueba",
-                MainPassword = "contraseñaPrueba"
-            };
+            _mockDomain = UserManager.Instance;
+            _testUser = new User("TestUser", "TestUser");
+            _mockDomain.AddUser(_testUser);
+            _mockUserPassword = _mockDomain.GetUser("TestUser").UserPasswords;
+
+            _userSharedTo = new User("userPrueba", "contraseñaPrueba");
+            _mockDomain.AddUser(_userSharedTo);
             _trabajo = new Category("Trabajo");
             _testPassword1 = new Password
             {
@@ -130,22 +141,21 @@ namespace DomainTests
 
         }
 
-
         [TestMethod]
         public void TestAddingOnePasswordToList()
         {
-            _userPasswordTest.AddPassword(_testPassword1);
-            Assert.AreEqual(1, _userPasswordTest.Passwords.Count);
+            _mockUserPassword.AddPassword(_testPassword1);
+            Assert.AreEqual(true, _mockUserPassword.Passwords.Contains(_testPassword1));
         }
 
         [TestMethod]
         public void TestAddingTwoPasswordsAndLookingForOne()
         {
             bool samePassword = false;
-            _userPasswordTest.AddPassword(_testPassword1);
-            _userPasswordTest.AddPassword(_testPassword2);
+            _mockUserPassword.AddPassword(_testPassword1);
+            _mockUserPassword.AddPassword(_testPassword2);
 
-            foreach (Password Password in _userPasswordTest.Passwords)
+            foreach (Password Password in _mockUserPassword.Passwords)
             {
                 if (Password.Equals(_testPassword1))
                 {
@@ -158,21 +168,21 @@ namespace DomainTests
         [TestMethod]
         public void TestRemovingOnlyPasswordInList()
         {
-            _userPasswordTest.AddPassword(_testPassword1);
-            _userPasswordTest.RemovePassword(_testPassword1);
+            _mockUserPassword.AddPassword(_testPassword1);
+            _mockUserPassword.RemovePassword(_testPassword1);
 
-            Assert.AreEqual(0, _userPasswordTest.Passwords.Count);
+            Assert.AreEqual(0, _mockUserPassword.Passwords.Count);
         }
 
         [TestMethod]
         public void TestRemovingSpecificPasswordFromListWithMoreThanOneElement()
         {
             bool password2InList = false;
-            _userPasswordTest.AddPassword(_testPassword1);
-            _userPasswordTest.AddPassword(_testPassword2);
-            _userPasswordTest.RemovePassword(_testPassword2);
+            _mockUserPassword.AddPassword(_testPassword1);
+            _mockUserPassword.AddPassword(_testPassword2);
+            _mockUserPassword.RemovePassword(_testPassword2);
 
-            foreach (Password Password in _userPasswordTest.Passwords)
+            foreach (Password Password in _mockUserPassword.Passwords)
             {
                 if (Password.Equals(_testPassword2))
                 {
@@ -186,9 +196,12 @@ namespace DomainTests
         [TestMethod]
         public void TestModifyOnePasswordFromListWithTwoElements()
         {
+            _mockUserPassword.AddPassword(_testPassword2);
+
             bool passwordWasModified = false;
             Password modifiedPassword = new Password
             {
+                PasswordID = _testPassword2.PasswordID,
                 PasswordString = "abcdeJK3132",
                 Site = "www.twitch.tv",
                 Username = "MatixitaM",
@@ -197,9 +210,9 @@ namespace DomainTests
                 Notes = "cuenta streaming"
             };
 
-            _userPasswordTest.ModifyPassword(modifiedPassword, _testPassword2);
+            _mockUserPassword.ModifyPassword(modifiedPassword, _testPassword2);
 
-            foreach(Password Password in _userPasswordTest.Passwords)
+            foreach(Password Password in _mockUserPassword.Passwords)
             {
                 if(modifiedPassword.Equals(Password))
                 {
@@ -207,7 +220,7 @@ namespace DomainTests
                 }
             }
 
-            Assert.AreEqual(true, passwordWasModified);
+            Assert.IsTrue(passwordWasModified);
         }
         
         [TestMethod]
@@ -229,8 +242,8 @@ namespace DomainTests
             passwordImitator.Site = siteName;
             passwordImitator.Username = userName;
 
-            _userPasswordTest.AddPassword(newPassword);
-            Assert.AreEqual(passwordImitator, _userPasswordTest.GetPassword(siteName, userName));
+            _mockUserPassword.AddPassword(newPassword);
+            Assert.AreEqual(passwordImitator, _mockUserPassword.GetPassword(siteName, userName));
         }
 
         [TestMethod]
@@ -239,15 +252,15 @@ namespace DomainTests
             string siteNameThatDoesntExist = "Inexistent Site";
             string userNameThatDoesntExist = "Inexistent Username";
 
-            Assert.ThrowsException<PasswordNotFoundException>(() => _userPasswordTest.GetPassword(siteNameThatDoesntExist, userNameThatDoesntExist));
+            Assert.ThrowsException<PasswordNotFoundException>(() => _mockUserPassword.GetPassword(siteNameThatDoesntExist, userNameThatDoesntExist));
         }
 
         [TestMethod]
         public void GetPasswordsByPasswordStringOneThatExistsInTheList()
         {
-            _userPasswordTest.AddPassword(_testPassword1);
-            _userPasswordTest.AddPassword(_testPassword2);
-            List<Password> passwordsTest = _userPasswordTest.GetPasswordsByPasswordString("111111");
+            _mockUserPassword.AddPassword(_testPassword1);
+            _mockUserPassword.AddPassword(_testPassword2);
+            List<Password> passwordsTest = _mockUserPassword.GetPasswordsByPasswordString("111111");
 
             Assert.AreEqual(_testPassword1, passwordsTest.Find(passwordInList => passwordInList.PasswordString.Equals("111111")));
         }
@@ -256,18 +269,18 @@ namespace DomainTests
         [TestMethod]
         public void GetPasswordsByPasswordStringThatNotExistsInTheList()
         {
-            _userPasswordTest.AddPassword(_testPassword1);
-            _userPasswordTest.AddPassword(_testPassword2);
-            List<Password> passwordsTest = _userPasswordTest.GetPasswordsByPasswordString("PasswordThatDoesntExist");
+            _mockUserPassword.AddPassword(_testPassword1);
+            _mockUserPassword.AddPassword(_testPassword2);
+            List<Password> passwordsTest = _mockUserPassword.GetPasswordsByPasswordString("PasswordThatDoesntExist");
         }
 
         [TestMethod]
         public void GetPasswordsByPasswordStringTwoThatExistsInTheList()
         {
-            _userPasswordTest.AddPassword(_testPassword1);
-            _userPasswordTest.AddPassword(_testPassword2);
-            _userPasswordTest.AddPassword(_testPassword3);
-            List<Password> passwordsTest = _userPasswordTest.GetPasswordsByPasswordString("111111");
+            _mockUserPassword.AddPassword(_testPassword1);
+            _mockUserPassword.AddPassword(_testPassword2);
+            _mockUserPassword.AddPassword(_testPassword3);
+            List<Password> passwordsTest = _mockUserPassword.GetPasswordsByPasswordString("111111");
 
             Assert.AreEqual(2, passwordsTest.Count);
         }
@@ -275,10 +288,10 @@ namespace DomainTests
         [TestMethod]
         public void TestGetPasswordsWithSecurityLevel()
         {
-            _userPasswordTest.AddPassword(_testPassword1);
-            _userPasswordTest.AddPassword(_testPassword2);
-            _userPasswordTest.AddPassword(_testPassword3);
-            List<Password> passwordsTest = _userPasswordTest.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.RED);
+            _mockUserPassword.AddPassword(_testPassword1);
+            _mockUserPassword.AddPassword(_testPassword2);
+            _mockUserPassword.AddPassword(_testPassword3);
+            List<Password> passwordsTest = _mockUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.RED);
             List<Password> correctResult = new List<Password>(){_testPassword1, _testPassword2, _testPassword3};
             bool areEqual = true;
             foreach(Password currentPassword in passwordsTest)
@@ -294,12 +307,12 @@ namespace DomainTests
         [TestMethod]
         public void TestGetPasswordsWithSecurityLevelListWithEveryLevelPasswordOnList()
         {
-            _userPasswordTest.AddPassword(_testPasswordRed);
-            _userPasswordTest.AddPassword(_testPasswordOrange);
-            _userPasswordTest.AddPassword(_testPasswordYellow);
-            _userPasswordTest.AddPassword(_testPasswordLightGreen);
-            _userPasswordTest.AddPassword(_testPasswordDarkGreen);
-            List<Password> passwordsTest = _userPasswordTest.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.LIGHT_GREEN);
+            _mockUserPassword.AddPassword(_testPasswordRed);
+            _mockUserPassword.AddPassword(_testPasswordOrange);
+            _mockUserPassword.AddPassword(_testPasswordYellow);
+            _mockUserPassword.AddPassword(_testPasswordLightGreen);
+            _mockUserPassword.AddPassword(_testPasswordDarkGreen);
+            List<Password> passwordsTest = _mockUserPassword.GetPasswordsWithSecurityLevel(SecurityLevelPasswords.LIGHT_GREEN);
             List<Password> correctResult = new List<Password>()  {_testPasswordLightGreen};
             bool areEqual = true;
             foreach (Password currentPassword in passwordsTest)
@@ -315,34 +328,34 @@ namespace DomainTests
         [TestMethod]
         public void TestGetPasswordsFromSecurityLevelAndCategory()
         {
-            _userPasswordTest.AddPassword(_testPassword1);
-            _userPasswordTest.AddPassword(_testPassword2);
-            _userPasswordTest.AddPassword(_testPassword3);
-            int passwordCount = _userPasswordTest.GetAmountOfPasswordsWithSecurityLevelAndCategory(SecurityLevelPasswords.RED, _personal);
+            _mockUserPassword.AddPassword(_testPassword1);
+            _mockUserPassword.AddPassword(_testPassword2);
+            _mockUserPassword.AddPassword(_testPassword3);
+            int passwordCount = _mockUserPassword.GetAmountOfPasswordsWithSecurityLevelAndCategory(SecurityLevelPasswords.RED, _personal);
             Assert.AreEqual(2,2);
         }
 
         [TestMethod]
         public void TestGetPasswordsFromSecurityLevelAndCategoryWithEveryLevelPasswordOnList()
         {
-            _userPasswordTest.AddPassword(_testPasswordRed);
-            _userPasswordTest.AddPassword(_testPasswordOrange);
-            _userPasswordTest.AddPassword(_testPasswordYellow);
-            _userPasswordTest.AddPassword(_testPasswordLightGreen);
-            _userPasswordTest.AddPassword(_testPasswordDarkGreen);
-            int passwordCount = _userPasswordTest.GetAmountOfPasswordsWithSecurityLevelAndCategory(SecurityLevelPasswords.DARK_GREEN, _personal);
+            _mockUserPassword.AddPassword(_testPasswordRed);
+            _mockUserPassword.AddPassword(_testPasswordOrange);
+            _mockUserPassword.AddPassword(_testPasswordYellow);
+            _mockUserPassword.AddPassword(_testPasswordLightGreen);
+            _mockUserPassword.AddPassword(_testPasswordDarkGreen);
+            int passwordCount = _mockUserPassword.GetAmountOfPasswordsWithSecurityLevelAndCategory(SecurityLevelPasswords.DARK_GREEN, _personal);
             Assert.AreEqual(1, 1);
         }
 
         [TestMethod]
         public void TestGetPasswordsFromSecurityLevelAndCategoryWithEveryLevelPasswordOnList2()
         {
-            _userPasswordTest.AddPassword(_testPasswordRed);
-            _userPasswordTest.AddPassword(_testPasswordOrange);
-            _userPasswordTest.AddPassword(_testPasswordYellow);
-            _userPasswordTest.AddPassword(_testPasswordLightGreen);
-            _userPasswordTest.AddPassword(_testPasswordDarkGreen);
-            int passwordCount = _userPasswordTest.GetAmountOfPasswordsWithSecurityLevelAndCategory(SecurityLevelPasswords.DARK_GREEN, _trabajo);
+            _mockUserPassword.AddPassword(_testPasswordRed);
+            _mockUserPassword.AddPassword(_testPasswordOrange);
+            _mockUserPassword.AddPassword(_testPasswordYellow);
+            _mockUserPassword.AddPassword(_testPasswordLightGreen);
+            _mockUserPassword.AddPassword(_testPasswordDarkGreen);
+            int passwordCount = _mockUserPassword.GetAmountOfPasswordsWithSecurityLevelAndCategory(SecurityLevelPasswords.DARK_GREEN, _trabajo);
             Assert.AreEqual(0, 0);
         }
 
@@ -370,7 +383,7 @@ namespace DomainTests
         [TestMethod]
         public void TestGetPasswordsImSharingNoPasswordsShared()
         {
-            List<Password> sharedPasswordsList = _userPasswordTest.GetPasswordsImSharing();
+            List<Password> sharedPasswordsList = _mockUserPassword.GetPasswordsImSharing();
             List<Password> expectedResult = new List<Password>();
             bool areSameList = true;
             foreach (Password sharedPassword in sharedPasswordsList)
@@ -386,9 +399,9 @@ namespace DomainTests
         [TestMethod]
         public void TestGetPasswordsImSharingOnePasswordShared()
         {
-            _userPasswordTest.AddPassword(_testPassword1);
-            _userPasswordTest.SharePassword(_userSharedTo, _testPassword1);
-            List<Password> sharedPasswordsList = _userPasswordTest.GetPasswordsImSharing();
+            _mockUserPassword.AddPassword(_testPassword1);
+            _mockUserPassword.SharePassword(_userSharedTo, _testPassword1);
+            List<Password> sharedPasswordsList = _mockUserPassword.GetPasswordsImSharing();
             List<Password> expectedResult = new List<Password>();
             expectedResult.Add(_testPassword1);
             bool areSameList = true;
@@ -405,11 +418,11 @@ namespace DomainTests
         [TestMethod]
         public void TestGetPasswordsImSharingMoreThanOnePasswordShared()
         {
-            _userPasswordTest.AddPassword(_testPassword1);
-            _userPasswordTest.AddPassword(_testPassword2);
-            _userPasswordTest.SharePassword(_userSharedTo, _testPassword1);
-            _userPasswordTest.SharePassword(_userSharedTo, _testPassword2);
-            List<Password> sharedPasswordsList = _userPasswordTest.GetPasswordsImSharing();
+            _mockUserPassword.AddPassword(_testPassword1);
+            _mockUserPassword.AddPassword(_testPassword2);
+            _mockUserPassword.SharePassword(_userSharedTo, _testPassword1);
+            _mockUserPassword.SharePassword(_userSharedTo, _testPassword2);
+            List<Password> sharedPasswordsList = _mockUserPassword.GetPasswordsImSharing();
             List<Password> expectedResult = new List<Password>();
             expectedResult.Add(_testPassword1);
             expectedResult.Add(_testPassword2);

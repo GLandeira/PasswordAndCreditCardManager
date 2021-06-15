@@ -9,12 +9,29 @@ namespace Domain
 {
     public class UserManager
     {
+        private static UserManager _instance;
+        public static UserManager Instance 
+        { 
+            get 
+            {
+                return _instance;
+            } 
+        }
+
         public User LoggedUser { get; set; }
-        public List<User> Users { get; private set; }
+        public List<User> Users { get; set; }
+
+        private IDataAccess<User> _userDataAccess;
 
         public UserManager()
         {
-            Users = new List<User>();
+            if (_instance == null)
+            {
+                _instance = this;
+            }
+
+            _userDataAccess = RepositoryFacade.Instance.UserDataAccess;
+            Users = _userDataAccess.GetAll().ToList();
         }
 
         public void AddUser(User newUser)
@@ -26,6 +43,8 @@ namespace Domain
                 throw new UserAlreadyExistsException();
             }
 
+            int dbID = _userDataAccess.Add(newUser);
+            newUser.InitializeUser(dbID);
             Users.Add(newUser);
         }
 
@@ -36,7 +55,9 @@ namespace Domain
                 throw new UserNotPresentException();
             }
 
-            return Users.First(user => user.Name == username);
+            int userFoundID = Users.First(user => user.Name == username).UserID;
+            
+            return RepositoryFacade.Instance.UserDataAccess.Get(userFoundID);
         }
 
         public void ModifyPassword(User userWithNewPassword)
@@ -48,7 +69,9 @@ namespace Domain
                 throw new UserNotPresentException();
             }
 
+            // Esto deberia de entrar un password, es pasar el que encontro y chau
             Users.First(us => us.Name == userWithNewPassword.Name).MainPassword = userWithNewPassword.MainPassword;
+            _userDataAccess.Modify(userWithNewPassword);
         }
 
         public bool LogIn(string userNameToLogInWith, string userPasswordToLogInWith)
@@ -68,6 +91,14 @@ namespace Domain
             catch (UserNotPresentException e)
             {
                 return false;
+            }
+        }
+
+        private void CheckSingleInstanceOfSingleton()
+        {
+            if (_instance == null)
+            {
+                _instance = this;
             }
         }
     }

@@ -18,8 +18,8 @@ namespace DomainTests
         public void TestInitialize()
         {
             //User part
-            _userManager = new UserManager();
-            _userTest = new User(_userManager)
+            _userManager = UserManager.Instance;
+            _userTest = new User()
             {
                 Name = "admin",
                 MainPassword = "1234"

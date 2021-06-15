@@ -18,15 +18,16 @@ namespace UserInterface
     {
         private const string NO_BREACHED_PASSWORDS = "No breaches found.";
 
-        private UserManager _userManager;
         private User _currentUser;
         private OpenFileDialog _fileDialog;
+        private DataBreachMediator _dataBreachMediator;
 
-        public DataBreachesController(UserManager userManager)
+        public DataBreachesController()
         {
             InitializeComponent();
-            _userManager = userManager;
-            _currentUser = _userManager.LoggedUser;
+            _currentUser = UserManager.Instance.LoggedUser;
+
+            _dataBreachMediator = new DataBreachMediator(this, _currentUser.UserDataBreaches);
 
             _fileDialog = new OpenFileDialog()
             {
@@ -36,14 +37,25 @@ namespace UserInterface
             };
         }
 
+        public void DataBreachModalOpening(DataBreach dataBreaches)
+        {
+            if (dataBreaches.CreditCardBreaches.Count == 0 && dataBreaches.PasswordBreaches.Count == 0)
+            {
+                MessageBox.Show(NO_BREACHED_PASSWORDS, "Attention",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            Form matchesDataBreaches = new DataBreachMatchesModal(dataBreaches);
+            matchesDataBreaches.ShowDialog();
+        }
+
         private void btnVerify_Click(object sender, EventArgs e)
         {
             ITranslator textBoxTranslator = new TextBoxTranslator();
             string field = txtbxDataBreaches.Text;
 
-            DataBreaches dataBreaches = CheckDataBreaches(field, textBoxTranslator);
-
-            DataBreachModalOpening(dataBreaches);
+            _dataBreachMediator.CheckAndRegisterDataBreach(field, textBoxTranslator);
         }
 
         private void btnImportTextFile_Click(object sender, EventArgs e)
@@ -54,34 +66,13 @@ namespace UserInterface
                 {
                     StreamReader importFile = new StreamReader(_fileDialog.FileName);
                     ITranslator textFileTranslator = new TextFileTranslator();
-
-                    DataBreaches dataBreaches = CheckDataBreaches(importFile.ReadToEnd(), textFileTranslator);
-
-                    DataBreachModalOpening(dataBreaches);
+                    
+                    _dataBreachMediator.CheckAndRegisterDataBreach(importFile.ReadToEnd(), textFileTranslator);
                 }
                 catch (SecurityException a)
                 {
                 }
             }
-        }
-
-        private DataBreaches CheckDataBreaches(string breachesText, ITranslator translator)
-        {
-            DataBreaches dataBreaches = _currentUser.UserDataBreaches.CheckDataBreaches(breachesText, translator);
-            return dataBreaches;
-        }
-
-        private void DataBreachModalOpening(DataBreaches dataBreaches)
-        {
-            if (dataBreaches.CreditCardsBreaches.Count == 0 && dataBreaches.PasswordBreaches.Count == 0)
-            {
-                MessageBox.Show(NO_BREACHED_PASSWORDS, "Attention",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            Form matchesDataBreaches = new DataBreachMatchesModal(_currentUser, dataBreaches);
-            matchesDataBreaches.ShowDialog();
         }
     }
 }
