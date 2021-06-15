@@ -15,26 +15,22 @@ namespace Domain
         private const int SECOND_CREDIT_CARD_SPACE_POSITION = 9;
         private const int THIRD_CREDIT_CARD_SPACE_POSITION = 14;
 
-        private User _theUser;
+        private UserDataBreaches _userDataBreaches;
         
         public DataBreachesChecker()
         {
 
         }
-        public DataBreachesChecker(User theUser)
+        public DataBreachesChecker(UserDataBreaches theUserDataBreaches)
         {
-            _theUser = theUser;
+            _userDataBreaches = theUserDataBreaches;
         }
 
         public DataBreach CheckDataBreaches(string inputBreaches, ITranslator translator)
         {
             string[] translatedBreaches = translator.Translate(inputBreaches);
 
-            DataBreach breach = new DataBreach()
-            {
-                CreditCardBreaches = new List<CreditCard>(),
-                PasswordBreaches = new List<PasswordHistory>(),
-            };
+            DataBreach breach = new DataBreach(_userDataBreaches);
 
             for (int i = 0; i != translatedBreaches.Length; i++)
             {
@@ -61,7 +57,9 @@ namespace Domain
         {
             try
             {
-                CreditCard creditCardBreached = _theUser.UserCreditCards.GetCreditCard(inputBreach);
+                User myUser = RepositoryFacade.Instance.UserDataAccess.Get(_userDataBreaches.UserDataBreachesID);
+
+                CreditCard creditCardBreached = myUser.UserCreditCards.GetCreditCard(inputBreach);
 
                 if (!breach.CreditCardBreaches.Any(pass => pass.Equals(creditCardBreached)))
                 {
@@ -78,7 +76,9 @@ namespace Domain
         {
             try
             {
-                List<Password> passwordBreached = _theUser.UserPasswords.GetPasswordsByPasswordString(inputBreach);
+                User myUser = RepositoryFacade.Instance.UserDataAccess.Get(_userDataBreaches.UserDataBreachesID);
+
+                List<Password> passwordBreached = myUser.UserPasswords.GetPasswordsByPasswordString(inputBreach);
 
                 foreach(Password password in passwordBreached)
                 {
@@ -86,7 +86,7 @@ namespace Domain
                     {
                         PasswordHistory breachedPassword = new PasswordHistory();
                         breachedPassword.Password = password;
-                        breachedPassword.DataBreachOrigin = breach;
+                        //breachedPassword.DataBreachOrigin = breach;
                         breachedPassword.BreachedPasswordString = password.PasswordString;
                         breach.PasswordBreaches.Add(breachedPassword);
                     }

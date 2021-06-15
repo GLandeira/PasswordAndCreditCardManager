@@ -34,10 +34,9 @@ namespace DomainTests
         [TestCleanup]
         public void TestCleanup()
         {
-            //_mockUserPassword.Passwords.Clear();
             _mockDomain.Users.Clear();
         }
-
+        
         [TestInitialize]
         public void TestInitialize()
         {

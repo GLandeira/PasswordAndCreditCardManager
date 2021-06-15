@@ -37,7 +37,7 @@ namespace Domain
         {
             UserPasswords = new UserPassword();
             UserCreditCards = new UserCreditCard();
-            UserDataBreaches = new UserDataBreaches(this);
+            UserDataBreaches = new UserDataBreaches();
             UserCategories = new UserCategory();
             Name = name;
             MainPassword = mainPassword;
@@ -47,7 +47,7 @@ namespace Domain
         {
             UserPasswords = new UserPassword();
             UserCreditCards = new UserCreditCard();
-            UserDataBreaches = new UserDataBreaches(this);
+            UserDataBreaches = new UserDataBreaches();
             UserCategories = new UserCategory();
             UserID = userId;
             Name = name;

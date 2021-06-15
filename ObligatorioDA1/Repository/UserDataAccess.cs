@@ -39,10 +39,10 @@ namespace Repository
             using (DomainDBContext context = new DomainDBContext())
             {
                 User UsersFound = context.Users
-                                         .Include(u => u.UserCategories.Categories)
+                                         .Include(u => u.UserCategories.Categories.Select(c => c.UserCategory))
                                          .Include(u => u.UserPasswords.Passwords)
                                          .Include(u => u.UserCreditCards.CreditCards)
-                                         .Include(u => u.UserDataBreaches).FirstOrDefault(user => user.UserID == id);
+                                         .Include(u => u.UserDataBreaches.DataBreaches.Select(db => db.PasswordBreaches)).FirstOrDefault(user => user.UserID == id);
                 return UsersFound;
             }
         }

@@ -38,7 +38,9 @@ namespace DomainTests
         {
             _userManager = UserManager.Instance;
             _testUser = new User("Alberto", "32323");
-            _userDataBreaches = new DataBreachesChecker(_testUser);
+            _userManager.AddUser(_testUser);
+            _testUser.UserDataBreaches.UserDataBreachesID = _testUser.UserID;
+            _userDataBreaches = _testUser.UserDataBreaches.DataBreachesChecker;
 
             _breach1 = "1111 1111 1111 1111";
             _breach2 = "micontra";

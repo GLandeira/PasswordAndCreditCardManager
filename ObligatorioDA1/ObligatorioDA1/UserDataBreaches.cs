@@ -15,11 +15,7 @@ namespace Domain
         public UserDataBreaches()
         {
             DataBreaches = new List<DataBreach>();
-        }
-
-        public UserDataBreaches(User user)
-        {
-            DataBreachesChecker = new DataBreachesChecker(user);
+            DataBreachesChecker = new DataBreachesChecker(this);
         }
 
         public void AddDataBreach(DataBreach dataBreach)
