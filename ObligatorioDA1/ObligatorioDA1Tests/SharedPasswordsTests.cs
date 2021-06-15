@@ -109,8 +109,17 @@ namespace DomainTests
         {
             _testUserSharer.UserPasswords.SharePassword(_testUserShareeOne, _sharedPassword);
 
-            Password modifiedPassword = (Password)_sharedPassword.Clone();
-            modifiedPassword.PasswordString = "newPassword123";
+            //Password modifiedPassword = (Password)_sharedPassword.Clone();
+            Password modifiedPassword = new Password
+            {
+                PasswordID = _sharedPassword.PasswordID,
+                PasswordString = "newPassword123",
+                Site = "www.brilliantly.com",
+                Username = "John Cage",
+                LastModification = DateTime.Today,
+                Category = _testCategory,
+                Notes = "My Brilliantly Account."
+            };
 
             _testUserSharer.UserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
             Password sharedPasswordInSharee = _testUserShareeOne.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);

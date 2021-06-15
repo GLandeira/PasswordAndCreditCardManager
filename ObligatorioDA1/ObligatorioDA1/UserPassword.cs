@@ -74,6 +74,10 @@ namespace Domain
 
             List<User> usersSharedWith = new List<User>(oldPassword.UsersSharedWith);
 
+            if (!oldPassword.Category.Equals(UserCategory.SHARED_WITH_ME_CATEGORY))
+            {
+                StopSharingPasswordWhenDeleted(oldPassword);
+            }
             Passwords.Remove(oldPassword);
             Passwords.Add(modifiedPassword);
             RepositoryFacade.Instance.PasswordDataAccess.Modify(modifiedPassword);
@@ -99,6 +103,7 @@ namespace Domain
 
             Password sharedPasswordSharedClone = (Password)sharedPassword.Clone();
             sharedPasswordSharedClone.Category = sharee.UserCategories.GetACategory(UserCategory.SHARED_PASSWORD_CATEGORY_NAME);
+            sharedPasswordSharedClone.PasswordID = sharee.UserPasswords.GetPassword(sharedPassword.Site, sharedPassword.Username).PasswordID;
 
             sharee.UserPasswords.RemovePassword(sharedPasswordSharedClone);
         }
