@@ -169,27 +169,24 @@ namespace UserInterface
             this.lblIsBreached.AutoSize = true;
             this.lblIsBreached.Location = new System.Drawing.Point(202, 207);
             this.lblIsBreached.Name = "lblIsBreached";
-            this.lblIsBreached.Size = new System.Drawing.Size(35, 13);
+            this.lblIsBreached.Size = new System.Drawing.Size(0, 13);
             this.lblIsBreached.TabIndex = 13;
-            this.lblIsBreached.Text = "label1";
             // 
             // lblAlreadyExists
             // 
             this.lblAlreadyExists.AutoSize = true;
             this.lblAlreadyExists.Location = new System.Drawing.Point(202, 220);
             this.lblAlreadyExists.Name = "lblAlreadyExists";
-            this.lblAlreadyExists.Size = new System.Drawing.Size(35, 13);
+            this.lblAlreadyExists.Size = new System.Drawing.Size(0, 13);
             this.lblAlreadyExists.TabIndex = 14;
-            this.lblAlreadyExists.Text = "label2";
             // 
             // lblLowSecLevel
             // 
             this.lblLowSecLevel.AutoSize = true;
             this.lblLowSecLevel.Location = new System.Drawing.Point(202, 233);
             this.lblLowSecLevel.Name = "lblLowSecLevel";
-            this.lblLowSecLevel.Size = new System.Drawing.Size(35, 13);
+            this.lblLowSecLevel.Size = new System.Drawing.Size(0, 13);
             this.lblLowSecLevel.TabIndex = 15;
-            this.lblLowSecLevel.Text = "label3";
             // 
             // AddOrModifyPasswordModal
             // 
