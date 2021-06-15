@@ -61,6 +61,14 @@
     <Compile Include="Migrations\202106122305277_MergeMigration.designer.cs">
       <DependentUpon>202106122305277_MergeMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106142204165_RemoveOriginPasswordHistory.cs" />
+    <Compile Include="Migrations\202106142204165_RemoveOriginPasswordHistory.designer.cs">
+      <DependentUpon>202106142204165_RemoveOriginPasswordHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106142243035_AddRequiredRelationshipDBPH.cs" />
+    <Compile Include="Migrations\202106142243035_AddRequiredRelationshipDBPH.designer.cs">
+      <DependentUpon>202106142243035_AddRequiredRelationshipDBPH.cs</DependentUpon>
+    </Compile>
     <Compile Include="PasswordDataAccess.cs" />
     <Compile Include="CreditCardDataAccess.cs" />
     <Compile Include="CreditCardTypeConfiguration.cs" />
@@ -150,6 +158,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106122305277_MergeMigration.resx">
       <DependentUpon>202106122305277_MergeMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106142204165_RemoveOriginPasswordHistory.resx">
+      <DependentUpon>202106142204165_RemoveOriginPasswordHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106142243035_AddRequiredRelationshipDBPH.resx">
+      <DependentUpon>202106142243035_AddRequiredRelationshipDBPH.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

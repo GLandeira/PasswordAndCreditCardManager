@@ -29,7 +29,7 @@
                         Password_PasswordID = c.Int(),
                     })
                 .PrimaryKey(t => t.PasswordHistoryID)
-                .ForeignKey("dbo.DataBreaches", t => t.DataBreachOrigin_DataBreachID, cascadeDelete: true)
+                .ForeignKey("dbo.DataBreaches", t => t.DataBreachOrigin_DataBreachID)
                 .ForeignKey("dbo.Passwords", t => t.Password_PasswordID)
                 .Index(t => t.DataBreachOrigin_DataBreachID)
                 .Index(t => t.Password_PasswordID);

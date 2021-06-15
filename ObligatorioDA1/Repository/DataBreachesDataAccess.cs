@@ -17,25 +17,22 @@ namespace Repository
             using (DomainDBContext context = new DomainDBContext())
             {
                 context.UserDataBreaches.Attach(entity.UserDataBreaches);
-                
+                DataBreach addedDataBreach = context.DataBreaches.Add(entity);
 
                 foreach (CreditCard c in entity.CreditCardBreaches)
                 {
                     context.CreditCards.Attach(c);
-                    context.UserCreditCards.Attach(c.UserCreditCard);
-                    context.Categories.Attach(c.Category);
+                    //context.UserCreditCards.Attach(c.UserCreditCard);
                 }
 
                 foreach (PasswordHistory p in entity.PasswordBreaches)
                 {
-                    //context.DataBreaches.Attach(p.DataBreachOrigin);
+                    context.Entry(p).State = EntityState.Added;
                     context.Passwords.Attach(p.Password);
-                    context.UserPasswords.Attach(p.Password.UserPassword);
                     context.Categories.Attach(p.Password.Category);
-                    context.UserCategories.Attach(p.Password.Category.UserCategory);
                 }
 
-                DataBreach addedDataBreach = context.DataBreaches.Add(entity);
+                
                 context.SaveChanges();
                 
                 return addedDataBreach.DataBreachID;
