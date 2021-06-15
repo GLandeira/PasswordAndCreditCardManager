@@ -39,6 +39,8 @@ namespace DomainTests
             _userManager = UserManager.Instance;
             _testUser = new User("Alberto", "32323");
             _userManager.AddUser(_testUser);
+            _userManager.LoggedUser = _testUser;
+
             _testUser.UserDataBreaches.UserDataBreachesID = _testUser.UserID;
             _userDataBreaches = _testUser.UserDataBreaches.DataBreachesChecker;
 
@@ -98,6 +100,12 @@ namespace DomainTests
                 Notes = "No note",
             };
             
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            _userManager.Users.Clear();
         }
 
         [TestMethod]
