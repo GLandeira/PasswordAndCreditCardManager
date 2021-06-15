@@ -50,6 +50,7 @@ namespace Repository
             {
 
                 IEnumerable<User> allUsers = context.Users.ToList();
+                
 
                 return allUsers;
             }

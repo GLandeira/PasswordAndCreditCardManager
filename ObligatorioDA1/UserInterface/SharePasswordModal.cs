@@ -41,6 +41,7 @@ namespace UserInterface
             try
             {
                 User _userSharedWith = (User)cmbBxUsers.SelectedItem;
+                _userSharedWith = UserManager.Instance.GetUser(_userSharedWith.Name);
                 _currentUser.UserPasswords.SharePassword(_userSharedWith, _sharedPassword);
                 this.Close();
             }catch(PasswordExceptions exception)
