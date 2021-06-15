@@ -46,6 +46,8 @@ namespace UserInterface
             try
             {
                 User userPasswordUnsharedWith = (User)cmbBxUsers.SelectedItem;
+                userPasswordUnsharedWith = UserManager.Instance.GetUser(userPasswordUnsharedWith.Name);
+
                 _currentUser.UserPasswords.StopSharingPassword(userPasswordUnsharedWith, _unsharedPassword);
                 List<Password> sharedWithList = _currentUser.UserPasswords.GetPasswordsImSharing();
                 onSharePassword?.Invoke(sharedWithList);
