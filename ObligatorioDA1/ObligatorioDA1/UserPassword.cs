@@ -93,6 +93,7 @@ namespace Domain
 
             Password sharedClone = (Password)sharedPassword.Clone();
             sharedClone.Category = sharee.UserCategories.GetACategory(UserCategory.SHARED_PASSWORD_CATEGORY_NAME);
+            sharedClone.UsersSharedWith = new List<User>();
 
             sharee.UserPasswords.AddPassword(sharedClone);
         }
@@ -104,6 +105,7 @@ namespace Domain
             Password sharedPasswordSharedClone = (Password)sharedPassword.Clone();
             sharedPasswordSharedClone.Category = sharee.UserCategories.GetACategory(UserCategory.SHARED_PASSWORD_CATEGORY_NAME);
             sharedPasswordSharedClone.PasswordID = sharee.UserPasswords.GetPassword(sharedPassword.Site, sharedPassword.Username).PasswordID;
+
 
             sharee.UserPasswords.RemovePassword(sharedPasswordSharedClone);
         }
@@ -153,7 +155,8 @@ namespace Domain
             List<User> usersSharedWith = new List<User>(password.UsersSharedWith);
             foreach (User user in usersSharedWith)
             {
-                StopSharingPassword(user, password);
+                User userInDb = RepositoryFacade.Instance.UserDataAccess.Get(user.UserID);
+                StopSharingPassword(userInDb, password);
             }
         }
 
@@ -161,7 +164,8 @@ namespace Domain
         {
             foreach (User user in usersSharedWith)
             {
-                SharePassword(user, modifiedPassword);
+                User userInDb = RepositoryFacade.Instance.UserDataAccess.Get(user.UserID);
+                SharePassword(userInDb, modifiedPassword);
             }
         }
 
@@ -187,11 +191,13 @@ namespace Domain
         {
             Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
             sharerPasswordInMemory.UsersSharedWith.Add(sharee);
+            RepositoryFacade.Instance.PasswordDataAccess.Modify(sharerPasswordInMemory);
         }
 
         private void RemoveUserFromPasswordUsersSharedWith(User sharee, Password sharedPassword)
         {
             sharedPassword.UsersSharedWith.Remove(sharee);
+            RepositoryFacade.Instance.PasswordDataAccess.Modify(sharedPassword);
         }
 
         private void AddPasswordToListAndDB(Password passwordToAdd)

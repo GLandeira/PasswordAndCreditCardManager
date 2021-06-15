@@ -17,6 +17,11 @@ namespace Repository
                 context.UserPasswords.Attach(entity.UserPassword);
                 context.Categories.Attach(entity.Category);
 
+                foreach (User u in entity.UsersSharedWith)
+                {
+                    context.Users.Attach(u);
+                }
+
                 Password addedPassword = context.Passwords.Add(entity);
                 context.SaveChanges();
 
@@ -64,10 +69,10 @@ namespace Repository
                 context.Categories.Attach(entity.Category);
                 foreach (User u in entity.UsersSharedWith)
                 {
-                    context.Users.Attach(u);
+                    context.Users.Attach(u); 
                 }
 
-                var valueInDB = context.Passwords.FirstOrDefault(password => password.PasswordID == entity.PasswordID);
+                var valueInDB = context.Passwords.Include(p => p.UsersSharedWith).FirstOrDefault(password => password.PasswordID == entity.PasswordID);
                 valueInDB.Category = entity.Category;
                 valueInDB.PasswordString = entity.PasswordString;
                 valueInDB.Site = entity.Site;
@@ -75,7 +80,7 @@ namespace Repository
                 valueInDB.LastModification = entity.LastModification;
                 valueInDB.SecurityLevel = entity.SecurityLevel;
                 valueInDB.Notes = entity.Notes;
-
+                valueInDB.UsersSharedWith = entity.UsersSharedWith;
                 context.SaveChanges();
             }
         }

@@ -240,11 +240,10 @@ namespace RepositoryTests
                 Site = "www.ort.edu.uy",
                 Username = "Matias Gonzalez",
                 LastModification = DateTime.Today,
-                Notes = "cuenta universidad"
+                Notes = "cuenta universidad",
             };
             _testModifiedPassword.UsersSharedWith.Add(_testUser1);
             _testModifiedPassword.Category = _testCategory1;
-
 
             _passwordDataAccess.Modify(_testModifiedPassword);
 
