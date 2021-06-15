@@ -41,7 +41,8 @@ namespace Repository
             {
                 Password PasswordFound = context.Passwords
                                                     .Include(u => u.UserPassword)
-                                                    .Include(c => c.Category).FirstOrDefault(password => password.PasswordID == id);
+                                                    .Include(c => c.Category)
+                                                    .Include(u => u.UsersSharedWith).FirstOrDefault(password => password.PasswordID == id);
 
                 return PasswordFound;
             }
@@ -61,6 +62,10 @@ namespace Repository
             using (DomainDBContext context = new DomainDBContext())
             {
                 context.Categories.Attach(entity.Category);
+                foreach (User u in entity.UsersSharedWith)
+                {
+                    context.Users.Attach(u);
+                }
 
                 var valueInDB = context.Passwords.FirstOrDefault(password => password.PasswordID == entity.PasswordID);
                 valueInDB.Category = entity.Category;

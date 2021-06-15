@@ -7,13 +7,13 @@ namespace Repository.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class DeletablePasswords : IMigrationMetadata
+    public sealed partial class PasswordLinkWithUserSharedWith : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DeletablePasswords));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(PasswordLinkWithUserSharedWith));
         
         string IMigrationMetadata.Id
         {
-            get { return "202106151305065_DeletablePasswords"; }
+            get { return "202106151536206_PasswordLinkWithUserSharedWith"; }
         }
         
         string IMigrationMetadata.Source

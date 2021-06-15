@@ -26,7 +26,7 @@ namespace DomainTests
 
         public override void Delete(Password entity)
         {
-            _mockList.Remove(entity);
+            _mockList.RemoveAll(p => p.PasswordID == entity.PasswordID);
         }
 
         public override Password Get(int id)
@@ -41,9 +41,9 @@ namespace DomainTests
 
         public override void Modify(Password entity)
         {
-            Password userInList = _mockList.FirstOrDefault(u => u.PasswordID == entity.PasswordID);
-            entity.PasswordID = userInList.PasswordID;
-            userInList = entity;
+            Password passwordInList = _mockList.FirstOrDefault(u => u.PasswordID == entity.PasswordID);
+            entity.PasswordID = passwordInList.PasswordID;
+            passwordInList = entity;
         }
 
     }

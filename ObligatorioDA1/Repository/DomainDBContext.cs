@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,7 @@ namespace Repository
             modelBuilder.Configurations.Add(new UserPasswordTypeConfiguration());
             modelBuilder.Configurations.Add(new DataBreachTypeConfiguration());
             modelBuilder.Configurations.Add(new PasswordHistoryTypeConfiguration());
+            modelBuilder.Configurations.Add(new PasswordTypeConfiguration());
         }
     }
 }

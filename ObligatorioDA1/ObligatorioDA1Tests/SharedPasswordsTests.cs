@@ -109,8 +109,16 @@ namespace DomainTests
         {
             _testUserSharer.UserPasswords.SharePassword(_testUserShareeOne, _sharedPassword);
 
-            Password modifiedPassword = (Password)_sharedPassword.Clone();
-            modifiedPassword.PasswordString = "newPassword123";
+            Password modifiedPassword = new Password
+            {
+                PasswordID = _sharedPassword.PasswordID,
+                PasswordString = "newPassword123",
+                Site = "www.brilliantly.com",
+                Username = "John Cage",
+                LastModification = DateTime.Today,
+                Category = _testCategory,
+                Notes = "My Brilliantly Account."
+            };
 
             _testUserSharer.UserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
             Password sharedPasswordInSharee = _testUserShareeOne.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
@@ -134,7 +142,7 @@ namespace DomainTests
             _testUserSharer.UserPasswords.SharePassword(_testUserShareeOne, _sharedPassword);
             Password sharedPasswordInSharer = _testUserSharer.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
 
-            Assert.IsTrue(sharedPasswordInSharer.UsersSharedWith.Contains(_shareeNameOne));
+            Assert.IsTrue(sharedPasswordInSharer.UsersSharedWith.Contains(_testUserShareeOne));
         }
 
         [TestMethod]
@@ -172,7 +180,7 @@ namespace DomainTests
 
             Password sharedPasswordInSharer = _testUserSharer.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
 
-            Assert.IsFalse(sharedPasswordInSharer.UsersSharedWith.Contains(_shareeNameOne));
+            Assert.IsFalse(sharedPasswordInSharer.UsersSharedWith.Contains(_testUserShareeOne));
         }
 
         [TestMethod]
@@ -184,6 +192,7 @@ namespace DomainTests
 
             Password modifiedPassword = (Password)_sharedPassword.Clone();
             modifiedPassword.PasswordString = "newPassword123";
+            modifiedPassword.PasswordID = _sharedPassword.PasswordID;
 
             sharerUserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
 
@@ -203,6 +212,7 @@ namespace DomainTests
 
             Password modifiedPassword = (Password)_sharedPassword.Clone();
             modifiedPassword.PasswordString = "newP%1as3";
+            modifiedPassword.PasswordID = _sharedPassword.PasswordID;
 
             sharerUserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
 
@@ -228,6 +238,7 @@ namespace DomainTests
 
             Password modifiedPassword = (Password)_sharedPassword.Clone();
             modifiedPassword.PasswordString = "newwfscqWTG";
+            modifiedPassword.PasswordID = _sharedPassword.PasswordID;
 
             sharerUserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
 
