@@ -81,28 +81,32 @@ namespace DomainTests
         [TestMethod]
         public void TestNotSafePasswordInPreviousDataBreach()
         {
-            bool isSafe = PasswordRecommender.isASafePassword("0ldPassw0rd1234", _testUser);
+            SecurityCondition conditions = PasswordRecommender.isASafePassword("0ldPassw0rd1234", _testUser);
+            bool isSafe = conditions._isNotBreached && conditions._isNotInUse && conditions._isNotLowSecurityLevel;
             Assert.IsFalse(isSafe);
         }
 
         [TestMethod]
         public void TestNotSafePasswordStringAlreadyUsed()
         {
-            bool isSafe = PasswordRecommender.isASafePassword("Abcdef@1234567", _testUser);
+            SecurityCondition conditions = PasswordRecommender.isASafePassword("Abcdef@1234567", _testUser);
+            bool isSafe = conditions._isNotBreached && conditions._isNotInUse && conditions._isNotLowSecurityLevel;
             Assert.IsFalse(isSafe);
         }
 
         [TestMethod]
         public void TestNotSafePasswordNotDarkorLightGreen()
         {
-            bool isSafe = PasswordRecommender.isASafePassword("123456", _testUser);
+            SecurityCondition conditions = PasswordRecommender.isASafePassword("123456", _testUser);
+            bool isSafe = conditions._isNotBreached && conditions._isNotInUse && conditions._isNotLowSecurityLevel;
             Assert.IsFalse(isSafe);
         }
 
         [TestMethod]
         public void TestSafePassword()
         {
-            bool isSafe = PasswordRecommender.isASafePassword("Matias@Gonzalez123.com", _testUser);
+            SecurityCondition conditions = PasswordRecommender.isASafePassword("Matias@Gonzalez123.com", _testUser);
+            bool isSafe = conditions._isNotBreached && conditions._isNotInUse && conditions._isNotLowSecurityLevel;
             Assert.IsTrue(isSafe);
         }
 

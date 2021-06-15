@@ -71,6 +71,7 @@
     <Compile Include="IDataAccess.cs" />
     <Compile Include="PasswordHistory.cs" />
     <Compile Include="PasswordRecommender\PasswordRecommender.cs" />
+    <Compile Include="PasswordRecommender\SecurityCondition.cs" />
     <Compile Include="PasswordSecurityFlagger\ColorClassifier.cs" />
     <Compile Include="PasswordSecurityFlagger\DarkGreenClassifier.cs" />
     <Compile Include="Exceptions\PasswordAlreadySharedException.cs" />
