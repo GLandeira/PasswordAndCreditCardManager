@@ -14,12 +14,12 @@ namespace Domain
         public SecurityLevelPasswords SecurityLevel { get; set; }
         public Category Category { get; set; }
         public string Notes { get; set; }
-        public List<string> UsersSharedWith { get; private set; }
+        public List<User> UsersSharedWith { get; set; }
         public UserPassword UserPassword { get; set; }
 
         public Password()
         {
-            UsersSharedWith = new List<string>();
+            UsersSharedWith = new List<User>();
         }
 
         public bool AbsoluteEquals(Password password)
