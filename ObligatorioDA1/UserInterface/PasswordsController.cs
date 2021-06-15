@@ -40,7 +40,7 @@ namespace UserInterface
         {
             Password selectedPassword = (Password) grdvwPasswordsTable.Rows[e.RowIndex].DataBoundItem;
             _lastPasswordSelected = selectedPassword;
-            if(_lastPasswordSelected.Category == UserCategory.SHARED_WITH_ME_CATEGORY)
+            if(_lastPasswordSelected.Category.Equals(UserCategory.SHARED_WITH_ME_CATEGORY))
             {
                 EnableButtonsIfNoPasswords(false);
             }
