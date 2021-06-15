@@ -18,24 +18,19 @@ namespace Repository
             {
                 context.UserDataBreaches.Attach(entity.UserDataBreaches);
                 
-
                 foreach (CreditCard c in entity.CreditCardBreaches)
                 {
                     context.CreditCards.Attach(c);
-                    context.UserCreditCards.Attach(c.UserCreditCard);
-                    context.Categories.Attach(c.Category);
                 }
 
                 foreach (PasswordHistory p in entity.PasswordBreaches)
                 {
-                    //context.DataBreaches.Attach(p.DataBreachOrigin);
                     context.Passwords.Attach(p.Password);
-                    context.UserPasswords.Attach(p.Password.UserPassword);
-                    context.Categories.Attach(p.Password.Category);
-                    context.UserCategories.Attach(p.Password.Category.UserCategory);
+                    context.Entry(p).State = EntityState.Added;
                 }
 
                 DataBreach addedDataBreach = context.DataBreaches.Add(entity);
+
                 context.SaveChanges();
                 
                 return addedDataBreach.DataBreachID;
@@ -90,7 +85,6 @@ namespace Repository
                 valueInDB.CreditCardBreaches = entity.CreditCardBreaches;
                 valueInDB.PasswordBreaches = entity.PasswordBreaches;
 
-                //context.Entry(valueInDB).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }

@@ -57,7 +57,7 @@ namespace Domain
         {
             try
             {
-                User myUser = RepositoryFacade.Instance.UserDataAccess.Get(_userDataBreaches.UserDataBreachesID);
+                User myUser = UserManager.Instance.LoggedUser;
 
                 CreditCard creditCardBreached = myUser.UserCreditCards.GetCreditCard(inputBreach);
 
@@ -76,7 +76,7 @@ namespace Domain
         {
             try
             {
-                User myUser = RepositoryFacade.Instance.UserDataAccess.Get(_userDataBreaches.UserDataBreachesID);
+                User myUser = UserManager.Instance.LoggedUser;
 
                 List<Password> passwordBreached = myUser.UserPasswords.GetPasswordsByPasswordString(inputBreach);
 

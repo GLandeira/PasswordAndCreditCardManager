@@ -14,7 +14,7 @@ namespace Repository
         public DataBreachTypeConfiguration()
         {
             this.HasKey(d => d.DataBreachID);
-            
+            this.HasMany(d => d.PasswordBreaches).WithRequired();
         }
     }
 }
