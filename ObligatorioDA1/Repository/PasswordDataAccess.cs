@@ -17,6 +17,11 @@ namespace Repository
                 context.UserPasswords.Attach(entity.UserPassword);
                 context.Categories.Attach(entity.Category);
 
+                foreach (User u in entity.UsersSharedWith)
+                {
+                    context.Users.Attach(u);
+                }
+
                 Password addedPassword = context.Passwords.Add(entity);
                 context.SaveChanges();
 
@@ -62,18 +67,12 @@ namespace Repository
             using (DomainDBContext context = new DomainDBContext())
             {
                 context.Categories.Attach(entity.Category);
-                
-
-
-                var valueInDB = context.Passwords.FirstOrDefault(password => password.PasswordID == entity.PasswordID);
-                foreach (User u in valueInDB.UsersSharedWith)
-                {
-                    //context.Users.Attach(u); // Esto quitado no deja sharear la misma contra a dos users distintos
-                }
                 foreach (User u in entity.UsersSharedWith)
                 {
-                    context.Users.Attach(u); // Esto quitado duplica
+                    context.Users.Attach(u); 
                 }
+
+                var valueInDB = context.Passwords.Include(p => p.UsersSharedWith).FirstOrDefault(password => password.PasswordID == entity.PasswordID);
                 valueInDB.Category = entity.Category;
                 valueInDB.PasswordString = entity.PasswordString;
                 valueInDB.Site = entity.Site;
