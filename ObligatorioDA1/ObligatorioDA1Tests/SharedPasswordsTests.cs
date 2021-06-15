@@ -134,7 +134,7 @@ namespace DomainTests
             _testUserSharer.UserPasswords.SharePassword(_testUserShareeOne, _sharedPassword);
             Password sharedPasswordInSharer = _testUserSharer.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
 
-            Assert.IsTrue(sharedPasswordInSharer.UsersSharedWith.Contains(_shareeNameOne));
+            Assert.IsTrue(sharedPasswordInSharer.UsersSharedWith.Contains(_testUserShareeOne));
         }
 
         [TestMethod]
@@ -172,7 +172,7 @@ namespace DomainTests
 
             Password sharedPasswordInSharer = _testUserSharer.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
 
-            Assert.IsFalse(sharedPasswordInSharer.UsersSharedWith.Contains(_shareeNameOne));
+            Assert.IsFalse(sharedPasswordInSharer.UsersSharedWith.Contains(_testUserShareeOne));
         }
 
         [TestMethod]
