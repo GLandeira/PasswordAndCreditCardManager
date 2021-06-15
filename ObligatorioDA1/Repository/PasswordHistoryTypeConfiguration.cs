@@ -14,7 +14,7 @@ namespace Repository
         public PasswordHistoryTypeConfiguration()
         {
             this.HasKey(p => p.PasswordHistoryID);
-            //this.HasOptional
+            this.HasOptional(p => p.Password).WithMany();
         }
     }
 }

@@ -6,7 +6,6 @@ namespace Domain
     {
         public int PasswordHistoryID { get; set; }
         public Password Password { get; set; }
-        //public DataBreach DataBreachOrigin { get; set; }
         public string BreachedPasswordString { get; set; }
 
         public PasswordHistory()

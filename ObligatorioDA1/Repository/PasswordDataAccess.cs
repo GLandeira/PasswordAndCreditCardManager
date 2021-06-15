@@ -28,6 +28,7 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
+                context.PasswordHistory.Where(p => p.Password.PasswordID == entity.PasswordID).Load();
                 var PasswordFound = context.Passwords.FirstOrDefault(password => password.PasswordID == entity.PasswordID);
                 context.Passwords.Remove(PasswordFound);
                 context.SaveChanges();
