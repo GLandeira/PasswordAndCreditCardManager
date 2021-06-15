@@ -62,12 +62,17 @@ namespace Repository
             using (DomainDBContext context = new DomainDBContext())
             {
                 context.Categories.Attach(entity.Category);
-                foreach (User u in entity.UsersSharedWith)
+                //foreach (User u in entity.UsersSharedWith)
+                //{
+                //    context.Users.Attach(u);
+                //}
+
+
+                var valueInDB = context.Passwords.FirstOrDefault(password => password.PasswordID == entity.PasswordID);
+                foreach (User u in valueInDB.UsersSharedWith)
                 {
                     context.Users.Attach(u);
                 }
-
-                var valueInDB = context.Passwords.FirstOrDefault(password => password.PasswordID == entity.PasswordID);
                 valueInDB.Category = entity.Category;
                 valueInDB.PasswordString = entity.PasswordString;
                 valueInDB.Site = entity.Site;
@@ -75,6 +80,7 @@ namespace Repository
                 valueInDB.LastModification = entity.LastModification;
                 valueInDB.SecurityLevel = entity.SecurityLevel;
                 valueInDB.Notes = entity.Notes;
+                valueInDB.UsersSharedWith = entity.UsersSharedWith;
 
                 context.SaveChanges();
             }

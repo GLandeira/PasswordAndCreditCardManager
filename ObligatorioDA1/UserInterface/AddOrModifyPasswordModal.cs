@@ -47,6 +47,7 @@ namespace UserInterface
                 Username = userName,
                 Notes = notes
             };
+
             try
             {
                 if (_modify)

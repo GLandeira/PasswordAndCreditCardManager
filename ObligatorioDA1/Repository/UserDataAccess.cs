@@ -37,7 +37,7 @@ namespace Repository
             {
                 User UsersFound = context.Users
                                          .Include(u => u.UserCategories.Categories)
-                                         .Include(u => u.UserPasswords.Passwords)
+                                         .Include(u => u.UserPasswords.Passwords.Select(p => p.UsersSharedWith))
                                          .Include(u => u.UserCreditCards.CreditCards)
                                          .Include(u => u.UserDataBreaches.DataBreaches).FirstOrDefault(user => user.UserID == id);
                 return UsersFound;
