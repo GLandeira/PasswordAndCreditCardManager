@@ -24,9 +24,6 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                //context.Entry(entity).State = EntityState.Deleted;
-                context.UserCategories.Attach(entity.UserCategories);
-
                 var valueindb = context.Users.FirstOrDefault(user => user.UserID == entity.UserID);
                 context.Users.Remove(valueindb);
 
@@ -39,10 +36,10 @@ namespace Repository
             using (DomainDBContext context = new DomainDBContext())
             {
                 User UsersFound = context.Users
-                                         .Include(u => u.UserCategories.Categories.Select(c => c.UserCategory))
+                                         .Include(u => u.UserCategories.Categories)
                                          .Include(u => u.UserPasswords.Passwords)
                                          .Include(u => u.UserCreditCards.CreditCards)
-                                         .Include(u => u.UserDataBreaches.DataBreaches.Select(db => db.PasswordBreaches)).FirstOrDefault(user => user.UserID == id);
+                                         .Include(u => u.UserDataBreaches.DataBreaches).FirstOrDefault(user => user.UserID == id);
                 return UsersFound;
             }
         }
