@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
 using Domain.Exceptions;
+using Domain.PasswordRecommender;
 
 namespace UserInterface
 {
@@ -119,6 +120,40 @@ namespace UserInterface
         {
             Form passwordGeneratorModal = new PasswordGeneratorModal();
             passwordGeneratorModal.ShowDialog();
+        }
+
+        private void txtBxPassword_TextChanged(object sender, EventArgs e)
+        {
+            string passwordString = txtBxPassword.Text;
+            SecurityCondition conditions = PasswordRecommender.isASafePassword(passwordString, _currentUser);
+            if (conditions._isNotBreached)
+            {
+                lblIsBreached.Text = "This password hasn't been breached before";
+            }
+            else
+            {
+                lblIsBreached.Text = "This password has appeared in a data breach before";
+            }
+
+            if (conditions._isNotInUse)
+            {
+                lblAlreadyExists.Text = "This password hasn't been used before";
+            }
+            else
+            {
+                lblAlreadyExists.Text = "This password is already being used";
+            }
+
+            if (conditions._isNotLowSecurityLevel)
+            {
+                lblLowSecLevel.Text = "The password has a high security level";
+            }
+            else
+            {
+                
+                lblLowSecLevel.Text = "This password security level is too low";
+            }
+
         }
     }
 }
