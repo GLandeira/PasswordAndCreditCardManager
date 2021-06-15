@@ -16,15 +16,13 @@ namespace UserInterface
     {
         private const string NO_CATEGORIES = "Add a Category to add a Password.";
 
-        private UserManager _userManager;
         private User _currentUser;
         private Password _lastPasswordSelected;
 
-        public PasswordsController(UserManager userManager)
+        public PasswordsController()
         {
             InitializeComponent();
-            _userManager = userManager;
-            _currentUser = _userManager.LoggedUser;
+            _currentUser = UserManager.Instance.LoggedUser;
             EnableButtonsIfNoPasswords(false);
             AddOrModifyPasswordModal.onModifyOrAddPassword += LoadDataGridPasswords;
             UnsharePasswordModal.onSharePassword += LoadDataGridPasswords;
@@ -32,7 +30,7 @@ namespace UserInterface
 
         private void PasswordsController_Load(object sender, EventArgs e)
         {
-            DisableAddButtonIfNoCategoriesAdded(_currentUser.Categories);
+            DisableAddButtonIfNoCategoriesAdded(_currentUser.UserCategories.Categories);
 
             List<Password> passwordList = _currentUser.UserPasswords.Passwords;
             LoadDataGridPasswords(passwordList);
@@ -42,7 +40,7 @@ namespace UserInterface
         {
             Password selectedPassword = (Password) grdvwPasswordsTable.Rows[e.RowIndex].DataBoundItem;
             _lastPasswordSelected = selectedPassword;
-            if(_lastPasswordSelected.Category == User.SHARED_WITH_ME_CATEGORY)
+            if(_lastPasswordSelected.Category.Equals(UserCategory.SHARED_WITH_ME_CATEGORY))
             {
                 EnableButtonsIfNoPasswords(false);
             }
@@ -70,7 +68,7 @@ namespace UserInterface
 
         private void btnShowUnshowSharedPasswords_Click(object sender, EventArgs e)
         {
-            DisableAddButtonIfNoCategoriesAdded(_currentUser.Categories);
+            DisableAddButtonIfNoCategoriesAdded(_currentUser.UserCategories.Categories);
             _lastPasswordSelected = null;
 
             if (!btnUnshare.Visible)
@@ -91,19 +89,19 @@ namespace UserInterface
 
         private void btnUnshare_Click(object sender, EventArgs e)
         {
-            Form unsharePasswordModal = new UnsharePasswordModal(_userManager,_lastPasswordSelected);
+            Form unsharePasswordModal = new UnsharePasswordModal(_lastPasswordSelected);
             unsharePasswordModal.ShowDialog();
         }
 
         private void btnNewPassword_Click(object sender, EventArgs e)
         {
-            Form addOrModifyPasswordModal = new AddOrModifyPasswordModal(_currentUser, null);
+            Form addOrModifyPasswordModal = new AddOrModifyPasswordModal(null);
             addOrModifyPasswordModal.ShowDialog();
         }
 
         private void btnSharePassword_Click(object sender, EventArgs e)
         {
-            Form sharePasswordModal = new SharePasswordModal(_userManager, _lastPasswordSelected);
+            Form sharePasswordModal = new SharePasswordModal(_lastPasswordSelected);
             sharePasswordModal.ShowDialog();
         }
 
@@ -120,7 +118,7 @@ namespace UserInterface
 
         private void btnModifyPassword_Click(object sender, EventArgs e)
         {
-            Form addOrModifyPasswordModal = new AddOrModifyPasswordModal(_currentUser, _lastPasswordSelected);
+            Form addOrModifyPasswordModal = new AddOrModifyPasswordModal(_lastPasswordSelected);
             addOrModifyPasswordModal.ShowDialog();
         }
 

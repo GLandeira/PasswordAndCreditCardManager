@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
 using Domain.Exceptions;
+using System.Collections.Generic;
 
 namespace DomainTests
 {
@@ -25,13 +26,18 @@ namespace DomainTests
 
         public SharedPasswordsTests()
         {
-            _testDomain = new Domain.UserManager();
 
+            if(UserManager.Instance == null)
+            {
+                new UserManager();
+            }
+            _testDomain = UserManager.Instance;
+            _testDomain.Users = new List<User>();
             _testUserSharer = SetupSharer();
 
-            _testUserShareeOne = new User(_shareeNameOne, "password", _testDomain);
-            _testUserShareeTwo = new User(_shareeNameOneTwo, "password", _testDomain);
-            _testUserShareeThree = new User(_shareeNameOneThree, "password", _testDomain);
+            _testUserShareeOne = new User(_shareeNameOne, "password");
+            _testUserShareeTwo = new User(_shareeNameOneTwo, "password");
+            _testUserShareeThree = new User(_shareeNameOneThree, "password");
 
             _testDomain.AddUser(_testUserSharer);
             _testDomain.AddUser(_testUserShareeOne);
@@ -41,7 +47,7 @@ namespace DomainTests
 
         private User SetupSharer()
         {
-            User sharer = new User(_sharerName, "password", _testDomain);
+            User sharer = new User(_sharerName, "password");
 
             _testCategory = new Category("TestCategory");
             _sharedPassword = new Password
@@ -54,7 +60,7 @@ namespace DomainTests
                 Notes = "My Brilliantly Account."
             };
             
-            sharer.AddCategory(_testCategory);
+            sharer.UserCategories.AddCategory(_testCategory);
             sharer.UserPasswords.AddPassword(_sharedPassword);
 
             return sharer;
@@ -82,7 +88,7 @@ namespace DomainTests
             _testUserSharer.UserPasswords.SharePassword(_testUserShareeOne, _sharedPassword);
             Password sharedPasswordInSharee = _testUserShareeOne.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
 
-            Assert.AreEqual(User.SHARED_WITH_ME_CATEGORY, sharedPasswordInSharee.Category);
+            Assert.AreEqual(UserCategory.SHARED_WITH_ME_CATEGORY, sharedPasswordInSharee.Category);
         }
 
         [TestMethod]
@@ -95,7 +101,7 @@ namespace DomainTests
 
             _testUserSharer.UserPasswords.StopSharingPassword(_testUserShareeTwo, _sharedPassword);
 
-            Assert.AreEqual(User.SHARED_WITH_ME_CATEGORY, sharedPasswordInSharee.Category);
+            Assert.AreEqual(UserCategory.SHARED_WITH_ME_CATEGORY, sharedPasswordInSharee.Category);
         }
 
         [TestMethod]
@@ -103,19 +109,27 @@ namespace DomainTests
         {
             _testUserSharer.UserPasswords.SharePassword(_testUserShareeOne, _sharedPassword);
 
-            Password modifiedPassword = (Password)_sharedPassword.Clone();
-            modifiedPassword.PasswordString = "newPassword123";
+            Password modifiedPassword = new Password
+            {
+                PasswordID = _sharedPassword.PasswordID,
+                PasswordString = "newPassword123",
+                Site = "www.brilliantly.com",
+                Username = "John Cage",
+                LastModification = DateTime.Today,
+                Category = _testCategory,
+                Notes = "My Brilliantly Account."
+            };
 
             _testUserSharer.UserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
             Password sharedPasswordInSharee = _testUserShareeOne.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
 
-            Assert.AreEqual(User.SHARED_WITH_ME_CATEGORY, sharedPasswordInSharee.Category);
+            Assert.AreEqual(UserCategory.SHARED_WITH_ME_CATEGORY, sharedPasswordInSharee.Category);
         }
 
         [TestMethod]
         public void SharedPasswordHasRightCategoryOnSharerTest()
         {
-            Category oldCategory = (Category)_sharedPassword.Category.Clone();
+            Category oldCategory = (Category)_sharedPassword.Category;
 
             _testUserSharer.UserPasswords.SharePassword(_testUserShareeOne, _sharedPassword);
 
@@ -128,7 +142,7 @@ namespace DomainTests
             _testUserSharer.UserPasswords.SharePassword(_testUserShareeOne, _sharedPassword);
             Password sharedPasswordInSharer = _testUserSharer.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
 
-            Assert.IsTrue(sharedPasswordInSharer.UsersSharedWith.Contains(_shareeNameOne));
+            Assert.IsTrue(sharedPasswordInSharer.UsersSharedWith.Contains(_testUserShareeOne));
         }
 
         [TestMethod]
@@ -166,7 +180,7 @@ namespace DomainTests
 
             Password sharedPasswordInSharer = _testUserSharer.UserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
 
-            Assert.IsFalse(sharedPasswordInSharer.UsersSharedWith.Contains(_shareeNameOne));
+            Assert.IsFalse(sharedPasswordInSharer.UsersSharedWith.Contains(_testUserShareeOne));
         }
 
         [TestMethod]
@@ -178,6 +192,7 @@ namespace DomainTests
 
             Password modifiedPassword = (Password)_sharedPassword.Clone();
             modifiedPassword.PasswordString = "newPassword123";
+            modifiedPassword.PasswordID = _sharedPassword.PasswordID;
 
             sharerUserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
 
@@ -197,6 +212,7 @@ namespace DomainTests
 
             Password modifiedPassword = (Password)_sharedPassword.Clone();
             modifiedPassword.PasswordString = "newP%1as3";
+            modifiedPassword.PasswordID = _sharedPassword.PasswordID;
 
             sharerUserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
 
@@ -222,6 +238,7 @@ namespace DomainTests
 
             Password modifiedPassword = (Password)_sharedPassword.Clone();
             modifiedPassword.PasswordString = "newwfscqWTG";
+            modifiedPassword.PasswordID = _sharedPassword.PasswordID;
 
             sharerUserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
 
@@ -241,7 +258,7 @@ namespace DomainTests
 
             Password sharedPasswordSharer = sharerUserPasswords.GetPassword(_sharedPassword.Site, _sharedPassword.Username);
 
-            Assert.AreEqual(1, sharedPasswordSharer.UsersSharedWith.Count);
+            Assert.AreEqual(1, _sharedPassword.UsersSharedWith.Count);
         }
 
         [TestMethod]

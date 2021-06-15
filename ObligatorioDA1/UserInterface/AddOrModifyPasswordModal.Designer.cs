@@ -43,6 +43,9 @@ namespace UserInterface
             this.btnAdd = new System.Windows.Forms.Button();
             this.cmbBxCategory = new System.Windows.Forms.ComboBox();
             this.categoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lblIsBreached = new System.Windows.Forms.Label();
+            this.lblAlreadyExists = new System.Windows.Forms.Label();
+            this.lblLowSecLevel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -106,6 +109,7 @@ namespace UserInterface
             this.txtBxPassword.Name = "txtBxPassword";
             this.txtBxPassword.Size = new System.Drawing.Size(228, 20);
             this.txtBxPassword.TabIndex = 7;
+            this.txtBxPassword.TextChanged += new System.EventHandler(this.txtBxPassword_TextChanged);
             // 
             // btnGeneratePassword
             // 
@@ -121,7 +125,7 @@ namespace UserInterface
             // 
             this.lblNotes.AutoSize = true;
             this.lblNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNotes.Location = new System.Drawing.Point(163, 245);
+            this.lblNotes.Location = new System.Drawing.Point(164, 267);
             this.lblNotes.Name = "lblNotes";
             this.lblNotes.Size = new System.Drawing.Size(68, 25);
             this.lblNotes.TabIndex = 9;
@@ -129,7 +133,7 @@ namespace UserInterface
             // 
             // txtBxNotes
             // 
-            this.txtBxNotes.Location = new System.Drawing.Point(168, 273);
+            this.txtBxNotes.Location = new System.Drawing.Point(169, 295);
             this.txtBxNotes.Multiline = true;
             this.txtBxNotes.Name = "txtBxNotes";
             this.txtBxNotes.Size = new System.Drawing.Size(284, 100);
@@ -137,7 +141,7 @@ namespace UserInterface
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(232, 379);
+            this.btnAdd.Location = new System.Drawing.Point(233, 401);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(159, 40);
             this.btnAdd.TabIndex = 11;
@@ -160,11 +164,38 @@ namespace UserInterface
             // 
             this.categoryBindingSource.DataSource = typeof(Domain.Category);
             // 
+            // lblIsBreached
+            // 
+            this.lblIsBreached.AutoSize = true;
+            this.lblIsBreached.Location = new System.Drawing.Point(202, 207);
+            this.lblIsBreached.Name = "lblIsBreached";
+            this.lblIsBreached.Size = new System.Drawing.Size(0, 13);
+            this.lblIsBreached.TabIndex = 13;
+            // 
+            // lblAlreadyExists
+            // 
+            this.lblAlreadyExists.AutoSize = true;
+            this.lblAlreadyExists.Location = new System.Drawing.Point(202, 220);
+            this.lblAlreadyExists.Name = "lblAlreadyExists";
+            this.lblAlreadyExists.Size = new System.Drawing.Size(0, 13);
+            this.lblAlreadyExists.TabIndex = 14;
+            // 
+            // lblLowSecLevel
+            // 
+            this.lblLowSecLevel.AutoSize = true;
+            this.lblLowSecLevel.Location = new System.Drawing.Point(202, 233);
+            this.lblLowSecLevel.Name = "lblLowSecLevel";
+            this.lblLowSecLevel.Size = new System.Drawing.Size(0, 13);
+            this.lblLowSecLevel.TabIndex = 15;
+            // 
             // AddOrModifyPasswordModal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(641, 450);
+            this.Controls.Add(this.lblLowSecLevel);
+            this.Controls.Add(this.lblAlreadyExists);
+            this.Controls.Add(this.lblIsBreached);
             this.Controls.Add(this.cmbBxCategory);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtBxNotes);
@@ -206,5 +237,8 @@ namespace UserInterface
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.ComboBox cmbBxCategory;
         private System.Windows.Forms.BindingSource categoryBindingSource;
+        private System.Windows.Forms.Label lblIsBreached;
+        private System.Windows.Forms.Label lblAlreadyExists;
+        private System.Windows.Forms.Label lblLowSecLevel;
     }
 }

@@ -13,33 +13,33 @@ namespace UserInterface
 {
     public partial class CategoryController : UserControl
     {
-        private UserManager _userManager;
+
         private User _currentUser;
         private Category _selectedCategory;
 
-        public CategoryController(UserManager userManager)
+        public CategoryController()
         {
             InitializeComponent();
-            _userManager = userManager;
-            _currentUser = _userManager.LoggedUser;
+
+            _currentUser = UserManager.Instance.LoggedUser;
             SubscribeToEvents();
         }
 
         private void CategoryController_Load(object sender, EventArgs e)
         {
-            LoadDataGridViewWithListOfCategories(_currentUser.Categories);
+            LoadDataGridViewWithListOfCategories(_currentUser.UserCategories.Categories);
         }
 
         private void btnNewCategory_Click(object sender, EventArgs e)
         {
-            Form newCategoryModal = new AddCategoryModal(_currentUser);
+            Form newCategoryModal = new AddCategoryModal();
             newCategoryModal.StartPosition = FormStartPosition.CenterScreen;
             newCategoryModal.ShowDialog();
         }
 
         private void btnModifyCategory_Click(object sender, EventArgs e)
         {
-            Form newCategoryModal = new ModifyCategoryModal(_currentUser, _selectedCategory);
+            Form newCategoryModal = new ModifyCategoryModal(_selectedCategory);
             newCategoryModal.StartPosition = FormStartPosition.CenterScreen;
             newCategoryModal.ShowDialog();
         }
@@ -81,7 +81,7 @@ namespace UserInterface
 
             foreach(Category category in categories)
             {
-                if (!category.Equals(User.SHARED_WITH_ME_CATEGORY))
+                if (!category.Equals(UserCategory.SHARED_WITH_ME_CATEGORY))
                 {
                     filteredList.Add(category);
                 }
@@ -104,7 +104,7 @@ namespace UserInterface
 
         private void OnCategoryListChanged()
         {
-            LoadDataGridViewWithListOfCategories(_currentUser.Categories);
+            LoadDataGridViewWithListOfCategories(_currentUser.UserCategories.Categories);
         }
 
         protected override void OnHandleDestroyed(EventArgs e)

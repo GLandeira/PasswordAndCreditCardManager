@@ -22,13 +22,13 @@ namespace UserInterface
         private bool _isModification;
         private CreditCard _CreditCardToModify;
 
-        public NewOrModifyCreditCardModal(User user, CreditCard creditCardModified)
+        public NewOrModifyCreditCardModal(CreditCard creditCardModified)
         {
-            _currentUser = user;
+            _currentUser = UserManager.Instance.LoggedUser;
             _CreditCardToModify = creditCardModified;
             InitializeComponent();
 
-            //set DateTimePicker to month/year format
+
             dtmCreditCardDateDue.Format = DateTimePickerFormat.Custom;
             dtmCreditCardDateDue.CustomFormat = "MM/yyyy";
 
@@ -67,6 +67,7 @@ namespace UserInterface
                 }
                 else
                 {
+                    newCreditCard.CreditCardID = _CreditCardToModify.CreditCardID;
                     _currentUser.UserCreditCards.ModifyCreditCard(_CreditCardToModify, newCreditCard);
                 }
                 
@@ -90,8 +91,8 @@ namespace UserInterface
             {
                 this.Text = "Modify selected CreditCard";
             }
-            List<Category> categoryList = new List<Category>(_currentUser.Categories);
-            categoryList.Remove(User.SHARED_WITH_ME_CATEGORY);
+            List<Category> categoryList = new List<Category>(_currentUser.UserCategories.Categories);
+            categoryList.Remove(UserCategory.SHARED_WITH_ME_CATEGORY);
             
 
             cmbbxCreditCardCategory.DataSource = categoryList;
