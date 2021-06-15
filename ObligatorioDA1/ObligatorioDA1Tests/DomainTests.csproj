@@ -52,6 +52,8 @@
     <Compile Include="MockCategoryDataAccess.cs" />
     <Compile Include="CategoryTests.cs" />
     <Compile Include="ColorClassifierTests.cs" />
+    <Compile Include="DataBreachesTranslatorTest.cs" />
+    <Compile Include="EffortlessEncryptorWrapperTests.cs" />
     <Compile Include="DataAccessMock.cs" />
     <Compile Include="MockDataBreachesDataAccess.cs" />
     <Compile Include="MockCreditCardDataAccess.cs" />

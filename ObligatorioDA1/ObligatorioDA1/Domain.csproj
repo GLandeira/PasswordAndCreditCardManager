@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Effortless.Net.Encryption, Version=3.3.0.0, Culture=neutral, PublicKeyToken=603f9a8e5bb15e51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Effortless.Net.Encryption.3.3.0\lib\net40\Effortless.Net.Encryption.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.2.2.3\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -68,6 +71,8 @@
     <Compile Include="Exceptions\SingletonUniqueConditionException.cs" />
     <Compile Include="Exceptions\SitePasswordException.cs" />
     <Compile Include="Exceptions\ValidDueCreditCardException.cs" />
+    <Compile Include="PasswordEncryptor\EffortlessEncryptionWrapper.cs" />
+    <Compile Include="PasswordEncryptor\IEncryptor.cs" />
     <Compile Include="IDataAccess.cs" />
     <Compile Include="PasswordHistory.cs" />
     <Compile Include="PasswordRecommender\PasswordRecommender.cs" />
