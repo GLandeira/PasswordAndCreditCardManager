@@ -109,7 +109,6 @@ namespace DomainTests
         {
             _testUserSharer.UserPasswords.SharePassword(_testUserShareeOne, _sharedPassword);
 
-            //Password modifiedPassword = (Password)_sharedPassword.Clone();
             Password modifiedPassword = new Password
             {
                 PasswordID = _sharedPassword.PasswordID,
@@ -193,6 +192,7 @@ namespace DomainTests
 
             Password modifiedPassword = (Password)_sharedPassword.Clone();
             modifiedPassword.PasswordString = "newPassword123";
+            modifiedPassword.PasswordID = _sharedPassword.PasswordID;
 
             sharerUserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
 
@@ -212,6 +212,7 @@ namespace DomainTests
 
             Password modifiedPassword = (Password)_sharedPassword.Clone();
             modifiedPassword.PasswordString = "newP%1as3";
+            modifiedPassword.PasswordID = _sharedPassword.PasswordID;
 
             sharerUserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
 
@@ -237,6 +238,7 @@ namespace DomainTests
 
             Password modifiedPassword = (Password)_sharedPassword.Clone();
             modifiedPassword.PasswordString = "newwfscqWTG";
+            modifiedPassword.PasswordID = _sharedPassword.PasswordID;
 
             sharerUserPasswords.ModifyPassword(modifiedPassword, _sharedPassword);
 
