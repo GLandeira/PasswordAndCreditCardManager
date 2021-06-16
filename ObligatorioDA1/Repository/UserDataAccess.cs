@@ -39,7 +39,8 @@ namespace Repository
                                          .Include(u => u.UserCategories.Categories)
                                          .Include(u => u.UserPasswords.Passwords.Select(p => p.UsersSharedWith))
                                          .Include(u => u.UserCreditCards.CreditCards)
-                                         .Include(u => u.UserDataBreaches.DataBreaches).FirstOrDefault(user => user.UserID == id);
+                                         .Include(u => u.UserDataBreaches.DataBreaches.Select(db => db.PasswordBreaches))
+                                         .Include(u => u.UserDataBreaches.DataBreaches.Select(db => db.CreditCardBreaches)).FirstOrDefault(user => user.UserID == id);
                 return UsersFound;
             }
         }

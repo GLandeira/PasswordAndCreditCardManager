@@ -53,7 +53,7 @@
   <ItemGroup>
     <Reference Include="Effortless.Net.Encryption, Version=3.3.0.0, Culture=neutral, PublicKeyToken=603f9a8e5bb15e51, processorArchitecture=MSIL">
       <HintPath>..\packages\Effortless.Net.Encryption.3.3.0\lib\net40\Effortless.Net.Encryption.dll</HintPath>
-	</Reference>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -122,6 +122,18 @@
     </Compile>
     <Compile Include="DataBreachesController.Designer.cs">
       <DependentUpon>DataBreachesController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataBreachesHistoryResultModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataBreachesHistoryResultModal.Designer.cs">
+      <DependentUpon>DataBreachesHistoryResultModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataBreachHistoryModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataBreachHistoryModal.Designer.cs">
+      <DependentUpon>DataBreachHistoryModal.cs</DependentUpon>
     </Compile>
     <Compile Include="DataBreachMatchesModal.cs">
       <SubType>Form</SubType>
@@ -227,6 +239,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataBreachesController.resx">
       <DependentUpon>DataBreachesController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataBreachesHistoryResultModal.resx">
+      <DependentUpon>DataBreachesHistoryResultModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataBreachHistoryModal.resx">
+      <DependentUpon>DataBreachHistoryModal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataBreachMatchesModal.resx">
       <DependentUpon>DataBreachMatchesModal.cs</DependentUpon>
