@@ -26,5 +26,12 @@ namespace Domain
 
             return areEqual;
         }
+
+        public bool AbsoluteEquals(PasswordHistory passHistory)
+        {
+            bool equalString = this.BreachedPasswordString.Equals(passHistory.BreachedPasswordString);
+            bool equalPassword = this.Password.Equals(passHistory.Password);
+            return equalPassword && equalString;
+        }
     }
 }

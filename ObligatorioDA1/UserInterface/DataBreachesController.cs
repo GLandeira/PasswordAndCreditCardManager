@@ -74,5 +74,11 @@ namespace UserInterface
                 }
             }
         }
+
+        private void btnBreachesHistory_Click(object sender, EventArgs e)
+        {
+            Form DataBreachHistoryModal = new DataBreachHistoryModal();
+            DataBreachHistoryModal.ShowDialog();
+        }
     }
 }
