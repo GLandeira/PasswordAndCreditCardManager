@@ -10,6 +10,21 @@ namespace Domain.PasswordEncryptor
 {
     public class EffortlessEncryptionWrapper : IEncryptor
     {
+        public string IV
+        {
+            get
+            {
+                return ByteArrayStringTranslator.ToString(_iv);
+            }
+        }
+        public string Key
+        {
+            get
+            {
+                return ByteArrayStringTranslator.ToString(_key);
+            }
+        }
+
         private byte[] _iv;
         private byte[] _key;
 

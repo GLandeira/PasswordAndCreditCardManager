@@ -16,8 +16,6 @@ namespace Domain
         public string Notes { get; set; }
         public List<User> UsersSharedWith { get; set; }
         public UserPassword UserPassword { get; set; }
-        public string PasswordKey { get; set; }
-        public string IV { get; set; }
 
         public Password()
         {
@@ -58,6 +56,7 @@ namespace Domain
         public object Clone()
         {
             Password clone = new Password();
+            clone.PasswordID = PasswordID;
             clone.Category = Category;
             clone.Notes = Notes;
             clone.PasswordString = PasswordString;
@@ -66,6 +65,7 @@ namespace Domain
             clone.Site = Site;
             clone.SecurityLevel = SecurityLevel;
             clone.LastModification = LastModification;
+            clone.UserPassword = UserPassword;
 
             return clone;
         }

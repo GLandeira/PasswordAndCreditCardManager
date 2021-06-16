@@ -80,6 +80,7 @@ namespace Domain
             }
             Passwords.Remove(oldPassword);
             Passwords.Add(modifiedPassword);
+            //Password dbPassword = EncryptPassword(passwordToAdd);
             RepositoryFacade.Instance.PasswordDataAccess.Modify(modifiedPassword);
 
             ReshareModifiedPassword(usersSharedWith, modifiedPassword);
@@ -191,12 +192,14 @@ namespace Domain
         {
             Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
             sharerPasswordInMemory.UsersSharedWith.Add(sharee);
+            //Password dbPassword = EncryptPassword(passwordToAdd);
             RepositoryFacade.Instance.PasswordDataAccess.Modify(sharerPasswordInMemory);
         }
 
         private void RemoveUserFromPasswordUsersSharedWith(User sharee, Password sharedPassword)
         {
             sharedPassword.UsersSharedWith.Remove(sharee);
+            //Password dbPassword = EncryptPassword(passwordToAdd);
             RepositoryFacade.Instance.PasswordDataAccess.Modify(sharedPassword);
         }
 
@@ -204,7 +207,17 @@ namespace Domain
         {
             passwordToAdd.UserPassword = this;
             Passwords.Add(passwordToAdd);
+            //Password dbPassword = EncryptPassword(passwordToAdd);
             RepositoryFacade.Instance.PasswordDataAccess.Add(passwordToAdd);
+        }
+
+        private Password EncryptPassword(Password passwordToEncrypt)
+        {
+            User loggedUser = UserManager.Instance.LoggedUser;
+            //IEncryptor encryptor = new EffortlessEncryptionWrapper(loggedUser.PasswordKey, loggedUser.IV);
+            //Password dbPassword = (Password) passwrodToAdd.Clone();
+            //dbPassword.PasswordString = encryptor.Encrypt(passwordToAdd.PasswordString);
+            return null;
         }
     }
 }

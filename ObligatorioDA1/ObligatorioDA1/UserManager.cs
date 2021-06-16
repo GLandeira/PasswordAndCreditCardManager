@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Exceptions;
+using Domain.PasswordEncryptor;
 
 namespace Domain
 {
@@ -42,6 +43,10 @@ namespace Domain
             {
                 throw new UserAlreadyExistsException();
             }
+
+            EffortlessEncryptionWrapper encryptor = new EffortlessEncryptionWrapper();
+            newUser.PasswordKeys = encryptor.Key;
+            newUser.PasswordIV = encryptor.IV;
 
             int dbID = _userDataAccess.Add(newUser);
             newUser.InitializeUser(dbID);
