@@ -15,8 +15,6 @@ namespace Repository
             this.HasMany(p => p.Passwords)
                 .WithRequired(p => p.UserPassword)
                 .WillCascadeOnDelete(true);
-
-            this.Ignore(p => p.DecryptedPasswords);
         }
     }
 }

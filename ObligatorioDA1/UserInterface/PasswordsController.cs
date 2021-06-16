@@ -122,8 +122,10 @@ namespace UserInterface
             addOrModifyPasswordModal.ShowDialog();
         }
 
-        private void LoadDataGridPasswords(List<Password> passwordList)
+        private void LoadDataGridPasswords(List<Password> entryPasswordList)
         {
+            List<Password> passwordList = _currentUser.DecryptPasswords(entryPasswordList);
+
             grdvwPasswordsTable.DataSource = null;
             BindingSource bs = new BindingSource();
             List<Password> sortedPasswordList = passwordList.OrderBy(p => p.Category.Name.ToUpper()).ToList();
