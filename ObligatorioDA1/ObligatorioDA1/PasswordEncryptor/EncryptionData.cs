@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain.PasswordEncryptor
 {
-    public interface IEncryptor
+    public struct EncryptionData
     {
-        string Encrypt(EncryptionData encryptionData);
-        string Decrypt(EncryptionData encryptionData);
+        public string Password;
+        public string PasswordKey;
+        public string PasswordIV;
     }
 }
