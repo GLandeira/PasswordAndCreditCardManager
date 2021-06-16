@@ -77,6 +77,14 @@
     <Compile Include="Migrations\202106161221373_EncryptionMigration.designer.cs">
       <DependentUpon>202106161221373_EncryptionMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106161612000_DecryptionTrick.cs" />
+    <Compile Include="Migrations\202106161612000_DecryptionTrick.designer.cs">
+      <DependentUpon>202106161612000_DecryptionTrick.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106161613087_DecryptionTrickIgnore.cs" />
+    <Compile Include="Migrations\202106161613087_DecryptionTrickIgnore.designer.cs">
+      <DependentUpon>202106161613087_DecryptionTrickIgnore.cs</DependentUpon>
+    </Compile>
     <Compile Include="PasswordDataAccess.cs" />
     <Compile Include="CreditCardDataAccess.cs" />
     <Compile Include="CreditCardTypeConfiguration.cs" />
@@ -178,6 +186,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106161221373_EncryptionMigration.resx">
       <DependentUpon>202106161221373_EncryptionMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106161612000_DecryptionTrick.resx">
+      <DependentUpon>202106161612000_DecryptionTrick.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106161613087_DecryptionTrickIgnore.resx">
+      <DependentUpon>202106161613087_DecryptionTrickIgnore.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

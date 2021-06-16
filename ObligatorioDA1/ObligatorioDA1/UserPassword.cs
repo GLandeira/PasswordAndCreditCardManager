@@ -11,18 +11,14 @@ namespace Domain
 {
     public class UserPassword
     {
-        private List<Password> _passwords;
+        public List<Password> Passwords { get; set; }
 
         public int UserPasswordID { get; set; }
-        public List<Password> Passwords 
+        public List<Password> DecryptedPasswords 
         { 
             get
             {
-                return DecryptPasswords(_passwords);
-            }
-            set
-            {
-                _passwords = value;
+                return DecryptPasswords(Passwords);
             }
         }
 
@@ -57,7 +53,7 @@ namespace Domain
             {
                 StopSharingPasswordWhenDeleted(password);
             }
-            _passwords.Remove(password);
+            Passwords.Remove(password);
             RepositoryFacade.Instance.PasswordDataAccess.Delete(password);
         }
 
@@ -67,22 +63,22 @@ namespace Domain
             passwordImitator.Site = siteName;
             passwordImitator.Username = siteUserName;
 
-            if(!Passwords.Any(pass => pass.Equals(passwordImitator)))
+            if(!DecryptedPasswords.Any(pass => pass.Equals(passwordImitator)))
             {
                 throw new PasswordNotFoundException();
             }
 
-            return Passwords.First(pass => pass.Equals(passwordImitator));
+            return DecryptedPasswords.First(pass => pass.Equals(passwordImitator));
         }
 
         public List<Password> GetPasswordsByPasswordString(String passwordStringToLook)
         {
-            if (!Passwords.Exists(passwordInList => passwordInList.PasswordStringEquals(passwordStringToLook)))
+            if (!DecryptedPasswords.Exists(passwordInList => passwordInList.PasswordStringEquals(passwordStringToLook)))
             {
                 throw new PasswordNotFoundException();
             }
 
-            return Passwords.FindAll(passwordInList => passwordInList.PasswordStringEquals(passwordStringToLook));
+            return DecryptedPasswords.FindAll(passwordInList => passwordInList.PasswordStringEquals(passwordStringToLook));
         }
 
         public void ModifyPassword(Password modifiedPassword, Password oldPassword)
@@ -99,8 +95,8 @@ namespace Domain
             {
                 StopSharingPasswordWhenDeleted(oldPassword);
             }
-            _passwords.Remove(oldPassword);
-            _passwords.Add(modifiedPassword);
+            Passwords.Remove(oldPassword);
+            Passwords.Add(modifiedPassword);
             //Password dbPassword = EncryptPassword(passwordToAdd);
             RepositoryFacade.Instance.PasswordDataAccess.Modify(modifiedPassword);
 
@@ -225,7 +221,7 @@ namespace Domain
         {
             passwordToAdd.UserPassword = this;
             EncryptPassword(passwordToAdd);
-            _passwords.Add(passwordToAdd);
+            Passwords.Add(passwordToAdd);
             RepositoryFacade.Instance.PasswordDataAccess.Add(passwordToAdd);
             //AddToDatabaseEncrypted(passwordToAdd);
         }
@@ -244,7 +240,7 @@ namespace Domain
 
         private void EncryptPassword(Password passwordToEncrypt)
         {
-            User loggedUser = _myUser;
+            User loggedUser = UserManager.Instance.LoggedUser;
             IEncryptor encryptor = loggedUser.Encryptor;
             //Password dbPassword = (Password) passwrodToAdd.Clone(); ??
             passwordToEncrypt.PasswordString = encryptor.Encrypt(passwordToEncrypt.PasswordString);
@@ -265,7 +261,7 @@ namespace Domain
 
         private void DecryptPassword(Password passwordToDecrypt)
         {
-            User loggedUser = _myUser;
+            User loggedUser = UserManager.Instance.LoggedUser;
             IEncryptor encryptor = loggedUser.Encryptor;
             //Password dbPassword = (Password) passwrodToAdd.Clone(); ??
             passwordToDecrypt.PasswordString = encryptor.Decrypt(passwordToDecrypt.PasswordString);
