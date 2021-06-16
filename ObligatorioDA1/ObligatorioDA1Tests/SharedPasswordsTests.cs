@@ -26,11 +26,6 @@ namespace DomainTests
 
         public SharedPasswordsTests()
         {
-
-            if(UserManager.Instance == null)
-            {
-                new UserManager();
-            }
             _testDomain = UserManager.Instance;
             _testDomain.Users = new List<User>();
             _testUserSharer = SetupSharer();
@@ -40,14 +35,21 @@ namespace DomainTests
             _testUserShareeThree = new User(_shareeNameOneThree, "password");
 
             _testDomain.AddUser(_testUserSharer);
+
+            _testUserShareeOne.Encryptor = new MockEncryptor();
             _testDomain.AddUser(_testUserShareeOne);
+
+            _testUserShareeTwo.Encryptor = new MockEncryptor();
             _testDomain.AddUser(_testUserShareeTwo);
+
+            _testUserShareeThree.Encryptor = new MockEncryptor();
             _testDomain.AddUser(_testUserShareeThree);
         }
 
         private User SetupSharer()
         {
             User sharer = new User(_sharerName, "password");
+            sharer.Encryptor = new MockEncryptor();
 
             _testCategory = new Category("TestCategory");
             _sharedPassword = new Password
