@@ -57,6 +57,7 @@
     <Compile Include="DataAccessMock.cs" />
     <Compile Include="MockDataBreachesDataAccess.cs" />
     <Compile Include="MockCreditCardDataAccess.cs" />
+    <Compile Include="MockEncryptor.cs" />
     <Compile Include="MockPasswordDataAccess.cs" />
     <Compile Include="MockUserDataAccess.cs" />
     <Compile Include="PasswordRecommenderTests.cs" />
