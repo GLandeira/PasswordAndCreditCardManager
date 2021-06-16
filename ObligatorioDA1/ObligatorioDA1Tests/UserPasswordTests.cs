@@ -42,12 +42,10 @@ namespace DomainTests
         {
             _mockDomain = UserManager.Instance;
             _testUser = new User("TestUser", "TestUser");
-            _testUser.Encryptor = new MockEncryptor();
             _mockDomain.AddUser(_testUser);
             _mockUserPassword = _mockDomain.GetUser("TestUser").UserPasswords;
 
             _userSharedTo = new User("userPrueba", "contraseñaPrueba");
-            _userSharedTo.Encryptor = new MockEncryptor();
             _mockDomain.AddUser(_userSharedTo);
             _trabajo = new Category("Trabajo");
             _testPassword1 = new Password

@@ -28,7 +28,6 @@ namespace DomainTests
             _mockDomain = UserManager.Instance;
 
             _testUser = new User("Juana", "123456");
-            _testUser.Encryptor = new MockEncryptor();
             _mockDomain.AddUser(_testUser);
 
 
