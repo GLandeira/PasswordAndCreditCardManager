@@ -21,8 +21,6 @@ namespace UserInterface
         {
             EncryptionData encryptionData = new EncryptionData();
 
-            encryptionData.Password = password.PasswordString;
-
             if (password.PasswordIV == null || password.PasswordKey == null)
             {
                 encryptionData = _encryptor.GenerateEncryptionData();
@@ -34,6 +32,8 @@ namespace UserInterface
                 encryptionData.PasswordIV = password.PasswordIV;
                 encryptionData.PasswordKey = password.PasswordKey;
             }
+
+            encryptionData.Password = password.PasswordString;
 
             password.PasswordString = _encryptor.Encrypt(encryptionData);
 
@@ -56,8 +56,6 @@ namespace UserInterface
         {
             EncryptionData encryptionData = new EncryptionData();
 
-            encryptionData.Password = user.MainPassword;
-
             if (user.PasswordIV == null || user.PasswordKeys == null)
             {
                 encryptionData = _encryptor.GenerateEncryptionData();
@@ -69,6 +67,8 @@ namespace UserInterface
                 encryptionData.PasswordIV = user.PasswordIV;
                 encryptionData.PasswordKey = user.PasswordKeys;
             }
+
+            encryptionData.Password = user.MainPassword;
 
             user.MainPassword = _encryptor.Encrypt(encryptionData);
 

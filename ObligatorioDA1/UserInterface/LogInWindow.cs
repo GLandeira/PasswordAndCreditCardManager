@@ -75,11 +75,11 @@ namespace UserInterface
         private void TryToAddUser(string username, string password)
         {
             User newUser = new User(username, password);
-            _encryption.UserMainPasswordEncryption(newUser);
-
+            
             try
             {
                 Verifier.VerifyUser(newUser);
+                _encryption.UserMainPasswordEncryption(newUser);
                 UserManager.Instance.AddUser(newUser);
                 txtbxSignUpUsername.Text = "";
                 txtbxSignUpPassword.Text = "";
