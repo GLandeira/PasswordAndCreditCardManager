@@ -49,10 +49,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ByteArrayStringTranslationTests.cs" />
     <Compile Include="MockCategoryDataAccess.cs" />
     <Compile Include="CategoryTests.cs" />
     <Compile Include="ColorClassifierTests.cs" />
-    <Compile Include="DataBreachesTranslatorTest.cs" />
     <Compile Include="EffortlessEncryptorWrapperTests.cs" />
     <Compile Include="DataAccessMock.cs" />
     <Compile Include="MockDataBreachesDataAccess.cs" />

@@ -4,21 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Effortless.Net.Encryption;
+using Domain.Helpers;
 
 namespace Domain.PasswordEncryptor
 {
     public class EffortlessEncryptionWrapper : IEncryptor
     {
-        private const string SALT = "saldemesa";
         private byte[] _iv;
         private byte[] _key;
 
-        public string Encrypt(string password)
+        public EffortlessEncryptionWrapper()
         {
             _iv = Bytes.GenerateIV();
             _key = Bytes.GenerateKey();
+        }
 
-            string encryptedPassword = Strings.Encrypt(SALT + password, _key, _iv);
+        public EffortlessEncryptionWrapper(string key, string iv)
+        {
+            _iv = ByteArrayStringTranslator.ToByteArray(iv);
+            _key = ByteArrayStringTranslator.ToByteArray(key);
+        }
+
+        public string Encrypt(string password)
+        {
+            string encryptedPassword = Strings.Encrypt(password, _key, _iv);
 
             return encryptedPassword;
         }
@@ -26,9 +35,8 @@ namespace Domain.PasswordEncryptor
         public string Decrypt(string encryptedPassword)
         {
             string decryptedPassword = Strings.Decrypt(encryptedPassword, _key, _iv);
-            string saltlessPassword = decryptedPassword.Substring(SALT.Length, decryptedPassword.Length - SALT.Length);
 
-            return saltlessPassword;
+            return decryptedPassword;
         }
     }
 }

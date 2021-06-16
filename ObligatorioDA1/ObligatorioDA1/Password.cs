@@ -16,6 +16,8 @@ namespace Domain
         public string Notes { get; set; }
         public List<User> UsersSharedWith { get; set; }
         public UserPassword UserPassword { get; set; }
+        public string PasswordKey { get; set; }
+        public string IV { get; set; }
 
         public Password()
         {
