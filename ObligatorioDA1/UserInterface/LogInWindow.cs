@@ -48,7 +48,6 @@ namespace UserInterface
             string username = txtbxLogInUsername.Text;
             string password = txtbxLogInPassword.Text;
             User userToLogInWith = UserManager.Instance.GetUser(username);
-            userToLogInWith.Encryptor = new EffortlessEncryptionWrapper(userToLogInWith.PasswordKeys, userToLogInWith.PasswordIV);
 
             if (UserManager.Instance.LogIn(userToLogInWith, password))
             {
@@ -73,10 +72,12 @@ namespace UserInterface
         private void TryToAddUser(string username, string password)
         {
             User newUser = new User(username, password);
+
             EffortlessEncryptionWrapper encryptor = new EffortlessEncryptionWrapper();
             newUser.Encryptor = encryptor;
-            newUser.PasswordKeys = encryptor.Key;
-            newUser.PasswordIV = encryptor.IV;
+            EncryptionData data = encryptor.GenerateEncryptionData();
+            newUser.PasswordIV = data.PasswordIV;
+            newUser.PasswordKeys = data.PasswordKey;
 
             try
             {

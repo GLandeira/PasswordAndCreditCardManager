@@ -41,7 +41,7 @@ namespace Domain
                 throw new UserAlreadyExistsException();
             }
 
-            //newUser.MainPassword = newUser.Encryptor.Encrypt(newUser.MainPassword);
+            newUser.MainPassword = EncryptMainPassword(newUser);
             int dbID = _userDataAccess.Add(newUser);
             newUser.InitializeUser(dbID);
             Users.Add(newUser);
@@ -70,8 +70,8 @@ namespace Domain
             }
 
             // Esto deberia de entrar un password, es pasar el que encontro y chau
+            userWithNewPassword.MainPassword = EncryptMainPassword(userWithNewPassword);
             Users.First(us => us.Name == userWithNewPassword.Name).MainPassword = userWithNewPassword.MainPassword;
-           // userWithNewPassword.MainPassword = userWithNewPassword.Encryptor.Encrypt(userWithNewPassword.MainPassword);
             _userDataAccess.Modify(userWithNewPassword);
         }
 
@@ -79,11 +79,12 @@ namespace Domain
         {
             try
             {
-                //if (userToLogInWith.Encryptor.Decrypt(userToLogInWith.MainPassword) == userPasswordToLogInWith)
-                //{
-                //    LoggedUser = userToLogInWith;
-                //    return true;
-                //}
+                string decryptedPassword = DecryptMainPassword(userToLogInWith);
+                if (decryptedPassword == userPasswordToLogInWith)
+                {
+                    LoggedUser = userToLogInWith;
+                    return true;
+                }
 
                 return false;
             }
@@ -91,6 +92,26 @@ namespace Domain
             {
                 return false;
             }
+        }
+
+        private string EncryptMainPassword(User user)
+        {
+            EncryptionData encryptionData = new EncryptionData();
+            encryptionData.Password = user.MainPassword;
+            encryptionData.PasswordIV = user.PasswordIV;
+            encryptionData.PasswordKey = user.PasswordKeys;
+
+            return user.Encryptor.Encrypt(encryptionData);
+        }
+
+        private string DecryptMainPassword(User user)
+        {
+            EncryptionData encryptionData = new EncryptionData();
+            encryptionData.Password = user.MainPassword;
+            encryptionData.PasswordIV = user.PasswordIV;
+            encryptionData.PasswordKey = user.PasswordKeys;
+
+            return user.Encryptor.Decrypt(encryptionData);
         }
 
         private void CheckSingleInstanceOfSingleton()

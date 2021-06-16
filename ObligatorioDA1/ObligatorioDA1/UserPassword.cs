@@ -224,21 +224,5 @@ namespace Domain
             EncryptPassword(passwordToEncrypt);
             RepositoryFacade.Instance.PasswordDataAccess.Modify(passwordToEncrypt);
         }
-
-        private void EncryptPassword(Password passwordToEncrypt)
-        {
-            User loggedUser = UserManager.Instance.LoggedUser;
-            IEncryptor encryptor = loggedUser.Encryptor;
-            //Password dbPassword = (Password) passwrodToAdd.Clone(); ??
-            //passwordToEncrypt.PasswordString = encryptor.Encrypt(passwordToEncrypt.PasswordString);
-        }
-
-        private string EncryptPassword(string passwordToEncrypt)
-        {
-            User loggedUser = UserManager.Instance.LoggedUser;
-            IEncryptor encryptor = loggedUser.Encryptor;
-            //Password dbPassword = (Password) passwrodToAdd.Clone(); ??
-            return null;// encryptor.Encrypt(passwordToEncrypt);
-        }
     }
 }
