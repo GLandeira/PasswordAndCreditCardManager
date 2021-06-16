@@ -10,5 +10,6 @@ namespace Domain.PasswordEncryptor
     {
         string Encrypt(EncryptionData encryptionData);
         string Decrypt(EncryptionData encryptionData);
+        EncryptionData GenerateEncryptionData();
     }
 }

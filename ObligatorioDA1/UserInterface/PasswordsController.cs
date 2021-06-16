@@ -122,9 +122,9 @@ namespace UserInterface
             addOrModifyPasswordModal.ShowDialog();
         }
 
-        private void LoadDataGridPasswords(List<Password> entryPasswordList)
+        private void LoadDataGridPasswords(List<Password> passwordList)
         {
-            List<Password> passwordList = _currentUser.DecryptPasswords(entryPasswordList);
+            //List<Password> passwordList = _currentUser..Passwords(entryPasswordList);
 
             grdvwPasswordsTable.DataSource = null;
             BindingSource bs = new BindingSource();

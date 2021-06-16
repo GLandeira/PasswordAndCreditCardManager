@@ -65,14 +65,12 @@ namespace Domain
 
         public List<Password> GetPasswordsByPasswordString(string passwordStringToLook)
         {
-            string encryptedPasswordStringToLook = EncryptPassword(passwordStringToLook);
-
-            if (!Passwords.Exists(passwordInList => passwordInList.PasswordStringEquals(encryptedPasswordStringToLook)))
+            if (!Passwords.Exists(passwordInList => passwordInList.PasswordStringEquals(passwordStringToLook)))
             {
                 throw new PasswordNotFoundException();
             }
 
-            return Passwords.FindAll(passwordInList => passwordInList.PasswordStringEquals(encryptedPasswordStringToLook));
+            return Passwords.FindAll(passwordInList => passwordInList.PasswordStringEquals(passwordStringToLook));
         }
 
         public void ModifyPassword(Password modifiedPassword, Password oldPassword)
@@ -90,8 +88,7 @@ namespace Domain
                 StopSharingPasswordWhenDeleted(oldPassword);
             }
             Passwords.Remove(oldPassword);
-
-            ModifyInDatabaseEncrypted(modifiedPassword);
+            RepositoryFacade.Instance.PasswordDataAccess.Modify(modifiedPassword);
             Passwords.Add(modifiedPassword);
             
             ReshareModifiedPassword(usersSharedWith, modifiedPassword);
@@ -202,27 +199,20 @@ namespace Domain
         {
             Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
             sharerPasswordInMemory.UsersSharedWith.Add(sharee);
-            ModifyInDatabaseEncrypted(sharedPassword);
+            RepositoryFacade.Instance.PasswordDataAccess.Modify(sharedPassword);
         }
 
         private void RemoveUserFromPasswordUsersSharedWith(User sharee, Password sharedPassword)
         {
             sharedPassword.UsersSharedWith.Remove(sharee);
-            ModifyInDatabaseEncrypted(sharedPassword);
+            RepositoryFacade.Instance.PasswordDataAccess.Modify(sharedPassword);
         }
 
         private void AddPasswordToListAndDB(Password passwordToAdd)
         {
             passwordToAdd.UserPassword = this;
-            EncryptPassword(passwordToAdd);
             Passwords.Add(passwordToAdd);
             RepositoryFacade.Instance.PasswordDataAccess.Add(passwordToAdd);
-        }
-
-        private void ModifyInDatabaseEncrypted(Password passwordToEncrypt)
-        {
-            EncryptPassword(passwordToEncrypt);
-            RepositoryFacade.Instance.PasswordDataAccess.Modify(passwordToEncrypt);
         }
     }
 }

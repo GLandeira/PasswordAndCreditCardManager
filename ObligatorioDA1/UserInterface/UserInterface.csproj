@@ -130,6 +130,7 @@
       <DependentUpon>DataBreachMatchesModal.cs</DependentUpon>
     </Compile>
     <Compile Include="DataBreachMediator.cs" />
+    <Compile Include="EncryptorIndirection.cs" />
     <Compile Include="LogInWindow.cs">
       <SubType>Form</SubType>
     </Compile>

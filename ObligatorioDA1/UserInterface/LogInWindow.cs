@@ -20,10 +20,12 @@ namespace UserInterface
         private const string PASSWORD_MODIFY_FAILURE = "Password and confirmation do not match.";
 
         private bool _loggedIn;
+        private EncryptorIndirection _encryption;
 
         public LogInWindow()
         {
             InitializeComponent();
+            _encryption = new EncryptorIndirection(new EffortlessEncryptionWrapper());
         }
 
         private void btnSignUp_Click(object sender, EventArgs e)
@@ -48,6 +50,7 @@ namespace UserInterface
             string username = txtbxLogInUsername.Text;
             string password = txtbxLogInPassword.Text;
             User userToLogInWith = UserManager.Instance.GetUser(username);
+            _encryption.UserMainPasswordDecryption(userToLogInWith);
 
             if (UserManager.Instance.LogIn(userToLogInWith, password))
             {
@@ -72,15 +75,11 @@ namespace UserInterface
         private void TryToAddUser(string username, string password)
         {
             User newUser = new User(username, password);
-
-            EffortlessEncryptionWrapper encryptor = new EffortlessEncryptionWrapper();
-            newUser.Encryptor = encryptor;
-            EncryptionData data = encryptor.GenerateEncryptionData();
-            newUser.PasswordIV = data.PasswordIV;
-            newUser.PasswordKeys = data.PasswordKey;
+            _encryption.UserMainPasswordEncryption(newUser);
 
             try
             {
+                Verifier.VerifyUser(newUser);
                 UserManager.Instance.AddUser(newUser);
                 txtbxSignUpUsername.Text = "";
                 txtbxSignUpPassword.Text = "";
