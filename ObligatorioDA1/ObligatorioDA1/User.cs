@@ -39,7 +39,7 @@ namespace Domain
 
         public User(string name, string mainPassword)
         {
-            UserPasswords = new UserPassword();
+            UserPasswords = new UserPassword(this);
             UserCreditCards = new UserCreditCard();
             UserDataBreaches = new UserDataBreaches();
             UserCategories = new UserCategory();
@@ -49,7 +49,7 @@ namespace Domain
 
         public User(int userId, string name, string mainPassword)
         {
-            UserPasswords = new UserPassword();
+            UserPasswords = new UserPassword(this);
             UserCreditCards = new UserCreditCard();
             UserDataBreaches = new UserDataBreaches();
             UserCategories = new UserCategory();
