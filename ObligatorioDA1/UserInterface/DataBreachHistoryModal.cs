@@ -43,7 +43,7 @@ namespace UserInterface
         {
             if (_selectedDataBreach != null)
             {
-                Form DataBreachesHistoryresultModal = new DataBreachesHistoryResultModal(_selectedDataBreach.Date);
+                Form DataBreachesHistoryresultModal = new DataBreachesHistoryResultModal(_selectedDataBreach);
                 DataBreachesHistoryresultModal.ShowDialog();
             }
         }

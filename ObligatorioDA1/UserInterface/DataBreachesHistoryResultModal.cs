@@ -27,21 +27,21 @@ namespace UserInterface
         private const string BUTTON_MODIFY_TEXT = "Modify";
         private const string NO_MORE_BREACHED_PASSWORDS = "There are no more breached passwords.";
 
-        private Password _auxPasswordForModificationChecks;
-        private DateTime _date;
+        private PasswordHistory _auxPasswordHistoryForModificationChecks;
+        private DataBreach _theDataBreach;
         private User _currentUser;
 
-        public DataBreachesHistoryResultModal(DateTime dataBreachTime)
+        public DataBreachesHistoryResultModal(DataBreach dataBreach)
         {
             InitializeComponent();
             _currentUser = UserManager.Instance.LoggedUser;
-            _date = dataBreachTime;
+            _theDataBreach = dataBreach;
             AddOrModifyPasswordModal.onModifySinglePassword += OnPasswordModified;
         }
 
         private void DataBreachesHistoryResultModal_Load(object sender, EventArgs e)
         {
-            DataBreach theDataBreaches = _currentUser.UserDataBreaches.DataBreaches.Find(db => db.Date.Equals(_date));
+            DataBreach theDataBreaches = _theDataBreach;
             List<PasswordHistory> breachedPasswords = theDataBreaches.PasswordBreaches;
             List<CreditCard> breachedCreditCards = theDataBreaches.CreditCardBreaches;
 
@@ -84,7 +84,7 @@ namespace UserInterface
 
                 // EventHandler takes a function of object and EventArgs parameters.
                 // By providing a wrapper I can call any function that takes any parameter
-                EventHandler onClickEvent = new EventHandler((obj, eventArgs) => ModifyButtonsOnClick(passwordHistory.Password));
+                EventHandler onClickEvent = new EventHandler((obj, eventArgs) => ModifyButtonsOnClick(passwordHistory));
                 btnModifyPassword.Click += onClickEvent;
                 pnlParentPanel.Controls.Add(btnModifyPassword);
             }
@@ -139,10 +139,10 @@ namespace UserInterface
             return newButton;
         }
 
-        private void ModifyButtonsOnClick(Password thePassword)
+        private void ModifyButtonsOnClick(PasswordHistory passwordHistory)
         {
-            _auxPasswordForModificationChecks = thePassword;
-            Form modifyPassword = new AddOrModifyPasswordModal(thePassword);
+            _auxPasswordHistoryForModificationChecks = passwordHistory;
+            Form modifyPassword = new AddOrModifyPasswordModal(passwordHistory.Password);
             modifyPassword.ShowDialog();
         }
 
@@ -159,8 +159,7 @@ namespace UserInterface
 
         private void CloseIfNoCreditCardBreaches()
         {
-            DataBreach theDataBreaches = _currentUser.UserDataBreaches.DataBreaches.Find(db => db.Date.Equals(_date));
-            if (theDataBreaches.CreditCardBreaches.Count <= 0)
+            if (_theDataBreach.CreditCardBreaches.Count <= 0)
             {
                 Close();
             }
@@ -168,8 +167,13 @@ namespace UserInterface
 
         private void OnPasswordModified(Password modifiedPassword)
         {
-            DataBreach theDataBreaches = _currentUser.UserDataBreaches.DataBreaches.Find(db => db.Date.Equals(_date));
-            GenerateBreachedPasswordVisuals(theDataBreaches.PasswordBreaches);
+            List<PasswordHistory> breachedPasswords = _theDataBreach.PasswordBreaches;
+            PasswordHistory originalBreach = breachedPasswords.FirstOrDefault(pass => pass.AbsoluteEquals(_auxPasswordHistoryForModificationChecks));
+            breachedPasswords.RemoveAll(pass => pass.AbsoluteEquals(_auxPasswordHistoryForModificationChecks));
+
+            originalBreach.Password = modifiedPassword;
+            breachedPasswords.Add(originalBreach);
+            GenerateBreachedPasswordVisuals(breachedPasswords);
         }
 
         protected override void OnHandleDestroyed(EventArgs e)
