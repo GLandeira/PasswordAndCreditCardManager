@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
 using Domain.Exceptions;
+using Domain.PasswordEncryptor;
 
 namespace UserInterface
 {
@@ -46,8 +47,10 @@ namespace UserInterface
         {
             string username = txtbxLogInUsername.Text;
             string password = txtbxLogInPassword.Text;
+            User userToLogInWith = UserManager.Instance.GetUser(username);
+            userToLogInWith.Encryptor = new EffortlessEncryptionWrapper(userToLogInWith.PasswordKeys, userToLogInWith.PasswordIV);
 
-            if (UserManager.Instance.LogIn(username, password))
+            if (UserManager.Instance.LogIn(userToLogInWith, password))
             {
                 _loggedIn = true;
                 Close();
@@ -70,6 +73,10 @@ namespace UserInterface
         private void TryToAddUser(string username, string password)
         {
             User newUser = new User(username, password);
+            EffortlessEncryptionWrapper encryptor = new EffortlessEncryptionWrapper();
+            newUser.Encryptor = encryptor;
+            newUser.PasswordKeys = encryptor.Key;
+            newUser.PasswordIV = encryptor.IV;
 
             try
             {
