@@ -125,9 +125,8 @@ namespace DomainTests
             _breachTest = _breach2;
             _userPasswordTest.AddPassword(_password1);
             _dataBreachTest = _userDataBreaches.CheckDataBreaches(_breachTest, new TextBoxTranslator());
-            string password = _userPasswordTest.Passwords.Find(p => p.PasswordString == "micontra").PasswordString;
 
-            Assert.AreEqual(true, _dataBreachTest.PasswordBreaches.Exists(passwordInList => passwordInList.BreachedPasswordString.Equals(password)));
+            Assert.AreEqual(true, _dataBreachTest.PasswordBreaches.Exists(passwordInList => passwordInList.BreachedPasswordString.Equals(_password1.PasswordString)));
         }
 
         [TestMethod]
