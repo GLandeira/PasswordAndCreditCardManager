@@ -77,6 +77,10 @@
     <Compile Include="Migrations\202106161540517_TEst.designer.cs">
       <DependentUpon>202106161540517_TEst.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106161544430_Test2.cs" />
+    <Compile Include="Migrations\202106161544430_Test2.designer.cs">
+      <DependentUpon>202106161544430_Test2.cs</DependentUpon>
+    </Compile>
     <Compile Include="PasswordDataAccess.cs" />
     <Compile Include="CreditCardDataAccess.cs" />
     <Compile Include="CreditCardTypeConfiguration.cs" />
@@ -178,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106161540517_TEst.resx">
       <DependentUpon>202106161540517_TEst.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106161544430_Test2.resx">
+      <DependentUpon>202106161544430_Test2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

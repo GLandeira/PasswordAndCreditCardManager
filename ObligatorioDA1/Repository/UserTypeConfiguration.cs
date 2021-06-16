@@ -29,6 +29,8 @@ namespace Repository
             this.HasRequired(u => u.UserCategories)
                 .WithRequiredPrincipal()
                 .WillCascadeOnDelete(true);
+
+            this.Ignore(u => u.Encryptor);
         }
     }
 }
