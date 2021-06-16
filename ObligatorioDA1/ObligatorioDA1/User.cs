@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Exceptions;
-using Domain.PasswordEncryptor;
 
 namespace Domain
 {
@@ -30,7 +29,6 @@ namespace Domain
         public UserCreditCard UserCreditCards { get; set; }
         public UserDataBreaches UserDataBreaches { get; set; }
         public UserCategory UserCategories { get; set; }
-        public IEncryptor Encryptor { get; set; }
 
 
         public User()
