@@ -77,6 +77,10 @@
     <Compile Include="Migrations\202106161221373_EncryptionMigration.designer.cs">
       <DependentUpon>202106161221373_EncryptionMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106161452395_FixPasswordUserPasswordRelationshipProblem.cs" />
+    <Compile Include="Migrations\202106161452395_FixPasswordUserPasswordRelationshipProblem.designer.cs">
+      <DependentUpon>202106161452395_FixPasswordUserPasswordRelationshipProblem.cs</DependentUpon>
+    </Compile>
     <Compile Include="PasswordDataAccess.cs" />
     <Compile Include="CreditCardDataAccess.cs" />
     <Compile Include="CreditCardTypeConfiguration.cs" />
@@ -178,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106161221373_EncryptionMigration.resx">
       <DependentUpon>202106161221373_EncryptionMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106161452395_FixPasswordUserPasswordRelationshipProblem.resx">
+      <DependentUpon>202106161452395_FixPasswordUserPasswordRelationshipProblem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

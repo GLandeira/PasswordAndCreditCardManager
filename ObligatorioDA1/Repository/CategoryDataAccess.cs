@@ -64,9 +64,11 @@ namespace Repository
 
         public void Clear()
         {
-            foreach (var record in GetAll())
+            using (DomainDBContext context = new DomainDBContext())
             {
-                Delete(record);
+                context.Categories.RemoveRange(context.Categories);
+
+                context.SaveChanges();
             }
         }
     }

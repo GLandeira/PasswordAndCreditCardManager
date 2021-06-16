@@ -76,5 +76,15 @@ namespace Repository
                 context.SaveChanges();
             }
         }
+
+        public void Clear()
+        {
+            using (DomainDBContext context = new DomainDBContext())
+            {
+                context.CreditCards.RemoveRange(context.CreditCards);
+
+                context.SaveChanges();
+            }
+        }
     }
 }

@@ -49,6 +49,7 @@ namespace UserInterface
             string password = txtbxLogInPassword.Text;
             User userToLogInWith = UserManager.Instance.GetUser(username);
             userToLogInWith.Encryptor = new EffortlessEncryptionWrapper(userToLogInWith.PasswordKeys, userToLogInWith.PasswordIV);
+            userToLogInWith.UserPasswords.User = userToLogInWith;
 
             if (UserManager.Instance.LogIn(userToLogInWith, password))
             {

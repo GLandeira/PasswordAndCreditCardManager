@@ -13,7 +13,7 @@ namespace Repository
         public UserPasswordTypeConfiguration()
         {
             this.HasMany(p => p.Passwords)
-                .WithRequired(p => p.UserPassword)
+                .WithOptional(p => p.UserPassword)
                 .WillCascadeOnDelete(true);
         }
     }

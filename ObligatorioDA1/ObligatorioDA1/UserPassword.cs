@@ -26,17 +26,11 @@ namespace Domain
             }
         }
 
-        private User _myUser;
+        public User User;
 
         public UserPassword()
         {
             Passwords = new List<Password>();
-        }
-
-        public UserPassword(User user)
-        {
-            Passwords = new List<Password>();
-            _myUser = user;
         }
 
         public void AddPassword(Password password)
@@ -244,7 +238,8 @@ namespace Domain
 
         private void EncryptPassword(Password passwordToEncrypt)
         {
-            User loggedUser = _myUser;
+            User loggedUser = User;
+
             IEncryptor encryptor = loggedUser.Encryptor;
             //Password dbPassword = (Password) passwrodToAdd.Clone(); ??
             passwordToEncrypt.PasswordString = encryptor.Encrypt(passwordToEncrypt.PasswordString);
@@ -265,7 +260,8 @@ namespace Domain
 
         private void DecryptPassword(Password passwordToDecrypt)
         {
-            User loggedUser = _myUser;
+            User loggedUser = User;
+
             IEncryptor encryptor = loggedUser.Encryptor;
             //Password dbPassword = (Password) passwrodToAdd.Clone(); ??
             passwordToDecrypt.PasswordString = encryptor.Decrypt(passwordToDecrypt.PasswordString);

@@ -87,9 +87,12 @@ namespace Repository
 
         public void Clear()
         {
-            foreach (var record in GetAll())
+            using (DomainDBContext context = new DomainDBContext())
             {
-                Delete(record);
+                context.PasswordHistory.RemoveRange(context.PasswordHistory);
+                context.Passwords.RemoveRange(context.Passwords);
+
+                context.SaveChanges();
             }
         }
     }

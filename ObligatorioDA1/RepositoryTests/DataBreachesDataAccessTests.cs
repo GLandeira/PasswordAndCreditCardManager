@@ -134,6 +134,11 @@ namespace RepositoryTests
         [TestCleanup]
         public void TestCleanup()
         {
+
+            _passwordDataAccess.Clear();
+            _creditCardDataAccess.Clear();
+            _categoryDataAccess.Clear();
+
             _userDataAccess.Clear();
         }
 
