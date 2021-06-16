@@ -4,18 +4,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Exceptions;
+using Domain.PasswordEncryptor;
 using Domain.PasswordSecurityFlagger;
 
 namespace Domain
 {
     public class UserPassword
     {
+        private List<Password> _passwords;
+
         public int UserPasswordID { get; set; }
-        public List<Password> Passwords { get; set; }
+        public List<Password> Passwords 
+        { 
+            get
+            {
+                return DecryptPasswords(_passwords);
+            }
+            set
+            {
+                _passwords = value;
+            }
+        }
+
+        private User _myUser;
 
         public UserPassword()
         {
             Passwords = new List<Password>();
+        }
+
+        public UserPassword(User user)
+        {
+            Passwords = new List<Password>();
+            _myUser = user;
         }
 
         public void AddPassword(Password password)
@@ -36,7 +57,7 @@ namespace Domain
             {
                 StopSharingPasswordWhenDeleted(password);
             }
-            Passwords.Remove(password);
+            _passwords.Remove(password);
             RepositoryFacade.Instance.PasswordDataAccess.Delete(password);
         }
 
@@ -78,8 +99,8 @@ namespace Domain
             {
                 StopSharingPasswordWhenDeleted(oldPassword);
             }
-            Passwords.Remove(oldPassword);
-            Passwords.Add(modifiedPassword);
+            _passwords.Remove(oldPassword);
+            _passwords.Add(modifiedPassword);
             //Password dbPassword = EncryptPassword(passwordToAdd);
             RepositoryFacade.Instance.PasswordDataAccess.Modify(modifiedPassword);
 
@@ -106,7 +127,6 @@ namespace Domain
             Password sharedPasswordSharedClone = (Password)sharedPassword.Clone();
             sharedPasswordSharedClone.Category = sharee.UserCategories.GetACategory(UserCategory.SHARED_PASSWORD_CATEGORY_NAME);
             sharedPasswordSharedClone.PasswordID = sharee.UserPasswords.GetPassword(sharedPassword.Site, sharedPassword.Username).PasswordID;
-
 
             sharee.UserPasswords.RemovePassword(sharedPasswordSharedClone);
         }
@@ -192,32 +212,63 @@ namespace Domain
         {
             Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
             sharerPasswordInMemory.UsersSharedWith.Add(sharee);
-            //Password dbPassword = EncryptPassword(passwordToAdd);
-            RepositoryFacade.Instance.PasswordDataAccess.Modify(sharerPasswordInMemory);
+            ModifyInDatabaseEncrypted(sharedPassword);
         }
 
         private void RemoveUserFromPasswordUsersSharedWith(User sharee, Password sharedPassword)
         {
             sharedPassword.UsersSharedWith.Remove(sharee);
-            //Password dbPassword = EncryptPassword(passwordToAdd);
-            RepositoryFacade.Instance.PasswordDataAccess.Modify(sharedPassword);
+            ModifyInDatabaseEncrypted(sharedPassword);
         }
 
         private void AddPasswordToListAndDB(Password passwordToAdd)
         {
             passwordToAdd.UserPassword = this;
-            Passwords.Add(passwordToAdd);
-            //Password dbPassword = EncryptPassword(passwordToAdd);
+            EncryptPassword(passwordToAdd);
+            _passwords.Add(passwordToAdd);
             RepositoryFacade.Instance.PasswordDataAccess.Add(passwordToAdd);
+            //AddToDatabaseEncrypted(passwordToAdd);
         }
 
-        private Password EncryptPassword(Password passwordToEncrypt)
+        private void AddToDatabaseEncrypted(Password passwordToEncrypt)
         {
-            User loggedUser = UserManager.Instance.LoggedUser;
-            //IEncryptor encryptor = new EffortlessEncryptionWrapper(loggedUser.PasswordKey, loggedUser.IV);
-            //Password dbPassword = (Password) passwrodToAdd.Clone();
-            //dbPassword.PasswordString = encryptor.Encrypt(passwordToAdd.PasswordString);
-            return null;
+            EncryptPassword(passwordToEncrypt);
+            RepositoryFacade.Instance.PasswordDataAccess.Add(passwordToEncrypt);
+        }
+
+        private void ModifyInDatabaseEncrypted(Password passwordToEncrypt)
+        {
+            EncryptPassword(passwordToEncrypt);
+            RepositoryFacade.Instance.PasswordDataAccess.Modify(passwordToEncrypt);
+        }
+
+        private void EncryptPassword(Password passwordToEncrypt)
+        {
+            User loggedUser = _myUser;
+            IEncryptor encryptor = loggedUser.Encryptor;
+            //Password dbPassword = (Password) passwrodToAdd.Clone(); ??
+            passwordToEncrypt.PasswordString = encryptor.Encrypt(passwordToEncrypt.PasswordString);
+        }
+
+        private List<Password> DecryptPasswords(List<Password> passwords)
+        {
+            List<Password> decryptedPasswords = new List<Password>();
+            foreach(Password p in passwords)
+            {
+                Password decryptedPassword = (Password) p.Clone();
+                DecryptPassword(decryptedPassword);
+                decryptedPasswords.Add(decryptedPassword);
+            }
+
+            return decryptedPasswords;
+        }
+
+        private void DecryptPassword(Password passwordToDecrypt)
+        {
+            User loggedUser = _myUser;
+            IEncryptor encryptor = loggedUser.Encryptor;
+            //Password dbPassword = (Password) passwrodToAdd.Clone(); ??
+            passwordToDecrypt.PasswordString = encryptor.Decrypt(passwordToDecrypt.PasswordString);
         }
     }
 }
