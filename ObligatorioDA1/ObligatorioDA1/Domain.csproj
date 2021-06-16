@@ -73,6 +73,7 @@
     <Compile Include="Exceptions\ValidDueCreditCardException.cs" />
     <Compile Include="Helpers\ByteArrayStringTranslator.cs" />
     <Compile Include="PasswordEncryptor\EffortlessEncryptionWrapper.cs" />
+    <Compile Include="PasswordEncryptor\EncryptionData.cs" />
     <Compile Include="PasswordEncryptor\IEncryptor.cs" />
     <Compile Include="IDataAccess.cs" />
     <Compile Include="PasswordHistory.cs" />

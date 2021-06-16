@@ -93,7 +93,7 @@ namespace Domain
             User loggedUser = UserManager.Instance.LoggedUser;
             IEncryptor encryptor = loggedUser.Encryptor;
             //Password dbPassword = (Password) passwrodToAdd.Clone(); ??
-            passwordToDecrypt.PasswordString = encryptor.Decrypt(passwordToDecrypt.PasswordString);
+            //passwordToDecrypt.PasswordString = encryptor.Decrypt(passwordToDecrypt.PasswordString);
         }
     }
 }

@@ -9,8 +9,9 @@ namespace DomainTests
 {
     public class MockEncryptor : IEncryptor
     {
-        public string Decrypt(string encryptedPassword)
+        public string Decrypt(EncryptionData encryptionData)
         {
+            string encryptedPassword = encryptionData.Password;
             string decryptedPassword = "";
 
             for (int i = 0; i < encryptedPassword.Length; i++)
@@ -21,8 +22,9 @@ namespace DomainTests
             return decryptedPassword;
         }
 
-        public string Encrypt(string password)
+        public string Encrypt(EncryptionData encryptionData)
         {
+            string password = encryptionData.Password;
             string encryptedPassword = "";
 
             for (int i = 0; i < password.Length; i++)

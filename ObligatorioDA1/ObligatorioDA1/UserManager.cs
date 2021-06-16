@@ -41,7 +41,7 @@ namespace Domain
                 throw new UserAlreadyExistsException();
             }
 
-            newUser.MainPassword = newUser.Encryptor.Encrypt(newUser.MainPassword);
+            //newUser.MainPassword = newUser.Encryptor.Encrypt(newUser.MainPassword);
             int dbID = _userDataAccess.Add(newUser);
             newUser.InitializeUser(dbID);
             Users.Add(newUser);
@@ -71,7 +71,7 @@ namespace Domain
 
             // Esto deberia de entrar un password, es pasar el que encontro y chau
             Users.First(us => us.Name == userWithNewPassword.Name).MainPassword = userWithNewPassword.MainPassword;
-            userWithNewPassword.MainPassword = userWithNewPassword.Encryptor.Encrypt(userWithNewPassword.MainPassword);
+           // userWithNewPassword.MainPassword = userWithNewPassword.Encryptor.Encrypt(userWithNewPassword.MainPassword);
             _userDataAccess.Modify(userWithNewPassword);
         }
 
@@ -79,11 +79,11 @@ namespace Domain
         {
             try
             {
-                if (userToLogInWith.Encryptor.Decrypt(userToLogInWith.MainPassword) == userPasswordToLogInWith)
-                {
-                    LoggedUser = userToLogInWith;
-                    return true;
-                }
+                //if (userToLogInWith.Encryptor.Decrypt(userToLogInWith.MainPassword) == userPasswordToLogInWith)
+                //{
+                //    LoggedUser = userToLogInWith;
+                //    return true;
+                //}
 
                 return false;
             }

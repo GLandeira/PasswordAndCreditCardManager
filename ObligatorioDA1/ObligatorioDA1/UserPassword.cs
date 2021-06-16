@@ -230,7 +230,7 @@ namespace Domain
             User loggedUser = UserManager.Instance.LoggedUser;
             IEncryptor encryptor = loggedUser.Encryptor;
             //Password dbPassword = (Password) passwrodToAdd.Clone(); ??
-            passwordToEncrypt.PasswordString = encryptor.Encrypt(passwordToEncrypt.PasswordString);
+            //passwordToEncrypt.PasswordString = encryptor.Encrypt(passwordToEncrypt.PasswordString);
         }
 
         private string EncryptPassword(string passwordToEncrypt)
@@ -238,7 +238,7 @@ namespace Domain
             User loggedUser = UserManager.Instance.LoggedUser;
             IEncryptor encryptor = loggedUser.Encryptor;
             //Password dbPassword = (Password) passwrodToAdd.Clone(); ??
-            return encryptor.Encrypt(passwordToEncrypt);
+            return null;// encryptor.Encrypt(passwordToEncrypt);
         }
     }
 }
