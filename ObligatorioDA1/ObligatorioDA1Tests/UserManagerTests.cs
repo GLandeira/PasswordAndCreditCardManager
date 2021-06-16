@@ -45,7 +45,6 @@ namespace DomainTests
         {
             string newName = "UserTest";
             User newUser = new User(newName, "pass1");
-            newUser.Encryptor = new MockEncryptor();
 
             _mockDomain.AddUser(newUser);
 
@@ -56,7 +55,6 @@ namespace DomainTests
         public void TestAddingAUserThatsAlreadyThereThrowsException()
         {
             User presentUser = new User(_userNameInDomain, _userPasswordInDomain);
-            presentUser.Encryptor = new MockEncryptor();
             _mockDomain.AddUser(presentUser);
 
             User newUser2 = new User(_userNameInDomain, "pass2");
@@ -67,12 +65,10 @@ namespace DomainTests
         public void TestModifyingUserMainPasswordActuallyModifiesIt()
         {
             User presentUser = new User(_userNameInDomain, _userPasswordInDomain);
-            presentUser.Encryptor = new MockEncryptor();
             _mockDomain.AddUser(presentUser);
 
             string newPassword = "fjk187Abs2";
             User modifiedUser = new User(presentUser.UserID, _userNameInDomain, newPassword);
-            modifiedUser.Encryptor = new MockEncryptor();
             _mockDomain.ModifyPassword(modifiedUser);
 
             Assert.AreEqual(newPassword, _mockDomain.Users.First(us => us.Name == _userNameInDomain).MainPassword);
@@ -84,7 +80,6 @@ namespace DomainTests
             string userNameNotPresent = "Johny";
             string newPassword = "akshndjplk232";
             User modifiedUser = new User(userNameNotPresent, newPassword);
-            modifiedUser.Encryptor = new MockEncryptor();
             Assert.ThrowsException<UserNotPresentException>(() => _mockDomain.ModifyPassword(modifiedUser));
         }
 
@@ -92,32 +87,25 @@ namespace DomainTests
         public void TestLoggingInCorrectlyLogsIn()
         {
             User presentUser = new User(_userNameInDomain, _userPasswordInDomain);
-            presentUser.Encryptor = new MockEncryptor();
             _mockDomain.AddUser(presentUser);
 
-            Assert.IsTrue(_mockDomain.LogIn(presentUser, _userPasswordInDomain));
+            Assert.IsTrue(_mockDomain.LogIn(_userNameInDomain, _userPasswordInDomain));
         }
 
         [TestMethod]
         public void TestLoggingInWithWrongUserReturnsFalse()
         {
             string falseUsername = "Johny";
-            User falseUser = new User(falseUsername, _userPasswordInDomain);
-            falseUser.Encryptor = new MockEncryptor();
 
-
-            Assert.IsFalse(_mockDomain.LogIn(falseUser, _userPasswordInDomain));
+            Assert.IsFalse(_mockDomain.LogIn(falseUsername, _userPasswordInDomain));
         }
 
         [TestMethod]
         public void TestLoggingInWithWrongPasswordReturnsFalse()
         {
             string falsePassword = "akakak23Aj/&";
-            User falseUser = new User(_userNameInDomain, falsePassword);
-            falseUser.Encryptor = new MockEncryptor();
 
-
-            Assert.IsFalse(_mockDomain.LogIn(falseUser, falsePassword));
+            Assert.IsFalse(_mockDomain.LogIn(_userNameInDomain, falsePassword));
         }
 
         [TestMethod]
@@ -125,17 +113,14 @@ namespace DomainTests
         {
             string falseUsername = "Johny";
             string falsePassword = "akakak23Aj/&";
-            User falseUser = new User(falseUsername, falsePassword);
-            falseUser.Encryptor = new MockEncryptor();
 
-            Assert.IsFalse(_mockDomain.LogIn(falseUser, falsePassword));
+            Assert.IsFalse(_mockDomain.LogIn(falseUsername, falsePassword));
         }
 
         [TestMethod]
         public void TestGettingAUserThatExistsReturnsIt()
         {
             User presentUser = new User(_userNameInDomain, _userPasswordInDomain);
-            presentUser.Encryptor = new MockEncryptor();
             _mockDomain.AddUser(presentUser);
 
             Assert.IsNotNull(_mockDomain.GetUser(_userNameInDomain));
@@ -147,7 +132,6 @@ namespace DomainTests
             string userName = "testName";
             string userPassword = "akakak23Aj/&";
             User testUser = new User(userName, userPassword);
-            testUser.Encryptor = new MockEncryptor();
 
             _mockDomain.AddUser(testUser);
 
