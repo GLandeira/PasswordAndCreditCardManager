@@ -85,6 +85,10 @@
     <Compile Include="Migrations\202106161613087_DecryptionTrickIgnore.designer.cs">
       <DependentUpon>202106161613087_DecryptionTrickIgnore.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106162119429_AddedPasswordKeyAndIV.cs" />
+    <Compile Include="Migrations\202106162119429_AddedPasswordKeyAndIV.designer.cs">
+      <DependentUpon>202106162119429_AddedPasswordKeyAndIV.cs</DependentUpon>
+    </Compile>
     <Compile Include="PasswordDataAccess.cs" />
     <Compile Include="CreditCardDataAccess.cs" />
     <Compile Include="CreditCardTypeConfiguration.cs" />
@@ -192,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106161613087_DecryptionTrickIgnore.resx">
       <DependentUpon>202106161613087_DecryptionTrickIgnore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106162119429_AddedPasswordKeyAndIV.resx">
+      <DependentUpon>202106162119429_AddedPasswordKeyAndIV.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
