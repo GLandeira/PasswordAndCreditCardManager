@@ -12,15 +12,7 @@ namespace Domain
     public class UserPassword
     {
         public List<Password> Passwords { get; set; }
-
         public int UserPasswordID { get; set; }
-        public List<Password> DecryptedPasswords 
-        { 
-            get
-            {
-                return DecryptPasswords(Passwords);
-            }
-        }
 
         private User _myUser;
 
@@ -63,22 +55,24 @@ namespace Domain
             passwordImitator.Site = siteName;
             passwordImitator.Username = siteUserName;
 
-            if(!DecryptedPasswords.Any(pass => pass.Equals(passwordImitator)))
+            if(!Passwords.Any(pass => pass.Equals(passwordImitator)))
             {
                 throw new PasswordNotFoundException();
             }
 
-            return DecryptedPasswords.First(pass => pass.Equals(passwordImitator));
+            return Passwords.First(pass => pass.Equals(passwordImitator));
         }
 
-        public List<Password> GetPasswordsByPasswordString(String passwordStringToLook)
+        public List<Password> GetPasswordsByPasswordString(string passwordStringToLook)
         {
-            if (!DecryptedPasswords.Exists(passwordInList => passwordInList.PasswordStringEquals(passwordStringToLook)))
+            string encryptedPasswordStringToLook = EncryptPassword(passwordStringToLook);
+
+            if (!Passwords.Exists(passwordInList => passwordInList.PasswordStringEquals(encryptedPasswordStringToLook)))
             {
                 throw new PasswordNotFoundException();
             }
 
-            return DecryptedPasswords.FindAll(passwordInList => passwordInList.PasswordStringEquals(passwordStringToLook));
+            return Passwords.FindAll(passwordInList => passwordInList.PasswordStringEquals(encryptedPasswordStringToLook));
         }
 
         public void ModifyPassword(Password modifiedPassword, Password oldPassword)
@@ -96,10 +90,10 @@ namespace Domain
                 StopSharingPasswordWhenDeleted(oldPassword);
             }
             Passwords.Remove(oldPassword);
-            Passwords.Add(modifiedPassword);
-            //Password dbPassword = EncryptPassword(passwordToAdd);
-            RepositoryFacade.Instance.PasswordDataAccess.Modify(modifiedPassword);
 
+            ModifyInDatabaseEncrypted(modifiedPassword);
+            Passwords.Add(modifiedPassword);
+            
             ReshareModifiedPassword(usersSharedWith, modifiedPassword);
         }
 
@@ -223,13 +217,6 @@ namespace Domain
             EncryptPassword(passwordToAdd);
             Passwords.Add(passwordToAdd);
             RepositoryFacade.Instance.PasswordDataAccess.Add(passwordToAdd);
-            //AddToDatabaseEncrypted(passwordToAdd);
-        }
-
-        private void AddToDatabaseEncrypted(Password passwordToEncrypt)
-        {
-            EncryptPassword(passwordToEncrypt);
-            RepositoryFacade.Instance.PasswordDataAccess.Add(passwordToEncrypt);
         }
 
         private void ModifyInDatabaseEncrypted(Password passwordToEncrypt)
@@ -246,25 +233,12 @@ namespace Domain
             passwordToEncrypt.PasswordString = encryptor.Encrypt(passwordToEncrypt.PasswordString);
         }
 
-        private List<Password> DecryptPasswords(List<Password> passwords)
-        {
-            List<Password> decryptedPasswords = new List<Password>();
-            foreach(Password p in passwords)
-            {
-                Password decryptedPassword = (Password) p.Clone();
-                DecryptPassword(decryptedPassword);
-                decryptedPasswords.Add(decryptedPassword);
-            }
-
-            return decryptedPasswords;
-        }
-
-        private void DecryptPassword(Password passwordToDecrypt)
+        private string EncryptPassword(string passwordToEncrypt)
         {
             User loggedUser = UserManager.Instance.LoggedUser;
             IEncryptor encryptor = loggedUser.Encryptor;
             //Password dbPassword = (Password) passwrodToAdd.Clone(); ??
-            passwordToDecrypt.PasswordString = encryptor.Decrypt(passwordToDecrypt.PasswordString);
+            return encryptor.Encrypt(passwordToEncrypt);
         }
     }
 }

@@ -74,5 +74,26 @@ namespace Domain
             User theUser = (User)obj;
             return theUser.Name == this.Name;
         }
+
+        public List<Password> DecryptPasswords(List<Password> passwords)
+        {
+            List<Password> decryptedPasswords = new List<Password>();
+            foreach (Password p in passwords)
+            {
+                Password decryptedPassword = (Password)p.Clone();
+                DecryptPassword(decryptedPassword);
+                decryptedPasswords.Add(decryptedPassword);
+            }
+
+            return decryptedPasswords;
+        }
+
+        private void DecryptPassword(Password passwordToDecrypt)
+        {
+            User loggedUser = UserManager.Instance.LoggedUser;
+            IEncryptor encryptor = loggedUser.Encryptor;
+            //Password dbPassword = (Password) passwrodToAdd.Clone(); ??
+            passwordToDecrypt.PasswordString = encryptor.Decrypt(passwordToDecrypt.PasswordString);
+        }
     }
 }
