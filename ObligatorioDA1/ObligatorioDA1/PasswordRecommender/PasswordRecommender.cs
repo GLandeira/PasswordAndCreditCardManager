@@ -13,40 +13,53 @@ namespace Domain.PasswordRecommender
         public static SecurityCondition isASafePassword(string passwordString, User loggedUser)
         {
             SecurityCondition conditions = new SecurityCondition();
-            conditions._isNotBreached = true;
-            conditions._isNotInUse = true;
-            conditions._isNotLowSecurityLevel = true;
+            conditions._isNotBreached = checkIfHasBeenBreached(passwordString, loggedUser);
+            conditions._isNotInUse = checkIfIsAlreadyInUse(passwordString, loggedUser);
+            conditions._isNotLowSecurityLevel = checkSecurityLevel(passwordString, loggedUser);
 
-            //Check if its in data breaches
+
+            return conditions;
+        }
+
+        private static bool checkIfHasBeenBreached(string passwordString, User loggedUser)
+        {
+            bool condition = true;
             foreach (DataBreach db in loggedUser.UserDataBreaches.DataBreaches)
             {
                 foreach (PasswordHistory ph in db.PasswordBreaches)
                 {
                     if (ph.BreachedPasswordString == passwordString)
                     {
-                        conditions._isNotBreached = false;
+                        condition = false;
                     }
                 }
             }
+            return condition;
+        }
 
-            //Check if its used already
+        private static bool checkIfIsAlreadyInUse(string passwordString, User loggedUser)
+        {
+            bool condition = true;
             foreach (Password p in loggedUser.UserPasswords.Passwords)
             {
                 if (p.PasswordString == passwordString)
                 {
-                    conditions._isNotInUse = false;
+                    condition = false;
                 }
             }
+            return condition;
+        }
 
-
-            //Check password level
+        private static bool checkSecurityLevel(string passwordString, User loggedUser)
+        {
+            bool condition = true;
             SecurityLevelPasswords passwordLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(passwordString);
             if (!(passwordLevel == SecurityLevelPasswords.DARK_GREEN || passwordLevel == SecurityLevelPasswords.LIGHT_GREEN))
             {
-                conditions._isNotLowSecurityLevel = false;
+                condition = false;
             }
-
-            return conditions;
+            return condition;
         }
     }
+
 }
