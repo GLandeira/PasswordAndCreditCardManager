@@ -24,8 +24,8 @@ namespace Domain
         }
         public string Name { get; set; }
         public string MainPassword { get; set; }
-        public string PasswordKeys { get; set; }
-        public string PasswordIV { get; set; }
+        public byte[] PasswordKeys { get; set; }
+        public byte[] PasswordIV { get; set; }
         public UserPassword UserPasswords { get; set; }
         public UserCreditCard UserCreditCards { get; set; }
         public UserDataBreaches UserDataBreaches { get; set; }

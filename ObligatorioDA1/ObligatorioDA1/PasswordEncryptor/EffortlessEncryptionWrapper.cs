@@ -16,8 +16,8 @@ namespace Domain.PasswordEncryptor
 
         public string Encrypt(EncryptionData encryptionData)
         {
-            byte[] translatedKey = ByteArrayStringTranslator.ToByteArray(encryptionData.PasswordKey);
-            byte[] translatedIV = ByteArrayStringTranslator.ToByteArray(encryptionData.PasswordIV);
+            byte[] translatedKey = encryptionData.PasswordKey;
+            byte[] translatedIV = encryptionData.PasswordIV;
             
             byte[] passwordAsByteArray = ByteArrayStringTranslator.ToByteArray(encryptionData.Password);
             string base64ValidPassword = Convert.ToBase64String(passwordAsByteArray);
@@ -29,8 +29,8 @@ namespace Domain.PasswordEncryptor
 
         public string Decrypt(EncryptionData encryptionData)
         {
-            byte[] translatedKey = ByteArrayStringTranslator.ToByteArray(encryptionData.PasswordKey);
-            byte[] translatedIV = ByteArrayStringTranslator.ToByteArray(encryptionData.PasswordIV);
+            byte[] translatedKey = encryptionData.PasswordKey;
+            byte[] translatedIV = encryptionData.PasswordIV;
 
             string decryptedPassword = Strings.Decrypt(encryptionData.Password, translatedKey, translatedIV);
 
@@ -44,8 +44,8 @@ namespace Domain.PasswordEncryptor
         public EncryptionData GenerateEncryptionData()
         {
             EncryptionData encryptionData = new EncryptionData();
-            encryptionData.PasswordIV = ByteArrayStringTranslator.ToString(Bytes.GenerateIV());
-            encryptionData.PasswordKey = ByteArrayStringTranslator.ToString(Bytes.GenerateKey());
+            encryptionData.PasswordIV = Bytes.GenerateIV();
+            encryptionData.PasswordKey = Bytes.GenerateKey();
 
             return encryptionData;
         }
