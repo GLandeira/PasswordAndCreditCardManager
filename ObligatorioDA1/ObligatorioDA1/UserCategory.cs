@@ -21,7 +21,6 @@ namespace Domain
 
         public void AddCategory(Category aCategory)
         {
-            Verifier.VerifyCategory(aCategory);
 
             if (Categories.Any(cat => cat.Equals(aCategory)))
             {
@@ -57,7 +56,7 @@ namespace Domain
 
         public void ModifyCategory(Category categoryToModify, Category newCategory)
         {
-            Verifier.VerifyCategory(newCategory);
+            
 
             try
             {

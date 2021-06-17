@@ -31,6 +31,7 @@ namespace UserInterface
             try
             {
                 Category newCategory = new Category(categoryName);
+                Verifier.VerifyCategory(newCategory);
                 _currentUser.UserCategories.AddCategory(newCategory);
                 onAddedCategory?.Invoke();
                 Close();

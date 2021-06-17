@@ -20,10 +20,7 @@ namespace Domain
 
         public void AddDataBreach(DataBreach dataBreach)
         {
-            // Verificaciones? Algo? Se identifica por fecha y hora.
-            // Si el databreach es en la misma hora, hay que fijarse si hay contras/creditcards nuevas
-            // Si hay se agregan al databreach original.
-            // Si no hay, no se hace nada
+            
             if (!(dataBreach.CreditCardBreaches.Count() + dataBreach.PasswordBreaches.Count() == 0))
             {
                 dataBreach.Date = DateTime.Now;
@@ -38,8 +35,6 @@ namespace Domain
 
                     dataBreachInMemory.CreditCardBreaches.AddRange(newDataBreach.CreditCardBreaches);
                     dataBreachInMemory.PasswordBreaches.AddRange(newDataBreach.PasswordBreaches);
-
-                    // Dejar pasar solamente las nuevas al Modify
 
                     RepositoryFacade.Instance.DataBreachDataAccess.Modify(newDataBreach);
 
