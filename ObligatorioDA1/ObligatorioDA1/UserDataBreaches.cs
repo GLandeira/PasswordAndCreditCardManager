@@ -75,7 +75,7 @@ namespace Domain
 
             foreach (PasswordHistory passwordHistory in entryDataBreach.PasswordBreaches)
             {
-                bool passwordNotPresent = !dataBreachInMemory.PasswordBreaches.Any(pb => pb.Equals(passwordHistory));
+                bool passwordNotPresent = !dataBreachInMemory.PasswordBreaches.Any(pb => pb.AbsoluteEquals(passwordHistory));
                 if (passwordNotPresent)
                 {
                     newPasswordHistories.Add(passwordHistory);

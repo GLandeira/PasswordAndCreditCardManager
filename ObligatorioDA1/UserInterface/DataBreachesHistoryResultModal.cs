@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
+using Domain.PasswordEncryptor;
 
 namespace UserInterface
 {
@@ -44,19 +45,43 @@ namespace UserInterface
             DataBreach theDataBreaches = _theDataBreach;
             List<PasswordHistory> breachedPasswords = theDataBreaches.PasswordBreaches;
             List<CreditCard> breachedCreditCards = theDataBreaches.CreditCardBreaches;
-
+            
             GenerateBreachedPasswordVisuals(breachedPasswords);
 
             GenerateBreachedCreditCardVisuals(breachedCreditCards);
         }
 
+        private void DecryptPasswordsInPasswordHistory(List<PasswordHistory> breachedPasswords)
+        {
+            EncryptorIndirection encryption = new EncryptorIndirection(new EffortlessEncryptionWrapper());
+
+            for(int i = 0; i < breachedPasswords.Count; i++)
+            {
+                encryption.PasswordDecryption(breachedPasswords[i].Password);
+            }
+        }
+
+        private void EncryptPasswordsInPasswordHistory(List<PasswordHistory> breachedPasswords)
+        {
+            EncryptorIndirection encryption = new EncryptorIndirection(new EffortlessEncryptionWrapper());
+
+            for (int i = 0; i < breachedPasswords.Count; i++)
+            {
+                encryption.PasswordEncryption(breachedPasswords[i].Password);
+            }
+        }
+
         private void GenerateBreachedPasswordVisuals(List<PasswordHistory> passwords)
         {
+            DecryptPasswordsInPasswordHistory(passwords);
+
             fwlytBreachedPassword.Controls.Clear();
             for (int i = 0; i < passwords.Count; i++)
             {
                 CreatePasswordListComponent(passwords[i]);
             }
+
+            EncryptPasswordsInPasswordHistory(passwords);
         }
 
         private void GenerateBreachedCreditCardVisuals(List<CreditCard> creditCards)
