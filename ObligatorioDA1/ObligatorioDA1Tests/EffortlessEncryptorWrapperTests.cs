@@ -6,9 +6,7 @@ using Domain.PasswordEncryptor;
 
 namespace DomainTests
 {
-    /// <summary>
-    /// Summary description for EffortlessEncryptorWrapperTests
-    /// </summary>
+
     [TestClass]
     public class EffortlessEncryptorWrapperTests
     {

@@ -56,7 +56,7 @@ namespace UserInterface
             string field = txtbxDataBreaches.Text;
 
             _dataBreachMediator.CheckAndRegisterDataBreach(field, textBoxTranslator, _currentUser.UserPasswords.Passwords);
-        }//current user is null
+        }
 
         private void btnImportTextFile_Click(object sender, EventArgs e)
         {

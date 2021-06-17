@@ -47,7 +47,7 @@ namespace RepositoryTests
         [TestCleanup]
         public void TestCleanup()
         {
-            //_categoryDataAccess.Clear();
+            
             _userDataAccess.Clear();
         }
 
