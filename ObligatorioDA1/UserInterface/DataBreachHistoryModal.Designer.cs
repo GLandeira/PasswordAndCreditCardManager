@@ -36,22 +36,26 @@ namespace UserInterface
             // grdvwDataBreachesHistory
             // 
             this.grdvwDataBreachesHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdvwDataBreachesHistory.Location = new System.Drawing.Point(53, 30);
+            this.grdvwDataBreachesHistory.Location = new System.Drawing.Point(38, 32);
+            this.grdvwDataBreachesHistory.MaximumSize = new System.Drawing.Size(336, 369);
+            this.grdvwDataBreachesHistory.MinimumSize = new System.Drawing.Size(336, 369);
             this.grdvwDataBreachesHistory.Name = "grdvwDataBreachesHistory";
-            this.grdvwDataBreachesHistory.Size = new System.Drawing.Size(684, 378);
+            this.grdvwDataBreachesHistory.Size = new System.Drawing.Size(336, 369);
             this.grdvwDataBreachesHistory.TabIndex = 0;
             this.grdvwDataBreachesHistory.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdvwDataBreachesHistory_CellDoubleClick);
             this.grdvwDataBreachesHistory.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdvwDataBreachesHistory_CellEnter);
-            
             // 
             // DataBreachHistoryModal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(423, 448);
             this.Controls.Add(this.grdvwDataBreachesHistory);
+            this.MaximumSize = new System.Drawing.Size(439, 487);
+            this.MinimumSize = new System.Drawing.Size(439, 487);
             this.Name = "DataBreachHistoryModal";
             this.Text = "DataBreachHistoryModal";
+            this.Load += new System.EventHandler(this.DataBreachHistoryModal_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdvwDataBreachesHistory)).EndInit();
             this.ResumeLayout(false);
 

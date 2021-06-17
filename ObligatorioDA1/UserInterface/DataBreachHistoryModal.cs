@@ -47,5 +47,10 @@ namespace UserInterface
                 DataBreachesHistoryresultModal.ShowDialog();
             }
         }
+
+        private void DataBreachHistoryModal_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
