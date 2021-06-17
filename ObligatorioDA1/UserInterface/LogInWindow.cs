@@ -56,14 +56,16 @@ namespace UserInterface
             if (UserManager.Instance.LogIn(userToLogInWith, password))
             {
                 _loggedIn = true;
+                _encryption.GenerateEncryptedUsersList(UserManager.Instance.Users);
                 Close();
             }
             else
             {
+                _encryption.GenerateEncryptedUsersList(UserManager.Instance.Users);
                 MessageBox.Show(WRONG_CREDENTIALS, "ERROR",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            _encryption.GenerateEncryptedUsersList(UserManager.Instance.Users);
+            
         }
 
         private void LogInWindow_FormClosed(object sender, FormClosedEventArgs e)
@@ -90,7 +92,7 @@ namespace UserInterface
                 MessageBox.Show(string.Format(USER_CREATED_SUCCESS, username), "Success",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (UserException me)
+            catch (Exception me)
             {
                 MessageBox.Show(me.Message, "ERROR",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -51,11 +51,24 @@ namespace UserInterface
             GenerateBreachedCreditCardVisuals(breachedCreditCards);
         }
 
+        private void GenerateBreachedPasswordVisuals(List<PasswordHistory> passwords)
+        {
+            DecryptPasswordsInPasswordHistory(passwords);
+
+            fwlytBreachedPassword.Controls.Clear();
+            for (int i = 0; i < passwords.Count; i++)
+            {
+                CreatePasswordListComponent(passwords[i]);
+            }
+
+            EncryptPasswordsInPasswordHistory(passwords);
+        }
+
         private void DecryptPasswordsInPasswordHistory(List<PasswordHistory> breachedPasswords)
         {
             EncryptorIndirection encryption = new EncryptorIndirection(new EffortlessEncryptionWrapper());
 
-            for(int i = 0; i < breachedPasswords.Count; i++)
+            for (int i = 0; i < breachedPasswords.Count; i++)
             {
                 encryption.PasswordDecryption(breachedPasswords[i].Password);
             }
@@ -69,19 +82,6 @@ namespace UserInterface
             {
                 encryption.PasswordEncryption(breachedPasswords[i].Password);
             }
-        }
-
-        private void GenerateBreachedPasswordVisuals(List<PasswordHistory> passwords)
-        {
-            DecryptPasswordsInPasswordHistory(passwords);
-
-            fwlytBreachedPassword.Controls.Clear();
-            for (int i = 0; i < passwords.Count; i++)
-            {
-                CreatePasswordListComponent(passwords[i]);
-            }
-
-            EncryptPasswordsInPasswordHistory(passwords);
         }
 
         private void GenerateBreachedCreditCardVisuals(List<CreditCard> creditCards)
