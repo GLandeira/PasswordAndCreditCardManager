@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.PasswordEncryptor;
 
-namespace DomainTests
+namespace Domain
 {
     public class MockEncryptor : IEncryptor
     {

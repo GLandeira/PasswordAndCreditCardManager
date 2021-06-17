@@ -53,11 +53,11 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-                // Ver si esta bien
+                
                 var valueInDB = context.Categories.FirstOrDefault(Categories => Categories.CategoryID == entity.CategoryID);
                 valueInDB.Name = entity.Name;
 
-                //context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+                
                 context.SaveChanges();
             }
         }

@@ -7,7 +7,6 @@ namespace Domain
 {
     public class UserCreditCard
     {
-        //public User User { get; set; }
         public int UserCreditCardID { get; set; }
         public List<CreditCard> CreditCards { get; private set; }
 
@@ -18,7 +17,7 @@ namespace Domain
 
         public void AddCreditCard(CreditCard creditCard)
         {
-            Verifier.VerifyCreditCard(creditCard);
+            
             IsAlreadyInTheList(creditCard);
             AddCreditCardToListAndDB(creditCard);
         }
@@ -35,7 +34,7 @@ namespace Domain
         {
             CheckIfCreditCardExists(creditCardToRemove);
 
-            Verifier.VerifyCreditCard(creditCardToAdd);
+            
 
             if (!creditCardToRemove.Equals(creditCardToAdd))
             {

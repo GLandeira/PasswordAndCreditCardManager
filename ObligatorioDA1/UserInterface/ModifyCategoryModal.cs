@@ -39,6 +39,7 @@ namespace UserInterface
             try
             {
                 Category newCategory = new Category(_categoryToModify.CategoryID, categoryName);
+                Verifier.VerifyCategory(newCategory);
                 _currentUser.UserCategories.ModifyCategory(_categoryToModify, newCategory);
                 onModifyCategory?.Invoke();
                 Close();

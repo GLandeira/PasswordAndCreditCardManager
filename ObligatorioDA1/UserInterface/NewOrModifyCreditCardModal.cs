@@ -63,11 +63,13 @@ namespace UserInterface
             {
                 if(_isModification == false)
                 {
+                    Verifier.VerifyCreditCard(newCreditCard);
                     _currentUser.UserCreditCards.AddCreditCard(newCreditCard);
                 }
                 else
                 {
                     newCreditCard.CreditCardID = _CreditCardToModify.CreditCardID;
+                    Verifier.VerifyCreditCard(newCreditCard);
                     _currentUser.UserCreditCards.ModifyCreditCard(_CreditCardToModify, newCreditCard);
                 }
                 

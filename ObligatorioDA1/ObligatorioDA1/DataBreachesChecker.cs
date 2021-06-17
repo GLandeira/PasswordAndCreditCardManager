@@ -86,7 +86,6 @@ namespace Domain
                     {
                         PasswordHistory breachedPassword = new PasswordHistory();
                         breachedPassword.Password = password;
-                        //breachedPassword.DataBreachOrigin = breach;
                         breachedPassword.BreachedPasswordString = password.PasswordString;
                         breach.PasswordBreaches.Add(breachedPassword);
                     }
