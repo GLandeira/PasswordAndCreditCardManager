@@ -6,6 +6,7 @@ namespace Domain
 {
     public class Password : ICloneable
     {
+        public int PasswordID { get; set; }
         public string PasswordString { get; set; }
         public string Site { get; set; }
         public string Username { get; set; }
@@ -13,11 +14,14 @@ namespace Domain
         public SecurityLevelPasswords SecurityLevel { get; set; }
         public Category Category { get; set; }
         public string Notes { get; set; }
-        public List<string> UsersSharedWith { get; private set; }
+        public List<User> UsersSharedWith { get; set; }
+        public UserPassword UserPassword { get; set; }
+        public byte[] PasswordIV { get; set; }
+        public byte[] PasswordKey { get; set; }
 
         public Password()
         {
-            UsersSharedWith = new List<string>();
+            UsersSharedWith = new List<User>();
         }
 
         public bool AbsoluteEquals(Password password)
@@ -27,12 +31,17 @@ namespace Domain
                 return false;
             }
 
-            bool areAbsolutelyEqual = this.Site == password.Site &&
-                                      this.PasswordString == password.PasswordString &&
-                                      this.Username == password.Username &&
-                                      this.Notes == password.Notes &&
-                                      this.Category.Equals(password.Category);
+            bool areAbsolutelyEqual = Site == password.Site &&
+                                      PasswordString == password.PasswordString &&
+                                      Username == password.Username &&
+                                      Notes == password.Notes &&
+                                      Category.Equals(password.Category);
             return areAbsolutelyEqual;
+        }
+
+        public bool PasswordStringEquals(string otherPasswordString)
+        {
+            return otherPasswordString == PasswordString;
         }
 
         public override bool Equals(object obj)
@@ -41,21 +50,26 @@ namespace Domain
             {
                 return false;
             }
-            bool areEqual = (this.Site == ((Password)obj).Site && this.Username == ((Password)obj).Username);
+
+            bool areEqual = (Site == ((Password)obj).Site && Username == ((Password)obj).Username);
             return areEqual;
         }
 
         public object Clone()
         {
             Password clone = new Password();
-            clone.Category = this.Category;
-            clone.Notes = this.Notes;
-            clone.PasswordString = this.PasswordString;
-            clone.UsersSharedWith = this.UsersSharedWith;
-            clone.Username = this.Username;
-            clone.Site = this.Site;
-            clone.SecurityLevel = this.SecurityLevel;
-            clone.LastModification = this.LastModification;
+            clone.PasswordID = PasswordID;
+            clone.Category = Category;
+            clone.Notes = Notes;
+            clone.PasswordString = PasswordString;
+            clone.UsersSharedWith = UsersSharedWith;
+            clone.Username = Username;
+            clone.Site = Site;
+            clone.SecurityLevel = SecurityLevel;
+            clone.LastModification = LastModification;
+            clone.UserPassword = UserPassword;
+            clone.PasswordIV = PasswordIV;
+            clone.PasswordKey = PasswordKey;
 
             return clone;
         }

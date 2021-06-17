@@ -17,15 +17,15 @@ namespace DomainTests
         [TestInitialize]
         public void TestInitialize()
         {
-            //User part
-            _userManager = new UserManager();
-            _userTest = new User(_userManager)
+           
+            _userManager = UserManager.Instance;
+            _userTest = new User()
             {
                 Name = "admin",
                 MainPassword = "1234"
             };
 
-            //Credit Card part
+            
             _creditCardTest = new CreditCard
             {
                 Name = "Visa Gold",
@@ -35,7 +35,7 @@ namespace DomainTests
                 ValidDue = DateTime.Today
             };
 
-            //Password part
+            
             _passwordTest = new Password
             {
                 PasswordString = "myPassword",
@@ -44,11 +44,11 @@ namespace DomainTests
                 Notes = "not shareable"
             };
 
-            //Category part
+            
             _categoryTest = new Category("Personal");
         }
 
-        //-----------User TestMethods--------------------
+        
         [ExpectedException(typeof(NameUserException))]
         [TestMethod]
         public void UserShortName()
@@ -81,7 +81,7 @@ namespace DomainTests
             Verifier.VerifyUser(_userTest);
         }
 
-        //-----------CreditCard TestMethods--------------------
+        
         [ExpectedException(typeof(NameCreditCardException))]
         [TestMethod]
         public void CreditCardShortName()
@@ -180,7 +180,7 @@ namespace DomainTests
             Verifier.VerifyCreditCard(_creditCardTest);
         }
 
-        //-----------Password TestMethods--------------------
+       
         [ExpectedException(typeof(SitePasswordException))]
         [TestMethod]
         public void PasswordShortSite()
@@ -243,7 +243,7 @@ namespace DomainTests
             Verifier.VerifyPassword(_passwordTest);
         }
 
-        ////-----------Category TestMethods--------------------
+        
         [ExpectedException(typeof(NameCategoryException))]
         [TestMethod]
         public void CategoryShortName()

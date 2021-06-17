@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
+using Domain.PasswordEncryptor;
 
 namespace UserInterface
 {
@@ -18,10 +19,12 @@ namespace UserInterface
         public PasswordMoreInfoModal(Password password)
         {
             InitializeComponent();
+            EncryptorIndirection encryption = new EncryptorIndirection(new EffortlessEncryptionWrapper());
+
             dtmPasswordLastModified.Format = DateTimePickerFormat.Custom;
             dtmPasswordLastModified.CustomFormat = "MM/yyyy";
 
-
+            encryption.PasswordDecryption(password);
             _timeLeft = 30;
             timerPasswordMoreInfo.Start();
             txtbxPasswordCategory.Text = password.Category.ToString();
@@ -31,20 +34,22 @@ namespace UserInterface
             txtbxPasswordSecurityLevel.Text = password.SecurityLevel.ToString();
             txtbxPasswordUsername.Text = password.Username;
             dtmPasswordLastModified.Value = password.LastModification;
+            encryption.PasswordEncryption(password);
+
             Label userLabel;
-            foreach (string username in password.UsersSharedWith)
+            foreach (User user in password.UsersSharedWith)
             {
-                userLabel = CreateSharedWithUserLabel(username);
+                userLabel = CreateSharedWithUserLabel(user);
                 fwlytSharedWith.Controls.Add(userLabel);
             }
         }
 
-        private Label CreateSharedWithUserLabel(string username)
+        private Label CreateSharedWithUserLabel(User user)
         {
             Label newUserLabel = new Label();
             newUserLabel.Height = 20;
             newUserLabel.Width = 118;
-            newUserLabel.Text = username;
+            newUserLabel.Text = user.Name;
             return newUserLabel;
         }
 

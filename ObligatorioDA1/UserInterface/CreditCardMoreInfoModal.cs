@@ -20,7 +20,6 @@ namespace UserInterface
         {
             InitializeComponent();
 
-            //set DateTimePicker to month/year format
             dtmCreditCardValidDue.Format = DateTimePickerFormat.Custom;
             dtmCreditCardValidDue.CustomFormat = "MM/yyyy";
 
@@ -32,7 +31,6 @@ namespace UserInterface
             dtmCreditCardValidDue.Value = creditCard.ValidDue;
             txtbxCreditCardNotes.Text = creditCard.Notes;
 
-            //timer settings
             _timeLeft = 30;
             timerCreditCardMoreInfo.Start();
         }

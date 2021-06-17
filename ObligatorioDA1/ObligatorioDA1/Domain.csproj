@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Effortless.Net.Encryption, Version=3.3.0.0, Culture=neutral, PublicKeyToken=603f9a8e5bb15e51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Effortless.Net.Encryption.3.3.0\lib\net40\Effortless.Net.Encryption.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.2.2.3\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -43,6 +46,7 @@
       <HintPath>..\packages\MSTest.TestFramework.2.2.3\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -54,7 +58,9 @@
   <ItemGroup>
     <Compile Include="CardTypes.cs" />
     <Compile Include="Category.cs" />
-    <Compile Include="DataBreaches.cs" />
+    <Compile Include="DataAccessDTO.cs" />
+    <Compile Include="DataBreach.cs" />
+    <Compile Include="DataBreachesTranslator\TextFileTranslator.cs" />
     <Compile Include="DataBreachesTranslator\ITranslator.cs" />
     <Compile Include="DataBreachesTranslator\TextBoxTranslator.cs" />
     <Compile Include="Exceptions\PasswordExceptions.cs" />
@@ -62,14 +68,27 @@
     <Compile Include="Exceptions\CreditCardListIsEmptyException.cs" />
     <Compile Include="Exceptions\NotesPasswordException.cs" />
     <Compile Include="Exceptions\CategoryAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\SingletonUniqueConditionException.cs" />
     <Compile Include="Exceptions\SitePasswordException.cs" />
     <Compile Include="Exceptions\ValidDueCreditCardException.cs" />
+    <Compile Include="Helpers\ByteArrayStringTranslator.cs" />
+    <Compile Include="PasswordEncryptor\EffortlessEncryptionWrapper.cs" />
+    <Compile Include="PasswordEncryptor\EncryptionData.cs" />
+    <Compile Include="PasswordEncryptor\IEncryptor.cs" />
+    <Compile Include="IDataAccess.cs" />
+    <Compile Include="PasswordEncryptor\MockEncryptor.cs" />
+    <Compile Include="PasswordHistory.cs" />
+    <Compile Include="PasswordRecommender\PasswordRecommender.cs" />
+    <Compile Include="PasswordRecommender\SecurityCondition.cs" />
     <Compile Include="PasswordSecurityFlagger\ColorClassifier.cs" />
     <Compile Include="PasswordSecurityFlagger\DarkGreenClassifier.cs" />
     <Compile Include="Exceptions\PasswordAlreadySharedException.cs" />
     <Compile Include="Exceptions\AlreadyExistingPasswordException.cs" />
     <Compile Include="Exceptions\CategoryNotFoundException.cs" />
     <Compile Include="CreditCard.cs" />
+    <Compile Include="RepositoryFacade.cs" />
+    <Compile Include="UserCategory.cs" />
+    <Compile Include="UserDataBreaches.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="Exceptions\CreditCardNotFoundException.cs" />
     <Compile Include="Exceptions\CouldntAssignSecurityLevelException.cs" />
@@ -107,7 +126,7 @@
     <Compile Include="UserCreditCard.cs" />
     <Compile Include="Exceptions\UserException.cs" />
     <Compile Include="Exceptions\UserNotPresentException.cs" />
-    <Compile Include="UserDataBreaches.cs" />
+    <Compile Include="DataBreachesChecker.cs" />
     <Compile Include="UserPassword.cs" />
     <Compile Include="Verifier.cs" />
     <Compile Include="PasswordSecurityFlagger\YellowClassifier.cs" />

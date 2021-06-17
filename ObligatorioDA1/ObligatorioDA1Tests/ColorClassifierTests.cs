@@ -19,7 +19,7 @@ namespace DomainTests
         [TestMethod]
         public void TestHasUpperCaseValidCase()
         {
-            String password = "aA123bc#";
+            string password = "aA123bc#";
             bool passwordHasUpperCase = _colorClassifier.HasUpperCase(password);
             Assert.AreEqual(true, passwordHasUpperCase);
         }
@@ -27,7 +27,7 @@ namespace DomainTests
         [TestMethod]
         public void TestHasUpperCaseInvalidCase()
         {
-            String password = "cdf33b@#";
+            string password = "cdf33b@#";
             bool passwordHasUpperCase = _colorClassifier.HasUpperCase(password);
             Assert.AreEqual(false, passwordHasUpperCase);
         }
@@ -35,7 +35,7 @@ namespace DomainTests
         [TestMethod]
         public void TestHasLowerCaseValidCase()
         {
-            String password = "JL@b2d3";
+            string password = "JL@b2d3";
             bool passwordHasLowerCase = _colorClassifier.HasLowerCase(password);
             Assert.AreEqual(true, passwordHasLowerCase);
         }
@@ -43,7 +43,7 @@ namespace DomainTests
         [TestMethod]
         public void TestHasLowerCaseInvalidCase()
         {
-            String password = "L#$P23";
+            string password = "L#$P23";
             bool passwordHasLowerCase = _colorClassifier.HasLowerCase(password);
             Assert.AreEqual(false, passwordHasLowerCase);
         }
@@ -51,7 +51,7 @@ namespace DomainTests
         [TestMethod]
         public void TestHasDigitsValidCase()
         {
-            String password = "12lmN@4";
+            string password = "12lmN@4";
             bool passwordHasDigits = _colorClassifier.HasDigits(password);
             Assert.AreEqual(true, passwordHasDigits);
         }
@@ -59,7 +59,7 @@ namespace DomainTests
         [TestMethod]
         public void TestHasDigitsInvalidCase()
         {
-            String password = "BDjavier@&ee";
+            string password = "BDjavier@&ee";
             bool passwordHasDigits = _colorClassifier.HasDigits(password);
             Assert.AreEqual(false, passwordHasDigits);
         }
@@ -67,7 +67,7 @@ namespace DomainTests
         [TestMethod]
         public void TestHasSpecialCharacterValidCase()
         {
-            String password = "@&#abhaschars!";
+            string password = "@&#abhaschars!";
             bool passwordHasSpecialCharacters = _colorClassifier.HasSpecialCharacters(password);
             Assert.AreEqual(true, passwordHasSpecialCharacters);
         }
@@ -75,7 +75,7 @@ namespace DomainTests
         [TestMethod]
         public void TestHasSpecialCharacterInvalidCase()
         {
-            String password = "contra23sin12characteresespeciales";
+            string password = "contra23sin12characteresespeciales";
             bool passwordHasSpecialCharacters = _colorClassifier.HasSpecialCharacters(password);
             Assert.AreEqual(false, passwordHasSpecialCharacters);
         }
@@ -85,7 +85,7 @@ namespace DomainTests
         {
             _colorClassifier = new YellowClassifier();
 
-            String password = "aAaXefggwlmopre";
+            string password = "aAaXefggwlmopre";
             bool meetsYellowCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(true, meetsYellowCriteria);
         }
@@ -95,7 +95,7 @@ namespace DomainTests
         {
             _colorClassifier = new YellowClassifier();
 
-            String password = "defghij";
+            string password = "defghij";
             bool meetsYellowCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsYellowCriteria);
         }
@@ -105,7 +105,7 @@ namespace DomainTests
         {
             _colorClassifier = new LightGreenClassifier();
 
-            String password = "MaTiasGonZAlEzG";
+            string password = "MaTiasGonZAlEzG";
             bool meetsLightGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(true, meetsLightGreenCriteria);
         }
@@ -115,7 +115,7 @@ namespace DomainTests
         {
             _colorClassifier = new LightGreenClassifier();
 
-            String password = "matias1#2@3gonzalez";
+            string password = "matias1#2@3gonzalez";
             bool meetsLightGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(true, meetsLightGreenCriteria);
         }
@@ -125,7 +125,7 @@ namespace DomainTests
         {
             _colorClassifier = new LightGreenClassifier();
 
-            String password = "MATIAS1#2@3GONZALEZ";
+            string password = "MATIAS1#2@3GONZALEZ";
             bool meetsLightGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(true, meetsLightGreenCriteria);
         }
@@ -135,7 +135,7 @@ namespace DomainTests
         {
             _colorClassifier = new LightGreenClassifier();
 
-            String password = "aB1@GD";
+            string password = "aB1@GD";
             bool meetsLightGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsLightGreenCriteria);
         }
@@ -145,7 +145,7 @@ namespace DomainTests
         {
             _colorClassifier = new LightGreenClassifier();
 
-            String password = "abc123de4f56";
+            string password = "abc123de4f56";
             bool meetsLightGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsLightGreenCriteria);
         }
@@ -155,7 +155,7 @@ namespace DomainTests
         {
             _colorClassifier = new DarkGreenClassifier();
 
-            String password = "Ab3D/%45zweXJcf16";
+            string password = "Ab3D/%45zweXJcf16";
             bool meetsDarkGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(true, meetsDarkGreenCriteria);
         }
@@ -165,7 +165,7 @@ namespace DomainTests
         {
             _colorClassifier = new DarkGreenClassifier();
 
-            String password = "Az@#23D";
+            string password = "Az@#23D";
             bool meetsDarkGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsDarkGreenCriteria);
         }
@@ -175,7 +175,7 @@ namespace DomainTests
         {
             _colorClassifier = new DarkGreenClassifier();
 
-            String password = "AjKl$$#[bdd]{}hhh";
+            string password = "AjKl$$#[bdd]{}hhh";
             bool meetsDarkGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsDarkGreenCriteria);
         }
@@ -185,7 +185,7 @@ namespace DomainTests
         {
             _colorClassifier = new DarkGreenClassifier();
 
-            String password = "A933lLM73bdd622hh";
+            string password = "A933lLM73bdd622hh";
             bool meetsDarkGreenCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsDarkGreenCriteria);
         }
@@ -195,7 +195,7 @@ namespace DomainTests
         {
             _colorClassifier = new RedClassifier();
 
-            String password = "aaab";
+            string password = "aaab";
             bool meetsRedCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(true, meetsRedCriteria);
         }
@@ -205,7 +205,7 @@ namespace DomainTests
         {
             _colorClassifier = new RedClassifier();
 
-            String password = "abcdefghijk";
+            string password = "abcdefghijk";
             bool meetsRedCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsRedCriteria);
         }
@@ -215,7 +215,7 @@ namespace DomainTests
         {
             _colorClassifier = new OrangeClassifier();
 
-            String password = "abc23dd$#45cj";
+            string password = "abc23dd$#45cj";
             bool meetsOrangeCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(true, meetsOrangeCriteria);
         }
@@ -225,7 +225,7 @@ namespace DomainTests
         {
             _colorClassifier = new OrangeClassifier();
 
-            String password = "abc123";
+            string password = "abc123";
             bool meetsOrangeCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsOrangeCriteria);
         }
@@ -235,7 +235,7 @@ namespace DomainTests
         {
             _colorClassifier = new OrangeClassifier();
 
-            String password = "abcDJ%&@123HelloMotto";
+            string password = "abcDJ%&@123HelloMotto";
             bool meetsOrangeCriteria = _colorClassifier.MeetsColorCriteria(password);
             Assert.AreEqual(false, meetsOrangeCriteria);
         }

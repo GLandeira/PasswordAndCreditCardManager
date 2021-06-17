@@ -4,35 +4,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Exceptions;
+using Domain.PasswordEncryptor;
 using Domain.PasswordSecurityFlagger;
 
 namespace Domain
 {
     public class UserPassword
     {
-        public List<Password> Passwords { get; private set; }
-        private UserManager _userManager;
-        public UserPassword(UserManager userManager)
+        public List<Password> Passwords { get; set; }
+        public int UserPasswordID { get; set; }
+
+        private User _myUser;
+
+        public UserPassword()
         {
-            this.Passwords = new List<Password>();
-            _userManager = userManager;
+            Passwords = new List<Password>();
+        }
+
+        public UserPassword(User user)
+        {
+            Passwords = new List<Password>();
+            _myUser = user;
         }
 
         public void AddPassword(Password password)
         {
-            Verifier.VerifyPassword(password);
+            VerifyPasswordAlreadyExists(password);
+
             password.LastModification = DateTime.Today;
-            password.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(password.PasswordString);
-            this.Passwords.Add(password);
+            
+            AddPasswordToListAndDB(password);
         }
 
-        public void RemovePassword(Password password)
+        public void RemovePassword(Password password) 
         {
-            if(password.Category != User.SHARED_WITH_ME_CATEGORY)
+            if(!password.Category.Equals(UserCategory.SHARED_WITH_ME_CATEGORY))
             {
                 StopSharingPasswordWhenDeleted(password);
             }
-            this.Passwords.Remove(password);
+            Passwords.Remove(password);
+            RepositoryFacade.Instance.PasswordDataAccess.Delete(password);
         }
 
         public Password GetPassword(string siteName, string siteUserName)
@@ -49,75 +60,58 @@ namespace Domain
             return Passwords.First(pass => pass.Equals(passwordImitator));
         }
 
-        public List<Password> GetPasswordsByPasswordString(String passwordStringToLook)
+        public List<Password> GetPasswordsByPasswordString(string passwordStringToLook)
         {
-
-            if (!Passwords.Exists(passwordInList => passwordInList.PasswordString.Equals(passwordStringToLook)))
+            if (!Passwords.Exists(passwordInList => passwordInList.PasswordStringEquals(passwordStringToLook)))
             {
                 throw new PasswordNotFoundException();
             }
-            return Passwords.FindAll(passwordInList => passwordInList.PasswordString.Equals(passwordStringToLook));
+
+            return Passwords.FindAll(passwordInList => passwordInList.PasswordStringEquals(passwordStringToLook));
         }
 
         public void ModifyPassword(Password modifiedPassword, Password oldPassword)
         {
-            Verifier.VerifyPassword(modifiedPassword);
-            if (this.Passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(modifiedPassword)))
-            {
-                throw new AlreadyExistingPasswordException();
-            }
+            VerifyPasswordAlreadyExists(modifiedPassword);
 
             modifiedPassword.LastModification = DateTime.Now;
-            modifiedPassword.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(modifiedPassword.PasswordString);
-            List<string> usersSharedWith = new List<string>(oldPassword.UsersSharedWith);
-            this.RemovePassword(oldPassword);
-            this.Passwords.Add(modifiedPassword);
-            foreach(string username in usersSharedWith)
+
+            List<User> usersSharedWith = new List<User>(oldPassword.UsersSharedWith);
+
+            if (!oldPassword.Category.Equals(UserCategory.SHARED_WITH_ME_CATEGORY))
             {
-                User userSharedTo = _userManager.GetUser(username);
-                this.SharePassword(userSharedTo, modifiedPassword);
+                StopSharingPasswordWhenDeleted(oldPassword);
             }
-           
+
+            Passwords.Remove(oldPassword);
+            RepositoryFacade.Instance.PasswordDataAccess.Modify(modifiedPassword);
+            Passwords.Add(modifiedPassword);
+            
+            ReshareModifiedPassword(usersSharedWith, modifiedPassword);
         }
 
         public void SharePassword(User sharee, Password sharedPassword)
         {
             CheckIfShareeHasSharedPassword(sharee, sharedPassword);
 
-            AddUserToPasswordUsersSharedWith(sharee.Name, sharedPassword);
+            AddUserToPasswordUsersSharedWith(sharee, sharedPassword);
 
             Password sharedClone = (Password)sharedPassword.Clone();
-            sharedClone.Category = User.SHARED_WITH_ME_CATEGORY;
+            sharedClone.Category = sharee.UserCategories.GetACategory(UserCategory.SHARED_PASSWORD_CATEGORY_NAME);
+            sharedClone.UsersSharedWith = new List<User>();
 
             sharee.UserPasswords.AddPassword(sharedClone);
         }
 
         public void StopSharingPassword(User sharee, Password sharedPassword)
         {
-            RemoveUserFromPasswordUsersSharedWith(sharee.Name, sharedPassword);
-            //creates password clone with Shared_with_me_category equal to the password in sharee instead of passing original password. 
-            Password sharedPasswordSharedClone =(Password) sharedPassword.Clone();
-            sharedPasswordSharedClone.Category = User.SHARED_WITH_ME_CATEGORY;
+            RemoveUserFromPasswordUsersSharedWith(sharee, sharedPassword);
+
+            Password sharedPasswordSharedClone = (Password)sharedPassword.Clone();
+            sharedPasswordSharedClone.Category = sharee.UserCategories.GetACategory(UserCategory.SHARED_PASSWORD_CATEGORY_NAME);
+            sharedPasswordSharedClone.PasswordID = sharee.UserPasswords.GetPassword(sharedPassword.Site, sharedPassword.Username).PasswordID;
+
             sharee.UserPasswords.RemovePassword(sharedPasswordSharedClone);
-        }
-
-        private void CheckIfShareeHasSharedPassword(User sharee, Password sharedPassword)
-        {
-            if (sharee.UserPasswords.Passwords.Any(pass => pass.Equals(sharedPassword)))
-            {
-                throw new PasswordAlreadySharedException();
-            }
-        }
-
-        private void AddUserToPasswordUsersSharedWith(string shareeName, Password sharedPassword)
-        {
-            Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
-            sharerPasswordInMemory.UsersSharedWith.Add(shareeName);
-        }
-
-        private void RemoveUserFromPasswordUsersSharedWith(string shareeName, Password sharedPassword)
-        {
-            sharedPassword.UsersSharedWith.Remove(shareeName);
         }
 
         public List<Password> GetPasswordsWithSecurityLevel(SecurityLevelPasswords securityLevel)
@@ -151,7 +145,7 @@ namespace Domain
             List<Password> sharedPasswords = new List<Password>();
             foreach(Password currentPassword in Passwords)
             {
-                if (currentPassword.UsersSharedWith.Count() > 0 && currentPassword.Category != User.SHARED_WITH_ME_CATEGORY)
+                if (currentPassword.UsersSharedWith.Count() > 0 && currentPassword.Category != UserCategory.SHARED_WITH_ME_CATEGORY)
                 {
                     sharedPasswords.Add(currentPassword);
                 }
@@ -162,12 +156,59 @@ namespace Domain
 
         private void StopSharingPasswordWhenDeleted(Password password)
         {
-            List<string> usersSharedWith = new List<string>(password.UsersSharedWith);
-            foreach (string username in usersSharedWith)
+            List<User> usersSharedWith = new List<User>(password.UsersSharedWith);
+            foreach (User user in usersSharedWith)
             {
-                User sharedUser = _userManager.GetUser(username);
-                this.StopSharingPassword(sharedUser, password);
+                User userInDb = RepositoryFacade.Instance.UserDataAccess.Get(user.UserID);
+                StopSharingPassword(userInDb, password);
             }
+        }
+
+        private void ReshareModifiedPassword(List<User> usersSharedWith, Password modifiedPassword)
+        {
+            foreach (User user in usersSharedWith)
+            {
+                User userInDb = RepositoryFacade.Instance.UserDataAccess.Get(user.UserID);
+                SharePassword(userInDb, modifiedPassword);
+            }
+        }
+
+        private void VerifyPasswordAlreadyExists(Password password)
+        {
+            bool equalityCondition = Passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(password));
+
+            if (equalityCondition)
+            {
+                throw new AlreadyExistingPasswordException();
+            }
+        }
+
+        private void CheckIfShareeHasSharedPassword(User sharee, Password sharedPassword)
+        {
+            if (sharee.UserPasswords.Passwords.Any(pass => pass.Equals(sharedPassword)))
+            {
+                throw new PasswordAlreadySharedException();
+            }
+        }
+
+        private void AddUserToPasswordUsersSharedWith(User sharee, Password sharedPassword)
+        {
+            Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
+            sharerPasswordInMemory.UsersSharedWith.Add(sharee);
+            RepositoryFacade.Instance.PasswordDataAccess.Modify(sharedPassword);
+        }
+
+        private void RemoveUserFromPasswordUsersSharedWith(User sharee, Password sharedPassword)
+        {
+            sharedPassword.UsersSharedWith.Remove(sharee);
+            RepositoryFacade.Instance.PasswordDataAccess.Modify(sharedPassword);
+        }
+
+        private void AddPasswordToListAndDB(Password passwordToAdd)
+        {
+            passwordToAdd.UserPassword = this;
+            Passwords.Add(passwordToAdd);
+            RepositoryFacade.Instance.PasswordDataAccess.Add(passwordToAdd);
         }
     }
 }

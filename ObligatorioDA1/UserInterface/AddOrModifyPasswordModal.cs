@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
 using Domain.Exceptions;
+using Domain.PasswordRecommender;
+using Domain.PasswordEncryptor;
+using Domain.PasswordSecurityFlagger;
 
 namespace UserInterface
 {
@@ -20,17 +23,24 @@ namespace UserInterface
         public delegate void ModifiedSinglePasswordEvent(Password theModifiedPassword);
         public static event ModifiedSinglePasswordEvent onModifySinglePassword;
 
+        private EncryptorIndirection _encryption;
         private User _currentUser;
         private Password _passwordToModify;
         private bool _modify;
-        public AddOrModifyPasswordModal(User loggedUser, Password passwordToModify)
+        public AddOrModifyPasswordModal(Password passwordToModify)
         {
             InitializeComponent();
-            PasswordGeneratorModal.onPasswordGeneration += UpdatePasswordTextBox;
-            _currentUser = loggedUser;
-            _passwordToModify = passwordToModify;
-            _modify = (!(passwordToModify == null)); 
+            _encryption = new EncryptorIndirection(new EffortlessEncryptionWrapper());
 
+            PasswordGeneratorModal.onPasswordGeneration += UpdatePasswordTextBox;
+            _currentUser = UserManager.Instance.LoggedUser;
+            _passwordToModify = passwordToModify;
+            _modify = (!(passwordToModify == null));
+
+            if (_modify)
+            {
+                _encryption.PasswordDecryption(passwordToModify);
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -47,17 +57,25 @@ namespace UserInterface
                 Username = userName,
                 Notes = notes
             };
+
             try
             {
+                Verifier.VerifyPassword(newPassword);
+                newPassword.SecurityLevel = PasswordSecurityFlagger.GetSecurityLevel(newPassword.PasswordString);
+                _encryption.PasswordEncryption(newPassword);
+
                 if (_modify)
                 {
+                    newPassword.PasswordID = _passwordToModify.PasswordID;
                     _currentUser.UserPasswords.ModifyPassword(newPassword, _passwordToModify);
                 }
                 else
                 {
                     _currentUser.UserPasswords.AddPassword(newPassword);
                 }
+
                 List<Password> passwordsList = _currentUser.UserPasswords.Passwords;
+
                 onModifyOrAddPassword?.Invoke(passwordsList);
                 onModifySinglePassword?.Invoke(newPassword);
                 Close();
@@ -79,8 +97,8 @@ namespace UserInterface
             {
                 this.Text = "Modify selected Password";
             }
-            List<Category> bs = new List<Category>(_currentUser.Categories);
-            bs.Remove(User.SHARED_WITH_ME_CATEGORY);
+            List<Category> bs = new List<Category>(_currentUser.UserCategories.Categories);
+            bs.Remove(UserCategory.SHARED_WITH_ME_CATEGORY);
             cmbBxCategory.DataSource = bs;
             if (bs.Count == 0)
             {
@@ -118,6 +136,40 @@ namespace UserInterface
         {
             Form passwordGeneratorModal = new PasswordGeneratorModal();
             passwordGeneratorModal.ShowDialog();
+        }
+
+        private void txtBxPassword_TextChanged(object sender, EventArgs e)
+        {
+            string passwordString = txtBxPassword.Text;
+            SecurityCondition conditions = PasswordRecommender.isASafePassword(passwordString, _currentUser);
+            if (conditions.IsNotBreached)
+            {
+                lblIsBreached.Text = "This password hasn't been breached before";
+            }
+            else
+            {
+                lblIsBreached.Text = "This password has appeared in a data breach before";
+            }
+
+            if (conditions.IsNotInUse)
+            {
+                lblAlreadyExists.Text = "This password hasn't been used before";
+            }
+            else
+            {
+                lblAlreadyExists.Text = "This password is already being used";
+            }
+
+            if (conditions.IsNotLowSecurityLevel)
+            {
+                lblLowSecLevel.Text = "The password has a high security level";
+            }
+            else
+            {
+                
+                lblLowSecLevel.Text = "This password security level is too low";
+            }
+
         }
     }
 }

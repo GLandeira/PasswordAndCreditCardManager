@@ -16,15 +16,13 @@ namespace UserInterface
     {
         private const string NO_PASSWORDS_OF_THAT_COLOR = "There are no passwords of that color.";
 
-        private UserManager _userManager;
         private User _currentUser;
         private UserPassword _currentUserPassword;
 
         private bool _passwordsPresentForGraph;
-        public SecurityReportController(UserManager userManager)
+        public SecurityReportController()
         {
-            _userManager = userManager;
-            _currentUser = _userManager.LoggedUser;
+            _currentUser = UserManager.Instance.LoggedUser;
             _currentUserPassword = _currentUser.UserPasswords;
             InitializeComponent();
         }
@@ -75,7 +73,7 @@ namespace UserInterface
                 return;
             }
 
-            Form checkForm = new CheckSecurityPasswordsModal(_currentUser, passwordsOfSecurityLevel, securityLevel);
+            Form checkForm = new CheckSecurityPasswordsModal(passwordsOfSecurityLevel, securityLevel);
             checkForm.ShowDialog();
 
             LoadSecurityCounters();
@@ -110,7 +108,7 @@ namespace UserInterface
 
         private void btnSecurityGraph_Click(object sender, EventArgs e)
         {
-            Form securityReportGraphModal = new SecurityReportGraphModal(_userManager);
+            Form securityReportGraphModal = new SecurityReportGraphModal();
             securityReportGraphModal.ShowDialog();
         }
     }

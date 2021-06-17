@@ -33,6 +33,8 @@ namespace UserInterface
             this.txtbxDataBreaches = new System.Windows.Forms.TextBox();
             this.btnCheck = new System.Windows.Forms.Button();
             this.lblExposedText = new System.Windows.Forms.Label();
+            this.btnImportTextFile = new System.Windows.Forms.Button();
+            this.btnBreachesHistory = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblDataBreachesTitle
@@ -73,10 +75,34 @@ namespace UserInterface
             this.lblExposedText.TabIndex = 3;
             this.lblExposedText.Text = "Exposed Text";
             // 
+            // btnImportTextFile
+            // 
+            this.btnImportTextFile.Location = new System.Drawing.Point(554, 578);
+            this.btnImportTextFile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnImportTextFile.Name = "btnImportTextFile";
+            this.btnImportTextFile.Size = new System.Drawing.Size(105, 39);
+            this.btnImportTextFile.TabIndex = 4;
+            this.btnImportTextFile.Text = "Import Text File";
+            this.btnImportTextFile.UseVisualStyleBackColor = true;
+            this.btnImportTextFile.Click += new System.EventHandler(this.btnImportTextFile_Click);
+            // 
+            // btnBreachesHistory
+            // 
+            this.btnBreachesHistory.Location = new System.Drawing.Point(85, 578);
+            this.btnBreachesHistory.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBreachesHistory.Name = "btnBreachesHistory";
+            this.btnBreachesHistory.Size = new System.Drawing.Size(105, 39);
+            this.btnBreachesHistory.TabIndex = 5;
+            this.btnBreachesHistory.Text = "Breaches History";
+            this.btnBreachesHistory.UseVisualStyleBackColor = true;
+            this.btnBreachesHistory.Click += new System.EventHandler(this.btnBreachesHistory_Click);
+            // 
             // DataBreachesController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnBreachesHistory);
+            this.Controls.Add(this.btnImportTextFile);
             this.Controls.Add(this.lblExposedText);
             this.Controls.Add(this.btnCheck);
             this.Controls.Add(this.txtbxDataBreaches);
@@ -94,5 +120,7 @@ namespace UserInterface
         private System.Windows.Forms.TextBox txtbxDataBreaches;
         private System.Windows.Forms.Button btnCheck;
         private System.Windows.Forms.Label lblExposedText;
+        private System.Windows.Forms.Button btnImportTextFile;
+        private System.Windows.Forms.Button btnBreachesHistory;
     }
 }

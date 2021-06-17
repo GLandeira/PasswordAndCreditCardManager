@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -27,6 +28,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,7 +51,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Effortless.Net.Encryption, Version=3.3.0.0, Culture=neutral, PublicKeyToken=603f9a8e5bb15e51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Effortless.Net.Encryption.3.3.0\lib\net40\Effortless.Net.Encryption.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
@@ -110,12 +123,26 @@
     <Compile Include="DataBreachesController.Designer.cs">
       <DependentUpon>DataBreachesController.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataBreachesHistoryResultModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataBreachesHistoryResultModal.Designer.cs">
+      <DependentUpon>DataBreachesHistoryResultModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataBreachHistoryModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataBreachHistoryModal.Designer.cs">
+      <DependentUpon>DataBreachHistoryModal.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataBreachMatchesModal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DataBreachMatchesModal.Designer.cs">
       <DependentUpon>DataBreachMatchesModal.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataBreachMediator.cs" />
+    <Compile Include="EncryptorIndirection.cs" />
     <Compile Include="LogInWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -214,6 +241,12 @@
     <EmbeddedResource Include="DataBreachesController.resx">
       <DependentUpon>DataBreachesController.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DataBreachesHistoryResultModal.resx">
+      <DependentUpon>DataBreachesHistoryResultModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataBreachHistoryModal.resx">
+      <DependentUpon>DataBreachHistoryModal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DataBreachMatchesModal.resx">
       <DependentUpon>DataBreachMatchesModal.cs</DependentUpon>
     </EmbeddedResource>
@@ -262,6 +295,7 @@
     <EmbeddedResource Include="UnsharePasswordModal.resx">
       <DependentUpon>UnsharePasswordModal.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\Domain.Category.datasource" />
     <None Include="Properties\DataSources\Domain.Password.datasource" />
     <None Include="Properties\DataSources\Domain.Category.datasource" />
@@ -285,6 +319,10 @@
       <Project>{0f791814-83de-4f3e-9ef4-45d96b43f68d}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{8adf002b-36b9-4c6b-9eb7-1fdd4824e657}</Project>
+      <Name>Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -299,4 +337,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
 </Project>

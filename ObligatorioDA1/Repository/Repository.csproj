@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8ADF002B-36B9-4C6B-9EB7-1FDD4824E657}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Repository</RootNamespace>
+    <AssemblyName>Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CategoryDataAccess.cs" />
+    <Compile Include="CategoryTypeConfiguration.cs" />
+    <Compile Include="DataAccessMock.cs" />
+    <Compile Include="Migrations\202106111919196_PasswordCompleteCascade.cs" />
+    <Compile Include="Migrations\202106111919196_PasswordCompleteCascade.designer.cs">
+      <DependentUpon>202106111919196_PasswordCompleteCascade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106122305277_MergeMigration.cs" />
+    <Compile Include="Migrations\202106122305277_MergeMigration.designer.cs">
+      <DependentUpon>202106122305277_MergeMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106142204165_RemoveOriginPasswordHistory.cs" />
+    <Compile Include="Migrations\202106142204165_RemoveOriginPasswordHistory.designer.cs">
+      <DependentUpon>202106142204165_RemoveOriginPasswordHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106142243035_AddRequiredRelationshipDBPH.cs" />
+    <Compile Include="Migrations\202106142243035_AddRequiredRelationshipDBPH.designer.cs">
+      <DependentUpon>202106142243035_AddRequiredRelationshipDBPH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106151536206_PasswordLinkWithUserSharedWith.cs" />
+    <Compile Include="Migrations\202106151536206_PasswordLinkWithUserSharedWith.designer.cs">
+      <DependentUpon>202106151536206_PasswordLinkWithUserSharedWith.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106161221373_EncryptionMigration.cs" />
+    <Compile Include="Migrations\202106161221373_EncryptionMigration.designer.cs">
+      <DependentUpon>202106161221373_EncryptionMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106161612000_DecryptionTrick.cs" />
+    <Compile Include="Migrations\202106161612000_DecryptionTrick.designer.cs">
+      <DependentUpon>202106161612000_DecryptionTrick.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106161613087_DecryptionTrickIgnore.cs" />
+    <Compile Include="Migrations\202106161613087_DecryptionTrickIgnore.designer.cs">
+      <DependentUpon>202106161613087_DecryptionTrickIgnore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106171802427_ChangeKeyAndIVToByteArray.cs" />
+    <Compile Include="Migrations\202106171802427_ChangeKeyAndIVToByteArray.designer.cs">
+      <DependentUpon>202106171802427_ChangeKeyAndIVToByteArray.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MockCategoryDataAccess.cs" />
+    <Compile Include="MockCreditCardDataAccess.cs" />
+    <Compile Include="MockDataBreachesDataAccess.cs" />
+    <Compile Include="MockPasswordDataAccess.cs" />
+    <Compile Include="MockUserDataAccess.cs" />
+    <Compile Include="PasswordDataAccess.cs" />
+    <Compile Include="CreditCardDataAccess.cs" />
+    <Compile Include="CreditCardTypeConfiguration.cs" />
+    <Compile Include="DataBreachesDataAccess.cs" />
+    <Compile Include="DataBreachTypeConfiguration.cs" />
+    <Compile Include="DomainDBContext.cs" />
+    <Compile Include="Migrations\202106111351506_Initial.cs" />
+    <Compile Include="Migrations\202106111351506_Initial.designer.cs">
+      <DependentUpon>202106111351506_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106111512398_CategoryDomainChange.cs" />
+    <Compile Include="Migrations\202106111512398_CategoryDomainChange.designer.cs">
+      <DependentUpon>202106111512398_CategoryDomainChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106111656058_CategoryDeleteCascade.cs" />
+    <Compile Include="Migrations\202106111656058_CategoryDeleteCascade.designer.cs">
+      <DependentUpon>202106111656058_CategoryDeleteCascade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106112338208_CreditCardDomainChange.cs" />
+    <Compile Include="Migrations\202106112338208_CreditCardDomainChange.designer.cs">
+      <DependentUpon>202106112338208_CreditCardDomainChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106122001543_DataBreachHistory.cs" />
+    <Compile Include="Migrations\202106122001543_DataBreachHistory.designer.cs">
+      <DependentUpon>202106122001543_DataBreachHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106122010176_DataBreachHistoryIgnoreChecker.cs" />
+    <Compile Include="Migrations\202106122010176_DataBreachHistoryIgnoreChecker.designer.cs">
+      <DependentUpon>202106122010176_DataBreachHistoryIgnoreChecker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106122015485_DataBreachHistoryIgnoreChecker1.cs" />
+    <Compile Include="Migrations\202106122015485_DataBreachHistoryIgnoreChecker1.designer.cs">
+      <DependentUpon>202106122015485_DataBreachHistoryIgnoreChecker1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106122017458_DataBreachHistoryIgnoreChecker2.cs" />
+    <Compile Include="Migrations\202106122017458_DataBreachHistoryIgnoreChecker2.designer.cs">
+      <DependentUpon>202106122017458_DataBreachHistoryIgnoreChecker2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="PasswordTypeConfiguration.cs" />
+    <Compile Include="UserPasswordTypeConfiguration.cs" />
+    <Compile Include="PasswordHistoryTypeConfiguration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserCategoryTypeConfiguration.cs" />
+    <Compile Include="UserCreditCardTypeConfiguration.cs" />
+    <Compile Include="UserDataAccess.cs" />
+    <Compile Include="UserDataBreachesTypeConfiguration.cs" />
+    <Compile Include="UserTypeConfiguration.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ObligatorioDA1\Domain.csproj">
+      <Project>{0f791814-83de-4f3e-9ef4-45d96b43f68d}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202106111351506_Initial.resx">
+      <DependentUpon>202106111351506_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106111512398_CategoryDomainChange.resx">
+      <DependentUpon>202106111512398_CategoryDomainChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106111656058_CategoryDeleteCascade.resx">
+      <DependentUpon>202106111656058_CategoryDeleteCascade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106112338208_CreditCardDomainChange.resx">
+      <DependentUpon>202106112338208_CreditCardDomainChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106111919196_PasswordCompleteCascade.resx">
+      <DependentUpon>202106111919196_PasswordCompleteCascade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106122001543_DataBreachHistory.resx">
+      <DependentUpon>202106122001543_DataBreachHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106122010176_DataBreachHistoryIgnoreChecker.resx">
+      <DependentUpon>202106122010176_DataBreachHistoryIgnoreChecker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106122015485_DataBreachHistoryIgnoreChecker1.resx">
+      <DependentUpon>202106122015485_DataBreachHistoryIgnoreChecker1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106122017458_DataBreachHistoryIgnoreChecker2.resx">
+      <DependentUpon>202106122017458_DataBreachHistoryIgnoreChecker2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106122305277_MergeMigration.resx">
+      <DependentUpon>202106122305277_MergeMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106142204165_RemoveOriginPasswordHistory.resx">
+      <DependentUpon>202106142204165_RemoveOriginPasswordHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106142243035_AddRequiredRelationshipDBPH.resx">
+      <DependentUpon>202106142243035_AddRequiredRelationshipDBPH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106151536206_PasswordLinkWithUserSharedWith.resx">
+      <DependentUpon>202106151536206_PasswordLinkWithUserSharedWith.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106161221373_EncryptionMigration.resx">
+      <DependentUpon>202106161221373_EncryptionMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106161612000_DecryptionTrick.resx">
+      <DependentUpon>202106161612000_DecryptionTrick.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106161613087_DecryptionTrickIgnore.resx">
+      <DependentUpon>202106161613087_DecryptionTrickIgnore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106171802427_ChangeKeyAndIVToByteArray.resx">
+      <DependentUpon>202106171802427_ChangeKeyAndIVToByteArray.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

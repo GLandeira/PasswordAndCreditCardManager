@@ -16,14 +16,13 @@ namespace UserInterface
     {
         private const string NO_CATEGORIES = "Please add a category to add a Credit Card.";
 
-        private UserManager _userManager;
         private User _currentUser;
         private CreditCard _selectedCreditCard;
 
-        public CreditCardController(UserManager userManager)
+        public CreditCardController()
         {
-            _userManager = userManager;
-            _currentUser = _userManager.LoggedUser;
+
+            _currentUser = UserManager.Instance.LoggedUser;
 
             InitializeComponent();
             ButtonDeleteModifyEnabler(false);
@@ -33,7 +32,7 @@ namespace UserInterface
 
         private void CreditCardController_Load(object sender, EventArgs e)
         {
-            DisableAddButtonIfNoCategoriesAdded(_currentUser.Categories);
+            DisableAddButtonIfNoCategoriesAdded(_currentUser.UserCategories.Categories);
             
             CreditCardLoad();
         }
@@ -52,7 +51,7 @@ namespace UserInterface
 
         private void btnNewCreditCard_Click(object sender, EventArgs e)
         {
-            Form newOrModifyCreditCardModal = new NewOrModifyCreditCardModal(_currentUser, null);
+            Form newOrModifyCreditCardModal = new NewOrModifyCreditCardModal(null);
             newOrModifyCreditCardModal.ShowDialog();
         }
 
@@ -81,7 +80,7 @@ namespace UserInterface
         {
             try
             {
-                Form newOrModifyCreditCardModal = new NewOrModifyCreditCardModal(_currentUser, _selectedCreditCard);
+                Form newOrModifyCreditCardModal = new NewOrModifyCreditCardModal(_selectedCreditCard);
                 newOrModifyCreditCardModal.ShowDialog();
             }
             catch (Exception creditCardException)
@@ -105,8 +104,11 @@ namespace UserInterface
 
         private void grdvwCreditCard_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            Form moreCreditCardInfo = new CreditCardMoreInfoModal(_selectedCreditCard);
-            moreCreditCardInfo.ShowDialog();
+            if(_selectedCreditCard != null)
+            {
+                Form moreCreditCardInfo = new CreditCardMoreInfoModal(_selectedCreditCard);
+                moreCreditCardInfo.ShowDialog();
+            }
         }
 
         private void grdvwCreditCard_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

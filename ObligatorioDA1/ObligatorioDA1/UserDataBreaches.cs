@@ -3,109 +3,99 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Exceptions;
 
 namespace Domain
 {
     public class UserDataBreaches
     {
-        private User _theUser;
+        public int UserDataBreachesID { get; set; }
+        public List<DataBreach> DataBreaches { get; set; }
+        public DataBreachesChecker DataBreachesChecker;
 
-        public UserDataBreaches(User theUser)
+        public UserDataBreaches()
         {
-            _theUser = theUser;
+            DataBreaches = new List<DataBreach>();
+            DataBreachesChecker = new DataBreachesChecker(this);
         }
 
-        public DataBreaches CheckDataBreaches(String [] inputBreaches)
+        public void AddDataBreach(DataBreach dataBreach)
         {
-            DataBreaches breach = new DataBreaches()
+            
+            if (!(dataBreach.CreditCardBreaches.Count() + dataBreach.PasswordBreaches.Count() == 0))
             {
-                CreditCardsBreaches = new List<CreditCard>(),
-                PasswordBreaches = new List<Password>(),
-            };
+                dataBreach.Date = DateTime.Now;
 
-            for (int i = 0; i != inputBreaches.Length; i++)
-            {
-                if (IsCreditCard(inputBreaches[i]))
+                bool dataBreachOnSameDate = DataBreaches.Any(db => db.Equals(dataBreach));
+
+                if (dataBreachOnSameDate)
                 {
-                    inputBreaches[i] = CreditCardFormatTransformer(inputBreaches[i]);
-                    CheckDataBreachesCreditCard(inputBreaches[i], breach);
+                    DataBreach dataBreachInMemory = DataBreaches.FirstOrDefault(db => db.Equals(dataBreach));
+
+                    DataBreach newDataBreach = GenerateDataBreachWithNewBreaches(dataBreach, dataBreachInMemory);
+
+                    dataBreachInMemory.CreditCardBreaches.AddRange(newDataBreach.CreditCardBreaches);
+                    dataBreachInMemory.PasswordBreaches.AddRange(newDataBreach.PasswordBreaches);
+
+                    RepositoryFacade.Instance.DataBreachDataAccess.Modify(newDataBreach);
+
+                    return;
                 }
-                else
-                {
-                    CheckDataBreachesPassword(inputBreaches[i], breach);
-                }
-            }
-            return breach;
-        }
-
-        private void CheckDataBreachesCreditCard(String inputBreach, DataBreaches breach)
-        {
-            try
-            {
-                CreditCard creditCardBreached = _theUser.UserCreditCards.GetCreditCard(inputBreach);
-
-                if (!breach.CreditCardsBreaches.Any(pass => pass.Equals(creditCardBreached)))
-                {
-                    breach.CreditCardsBreaches.Add(creditCardBreached);
-                }
-            }
-            catch (CreditCardNotFoundException ex)
-            {
+                DataBreaches.Add(dataBreach);
+                RepositoryFacade.Instance.DataBreachDataAccess.Add(dataBreach);
             }
         }
 
-        private void CheckDataBreachesPassword(String inputBreach, DataBreaches breach)
+        public DataBreach GetDataBreach(DateTime fecha)
         {
-            try
-            {
-                List<Password> passwordBreached = _theUser.UserPasswords.GetPasswordsByPasswordString(inputBreach);
-                foreach(Password password in passwordBreached)
-                {
-                    if(!breach.PasswordBreaches.Any(pass => pass.Equals(password)))
-                    {
-                        breach.PasswordBreaches.Add(password);
-                    }
-                }
-            }
-            catch (PasswordNotFoundException ex)
-            {
-            }
+            DataBreach searcherDataBreach = new DataBreach();
+            searcherDataBreach.Date = fecha;
+            int id = DataBreaches.FirstOrDefault(db => db.Equals(searcherDataBreach)).DataBreachID;
+
+            return RepositoryFacade.Instance.DataBreachDataAccess.Get(id);
         }
 
-        //input dataBreaches CreditCards = "XXXX XXXX XXXX XXXX"
-        private bool IsCreditCard(String inputBreach)
+        private DataBreach GenerateDataBreachWithNewBreaches(DataBreach entryBreach, DataBreach dataBreachInMemory)
         {
-            bool isCreditCard = false;
-            if (inputBreach.Length == 19 &&
-                                    FollowsCreditCardPattern(inputBreach))
-            {
-                isCreditCard = true;
-            }
-            return isCreditCard;
+            DataBreach newBreachesOnly = new DataBreach(this);
+            newBreachesOnly.DataBreachID = dataBreachInMemory.DataBreachID;
+            newBreachesOnly.Date = DateTime.Now;
+
+            newBreachesOnly.PasswordBreaches = GenerateListOfNewPasswordBreaches(entryBreach, dataBreachInMemory);
+            newBreachesOnly.CreditCardBreaches = GenerateListOfNewCreditCardBreaches(entryBreach, dataBreachInMemory);
+
+            return newBreachesOnly;
         }
 
-        private bool FollowsCreditCardPattern(String inputBreach)
+        private List<PasswordHistory> GenerateListOfNewPasswordBreaches(DataBreach entryDataBreach, DataBreach dataBreachInMemory)
         {
-            bool followsPattern = true;
-            for(int i=0; i != 19 && followsPattern != false; i++)
+            List<PasswordHistory> newPasswordHistories = new List<PasswordHistory>();
+
+            foreach (PasswordHistory passwordHistory in entryDataBreach.PasswordBreaches)
             {
-                if ((inputBreach[i] < '0' || inputBreach[i] > '9'))
+                bool passwordNotPresent = !dataBreachInMemory.PasswordBreaches.Any(pb => pb.AbsoluteEquals(passwordHistory));
+                if (passwordNotPresent)
                 {
-                    if (!(i == 4 || i == 9 || i == 14) && !(inputBreach[i] == (' ')))
-                    {
-                        followsPattern = false;
-                    }
+                    newPasswordHistories.Add(passwordHistory);
                 }
             }
-            return followsPattern;
-        }
 
-        private string CreditCardFormatTransformer(string inputCreditCard)
+            return newPasswordHistories;
+        }
+        
+        private List<CreditCard> GenerateListOfNewCreditCardBreaches(DataBreach entryDataBreach, DataBreach dataBreachInMemory)
         {
-            string outputCreditCard = inputCreditCard.Substring(0,4) + inputCreditCard.Substring(5, 4) +
-                                      inputCreditCard.Substring(10, 4) + inputCreditCard.Substring(15, 4);
-            return outputCreditCard;
+            List<CreditCard> newCreditCards = new List<CreditCard>();
+
+            foreach (CreditCard creditCard in entryDataBreach.CreditCardBreaches)
+            {
+                bool creditCardNotPresent = !dataBreachInMemory.CreditCardBreaches.Any(ccb => ccb.Equals(creditCard));
+                if (creditCardNotPresent)
+                {
+                    newCreditCards.Add(creditCard);
+                }
+            }
+
+            return newCreditCards;
         }
     }
 }

@@ -9,11 +9,12 @@ namespace Domain.PasswordSecurityFlagger
     public class DarkGreenClassifier : ColorClassifier
     {
         public override SecurityLevelPasswords AssociatedSecurityLevel { get; } = SecurityLevelPasswords.DARK_GREEN;
-        public override bool MeetsColorCriteria(String password)
+        public override ColorClassifier NextClassifier { get; } = new LightGreenClassifier();
+        public override bool MeetsColorCriteria(string password)
         {
             bool meetsCriteria = false;
 
-            if(password.Length > 14)
+            if(password.Length > MAXIMUM_LENGTH_ORANGE)
             {
                 bool UpperCaseFound = HasUpperCase(password);
                 bool LowerCaseFound = HasLowerCase(password);

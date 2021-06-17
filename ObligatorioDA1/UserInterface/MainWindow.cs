@@ -8,18 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
+using Repository;
 
 namespace UserInterface
 {
     public partial class MainWindow : Form
     {
-        private UserManager _userManager;
 
         private const string WELCOME_TEXT_BASE = "Welcome {0}!";
         public MainWindow()
         {
             InitializeComponent();
-            _userManager = new UserManager();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -34,33 +33,38 @@ namespace UserInterface
         private void btnCategory_Click(object sender, EventArgs e)
         {
             pnlMain.Controls.Clear();
-            UserControl categoryController = new CategoryController(_userManager);
+            UserControl categoryController = new CategoryController();
             pnlMain.Controls.Add(categoryController);
         }
 
         private void btnPasswords_Click(object sender, EventArgs e)
         {
             pnlMain.Controls.Clear();
-            UserControl passwordController = new PasswordsController(_userManager);
+            UserControl passwordController = new PasswordsController();
             pnlMain.Controls.Add(passwordController);
         }
-
 
         private void btnCreditCard_Click(object sender, EventArgs e)
         {
             pnlMain.Controls.Clear();
-            UserControl creditCardController = new CreditCardController(_userManager);
+            UserControl creditCardController = new CreditCardController();
             pnlMain.Controls.Add(creditCardController);
         }
         
         private void btnDataBreaches_Click(object sender, EventArgs e)
         {
             pnlMain.Controls.Clear();
-            UserControl dataBreachesController = new DataBreachesController(_userManager);
+            UserControl dataBreachesController = new DataBreachesController();
             pnlMain.Controls.Add(dataBreachesController);
         }
 
-        private void lblLogOut_Click(object sender, EventArgs e)
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            Form changePassword = new ChangePasswordModal();
+            changePassword.ShowDialog();
+        }
+
+        private void btnLogOut_Click(object sender, EventArgs e)
         {
             ActivateLogInSequence();
 
@@ -69,29 +73,23 @@ namespace UserInterface
             pnlMain.Controls.Add(passwordController);
         }
 
-        private void lblChangePassword_Click(object sender, EventArgs e)
-        {
-            Form changePassword = new ChangePasswordModal(_userManager);
-            changePassword.ShowDialog();
-        }
-
         private void ActivateLogInSequence()
         {
-            Form logIn = new LogInWindow(_userManager);
+            Form logIn = new LogInWindow();
             Hide();
             logIn.ShowDialog();
             Show();
 
-            if(_userManager.LoggedUser != null)
+            if(UserManager.Instance.LoggedUser != null)
             {
-                lblWelcome.Text = string.Format(WELCOME_TEXT_BASE, _userManager.LoggedUser.Name);
+                lblWelcome.Text = string.Format(WELCOME_TEXT_BASE, UserManager.Instance.LoggedUser.Name);
             }
         }
 
         private void btnSecurityReport_Click(object sender, EventArgs e)
         {
             pnlMain.Controls.Clear();
-            UserControl securityLevelController = new SecurityReportController(_userManager);
+            UserControl securityLevelController = new SecurityReportController();
             pnlMain.Controls.Add(securityLevelController);
         }
     }

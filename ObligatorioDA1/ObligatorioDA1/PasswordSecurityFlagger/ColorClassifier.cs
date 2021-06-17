@@ -8,9 +8,14 @@ namespace Domain.PasswordSecurityFlagger
 {
     public class ColorClassifier
     {
+        protected const int MAXIMUM_LENGTH_RED = 7;
+        protected const int MAXIMUM_LENGTH_ORANGE = 14;
+
         public virtual SecurityLevelPasswords AssociatedSecurityLevel { get; }
 
-        public bool HasUpperCase(String password)
+        public virtual ColorClassifier NextClassifier { get; }
+
+        public bool HasUpperCase(string password)
         {
             bool upperCaseFound = false;
 
@@ -22,7 +27,7 @@ namespace Domain.PasswordSecurityFlagger
             return upperCaseFound;
         }
 
-        public bool HasLowerCase(String password)
+        public bool HasLowerCase(string password)
         {
             bool lowerCaseFound = false;
 
@@ -35,9 +40,8 @@ namespace Domain.PasswordSecurityFlagger
         }
 
 
-        public bool HasDigits(String password)
+        public bool HasDigits(string password)
         {
-
             bool digitFound = false;
 
             if (-1 != password.IndexOfAny(CharacterConstants.ALL_DIGIT_CHARACTERS))
@@ -48,7 +52,7 @@ namespace Domain.PasswordSecurityFlagger
             return digitFound;
         }
 
-        public bool HasSpecialCharacters(String password)
+        public bool HasSpecialCharacters(string password)
         {
             bool symbolFound = false;
 
@@ -60,7 +64,7 @@ namespace Domain.PasswordSecurityFlagger
             return symbolFound;
         }
 
-        public virtual bool MeetsColorCriteria(String password)
+        public virtual bool MeetsColorCriteria(string password)
         {
             return true;
         }

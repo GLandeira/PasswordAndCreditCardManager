@@ -7,42 +7,43 @@ namespace Domain
 {
     public class UserCreditCard
     {
+        public int UserCreditCardID { get; set; }
         public List<CreditCard> CreditCards { get; private set; }
 
         public UserCreditCard()
         {
-            this.CreditCards = new List<CreditCard>();
+            CreditCards = new List<CreditCard>();
         }
 
         public void AddCreditCard(CreditCard creditCard)
         {
-            Verifier.VerifyCreditCard(creditCard);
+            
             IsAlreadyInTheList(creditCard);
-            CreditCards.Add(creditCard);
+            AddCreditCardToListAndDB(creditCard);
         }
 
-        public void RemoveCreditCard(CreditCard creditCard)
+        public void RemoveCreditCard(CreditCard creditCardToRemove)
         {
-            if (!CreditCards.Remove(creditCard))
-            {
-                throw new CreditCardListIsEmptyException();
-            }
+            CheckIfCreditCardExists(creditCardToRemove);
+
+            CreditCards.Remove(creditCardToRemove);
+            RepositoryFacade.Instance.CreditCardDataAccess.Delete(creditCardToRemove);
         }
 
         public void ModifyCreditCard(CreditCard creditCardToRemove, CreditCard creditCardToAdd)
         {
-            if (!CreditCards.Any()) {
-                throw new CreditCardListIsEmptyException();
+            CheckIfCreditCardExists(creditCardToRemove);
+
+            
+
+            if (!creditCardToRemove.Equals(creditCardToAdd))
+            {
+                IsAlreadyInTheList(creditCardToAdd);
             }
-            else {
-                Verifier.VerifyCreditCard(creditCardToAdd);
-                if (!creditCardToRemove.Equals(creditCardToAdd))
-                {
-                    IsAlreadyInTheList(creditCardToAdd);
-                }
-                RemoveCreditCard(creditCardToRemove);
-                AddCreditCard(creditCardToAdd);
-            }
+
+            CreditCards.Remove(creditCardToRemove);
+            CreditCards.Add(creditCardToAdd);
+            RepositoryFacade.Instance.CreditCardDataAccess.Modify(creditCardToAdd);
         }
 
         public CreditCard GetCreditCard(String creditCardNumberToLook)
@@ -51,6 +52,7 @@ namespace Domain
             {
                 throw new CreditCardNotFoundException();
             }
+
             return CreditCards.Find(creditCardInList => creditCardInList.Number.Equals(creditCardNumberToLook));
         }
 
@@ -60,6 +62,21 @@ namespace Domain
             {
                 throw new CreditCardRepeatedException();
             }
+        }
+
+        private void CheckIfCreditCardExists(CreditCard creditCard)
+        {
+            if (!CreditCards.Exists(creditCardInList => creditCardInList.Equals(creditCard)))
+            {
+                throw new CreditCardNotFoundException();
+            }
+        }
+
+        private void AddCreditCardToListAndDB(CreditCard creditcardToAdd)
+        {
+            creditcardToAdd.UserCreditCard = this;
+            CreditCards.Add(creditcardToAdd);
+            RepositoryFacade.Instance.CreditCardDataAccess.Add(creditcardToAdd);
         }
     }
 }
