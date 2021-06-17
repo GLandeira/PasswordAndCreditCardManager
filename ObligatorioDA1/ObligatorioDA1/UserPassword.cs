@@ -4,29 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Exceptions;
+using Domain.PasswordEncryptor;
 using Domain.PasswordSecurityFlagger;
 
 namespace Domain
 {
     public class UserPassword
     {
-        public int UserPasswordID { get; set; }
         public List<Password> Passwords { get; set; }
+        public int UserPasswordID { get; set; }
+
+        private User _myUser;
 
         public UserPassword()
         {
             Passwords = new List<Password>();
         }
 
+        public UserPassword(User user)
+        {
+            Passwords = new List<Password>();
+            _myUser = user;
+        }
+
         public void AddPassword(Password password)
         {
-            bool foundEqual = Passwords.Any(ListIteratingPassword => ListIteratingPassword.Equals(password));
-
-            VerifyPassword(password, foundEqual);
+            VerifyPasswordAlreadyExists(password);
 
             password.LastModification = DateTime.Today;
-            password.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(password.PasswordString);
-
+            
             AddPasswordToListAndDB(password);
         }
 
@@ -54,7 +60,7 @@ namespace Domain
             return Passwords.First(pass => pass.Equals(passwordImitator));
         }
 
-        public List<Password> GetPasswordsByPasswordString(String passwordStringToLook)
+        public List<Password> GetPasswordsByPasswordString(string passwordStringToLook)
         {
             if (!Passwords.Exists(passwordInList => passwordInList.PasswordStringEquals(passwordStringToLook)))
             {
@@ -66,11 +72,9 @@ namespace Domain
 
         public void ModifyPassword(Password modifiedPassword, Password oldPassword)
         {
-            bool foundAbsolutelyEqual = Passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(modifiedPassword));
-            VerifyPassword(modifiedPassword, foundAbsolutelyEqual);
+            VerifyPasswordAlreadyExists(modifiedPassword);
 
             modifiedPassword.LastModification = DateTime.Now;
-            modifiedPassword.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(modifiedPassword.PasswordString);
 
             List<User> usersSharedWith = new List<User>(oldPassword.UsersSharedWith);
 
@@ -78,10 +82,11 @@ namespace Domain
             {
                 StopSharingPasswordWhenDeleted(oldPassword);
             }
-            Passwords.Remove(oldPassword);
-            Passwords.Add(modifiedPassword);
-            RepositoryFacade.Instance.PasswordDataAccess.Modify(modifiedPassword);
 
+            Passwords.Remove(oldPassword);
+            RepositoryFacade.Instance.PasswordDataAccess.Modify(modifiedPassword);
+            Passwords.Add(modifiedPassword);
+            
             ReshareModifiedPassword(usersSharedWith, modifiedPassword);
         }
 
@@ -105,7 +110,6 @@ namespace Domain
             Password sharedPasswordSharedClone = (Password)sharedPassword.Clone();
             sharedPasswordSharedClone.Category = sharee.UserCategories.GetACategory(UserCategory.SHARED_PASSWORD_CATEGORY_NAME);
             sharedPasswordSharedClone.PasswordID = sharee.UserPasswords.GetPassword(sharedPassword.Site, sharedPassword.Username).PasswordID;
-
 
             sharee.UserPasswords.RemovePassword(sharedPasswordSharedClone);
         }
@@ -169,9 +173,9 @@ namespace Domain
             }
         }
 
-        private void VerifyPassword(Password password, bool equalityCondition)
+        private void VerifyPasswordAlreadyExists(Password password)
         {
-            Verifier.VerifyPassword(password);
+            bool equalityCondition = Passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(password));
 
             if (equalityCondition)
             {
@@ -191,7 +195,7 @@ namespace Domain
         {
             Password sharerPasswordInMemory = Passwords.Find(pass => pass.Equals(sharedPassword));
             sharerPasswordInMemory.UsersSharedWith.Add(sharee);
-            RepositoryFacade.Instance.PasswordDataAccess.Modify(sharerPasswordInMemory);
+            RepositoryFacade.Instance.PasswordDataAccess.Modify(sharedPassword);
         }
 
         private void RemoveUserFromPasswordUsersSharedWith(User sharee, Password sharedPassword)

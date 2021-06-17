@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Exceptions;
+using Domain.PasswordEncryptor;
 
 namespace Domain
 {
@@ -23,10 +24,13 @@ namespace Domain
         }
         public string Name { get; set; }
         public string MainPassword { get; set; }
+        public string PasswordKeys { get; set; }
+        public string PasswordIV { get; set; }
         public UserPassword UserPasswords { get; set; }
         public UserCreditCard UserCreditCards { get; set; }
         public UserDataBreaches UserDataBreaches { get; set; }
         public UserCategory UserCategories { get; set; }
+        public IEncryptor Encryptor { get; set; }
 
 
         public User()
@@ -35,7 +39,7 @@ namespace Domain
 
         public User(string name, string mainPassword)
         {
-            UserPasswords = new UserPassword();
+            UserPasswords = new UserPassword(this);
             UserCreditCards = new UserCreditCard();
             UserDataBreaches = new UserDataBreaches();
             UserCategories = new UserCategory();
@@ -45,7 +49,7 @@ namespace Domain
 
         public User(int userId, string name, string mainPassword)
         {
-            UserPasswords = new UserPassword();
+            UserPasswords = new UserPassword(this);
             UserCreditCards = new UserCreditCard();
             UserDataBreaches = new UserDataBreaches();
             UserCategories = new UserCategory();

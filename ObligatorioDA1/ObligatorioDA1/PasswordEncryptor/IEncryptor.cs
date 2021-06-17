@@ -8,7 +8,8 @@ namespace Domain.PasswordEncryptor
 {
     public interface IEncryptor
     {
-        string Encrypt(string password);
-        string Decrypt(string encryptedPassword);
+        string Encrypt(EncryptionData encryptionData);
+        string Decrypt(EncryptionData encryptionData);
+        EncryptionData GenerateEncryptionData();
     }
 }

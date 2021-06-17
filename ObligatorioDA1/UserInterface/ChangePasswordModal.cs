@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
 using Domain.Exceptions;
+using Domain.PasswordEncryptor;
 
 namespace UserInterface
 {
     public partial class ChangePasswordModal : Form
     {
-
         private User _currentUser;
+        private EncryptorIndirection _encryption;
 
         private const string PASSWORD_MODIFY_SUCCESS = "Password modified successfully.";
         private const string PASSWORD_MODIFY_FAILURE = "Password and confirmation do not match.";
@@ -24,6 +25,7 @@ namespace UserInterface
         {
             InitializeComponent();
             _currentUser = UserManager.Instance.LoggedUser;
+            _encryption = new EncryptorIndirection(new EffortlessEncryptionWrapper());
         }
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -53,6 +55,8 @@ namespace UserInterface
 
             try
             {
+                Verifier.VerifyUser(_currentUser);
+                _encryption.UserMainPasswordEncryption(_currentUser);
                 UserManager.Instance.ModifyPassword(_currentUser);
                 MessageBox.Show(PASSWORD_MODIFY_SUCCESS, "Success",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);

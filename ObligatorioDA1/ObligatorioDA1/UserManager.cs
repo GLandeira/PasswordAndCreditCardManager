@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Exceptions;
+using Domain.PasswordEncryptor;
 
 namespace Domain
 {
@@ -25,10 +26,7 @@ namespace Domain
 
         public UserManager()
         {
-            if (_instance == null)
-            {
-                _instance = this;
-            }
+            CheckSingleInstanceOfSingleton();
 
             _userDataAccess = RepositoryFacade.Instance.UserDataAccess;
             Users = _userDataAccess.GetAll().ToList();
@@ -36,8 +34,6 @@ namespace Domain
 
         public void AddUser(User newUser)
         {
-            Verifier.VerifyUser(newUser);
-
             if (Users.Contains(newUser))
             {
                 throw new UserAlreadyExistsException();
@@ -56,31 +52,29 @@ namespace Domain
             }
 
             int userFoundID = Users.First(user => user.Name == username).UserID;
-            
-            return RepositoryFacade.Instance.UserDataAccess.Get(userFoundID);
+            User userInDB = RepositoryFacade.Instance.UserDataAccess.Get(userFoundID);
+
+            return userInDB;
         }
 
         public void ModifyPassword(User userWithNewPassword)
         {
-            Verifier.VerifyUser(userWithNewPassword);
-
             if (!Users.Exists(userInList => userInList.Equals(userWithNewPassword)))
             {
                 throw new UserNotPresentException();
             }
 
-            // Esto deberia de entrar un password, es pasar el que encontro y chau
             Users.First(us => us.Name == userWithNewPassword.Name).MainPassword = userWithNewPassword.MainPassword;
             _userDataAccess.Modify(userWithNewPassword);
         }
 
-        public bool LogIn(string userNameToLogInWith, string userPasswordToLogInWith)
+        public bool LogIn(User userToLogInWith, string userPasswordToLogInWith)
         {
             try
             {
-                User userToLogInWith = GetUser(userNameToLogInWith);
+                User userInDB = Users.FirstOrDefault(u => u.Equals(userToLogInWith));
 
-                if (userToLogInWith.MainPassword == userPasswordToLogInWith)
+                if (userInDB != null && userInDB.MainPassword == userPasswordToLogInWith)
                 {
                     LoggedUser = userToLogInWith;
                     return true;

@@ -12,10 +12,11 @@ namespace DomainTests
     [TestClass]
     public class EffortlessEncryptorWrapperTests
     {
-        private IEncryptor _effortlessEncryptor;
+        private EffortlessEncryptionWrapper _effortlessEncryptor;
         private string _string1;
         private string _string2;
         private string _string3;
+        private string _string4;
 
         [TestInitialize()]
         public void MyTestInitialize()
@@ -24,6 +25,7 @@ namespace DomainTests
             _string1 = "papas";
             _string2 = "mayonesa123";
             _string3 = "%Sa2@4loPlaAws124324_";
+            _string4 = "/*@#!$%^_-78^";
         }
 
         #region Additional test attributes
@@ -51,33 +53,70 @@ namespace DomainTests
         [TestMethod]
         public void TestEncrypt1()
         {
-            string encrypted = _effortlessEncryptor.Encrypt(_string1);
-            Assert.AreEqual(_string1, _effortlessEncryptor.Decrypt(encrypted));
+            EncryptionData encryptionData = _effortlessEncryptor.GenerateEncryptionData();
+            encryptionData.Password = _string1;
+
+            string encrypted = _effortlessEncryptor.Encrypt(encryptionData);
+            encryptionData.Password = encrypted;
+
+            Assert.AreEqual(_string1, _effortlessEncryptor.Decrypt(encryptionData));
         }
 
         [TestMethod]
         public void TestEncrypt2()
         {
-            string encrypted1 = _effortlessEncryptor.Encrypt(_string1);
-            string encrypted2 = _effortlessEncryptor.Encrypt(_string3);
-            Assert.AreEqual(_string1, _effortlessEncryptor.Decrypt(encrypted1));
-            Assert.AreEqual(_string3, _effortlessEncryptor.Decrypt(encrypted2));
+            EncryptionData encryptionData1 = _effortlessEncryptor.GenerateEncryptionData();
+            encryptionData1.Password = _string1;
+
+            EncryptionData encryptionData2 = _effortlessEncryptor.GenerateEncryptionData();
+            encryptionData2.Password = _string3;
+
+            string encrypted1 = _effortlessEncryptor.Encrypt(encryptionData1);
+            encryptionData1.Password = encrypted1;
+
+            string encrypted2 = _effortlessEncryptor.Encrypt(encryptionData2);
+            encryptionData2.Password = encrypted2;
+
+            Assert.AreEqual(_string1, _effortlessEncryptor.Decrypt(encryptionData1));
+            Assert.AreEqual(_string3, _effortlessEncryptor.Decrypt(encryptionData2));
         }
 
         [TestMethod]
         public void TestTwoEncryptedPasswordsArentTheSame1()
         {
-            string encrypted1 = _effortlessEncryptor.Encrypt(_string1);
-            string encrypted2 = _effortlessEncryptor.Encrypt(_string2);
+            EncryptionData encryptionData1 = _effortlessEncryptor.GenerateEncryptionData();
+            encryptionData1.Password = _string1;
+
+            EncryptionData encryptionData2 = _effortlessEncryptor.GenerateEncryptionData();
+            encryptionData2.Password = _string2;
+
+            string encrypted1 = _effortlessEncryptor.Encrypt(encryptionData1);
+            string encrypted2 = _effortlessEncryptor.Encrypt(encryptionData2);
             Assert.AreNotEqual(encrypted1, encrypted2);
         }
 
         [TestMethod]
         public void TestTwoEncryptedPasswordsArentTheSame2()
         {
-            string encrypted1 = _effortlessEncryptor.Encrypt(_string1);
-            string encrypted2 = _effortlessEncryptor.Encrypt(_string1);
+            EncryptionData encryptionData1 = _effortlessEncryptor.GenerateEncryptionData();
+            encryptionData1.Password = _string1;
+
+            EncryptionData encryptionData2 = _effortlessEncryptor.GenerateEncryptionData();
+            encryptionData2.Password = _string1;
+
+            string encrypted1 = _effortlessEncryptor.Encrypt(encryptionData1);
+            string encrypted2 = _effortlessEncryptor.Encrypt(encryptionData2);
             Assert.AreNotEqual(encrypted1, encrypted2);
+        }
+
+        [TestMethod]
+        public void TestEncryptingNonBase64String()
+        {
+            EncryptionData encryptionData1 = _effortlessEncryptor.GenerateEncryptionData();
+            encryptionData1.Password = _string4;
+
+            string encrypted1 = _effortlessEncryptor.Encrypt(encryptionData1);
+            Assert.AreNotEqual(_string4, encrypted1);
         }
     }
 }

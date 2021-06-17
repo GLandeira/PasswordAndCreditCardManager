@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
-using Domain.PasswordSecurityFlagger;
+using Domain.PasswordEncryptor;
 
 namespace UserInterface
 {
@@ -18,10 +18,13 @@ namespace UserInterface
 
         private User _currentUser;
         private Password _lastPasswordSelected;
+        private EncryptorIndirection _encryption;
 
         public PasswordsController()
         {
             InitializeComponent();
+            _encryption = new EncryptorIndirection(new EffortlessEncryptionWrapper());
+
             _currentUser = UserManager.Instance.LoggedUser;
             EnableButtonsIfNoPasswords(false);
             AddOrModifyPasswordModal.onModifyOrAddPassword += LoadDataGridPasswords;
@@ -112,6 +115,7 @@ namespace UserInterface
             if (dialogResultDeletePassword == DialogResult.Yes)
             {
                 _currentUser.UserPasswords.RemovePassword(_lastPasswordSelected);
+
                 LoadDataGridPasswords(_currentUser.UserPasswords.Passwords);
             }
         }

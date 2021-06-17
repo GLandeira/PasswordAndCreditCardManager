@@ -4,31 +4,50 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Effortless.Net.Encryption;
+using Domain.Helpers;
 
 namespace Domain.PasswordEncryptor
 {
     public class EffortlessEncryptionWrapper : IEncryptor
     {
-        private const string SALT = "saldemesa";
-        private byte[] _iv;
-        private byte[] _key;
-
-        public string Encrypt(string password)
+        public EffortlessEncryptionWrapper()
         {
-            _iv = Bytes.GenerateIV();
-            _key = Bytes.GenerateKey();
+        }
 
-            string encryptedPassword = Strings.Encrypt(SALT + password, _key, _iv);
+        public string Encrypt(EncryptionData encryptionData)
+        {
+            byte[] translatedKey = ByteArrayStringTranslator.ToByteArray(encryptionData.PasswordKey);
+            byte[] translatedIV = ByteArrayStringTranslator.ToByteArray(encryptionData.PasswordIV);
+            
+            byte[] passwordAsByteArray = ByteArrayStringTranslator.ToByteArray(encryptionData.Password);
+            string base64ValidPassword = Convert.ToBase64String(passwordAsByteArray);
+
+            string encryptedPassword = Strings.Encrypt(base64ValidPassword, translatedKey, translatedIV);
 
             return encryptedPassword;
         }
 
-        public string Decrypt(string encryptedPassword)
+        public string Decrypt(EncryptionData encryptionData)
         {
-            string decryptedPassword = Strings.Decrypt(encryptedPassword, _key, _iv);
-            string saltlessPassword = decryptedPassword.Substring(SALT.Length, decryptedPassword.Length - SALT.Length);
+            byte[] translatedKey = ByteArrayStringTranslator.ToByteArray(encryptionData.PasswordKey);
+            byte[] translatedIV = ByteArrayStringTranslator.ToByteArray(encryptionData.PasswordIV);
 
-            return saltlessPassword;
+            string decryptedPassword = Strings.Decrypt(encryptionData.Password, translatedKey, translatedIV);
+
+            byte[] base64ValidPassword = Convert.FromBase64String(decryptedPassword);
+
+            string finalValidPassword = ByteArrayStringTranslator.ToString(base64ValidPassword);
+
+            return finalValidPassword;
+        }
+
+        public EncryptionData GenerateEncryptionData()
+        {
+            EncryptionData encryptionData = new EncryptionData();
+            encryptionData.PasswordIV = ByteArrayStringTranslator.ToString(Bytes.GenerateIV());
+            encryptionData.PasswordKey = ByteArrayStringTranslator.ToString(Bytes.GenerateKey());
+
+            return encryptionData;
         }
     }
 }
