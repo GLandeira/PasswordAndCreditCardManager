@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DomainTests
+namespace Repository
 {
     public abstract class DataAccessMock<T> : IDataAccess<T>
     {

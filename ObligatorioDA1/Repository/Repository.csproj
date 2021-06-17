@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="CategoryDataAccess.cs" />
     <Compile Include="CategoryTypeConfiguration.cs" />
+    <Compile Include="DataAccessMock.cs" />
     <Compile Include="Migrations\202106111919196_PasswordCompleteCascade.cs" />
     <Compile Include="Migrations\202106111919196_PasswordCompleteCascade.designer.cs">
       <DependentUpon>202106111919196_PasswordCompleteCascade.cs</DependentUpon>
@@ -89,6 +90,11 @@
     <Compile Include="Migrations\202106171802427_ChangeKeyAndIVToByteArray.designer.cs">
       <DependentUpon>202106171802427_ChangeKeyAndIVToByteArray.cs</DependentUpon>
     </Compile>
+    <Compile Include="MockCategoryDataAccess.cs" />
+    <Compile Include="MockCreditCardDataAccess.cs" />
+    <Compile Include="MockDataBreachesDataAccess.cs" />
+    <Compile Include="MockPasswordDataAccess.cs" />
+    <Compile Include="MockUserDataAccess.cs" />
     <Compile Include="PasswordDataAccess.cs" />
     <Compile Include="CreditCardDataAccess.cs" />
     <Compile Include="CreditCardTypeConfiguration.cs" />

@@ -142,7 +142,7 @@ namespace UserInterface
         {
             string passwordString = txtBxPassword.Text;
             SecurityCondition conditions = PasswordRecommender.isASafePassword(passwordString, _currentUser);
-            if (conditions._isNotBreached)
+            if (conditions.IsNotBreached)
             {
                 lblIsBreached.Text = "This password hasn't been breached before";
             }
@@ -151,7 +151,7 @@ namespace UserInterface
                 lblIsBreached.Text = "This password has appeared in a data breach before";
             }
 
-            if (conditions._isNotInUse)
+            if (conditions.IsNotInUse)
             {
                 lblAlreadyExists.Text = "This password hasn't been used before";
             }
@@ -160,7 +160,7 @@ namespace UserInterface
                 lblAlreadyExists.Text = "This password is already being used";
             }
 
-            if (conditions._isNotLowSecurityLevel)
+            if (conditions.IsNotLowSecurityLevel)
             {
                 lblLowSecLevel.Text = "The password has a high security level";
             }

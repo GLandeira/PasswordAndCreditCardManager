@@ -76,6 +76,7 @@
     <Compile Include="PasswordEncryptor\EncryptionData.cs" />
     <Compile Include="PasswordEncryptor\IEncryptor.cs" />
     <Compile Include="IDataAccess.cs" />
+    <Compile Include="PasswordEncryptor\MockEncryptor.cs" />
     <Compile Include="PasswordHistory.cs" />
     <Compile Include="PasswordRecommender\PasswordRecommender.cs" />
     <Compile Include="PasswordRecommender\SecurityCondition.cs" />

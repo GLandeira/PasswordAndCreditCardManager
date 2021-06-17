@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain;
 
-namespace DomainTests
+namespace Repository
 {
-    class MockCreditCardDataAccess : DataAccessMock<CreditCard>
+    public class MockCreditCardDataAccess : DataAccessMock<CreditCard>
     {
 
         public MockCreditCardDataAccess()

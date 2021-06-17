@@ -125,29 +125,6 @@ namespace DomainTests
             Assert.ThrowsException<CategoryNotFoundException>(() => _mockUserCategory.ModifyCategory(categoryToModify, newCategory));
         }
 
-        [TestMethod]
-        public void TestModifyingWithShortNameThrowsException()
-        {
-            string testName = "Modifiable";
-            Category categoryToModify = new Category(testName);
-
-            _mockUserCategory.AddCategory(categoryToModify);
-            Category newCategory = new Category("Un");
-
-            Assert.ThrowsException<NameCategoryException>(() => _mockUserCategory.ModifyCategory(categoryToModify, newCategory));
-        }
-
-        [TestMethod]
-        public void TestModifyingWithLongNameThrowsException()
-        {
-            string testName = "Modifiable";
-            Category categoryToModify = new Category(testName);
-
-            _mockUserCategory.AddCategory(categoryToModify);
-            Category newCategory = new Category("University and others");
-
-            Assert.ThrowsException<NameCategoryException>(() => _mockUserCategory.ModifyCategory(categoryToModify, newCategory));
-        }
 
         [TestMethod]
         public void TestAddingTwoCategoriesWithSameNameThrowsException()
