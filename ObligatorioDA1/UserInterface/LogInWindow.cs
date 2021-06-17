@@ -52,6 +52,7 @@ namespace UserInterface
             User userToLogInWith = UserManager.Instance.GetUser(username);
             _encryption.UserMainPasswordDecryption(userToLogInWith);
 
+            _encryption.GenerateDecryptedUsersList(UserManager.Instance.Users);
             if (UserManager.Instance.LogIn(userToLogInWith, password))
             {
                 _loggedIn = true;
@@ -62,6 +63,7 @@ namespace UserInterface
                 MessageBox.Show(WRONG_CREDENTIALS, "ERROR",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            _encryption.GenerateEncryptedUsersList(UserManager.Instance.Users);
         }
 
         private void LogInWindow_FormClosed(object sender, FormClosedEventArgs e)

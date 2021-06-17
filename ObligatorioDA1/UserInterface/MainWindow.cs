@@ -44,7 +44,6 @@ namespace UserInterface
             pnlMain.Controls.Add(passwordController);
         }
 
-
         private void btnCreditCard_Click(object sender, EventArgs e)
         {
             pnlMain.Controls.Clear();
@@ -59,19 +58,19 @@ namespace UserInterface
             pnlMain.Controls.Add(dataBreachesController);
         }
 
-        private void lblLogOut_Click(object sender, EventArgs e)
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            Form changePassword = new ChangePasswordModal();
+            changePassword.ShowDialog();
+        }
+
+        private void btnLogOut_Click(object sender, EventArgs e)
         {
             ActivateLogInSequence();
 
             pnlMain.Controls.Clear();
             UserControl passwordController = new LogoController();
             pnlMain.Controls.Add(passwordController);
-        }
-
-        private void lblChangePassword_Click(object sender, EventArgs e)
-        {
-            Form changePassword = new ChangePasswordModal();
-            changePassword.ShowDialog();
         }
 
         private void ActivateLogInSequence()

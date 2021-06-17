@@ -35,9 +35,9 @@ namespace UserInterface
             this.btnCreditCard = new System.Windows.Forms.Button();
             this.btnSecurityReport = new System.Windows.Forms.Button();
             this.btnDataBreaches = new System.Windows.Forms.Button();
-            this.lblLogOut = new System.Windows.Forms.Label();
-            this.lblChangePassword = new System.Windows.Forms.Label();
             this.lblWelcome = new System.Windows.Forms.Label();
+            this.btnChangePassword = new System.Windows.Forms.Button();
+            this.btnLogOut = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCategory
@@ -97,30 +97,6 @@ namespace UserInterface
             this.btnDataBreaches.UseVisualStyleBackColor = true;
             this.btnDataBreaches.Click += new System.EventHandler(this.btnDataBreaches_Click);
             // 
-            // lblLogOut
-            // 
-            this.lblLogOut.AutoSize = true;
-            this.lblLogOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLogOut.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lblLogOut.Location = new System.Drawing.Point(12, 87);
-            this.lblLogOut.Name = "lblLogOut";
-            this.lblLogOut.Size = new System.Drawing.Size(82, 25);
-            this.lblLogOut.TabIndex = 6;
-            this.lblLogOut.Text = "Log Out";
-            this.lblLogOut.Click += new System.EventHandler(this.lblLogOut_Click);
-            // 
-            // lblChangePassword
-            // 
-            this.lblChangePassword.AutoSize = true;
-            this.lblChangePassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChangePassword.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblChangePassword.Location = new System.Drawing.Point(12, 58);
-            this.lblChangePassword.Name = "lblChangePassword";
-            this.lblChangePassword.Size = new System.Drawing.Size(173, 25);
-            this.lblChangePassword.TabIndex = 7;
-            this.lblChangePassword.Text = "Change Password";
-            this.lblChangePassword.Click += new System.EventHandler(this.lblChangePassword_Click);
-            // 
             // lblWelcome
             // 
             this.lblWelcome.AutoSize = true;
@@ -132,14 +108,34 @@ namespace UserInterface
             this.lblWelcome.TabIndex = 8;
             this.lblWelcome.Text = "Welcome Name!";
             // 
+            // btnChangePassword
+            // 
+            this.btnChangePassword.Location = new System.Drawing.Point(18, 61);
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Size = new System.Drawing.Size(167, 23);
+            this.btnChangePassword.TabIndex = 9;
+            this.btnChangePassword.Text = "Change Password";
+            this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
+            // 
+            // btnLogOut
+            // 
+            this.btnLogOut.Location = new System.Drawing.Point(18, 90);
+            this.btnLogOut.Name = "btnLogOut";
+            this.btnLogOut.Size = new System.Drawing.Size(167, 23);
+            this.btnLogOut.TabIndex = 10;
+            this.btnLogOut.Text = "Log Out";
+            this.btnLogOut.UseVisualStyleBackColor = true;
+            this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 668);
-            this.Controls.Add(this.lblLogOut);
+            this.Controls.Add(this.btnLogOut);
+            this.Controls.Add(this.btnChangePassword);
             this.Controls.Add(this.lblWelcome);
-            this.Controls.Add(this.lblChangePassword);
             this.Controls.Add(this.btnDataBreaches);
             this.Controls.Add(this.btnSecurityReport);
             this.Controls.Add(this.btnCreditCard);
@@ -163,8 +159,8 @@ namespace UserInterface
         private System.Windows.Forms.Button btnCreditCard;
         private System.Windows.Forms.Button btnSecurityReport;
         private System.Windows.Forms.Button btnDataBreaches;
-        private System.Windows.Forms.Label lblLogOut;
-        private System.Windows.Forms.Label lblChangePassword;
         private System.Windows.Forms.Label lblWelcome;
+        private System.Windows.Forms.Button btnChangePassword;
+        private System.Windows.Forms.Button btnLogOut;
     }
 }
