@@ -16,6 +16,7 @@ namespace DomainTests
         private string _string1;
         private string _string2;
         private string _string3;
+        private string _string4;
 
         [TestInitialize()]
         public void MyTestInitialize()
@@ -24,6 +25,7 @@ namespace DomainTests
             _string1 = "papas";
             _string2 = "mayonesa123";
             _string3 = "%Sa2@4loPlaAws124324_";
+            _string4 = "/*@#!$%^_-78^";
         }
 
         #region Additional test attributes
@@ -105,6 +107,16 @@ namespace DomainTests
             string encrypted1 = _effortlessEncryptor.Encrypt(encryptionData1);
             string encrypted2 = _effortlessEncryptor.Encrypt(encryptionData2);
             Assert.AreNotEqual(encrypted1, encrypted2);
+        }
+
+        [TestMethod]
+        public void TestEncryptingNonBase64String()
+        {
+            EncryptionData encryptionData1 = _effortlessEncryptor.GenerateEncryptionData();
+            encryptionData1.Password = _string4;
+
+            string encrypted1 = _effortlessEncryptor.Encrypt(encryptionData1);
+            Assert.AreNotEqual(_string4, encrypted1);
         }
     }
 }

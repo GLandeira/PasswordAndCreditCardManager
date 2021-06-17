@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using Domain;
 using Domain.Exceptions;
 using Domain.PasswordRecommender;
+using Domain.PasswordEncryptor;
+using Domain.PasswordSecurityFlagger;
 
 namespace UserInterface
 {
@@ -21,17 +23,24 @@ namespace UserInterface
         public delegate void ModifiedSinglePasswordEvent(Password theModifiedPassword);
         public static event ModifiedSinglePasswordEvent onModifySinglePassword;
 
+        private EncryptorIndirection _encryption;
         private User _currentUser;
         private Password _passwordToModify;
         private bool _modify;
         public AddOrModifyPasswordModal(Password passwordToModify)
         {
             InitializeComponent();
+            _encryption = new EncryptorIndirection(new EffortlessEncryptionWrapper());
+
             PasswordGeneratorModal.onPasswordGeneration += UpdatePasswordTextBox;
             _currentUser = UserManager.Instance.LoggedUser;
             _passwordToModify = passwordToModify;
-            _modify = (!(passwordToModify == null)); 
+            _modify = (!(passwordToModify == null));
 
+            if (_modify)
+            {
+                _encryption.PasswordDecryption(passwordToModify);
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -51,6 +60,10 @@ namespace UserInterface
 
             try
             {
+                Verifier.VerifyPassword(newPassword);
+                newPassword.SecurityLevel = PasswordSecurityFlagger.GetSecurityLevel(newPassword.PasswordString);
+                _encryption.PasswordEncryption(newPassword);
+
                 if (_modify)
                 {
                     newPassword.PasswordID = _passwordToModify.PasswordID;
@@ -60,7 +73,9 @@ namespace UserInterface
                 {
                     _currentUser.UserPasswords.AddPassword(newPassword);
                 }
+
                 List<Password> passwordsList = _currentUser.UserPasswords.Passwords;
+
                 onModifyOrAddPassword?.Invoke(passwordsList);
                 onModifySinglePassword?.Invoke(newPassword);
                 Close();

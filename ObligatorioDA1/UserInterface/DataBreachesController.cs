@@ -55,7 +55,7 @@ namespace UserInterface
             ITranslator textBoxTranslator = new TextBoxTranslator();
             string field = txtbxDataBreaches.Text;
 
-            _dataBreachMediator.CheckAndRegisterDataBreach(field, textBoxTranslator);
+            _dataBreachMediator.CheckAndRegisterDataBreach(field, textBoxTranslator, _currentUser.UserPasswords.Passwords);
         }
 
         private void btnImportTextFile_Click(object sender, EventArgs e)
@@ -67,7 +67,7 @@ namespace UserInterface
                     StreamReader importFile = new StreamReader(_fileDialog.FileName);
                     ITranslator textFileTranslator = new TextFileTranslator();
                     
-                    _dataBreachMediator.CheckAndRegisterDataBreach(importFile.ReadToEnd(), textFileTranslator);
+                    _dataBreachMediator.CheckAndRegisterDataBreach(importFile.ReadToEnd(), textFileTranslator, _currentUser.UserPasswords.Passwords);
                 }
                 catch (SecurityException a)
                 {

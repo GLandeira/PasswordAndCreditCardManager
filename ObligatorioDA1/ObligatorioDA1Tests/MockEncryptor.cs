@@ -34,5 +34,10 @@ namespace DomainTests
 
             return encryptedPassword;
         }
+
+        public EncryptionData GenerateEncryptionData()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

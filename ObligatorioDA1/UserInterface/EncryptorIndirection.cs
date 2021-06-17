@@ -52,6 +52,30 @@ namespace UserInterface
             return password;
         }
 
+        public List<Password> GenerateDecryptedPasswordsList(List<Password> entryList)
+        {
+            List<Password> returnList = new List<Password>();
+
+            foreach(Password p in entryList)
+            {
+                returnList.Add(PasswordDecryption(p));
+            }
+
+            return returnList;
+        }
+
+        public List<Password> GenerateEncryptedPasswordsList(List<Password> entryList)
+        {
+            List<Password> returnList = new List<Password>();
+
+            foreach (Password p in entryList)
+            {
+                returnList.Add(PasswordEncryption(p));
+            }
+
+            return returnList;
+        }
+
         public User UserMainPasswordEncryption(User user)
         {
             EncryptionData encryptionData = new EncryptionData();

@@ -29,13 +29,10 @@ namespace Domain
 
         public void AddPassword(Password password)
         {
-            bool foundEqual = Passwords.Any(ListIteratingPassword => ListIteratingPassword.Equals(password));
-
-            VerifyPassword(password, foundEqual);
+            VerifyPasswordAlreadyExists(password);
 
             password.LastModification = DateTime.Today;
-            password.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(password.PasswordString);
-
+            
             AddPasswordToListAndDB(password);
         }
 
@@ -75,11 +72,9 @@ namespace Domain
 
         public void ModifyPassword(Password modifiedPassword, Password oldPassword)
         {
-            bool foundAbsolutelyEqual = Passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(modifiedPassword));
-            VerifyPassword(modifiedPassword, foundAbsolutelyEqual);
+            VerifyPasswordAlreadyExists(modifiedPassword);
 
             modifiedPassword.LastModification = DateTime.Now;
-            modifiedPassword.SecurityLevel = PasswordSecurityFlagger.PasswordSecurityFlagger.GetSecurityLevel(modifiedPassword.PasswordString);
 
             List<User> usersSharedWith = new List<User>(oldPassword.UsersSharedWith);
 
@@ -87,6 +82,7 @@ namespace Domain
             {
                 StopSharingPasswordWhenDeleted(oldPassword);
             }
+
             Passwords.Remove(oldPassword);
             RepositoryFacade.Instance.PasswordDataAccess.Modify(modifiedPassword);
             Passwords.Add(modifiedPassword);
@@ -177,9 +173,9 @@ namespace Domain
             }
         }
 
-        private void VerifyPassword(Password password, bool equalityCondition)
+        private void VerifyPasswordAlreadyExists(Password password)
         {
-            Verifier.VerifyPassword(password);
+            bool equalityCondition = Passwords.Any(ListIteratingPassword => ListIteratingPassword.AbsoluteEquals(password));
 
             if (equalityCondition)
             {

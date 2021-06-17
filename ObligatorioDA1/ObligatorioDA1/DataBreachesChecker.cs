@@ -16,6 +16,7 @@ namespace Domain
         private const int THIRD_CREDIT_CARD_SPACE_POSITION = 14;
 
         private UserDataBreaches _userDataBreaches;
+        private List<Password> _decryptedPasswords;
         
         public DataBreachesChecker()
         {
@@ -26,8 +27,9 @@ namespace Domain
             _userDataBreaches = theUserDataBreaches;
         }
 
-        public DataBreach CheckDataBreaches(string inputBreaches, ITranslator translator)
+        public DataBreach CheckDataBreaches(string inputBreaches, ITranslator translator, List<Password> decryptedPasswords)
         {
+            _decryptedPasswords = decryptedPasswords;
             string[] translatedBreaches = translator.Translate(inputBreaches);
 
             DataBreach breach = new DataBreach(_userDataBreaches);
@@ -76,9 +78,7 @@ namespace Domain
         {
             try
             {
-                User myUser = UserManager.Instance.LoggedUser;
-
-                List<Password> passwordBreached = myUser.UserPasswords.GetPasswordsByPasswordString(inputBreach);
+                List<Password> passwordBreached = _decryptedPasswords.FindAll(p => p.PasswordString == inputBreach);
 
                 foreach(Password password in passwordBreached)
                 {

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain;
 using Domain.DataBreachesTranslator;
+using Domain.PasswordEncryptor;
 
 namespace UserInterface
 {
@@ -21,9 +22,15 @@ namespace UserInterface
             DataBreachChecker = UserDataBreaches.DataBreachesChecker;
         }
 
-        public void CheckAndRegisterDataBreach(string entry, ITranslator translator)
+        public void CheckAndRegisterDataBreach(string entry, ITranslator translator, List<Password> usersPasswords)
         {
-            DataBreach theDataBreach = DataBreachChecker.CheckDataBreaches(entry, translator);
+            EncryptorIndirection encryption = new EncryptorIndirection(new EffortlessEncryptionWrapper());
+
+            List<Password> decryptedPasswords = encryption.GenerateDecryptedPasswordsList(usersPasswords);
+
+            DataBreach theDataBreach = DataBreachChecker.CheckDataBreaches(entry, translator, decryptedPasswords);
+
+            encryption.GenerateEncryptedPasswordsList(usersPasswords);
 
             UserDataBreaches.AddDataBreach(theDataBreach);
 

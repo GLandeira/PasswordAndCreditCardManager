@@ -68,6 +68,8 @@ namespace Domain
             clone.SecurityLevel = SecurityLevel;
             clone.LastModification = LastModification;
             clone.UserPassword = UserPassword;
+            clone.PasswordIV = PasswordIV;
+            clone.PasswordKey = PasswordKey;
 
             return clone;
         }

@@ -72,7 +72,9 @@ namespace Domain
         {
             try
             {
-                if (userToLogInWith.MainPassword == userPasswordToLogInWith)
+                User userInDB = Users.FirstOrDefault(u => u.Equals(userToLogInWith));
+
+                if (userInDB != null && userInDB.MainPassword == userPasswordToLogInWith)
                 {
                     LoggedUser = userToLogInWith;
                     return true;
