@@ -8,9 +8,9 @@ namespace Domain.PasswordRecommender
 {
     public struct SecurityCondition
     {
-        public bool _isNotBreached;
-        public bool _isNotInUse;
-        public bool _isNotLowSecurityLevel;
+        public bool IsNotBreached;
+        public bool IsNotInUse;
+        public bool IsNotLowSecurityLevel;
 
     }
 }

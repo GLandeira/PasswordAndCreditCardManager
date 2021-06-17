@@ -13,9 +13,9 @@ namespace Domain.PasswordRecommender
         public static SecurityCondition isASafePassword(string passwordString, User loggedUser)
         {
             SecurityCondition conditions = new SecurityCondition();
-            conditions._isNotBreached = checkIfHasBeenBreached(passwordString, loggedUser);
-            conditions._isNotInUse = checkIfIsAlreadyInUse(passwordString, loggedUser);
-            conditions._isNotLowSecurityLevel = checkSecurityLevel(passwordString, loggedUser);
+            conditions.IsNotBreached = checkIfHasBeenBreached(passwordString, loggedUser);
+            conditions.IsNotInUse = checkIfIsAlreadyInUse(passwordString, loggedUser);
+            conditions.IsNotLowSecurityLevel = checkSecurityLevel(passwordString, loggedUser);
 
 
             return conditions;
