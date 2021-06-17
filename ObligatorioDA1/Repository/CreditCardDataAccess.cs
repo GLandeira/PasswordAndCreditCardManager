@@ -59,9 +59,7 @@ namespace Repository
         {
             using (DomainDBContext context = new DomainDBContext())
             {
-
                 context.Categories.Attach(entity.Category);
-                context.Entry(entity).State = EntityState.Modified;
 
                 var valueInDB = context.CreditCards.FirstOrDefault(creditCard => creditCard.CreditCardID == entity.CreditCardID);
                 valueInDB.Category = entity.Category;

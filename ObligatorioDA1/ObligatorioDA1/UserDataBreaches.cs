@@ -24,28 +24,30 @@ namespace Domain
             // Si el databreach es en la misma hora, hay que fijarse si hay contras/creditcards nuevas
             // Si hay se agregan al databreach original.
             // Si no hay, no se hace nada
-            dataBreach.Date = DateTime.Now;
-
-            bool dataBreachOnSameDate = DataBreaches.Any(db => db.Equals(dataBreach));
-
-            if (dataBreachOnSameDate)
+            if (!(dataBreach.CreditCardBreaches.Count() + dataBreach.PasswordBreaches.Count() == 0))
             {
-                DataBreach dataBreachInMemory = DataBreaches.FirstOrDefault(db => db.Equals(dataBreach));
+                dataBreach.Date = DateTime.Now;
 
-                DataBreach newDataBreach = GenerateDataBreachWithNewBreaches(dataBreach, dataBreachInMemory);
+                bool dataBreachOnSameDate = DataBreaches.Any(db => db.Equals(dataBreach));
 
-                dataBreachInMemory.CreditCardBreaches.AddRange(newDataBreach.CreditCardBreaches);
-                dataBreachInMemory.PasswordBreaches.AddRange(newDataBreach.PasswordBreaches);
+                if (dataBreachOnSameDate)
+                {
+                    DataBreach dataBreachInMemory = DataBreaches.FirstOrDefault(db => db.Equals(dataBreach));
 
-                // Dejar pasar solamente las nuevas al Modify
+                    DataBreach newDataBreach = GenerateDataBreachWithNewBreaches(dataBreach, dataBreachInMemory);
 
-                RepositoryFacade.Instance.DataBreachDataAccess.Modify(newDataBreach);
+                    dataBreachInMemory.CreditCardBreaches.AddRange(newDataBreach.CreditCardBreaches);
+                    dataBreachInMemory.PasswordBreaches.AddRange(newDataBreach.PasswordBreaches);
 
-                return;
+                    // Dejar pasar solamente las nuevas al Modify
+
+                    RepositoryFacade.Instance.DataBreachDataAccess.Modify(newDataBreach);
+
+                    return;
+                }
+                DataBreaches.Add(dataBreach);
+                RepositoryFacade.Instance.DataBreachDataAccess.Add(dataBreach);
             }
-
-            DataBreaches.Add(dataBreach);
-            RepositoryFacade.Instance.DataBreachDataAccess.Add(dataBreach);
         }
 
         public DataBreach GetDataBreach(DateTime fecha)
@@ -75,7 +77,7 @@ namespace Domain
 
             foreach (PasswordHistory passwordHistory in entryDataBreach.PasswordBreaches)
             {
-                bool passwordNotPresent = !dataBreachInMemory.PasswordBreaches.Any(pb => pb.Equals(passwordHistory));
+                bool passwordNotPresent = !dataBreachInMemory.PasswordBreaches.Any(pb => pb.AbsoluteEquals(passwordHistory));
                 if (passwordNotPresent)
                 {
                     newPasswordHistories.Add(passwordHistory);

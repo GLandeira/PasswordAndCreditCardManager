@@ -134,6 +134,17 @@ namespace RepositoryTests
             Assert.IsTrue(_testCreditCard1.AbsoluteEquals(_creditcardDataAccess.Get(id)));
         }
 
+        [TestMethod]
+        public void ModifyCreditCardCategoryTest()
+        {
+            int id = _creditcardDataAccess.Add(_testCreditCard1);
 
+            string number = "2772902133231256";
+            _testCreditCard1.Category = _testCategory2;
+            _testCreditCard1.Number = number;
+            _testCreditCard1.Type = CardTypes.AMEX;
+            _creditcardDataAccess.Modify(_testCreditCard1);
+            Assert.IsTrue(_testCreditCard1.AbsoluteEquals(_creditcardDataAccess.Get(id)));
+        }
     }
 }

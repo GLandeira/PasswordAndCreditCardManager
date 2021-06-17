@@ -7,8 +7,8 @@
     {
         public override void Up()
         {
-            AddColumn("dbo.Users", "PasswordKeys", c => c.String());
-            AddColumn("dbo.Users", "PasswordIV", c => c.String());
+            AddColumn("dbo.Users", "PasswordKeys", c => c.Binary());
+            AddColumn("dbo.Users", "PasswordIV", c => c.Binary());
         }
         
         public override void Down()

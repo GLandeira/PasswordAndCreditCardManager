@@ -110,5 +110,29 @@ namespace UserInterface
 
             return user;
         }
+
+        public List<User> GenerateDecryptedUsersList(List<User> entryList)
+        {
+            List<User> returnList = new List<User>();
+
+            foreach (User u in entryList)
+            {
+                returnList.Add(UserMainPasswordDecryption(u));
+            }
+
+            return returnList;
+        }
+
+        public List<User> GenerateEncryptedUsersList(List<User> entryList)
+        {
+            List<User> returnList = new List<User>();
+
+            foreach (User u in entryList)
+            {
+                returnList.Add(UserMainPasswordEncryption(u));
+            }
+
+            return returnList;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace Domain.PasswordEncryptor
     public struct EncryptionData
     {
         public string Password;
-        public string PasswordKey;
-        public string PasswordIV;
+        public byte[] PasswordKey;
+        public byte[] PasswordIV;
     }
 }

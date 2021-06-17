@@ -47,7 +47,5 @@ namespace UserInterface
                 DataBreachesHistoryresultModal.ShowDialog();
             }
         }
-
-        
     }
 }
